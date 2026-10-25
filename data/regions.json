@@ -1,0 +1,106 @@
+[
+  {
+    "id": "reg-global",
+    "name": "Global",
+    "slug": "global",
+    "description": "",
+    "createdAt": "2026-10-23T18:41:37.023Z",
+    "updatedAt": "2026-10-25T16:11:46.002Z"
+  },
+  {
+    "id": "reg-asia-pacific",
+    "name": "Asia-Pacific",
+    "slug": "asia-pacific",
+    "description": "",
+    "createdAt": "2026-10-23T18:41:37.024Z",
+    "updatedAt": "2026-10-25T16:11:45.936Z"
+  },
+  {
+    "id": "reg-europe",
+    "name": "Europe",
+    "slug": "europe",
+    "description": "European Union, UK and EEA Stage V machinery and commercial transport markets.",
+    "createdAt": "2026-10-23T18:41:37.024Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-north-america",
+    "name": "North America",
+    "slug": "north-america",
+    "description": "United States, Canada and Mexico heavy equipment and vocational truck markets.",
+    "createdAt": "2026-10-23T18:41:37.024Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-middle-east-africa",
+    "name": "Middle East & Africa",
+    "slug": "middle-east-africa",
+    "description": "GCC, North Africa and Sub-Saharan infrastructure markets.",
+    "createdAt": "2026-10-23T18:41:37.024Z",
+    "updatedAt": "2026-10-24T16:56:24.557Z"
+  },
+  {
+    "id": "reg-latin-america",
+    "name": "Latin America",
+    "slug": "latin-america",
+    "description": "South and Central American mining, agribusiness tractor and highway machinery markets.",
+    "createdAt": "2026-10-23T18:41:37.024Z",
+    "updatedAt": "2026-10-25T16:11:45.820Z"
+  },
+  {
+    "id": "reg-india",
+    "name": "India",
+    "slug": "india",
+    "description": "South Asian earthmoving, backhoe loader, tipper truck and highway infrastructure hub.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-china",
+    "name": "China",
+    "slug": "china",
+    "description": "Chinese domestic and export OEM manufacturing, electrification and mega-project machinery.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-japan-south-korea",
+    "name": "Japan & South Korea",
+    "slug": "japan-south-korea",
+    "description": "East Asian precision hydraulics, excavator, compact equipment and commercial vehicle OEMs.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-middle-east",
+    "name": "Middle East",
+    "slug": "middle-east",
+    "description": "GCC giga-projects, desert earthmoving, crane fleets and heavy haulage markets.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-southeast-asia",
+    "name": "Southeast Asia",
+    "slug": "southeast-asia",
+    "description": "ASEAN mining, plantation agriculture, civil construction and tipper fleet markets.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-australia",
+    "name": "Australia",
+    "slug": "australia",
+    "description": "Oceania iron-ore and coal mining haulage, road-train transport and civil earthmoving.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.819Z"
+  },
+  {
+    "id": "reg-africa",
+    "name": "Africa",
+    "slug": "africa",
+    "description": "Pan-African mining corridors, port infrastructure, utility tractors and vocational trucks.",
+    "createdAt": "2026-10-24T17:08:18.769Z",
+    "updatedAt": "2026-10-25T16:11:45.820Z"
+  }
+]

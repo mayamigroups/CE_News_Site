@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MACHINEWIRE | THE WORLD OF MACHINES. CONNECTED.</title>
+<meta name="description" content="MACHINEWIRE — Authoritative global construction equipment, tractors, agricultural machinery, commercial vehicles, OEM announcements, specifications and market intelligence.">
+<meta name="theme-color" content="#101820">
+<link rel="canonical" href="/">
+<link rel="alternate" type="application/rss+xml" title="MACHINEWIRE RSS Feed" href="/rss.xml">
+<link rel="stylesheet" href="/styles.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MACHINEWIRE">
+<meta property="og:title" content="MACHINEWIRE | THE WORLD OF MACHINES. CONNECTED.">
+<meta property="og:description" content="Global construction equipment, agricultural machinery, and commercial vehicle intelligence.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsMediaOrganization",
+  "name": "MACHINEWIRE",
+  "slogan": "THE WORLD OF MACHINES. CONNECTED.",
+  "url": "http://localhost:3000",
+  "publishingPrinciples": "http://localhost:3000/editorial-policy.html",
+  "correctionsPolicy": "http://localhost:3000/corrections.html"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- Top Global Status Bar -->
+<div class="topline">
+  <div class="wrap topline-inner">
+    <span>MACHINEWIRE • THE WORLD OF MACHINES. CONNECTED.</span>
+    <span id="today-label">GLOBAL INDUSTRY DESK</span>
+  </div>
+</div>
+
+<!-- Sticky Header with Global Search, Subscribe CTA, and 9 Required Navigation Links -->
+<header class="site-header">
+  <div class="wrap header-main">
+    <a class="brand" href="/" aria-label="MACHINEWIRE home">
+      <span class="brand-mark">MW<span>+</span></span>
+      <span class="brand-words">MACHINE<span>WIRE</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+    </a>
+
+    <div class="header-actions">
+      <form id="header-search-form" class="search-box header-search" role="search">
+        <input id="header-search-input" type="search" placeholder="Search machines, OEMs, specs…" aria-label="Search MachineWire">
+        <button type="submit" aria-label="Submit search">⌕</button>
+      </form>
+      <a class="button button-amber header-subscribe-btn" href="#newsletter">Subscribe ↗</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-inner">☰</button>
+    </div>
+  </div>
+
+  <nav class="nav-bar" aria-label="Primary navigation">
+    <div class="wrap nav-inner" id="nav-inner">
+      <a class="active" href="/">Home</a>
+      <a href="#latest">Latest News</a>
+      <a href="/category/construction-equipment">Equipment</a>
+      <a href="/category/brands">Brands</a>
+      <a href="/category/technology">Technology</a>
+      <a href="/category/business">Business</a>
+      <a href="/category/reviews">Reviews</a>
+      <a href="/category/guides">Guides</a>
+      <a href="/category/regions">Regions</a>
+      <div class="mobile-nav-extras">
+        <form id="mobile-search-form" class="search-box" role="search">
+          <input id="mobile-search-input" type="search" placeholder="Search machines, brands, specs…" aria-label="Mobile search">
+          <button type="submit" aria-label="Submit mobile search">⌕</button>
+        </form>
+        <a class="button button-amber" href="#newsletter">Subscribe to Briefing ↗</a>
+      </div>
+      <a href="/admin.html" class="nav-admin">Editorial Desk ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="main-content">
+
+  <!-- Empty-Database Safe State Banner (Shown only when 0 published articles exist) -->
+  <section id="global-empty-database" class="empty-db-banner" hidden aria-live="polite">
+    <span class="eyebrow">NO PUBLISHED REPORTS IN DATABASE</span>
+    <h2>The MACHINEWIRE news desk currently has no published articles.</h2>
+    <p>We never invent or fabricate news stories. Sign in to the Editorial Admin workspace to verify and publish queued drafts, or submit an official OEM release.</p>
+    <div class="brand-feature-actions">
+      <a class="button button-amber" href="/admin.html">Open Editorial Admin →</a>
+      <a class="button button-outline" href="/contact.html">Submit Official Press Release ↗</a>
+    </div>
+  </section>
+
+  <!-- SECTION 1: Breaking News & Latest Updates -->
+  <section class="ticker" id="breaking-news" aria-label="1. Breaking news and latest updates">
+    <span class="ticker-label">BREAKING &amp; LATEST</span>
+    <div class="ticker-text" id="ticker-text">Loading verified industry updates from the MACHINEWIRE desk…</div>
+    <a class="ticker-action" href="#latest">All updates →</a>
+    <span class="live-dot" aria-hidden="true"></span>
+  </section>
+
+  <!-- SECTION 2: Featured Industry Story with Large 16:9 Editorial Image + Latest Wire Rail -->
+  <section class="hero-grid" id="featured-section" aria-label="2. Featured industry story and latest wire">
+    <div class="hero-main" id="featured-story">
+      <div class="hero-image skeleton"></div>
+      <div class="hero-content">
+        <span class="eyebrow">LOADING LEAD REPORT</span>
+        <h1>THE WORLD OF MACHINES. CONNECTED.</h1>
+        <p>Authoritative coverage of global construction equipment, agricultural machinery and commercial vehicles.</p>
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="section-head">
+        <h2>LATEST UPDATES</h2>
+        <span class="section-rule"></span>
+        <span class="section-note">LIVE WIRE</span>
+      </div>
+      <div id="top-stories" class="top-stories">
+        <div class="loading-line"></div>
+        <div class="loading-line"></div>
+        <div class="loading-line"></div>
+      </div>
+      <div class="newsletter-mini">
+        <span class="mini-icon" aria-hidden="true">↗</span>
+        <div>
+          <strong>Daily Equipment Briefing</strong>
+          <p>Verified OEM &amp; fleet updates, without the noise.</p>
+        </div>
+        <a href="#newsletter" aria-label="Jump to newsletter subscription">→</a>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Interactive All-News Filter & Search Explorer -->
+  <section class="section" id="latest" aria-label="Interactive news explorer">
+    <div class="section-head">
+      <h2>LATEST NEWS EXPLORER</h2>
+      <span class="section-rule"></span>
+      <span class="section-note" id="results-count">GLOBAL WIRE</span>
+    </div>
+    <div class="toolbar">
+      <div class="filters" id="filters" role="group" aria-label="Filter stories by category">
+        <button class="filter active" type="button" data-category="">All news</button>
+        <button class="filter" type="button" data-category="Bull Machines">Bull Machines</button>
+        <button class="filter" type="button" data-category="Backhoe Loaders">Backhoe loaders</button>
+        <button class="filter" type="button" data-category="Commercial Vehicles">Commercial vehicles</button>
+        <button class="filter" type="button" data-category="Technology">Technology</button>
+        <button class="filter" type="button" data-category="Industry News">Business &amp; Industry</button>
+        <button class="filter" type="button" data-category="Reviews & Comparisons">Reviews</button>
+        <button class="filter" type="button" data-category="Buying Guides">Guides</button>
+        <button class="filter" type="button" data-category="Events & Exhibitions">Events</button>
+      </div>
+      <div class="toolbar-controls">
+        <select id="country-filter" class="region-select" aria-label="Filter by region or country">
+          <option value="">All regions / markets</option>
+          <option value="Global">Global</option>
+          <option value="India">India</option>
+          <option value="North America">United States &amp; North America</option>
+          <option value="Europe">Europe</option>
+          <option value="China">China</option>
+          <option value="Japan & South Korea">Japan &amp; South Korea</option>
+          <option value="Middle East">Middle East</option>
+          <option value="Southeast Asia">Southeast Asia</option>
+          <option value="Australia">Australia</option>
+          <option value="Latin America">Latin America</option>
+          <option value="Africa">Africa</option>
+        </select>
+        <form id="search-form" class="search-box" role="search">
+          <input id="search-input" type="search" placeholder="Filter by keyword, model, spec…" aria-label="Search news explorer">
+          <button type="submit" aria-label="Apply search">⌕</button>
+        </form>
+      </div>
+    </div>
+    <div id="active-filter-bar" class="active-filter-bar" hidden>
+      <span id="active-filter-label"></span>
+      <button type="button" id="clear-filters" class="clear-filter-btn">Clear filters ×</button>
+    </div>
+    <div id="article-grid" class="article-grid">
+      <div class="loading-card"></div>
+      <div class="loading-card"></div>
+      <div class="loading-card"></div>
+    </div>
+    <div id="pagination-root"></div>
+    <div id="empty-state" class="empty-state" hidden>No published reports match your current filter. Clear filters to view all stories.</div>
+  </section>
+
+  <!-- SECTION 3: Latest Construction Equipment News -->
+  <section class="section" id="sec-construction" aria-label="3. Latest construction equipment news">
+    <div class="section-head">
+      <h2>CONSTRUCTION EQUIPMENT</h2>
+      <span class="section-rule"></span>
+      <a class="section-link" href="/category/construction-equipment">View Equipment Desk →</a>
+    </div>
+    <p class="section-intro">Backhoe loaders, excavators, wheel loaders, bulldozers, cranes, motor graders and earthmoving machinery.</p>
+    <div class="subdesk-strip">
+      <a class="tag-chip" href="/category/backhoe-loaders">Backhoe Loaders</a>
+      <a class="tag-chip" href="/category/excavators">Excavators</a>
+      <a class="tag-chip" href="/category/wheel-loaders">Wheel Loaders</a>
+      <a class="tag-chip" href="/category/bulldozers">Bulldozers</a>
+      <a class="tag-chip" href="/category/cranes">Cranes</a>
+      <a class="tag-chip" href="/category/graders">Graders</a>
+      <a class="tag-chip" href="/category/telehandlers">Telehandlers</a>
+      <a class="tag-chip" href="/category/roadbuilding">Roadbuilding</a>
+      <a class="tag-chip" href="/category/mining-equipment">Mining Equipment</a>
+      <a class="tag-chip" href="/category/compact-equipment">Compact Equipment</a>
+      <a class="tag-chip" href="/category/attachments">Attachments</a>
+    </div>
+    <div id="grid-construction" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 4: Tractors & Agricultural Machinery -->
+  <section class="section" id="sec-tractors" aria-label="4. Tractors and agricultural machinery">
+    <div class="section-head">
+      <h2>TRACTORS &amp; AGRICULTURAL MACHINERY</h2>
+      <span class="section-rule"></span>
+      <div>
+        <a class="section-link" href="/category/tractors">Tractors →</a> ·
+        <a class="section-link" href="/category/agricultural-machinery">Agricultural Machinery →</a>
+      </div>
+    </div>
+    <p class="section-intro">Utility tractors, tractor-mounted backhoe and front-end loader attachments, implements and multi-purpose rural workhorse platforms.</p>
+    <div id="grid-tractors" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 5: Trucks & Commercial Vehicles -->
+  <section class="section" id="sec-trucks" aria-label="5. Trucks and commercial vehicles">
+    <div class="section-head">
+      <h2>TRUCKS &amp; COMMERCIAL VEHICLES</h2>
+      <span class="section-rule"></span>
+      <a class="section-link" href="/category/heavy-trucks">View Commercial Vehicles Desk →</a>
+    </div>
+    <p class="section-intro">Multi-axle tipper trucks, vocational chassis, prime movers, articulated haulers, pickups, vans, buses and electric commercial fleets.</p>
+    <div class="subdesk-strip">
+      <a class="tag-chip" href="/category/heavy-trucks">Heavy Trucks</a>
+      <a class="tag-chip" href="/category/pickups">Pickups</a>
+      <a class="tag-chip" href="/category/vans">Vans</a>
+      <a class="tag-chip" href="/category/buses">Buses</a>
+      <a class="tag-chip" href="/category/electric-commercial-vehicles">Electric Commercial Vehicles</a>
+    </div>
+    <div id="grid-trucks" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 6: Manufacturer & Brand Spotlight -->
+  <section class="section" id="sec-brands" aria-label="6. Manufacturer and brand spotlight">
+    <div class="section-head">
+      <h2>MANUFACTURER &amp; BRAND SPOTLIGHT</h2>
+      <span class="section-rule"></span>
+      <div>
+        <a class="section-link" href="/manufacturers">OEM Directory →</a> ·
+        <a class="section-link" href="/models">Equipment Models →</a>
+      </div>
+    </div>
+    <div class="brand-feature" style="margin-top:0; margin-bottom: var(--space-3);">
+      <div class="brand-feature-copy">
+        <span class="eyebrow">OEM &amp; MODEL INTELLIGENCE</span>
+        <h2>Searchable <em>Manufacturer Profiles</em> &amp; Equipment Models.</h2>
+        <p>Explore verified company overviews, headquarters, technology updates, and model specification pages for BULL Machines, JCB, Caterpillar, Komatsu, Volvo CE, CASE, John Deere, Kubota, Mahindra, Tata Motors, SANY, and global OEMs (treated as independent directory candidates).</p>
+        <div class="brand-feature-actions">
+          <a class="button button-amber" href="/manufacturers">Browse OEM Profiles →</a>
+          <a class="text-link" href="/models">Explore Equipment &amp; Vehicle Models <span>↗</span></a>
+        </div>
+      </div>
+      <div class="brand-feature-art" aria-hidden="true">
+        <div class="art-ring ring-one"></div>
+        <div class="art-ring ring-two"></div>
+        <div class="art-label">THE WORLD OF<br>MACHINES. CONNECTED.</div>
+        <div class="art-number">MW<span> / OEM</span></div>
+      </div>
+    </div>
+    <div class="manufacturer-list" id="manufacturers">
+      <a class="manufacturer-row-link" href="/manufacturers/bull-machines"><span class="manufacturer-logo">B</span><span><strong>BULL Machines</strong><small>Coimbatore, India • Backhoe loaders, construction equipment &amp; tractor attachments</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/jcb"><span class="manufacturer-logo">J</span><span><strong>JCB</strong><small>Rocester, UK • Backhoe loaders, excavators, telehandlers &amp; site dumpers</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/caterpillar"><span class="manufacturer-logo">C</span><span><strong>Caterpillar</strong><small>Irving, USA • Earthmoving, mining, dozers &amp; power systems</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/komatsu"><span class="manufacturer-logo">K</span><span><strong>Komatsu</strong><small>Tokyo, Japan • Excavators, wheel loaders, dozers &amp; haul trucks</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/volvo-construction-equipment"><span class="manufacturer-logo">V</span><span><strong>Volvo Construction Equipment</strong><small>Eskilstuna, Sweden • Articulated haulers, excavators &amp; electric machinery</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/case"><span class="manufacturer-logo">C</span><span><strong>CASE Construction Equipment</strong><small>Racine, USA • Backhoe loaders, compactors &amp; earthmoving machinery</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/john-deere"><span class="manufacturer-logo">D</span><span><strong>John Deere</strong><small>Moline, USA • Tractors, agricultural machinery, backhoes &amp; graders</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/kubota"><span class="manufacturer-logo">K</span><span><strong>Kubota</strong><small>Osaka, Japan • Compact excavators, tractors &amp; industrial engines</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/mahindra"><span class="manufacturer-logo">M</span><span><strong>Mahindra</strong><small>Mumbai / Pune, India • Tractors, EarthMaster backhoes &amp; heavy trucks</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/tata-motors"><span class="manufacturer-logo">T</span><span><strong>Tata Motors</strong><small>Mumbai, India • Signa &amp; Prima heavy tippers, trucks &amp; electric buses</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers/sany"><span class="manufacturer-logo">S</span><span><strong>SANY</strong><small>Changsha, China • Excavators, cranes, road machinery &amp; electric trucks</small></span><span class="manufacturer-arrow" aria-hidden="true">↗</span></a>
+      <a class="manufacturer-row-link" href="/manufacturers"><span class="manufacturer-logo">+</span><span><strong>View All Global Manufacturers &amp; Equipment Models</strong><small>Search &amp; filter XCMG, HD Hyundai, Liebherr &amp; 13+ verified model pages</small></span><span class="manufacturer-arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- SECTION 7: Technology, AI, Electrification, Automation & Innovation -->
+  <section class="section" id="sec-technology" aria-label="7. Technology, AI, electrification, automation, and innovation">
+    <div class="section-head">
+      <h2>TECHNOLOGY, AI, ELECTRIFICATION &amp; AUTOMATION</h2>
+      <span class="section-rule"></span>
+      <a class="section-link" href="/category/technology">View Technology Desk →</a>
+    </div>
+    <p class="section-intro">Closed-center load-sensing hydraulics, ISO 15143-3 (AEMP 2.0) telematics, AI grade control, battery-electric powertrains and Stage V / CEV-V architectures.</p>
+    <div id="grid-technology" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 8: Industry Business, Investments, Exports & Market Developments -->
+  <section class="section" id="sec-business" aria-label="8. Industry business, investments, exports, and market developments">
+    <div class="section-head">
+      <h2>INDUSTRY BUSINESS, INVESTMENTS &amp; EXPORTS</h2>
+      <span class="section-rule"></span>
+      <div>
+        <a class="section-link" href="/category/business">Business →</a> ·
+        <a class="section-link" href="/category/projects">Projects →</a>
+      </div>
+    </div>
+    <p class="section-intro">Manufacturing capacity expansions, infrastructure procurement tenders, civil projects, global export corridors and corporate market intelligence.</p>
+    <div id="grid-business" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 9: Reviews, Comparisons & Buying Guides -->
+  <section class="section" id="sec-reviews-guides" aria-label="9. Reviews, comparisons, and buying guides">
+    <div class="section-head">
+      <h2>REVIEWS, COMPARISONS &amp; BUYING GUIDES</h2>
+      <span class="section-rule"></span>
+      <div>
+        <a class="section-link" href="/category/reviews">Reviews →</a> ·
+        <a class="section-link" href="/category/guides">Guides →</a>
+      </div>
+    </div>
+    <p class="section-intro">Specification-led machine evaluations, tipper GVW and driveline comparisons, and total cost of ownership checklists.</p>
+    <div id="grid-reviews-guides" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 10: Regional News Highlights -->
+  <section class="section" id="sec-regions" aria-label="10. Regional news highlights">
+    <div class="section-head">
+      <h2>REGIONAL NEWS HIGHLIGHTS</h2>
+      <span class="section-rule"></span>
+      <a class="section-link" href="/india/">Open Regional Desks →</a>
+    </div>
+    <p class="section-intro">Explore dedicated regional news desks ordered by verified news volume, OEM activity and reader interest. Select a tab to filter below, or open any regional hub directly:</p>
+    <div class="subdesk-strip" id="regional-hub-links">
+      <a class="tag-chip tag-chip-country" href="/india/">India (/india/)</a>
+      <a class="tag-chip tag-chip-country" href="/north-america/">United States &amp; North America (/north-america/)</a>
+      <a class="tag-chip tag-chip-country" href="/europe/">Europe (/europe/)</a>
+      <a class="tag-chip tag-chip-country" href="/china/">China (/china/)</a>
+      <a class="tag-chip tag-chip-country" href="/japan-south-korea/">Japan &amp; South Korea (/japan-south-korea/)</a>
+      <a class="tag-chip tag-chip-country" href="/middle-east/">Middle East (/middle-east/)</a>
+      <a class="tag-chip tag-chip-country" href="/southeast-asia/">Southeast Asia (/southeast-asia/)</a>
+      <a class="tag-chip tag-chip-country" href="/australia/">Australia (/australia/)</a>
+      <a class="tag-chip tag-chip-country" href="/latin-america/">Latin America (/latin-america/)</a>
+      <a class="tag-chip tag-chip-country" href="/africa/">Africa (/africa/)</a>
+    </div>
+    <div class="filters region-tabs" id="region-tabs" role="tablist" aria-label="Select region">
+      <button class="filter active" type="button" data-region-tab="ALL">All Markets</button>
+      <button class="filter" type="button" data-region-tab="India">India</button>
+      <button class="filter" type="button" data-region-tab="North America">United States &amp; North America</button>
+      <button class="filter" type="button" data-region-tab="Europe">Europe</button>
+      <button class="filter" type="button" data-region-tab="China">China</button>
+      <button class="filter" type="button" data-region-tab="Japan & South Korea">Japan &amp; South Korea</button>
+      <button class="filter" type="button" data-region-tab="Middle East">Middle East</button>
+      <button class="filter" type="button" data-region-tab="Southeast Asia">Southeast Asia</button>
+      <button class="filter" type="button" data-region-tab="Australia">Australia</button>
+      <button class="filter" type="button" data-region-tab="Latin America">Latin America</button>
+      <button class="filter" type="button" data-region-tab="Africa">Africa</button>
+    </div>
+    <div id="grid-regions" class="article-grid" style="margin-top: var(--space-2);"></div>
+  </section>
+
+  <!-- SECTION 11: Videos, Events & Exhibitions -->
+  <section class="section" id="sec-events" aria-label="11. Videos, events, and exhibitions">
+    <div class="section-head">
+      <h2>VIDEOS, EVENTS &amp; EXHIBITIONS</h2>
+      <span class="section-rule"></span>
+      <div>
+        <a class="section-link" href="/category/events">Events →</a> ·
+        <a class="section-link" href="/category/videos">Videos →</a>
+      </div>
+    </div>
+    <p class="section-intro">Global trade show reporting, walkaround briefings and exhibition calendars across EXCON (Bengaluru), Bauma (Munich), CONEXPO-CON/AGG (Las Vegas) and IAA Transportation (Hannover).</p>
+    <div id="grid-events" class="article-grid"></div>
+  </section>
+
+  <!-- SECTION 12: Newsletter Subscription -->
+  <section class="newsletter" id="newsletter" aria-label="12. Newsletter subscription">
+    <div>
+      <span class="eyebrow">THE MACHINEWIRE BRIEFING</span>
+      <h2>THE WORLD OF MACHINES.<br>CONNECTED.</h2>
+      <p>Subscribe to receive verified construction equipment, tractor, and commercial vehicle intelligence directly in your inbox.</p>
+      <div id="newsletter-provider-badge" style="margin-top:12px; display:inline-block; padding:6px 12px; border-radius:6px; background:rgba(245,166,35,0.16); border:1px solid rgba(245,166,35,0.45); color:#F5A623; font-size:12px; font-weight:600;">
+        Checking email delivery provider status…
+      </div>
+    </div>
+    <form id="newsletter-form">
+      <label for="newsletter-email">Get the global industry briefing</label>
+      <div class="newsletter-input">
+        <input type="email" id="newsletter-email" required placeholder="Your work email address">
+        <select id="newsletter-frequency" aria-label="Briefing frequency" style="padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#17212B; color:#FFFFFF; font-weight:500;">
+          <option value="weekly">Weekly Edition</option>
+          <option value="daily">Daily Dispatch</option>
+        </select>
+        <button type="submit">Subscribe ↗</button>
+      </div>
+      <fieldset style="border:none; padding:0; margin:12px 0 8px 0;">
+        <legend style="font-size:12px; font-weight:600; color:#DCE2E8; margin-bottom:6px;">Select Topic Interests:</legend>
+        <div id="newsletter-interests-grid" style="display:flex; flex-wrap:wrap; gap:8px 14px; font-size:12px; color:#FFFFFF;">
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="construction-equipment" checked> Construction Equipment</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="tractors"> Tractors</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="commercial-vehicles" checked> Commercial Vehicles</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="manufacturers"> Manufacturers</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="technology" checked> Technology</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="business"> Business</label>
+          <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" name="nl-interest" value="regional-news"> Regional News</label>
+        </div>
+      </fieldset>
+      <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#DCE2E8; margin:8px 0; cursor:pointer;">
+        <input type="checkbox" id="newsletter-consent" required checked style="margin-top:3px;">
+        <span>I consent to receive MachineWire industry briefings and agree to the <a href="/privacy.html" style="color:#F5A623;text-decoration:underline;">Privacy Policy</a>. Every briefing includes a one-click unsubscribe link.</span>
+      </label>
+      <small id="newsletter-message">No spam. Verified technical and market reporting only.</small>
+      <div id="newsletter-links-preview" hidden style="margin-top:8px; font-size:12px; color:#DCE2E8;"></div>
+    </form>
+  </section>
+
+</main>
+
+<!-- SECTION 13: Complete Footer with All 7 Required Institutional Links -->
+<footer class="site-footer" aria-label="13. Site footer">
+  <div class="wrap footer-top">
+    <a class="brand footer-brand" href="/">
+      <span class="brand-mark">MW<span>+</span></span>
+      <span class="brand-words">MACHINE<span>WIRE</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+    </a>
+    <p>Authoritative global news, specification intelligence and market reporting for the construction equipment, agricultural machinery, and commercial vehicle industries.</p>
+    <nav class="footer-links" aria-label="Footer institutional links">
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/corrections.html">Corrections Policy</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/advertise.html">Advertise</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/admin.html">Admin ↗</a>
+    </nav>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> MACHINEWIRE — THE WORLD OF MACHINES. CONNECTED.</span>
+    <span>Verify every announcement against its original primary source.</span>
+  </div>
+</footer>
+
+<script src="/components.js" defer></script>
+<script src="/app.js" defer></script>
+</body>
+</html>

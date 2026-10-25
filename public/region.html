@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regional Intelligence Desk | MACHINEWIRE</title>
+<meta name="description" content="MACHINEWIRE — THE WORLD OF MACHINES. CONNECTED. Global and regional construction equipment, agricultural machinery and commercial vehicle intelligence.">
+<meta name="theme-color" content="#101820">
+<link id="canonical-link" rel="canonical" href="/india/">
+<link rel="alternate" type="application/rss+xml" title="MACHINEWIRE RSS Feed" href="/rss.xml">
+<link rel="stylesheet" href="/styles.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MACHINEWIRE">
+<meta id="og-title" property="og:title" content="Regional Desk | MACHINEWIRE">
+<meta id="og-desc" property="og:description" content="MACHINEWIRE — THE WORLD OF MACHINES. CONNECTED.">
+<script src="/components.js" defer></script>
+<script src="/region.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#region-main">Skip to regional coverage</a>
+
+<div class="topline">
+  <div class="wrap topline-inner">
+    <span>MACHINEWIRE • THE WORLD OF MACHINES. CONNECTED.</span>
+    <span id="region-topline-badge">REGIONAL DESK</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap header-main">
+    <a class="brand" href="/" aria-label="MACHINEWIRE home">
+      <span class="brand-mark">MW<span>+</span></span>
+      <span class="brand-words">MACHINE<span>WIRE</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+    </a>
+    <div class="header-ad">THE WORLD OF MACHINES. CONNECTED.</div>
+    <a class="back-link" href="/">← Global Home</a>
+  </div>
+  <nav class="nav-bar" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a href="/">Home</a>
+      <a href="/#latest">Latest News</a>
+      <a href="/category/construction-equipment">Equipment</a>
+      <a href="/category/brands">Brands</a>
+      <a href="/category/technology">Technology</a>
+      <a href="/category/business">Business</a>
+      <a href="/category/reviews">Reviews</a>
+      <a href="/category/guides">Guides</a>
+      <a class="active" href="/india/">Regions</a>
+      <a href="/admin.html" class="nav-admin">Editorial Desk ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap section-page" id="region-main">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/category/regions">Global Regions</a> <span>/</span>
+    <span id="crumb" aria-current="page">India &amp; South Asia</span>
+  </nav>
+
+  <!-- Priority-Ordered Global Regional Navigation Bar (Ranked by Verified Volume, OEM Activity & Analytics) -->
+  <section class="category-directory-bar" aria-label="Global Regional Desks (Ordered by Priority Score)">
+    <div class="region-priority-head">
+      <span class="eyebrow">GLOBAL REGIONAL DESKS</span>
+      <small class="muted" id="priority-note">Prioritized by verified news volume, OEM activity &amp; reader analytics</small>
+    </div>
+    <div class="directory-scroll" id="region-pills"></div>
+  </section>
+
+  <!-- Regional Market Context, Terminology, Units, Currencies & Regulations Dossier -->
+  <section class="region-dossier-banner" aria-label="Regional market context, units, currencies and regulations">
+    <div class="region-dossier-header">
+      <div>
+        <span class="eyebrow" id="region-eyebrow">REGIONAL MARKET DOSSIER</span>
+        <h1 id="region-title">India &amp; South Asia</h1>
+        <p id="region-description"></p>
+      </div>
+      <div class="region-priority-stats" id="region-stats"></div>
+    </div>
+    <dl class="region-context-grid" id="region-context-grid"></dl>
+  </section>
+
+  <!-- Filter & Search Toolbar for Regional Coverage -->
+  <section class="section" style="margin-top: var(--space-4);">
+    <div class="section-head">
+      <h2 id="local-section-heading">VERIFIED LOCAL &amp; REGIONAL REPORTS</h2>
+      <span class="section-rule"></span>
+      <span class="section-note" id="local-count">0 REPORTS</span>
+    </div>
+
+    <div class="toolbar listing-toolbar">
+      <div class="listing-filters-grid">
+        <div>
+          <label class="sr-only" for="filter-category">Category filter</label>
+          <select id="filter-category" class="region-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <div>
+          <label class="sr-only" for="filter-manufacturer">Manufacturer filter</label>
+          <select id="filter-manufacturer" class="region-select" aria-label="Filter by manufacturer">
+            <option value="">All Manufacturers / OEMs</option>
+          </select>
+        </div>
+        <div>
+          <label class="sr-only" for="filter-equipment">Equipment type filter</label>
+          <select id="filter-equipment" class="region-select" aria-label="Filter by equipment type">
+            <option value="">All Equipment &amp; Vehicles</option>
+          </select>
+        </div>
+        <div>
+          <label class="sr-only" for="sort-date">Sort by date</label>
+          <select id="sort-date" class="region-select" aria-label="Sort by date">
+            <option value="newest">Sort: Newest First</option>
+            <option value="oldest">Sort: Oldest First</option>
+            <option value="updated">Sort: Recently Updated</option>
+          </select>
+        </div>
+      </div>
+
+      <form id="region-search" class="search-box" role="search">
+        <input id="q" type="search" placeholder="Search regional reports, OEMs, specs…" aria-label="Search this region">
+        <button type="submit" aria-label="Submit search">⌕</button>
+      </form>
+    </div>
+
+    <div id="region-active-filters" class="active-filter-bar" hidden>
+      <span id="region-filter-summary"></span>
+      <button type="button" id="reset-region-filters" class="clear-filter-btn">Reset filters ×</button>
+    </div>
+
+    <!-- Local Stories Grid -->
+    <div id="local-grid" class="article-grid"></div>
+    <div id="local-pagination"></div>
+
+    <!-- Honest Non-Fabricated Local Notice (When 0 local-specific articles exist, international stories still appear below) -->
+    <div id="local-empty" class="empty-state" hidden>
+      <strong id="local-empty-title">No country-specific stories filed exclusively under this market yet.</strong>
+      <p class="muted" style="margin: 8px auto 16px; max-width: 620px;">MACHINEWIRE never invents fake regional articles. Browse the verified Cross-Market International Coverage below—which applies directly to fleet buyers and engineers in this region—or publish a verified local report via the Editorial Admin desk.</p>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <a class="button button-amber" href="/admin.html">Publish Regional Report in Admin →</a>
+        <a class="button button-outline" href="/contact.html">Submit Local OEM Press Release ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relevant International & Cross-Market Stories Shown Alongside Local News -->
+  <section class="section related-section" id="international-section" aria-label="Relevant international stories alongside local news">
+    <div class="section-head">
+      <h2>INTERNATIONAL &amp; CROSS-MARKET INTELLIGENCE</h2>
+      <span class="section-rule"></span>
+      <span class="section-note">GLOBAL BENCHMARKS &amp; TECH</span>
+    </div>
+    <p class="section-intro">Global powertrain standards, hydraulic architectures, commercial vehicle specifications and international trade show calendars relevant to operators in <strong id="intl-region-name">this market</strong>.</p>
+    <div id="international-grid" class="article-grid"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <a class="brand footer-brand" href="/">
+      <span class="brand-mark">MW<span>+</span></span>
+      <span class="brand-words">MACHINE<span>WIRE</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+    </a>
+    <p>Authoritative global news, specification intelligence and market reporting for the construction equipment, agricultural machinery, and commercial vehicle industries.</p>
+    <nav class="footer-links" aria-label="Footer institutional links">
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/corrections.html">Corrections Policy</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/advertise.html">Advertise</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/admin.html">Admin ↗</a>
+    </nav>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> MACHINEWIRE — THE WORLD OF MACHINES. CONNECTED.</span>
+    <a href="/">Back to homepage</a>
+  </div>
+</footer>
+</body>
+</html>

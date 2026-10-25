@@ -1,0 +1,38 @@
+[
+  {
+    "id": "job-scheduled-publisher",
+    "name": "Scheduled Article Auto-Publisher",
+    "jobType": "scheduler",
+    "target": "articles.json (status=scheduled)",
+    "schedule": "On-demand & Every Request Check",
+    "lastRunAt": "2026-10-24T17:31:48.194Z",
+    "lastStatus": "healthy",
+    "itemsProcessed": 0,
+    "lastError": "",
+    "description": "Automatically transitions scheduled articles to published status when scheduledAt <= current UTC time."
+  },
+  {
+    "id": "job-catalog-entity-sync",
+    "name": "Catalog & OEM Entity Synchronizer",
+    "jobType": "indexer",
+    "target": "manufacturers, equipment_models, sources, images, tags",
+    "schedule": "Automatic on Article Save + Manual Run",
+    "lastRunAt": "2026-10-24T17:31:48.194Z",
+    "lastStatus": "healthy",
+    "itemsProcessed": 14,
+    "lastError": "",
+    "description": "Extracts and normalizes manufacturers, equipment models, approved sources, and image credits from published articles."
+  },
+  {
+    "id": "job-source-integrity-audit",
+    "name": "Approved Source & Image Credit Auditor",
+    "jobType": "validator",
+    "target": "sources.json & images.json",
+    "schedule": "Manual Trigger / Pre-Publish Audit",
+    "lastRunAt": "2026-10-24T17:31:48.194Z",
+    "lastStatus": "healthy",
+    "itemsProcessed": 5,
+    "lastError": "",
+    "description": "Checks all articles and approved news sources for valid HTTPS URLs, domain attribution, and explicit image credits."
+  }
+]

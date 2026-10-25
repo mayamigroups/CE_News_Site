@@ -1,0 +1,32 @@
+[
+  {
+    "id": "aut-editorial-desk",
+    "name": "Editorial Desk",
+    "slug": "editorial-desk",
+    "role": "Editorial Desk",
+    "email": "",
+    "bio": "",
+    "createdAt": "2026-10-23T18:41:37.030Z",
+    "updatedAt": "2026-10-25T16:11:45.980Z"
+  },
+  {
+    "id": "aut-commercial-vehicles-desk",
+    "name": "Commercial Vehicles Desk",
+    "slug": "commercial-vehicles-desk",
+    "role": "Editorial Desk",
+    "email": "",
+    "bio": "",
+    "createdAt": "2026-10-23T18:41:37.030Z",
+    "updatedAt": "2026-10-25T16:11:45.874Z"
+  },
+  {
+    "id": "aut-technology-powertrains-desk",
+    "name": "Technology & Powertrains Desk",
+    "slug": "technology-powertrains-desk",
+    "role": "Editorial Desk",
+    "email": "",
+    "bio": "",
+    "createdAt": "2026-10-23T18:41:37.030Z",
+    "updatedAt": "2026-10-25T16:11:46.006Z"
+  }
+]

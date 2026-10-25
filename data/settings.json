@@ -1,0 +1,13 @@
+{
+  "siteName": "MACHINEWIRE",
+  "tagline": "THE WORLD OF MACHINES. CONNECTED.",
+  "defaultMetaTitle": "MACHINEWIRE — Global Construction Equipment & Commercial Vehicle Intelligence",
+  "defaultMetaDescription": "Verified global news, machine specifications, OEM profiles, and commercial vehicle intelligence across construction, mining, and agriculture.",
+  "canonicalBaseUrl": "http://localhost:3000",
+  "editorialContactEmail": "editorial@machinewire.example",
+  "correctionsEmail": "corrections@machinewire.example",
+  "defaultOgImage": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+  "robotsIndexing": true,
+  "requireSourceForPublish": true,
+  "updatedAt": "2026-10-24T17:31:48.193Z"
+}

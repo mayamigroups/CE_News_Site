@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Global Manufacturers &amp; OEM Profiles | MACHINEWIRE</title>
+  <meta id="meta-description" name="description" content="Searchable directory and verified profiles of global construction equipment, agricultural machinery, and commercial vehicle manufacturers on MachineWire.">
+  <meta name="theme-color" content="#101820">
+  <link id="canonical-link" rel="canonical" href="http://localhost:3000/manufacturers">
+  <link rel="alternate" type="application/rss+xml" title="MachineWire RSS" href="/rss.xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/components.js" defer></script>
+  <script src="/manufacturer.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to manufacturer directory</a>
+
+  <div class="topline">
+    <div class="wrap topline-inner">
+      <span id="today-date">GLOBAL OEM &amp; BRAND INTELLIGENCE</span>
+      <div class="topline-links">
+        <a href="/manufacturers">OEM Directory</a>
+        <a href="/models">Equipment Models</a>
+        <a href="/india/">Regional Desks</a>
+        <a href="/editorial-policy.html">Editorial Standards</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="/" aria-label="MACHINEWIRE home">
+        <span class="brand-mark">MW<span>+</span></span>
+        <span class="brand-words">
+          MACHINE<span>WIRE</span>
+          <small>THE WORLD OF MACHINES. CONNECTED.</small>
+        </span>
+      </a>
+      <div class="header-ad" aria-label="Editorial scope">
+        GLOBAL OEM DIRECTORY • INDEPENDENT EDITORIAL COVERAGE
+      </div>
+      <div class="header-actions">
+        <a class="button button-amber header-subscribe-btn" href="/models">Equipment Models →</a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      </div>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <div class="wrap nav-inner">
+        <a href="/">Home</a>
+        <a href="/category/construction-equipment">Latest News</a>
+        <a href="/models">Equipment</a>
+        <a href="/manufacturers" class="active">Brands</a>
+        <a href="/category/technology">Technology</a>
+        <a href="/category/business">Business</a>
+        <a href="/category/reviews">Reviews</a>
+        <a href="/category/guides">Guides</a>
+        <a href="/india/">Regions</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="wrap section-main">
+    <nav id="mfg-breadcrumb" class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <strong id="mfg-crumb">Manufacturers &amp; Brands</strong>
+    </nav>
+
+    <!-- Editorial Independence Notice -->
+    <div class="editorial-Candidacy-note" role="note">
+      <strong>EDITORIAL DIRECTORY NOTICE:</strong> Manufacturers listed on MachineWire (including BULL Machines, JCB, Caterpillar, Komatsu, Volvo Construction Equipment, CASE, John Deere, Kubota, Mahindra, Tata Motors, SANY, XCMG, HD Hyundai, and Liebherr) are covered as independent directory candidates. Inclusion does not imply any commercial partnership, sponsorship, or OEM endorsement. Missing or unconfirmed data is explicitly labeled.
+    </div>
+
+    <!-- =====================================================================
+         VIEW 1: SEARCHABLE MANUFACTURER DIRECTORY (/manufacturers)
+         ===================================================================== -->
+    <div id="mfg-directory-view">
+      <div class="section-banner">
+        <div>
+          <span class="eyebrow">OEM INTELLIGENCE DIRECTORY</span>
+          <h1>Global Manufacturers &amp; Brands</h1>
+          <p class="lead">Search and filter construction equipment, tractor, and commercial vehicle manufacturers by brand, equipment type, model, headquarters country, and category.</p>
+        </div>
+        <a class="button button-outline" href="/models">Browse Equipment &amp; Model Pages →</a>
+      </div>
+
+      <section class="toolbar listing-toolbar" aria-label="Search and filter manufacturers">
+        <label class="search-box" for="mfg-search">
+          <span>Search</span>
+          <input id="mfg-search" type="search" placeholder="Manufacturer, model, country, headquarters or technology…">
+        </label>
+        <div class="listing-filters-grid">
+          <select id="mfg-filter-brand" class="region-select" aria-label="Filter by manufacturer">
+            <option value="">All Manufacturers</option>
+          </select>
+          <select id="mfg-filter-category" class="region-select" aria-label="Filter by equipment category">
+            <option value="">All Categories</option>
+          </select>
+          <select id="mfg-filter-equipment" class="region-select" aria-label="Filter by equipment type">
+            <option value="">All Equipment Types</option>
+          </select>
+          <select id="mfg-filter-country" class="region-select" aria-label="Filter by headquarters or region">
+            <option value="">All Countries &amp; Regions</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="results-Meta-bar">
+        <span id="mfg-results-count">Loading verified manufacturer profiles…</span>
+        <button id="mfg-reset-btn" type="button" class="button button-outline" hidden>Reset filters</button>
+      </div>
+
+      <div id="mfg-directory-grid" class="oem-directory-grid" aria-live="polite">
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 2: INDIVIDUAL MANUFACTURER PROFILE (/manufacturers/:slug)
+         ===================================================================== -->
+    <div id="mfg-profile-view" hidden>
+      <section class="oem-profile-hero">
+        <div class="oem-profile-head">
+          <div>
+            <span class="eyebrow" id="profile-verification-badge">INITIAL DIRECTORY CANDIDATE • INDEPENDENT COVERAGE</span>
+            <h1 id="profile-name">Manufacturer Name</h1>
+            <p class="lead" id="profile-focus"></p>
+          </div>
+          <div class="oem-profile-actions">
+            <a id="profile-website-btn" class="button button-amber" href="#" target="_blank" rel="noopener noreferrer">Official Website ↗</a>
+            <a class="button button-outline" href="/manufacturers">← All Manufacturers</a>
+          </div>
+        </div>
+
+        <div class="region-context-grid" id="profile-facts-grid"></div>
+      </section>
+
+      <!-- Company Overview & Technology Updates -->
+      <div class="oem-two-col">
+        <section class="oem-card-panel">
+          <span class="eyebrow">COMPANY OVERVIEW</span>
+          <h2>Verified Corporate &amp; Manufacturing Scope</h2>
+          <p id="profile-overview" class="oem-overview-text"></p>
+          <div class="oem-sub-block">
+            <h3>Equipment Categories Covered</h3>
+            <div id="profile-categories-chips" class="tag-row"></div>
+          </div>
+        </section>
+
+        <section class="oem-card-panel">
+          <span class="eyebrow">TECHNOLOGY &amp; POWERTRAIN ARCHITECTURE</span>
+          <h2>Technology Updates &amp; Regional Footprint</h2>
+          <ul id="profile-tech-list" class="oem-bullet-list"></ul>
+          <div class="oem-sub-block">
+            <h3>Active Regional Markets (Click to open regional desk)</h3>
+            <div id="profile-regions-chips" class="tag-row"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Product / Equipment Model Listings -->
+      <section class="content-block">
+        <div class="block-head">
+          <div>
+            <span class="eyebrow">PRODUCT &amp; PLATFORM DIRECTORY</span>
+            <h2 id="profile-models-heading">Indexed Equipment &amp; Vehicle Models</h2>
+          </div>
+          <a class="section-link" href="/models">View all equipment models →</a>
+        </div>
+        <div id="profile-models-grid" class="card-grid"></div>
+      </section>
+
+      <!-- Related News & Technology Articles -->
+      <section class="content-block">
+        <div class="block-head">
+          <div>
+            <span class="eyebrow">VERIFIED EDITORIAL COVERAGE</span>
+            <h2 id="profile-news-heading">Related News &amp; Technical Reports</h2>
+          </div>
+          <a id="profile-submit-tip" class="section-link" href="/contact.html">Submit official OEM press release →</a>
+        </div>
+        <div id="profile-news-grid" class="card-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand footer-brand">
+          <span class="brand-mark">MW<span>+</span></span>
+          <span class="brand-words">
+            MACHINE<span>WIRE</span>
+            <small>THE WORLD OF MACHINES. CONNECTED.</small>
+          </span>
+        </div>
+        <p class="footer-copy">Global reporting on construction equipment, backhoe loaders, excavators, agricultural tractors, and heavy commercial vehicles.</p>
+      </div>
+      <div>
+        <h3>OEM &amp; Model Directories</h3>
+        <div class="footer-links">
+          <a href="/manufacturers">All Manufacturers</a>
+          <a href="/manufacturers/bull-machines">BULL Machines</a>
+          <a href="/manufacturers/jcb">JCB</a>
+          <a href="/manufacturers/caterpillar">Caterpillar</a>
+          <a href="/manufacturers/komatsu">Komatsu</a>
+          <a href="/manufacturers/volvo-construction-equipment">Volvo CE</a>
+          <a href="/manufacturers/tata-motors">Tata Motors</a>
+          <a href="/models">Equipment Models</a>
+        </div>
+      </div>
+      <div>
+        <h3>Policies &amp; Standards</h3>
+        <div class="footer-links">
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/editorial-policy.html">Editorial Policy</a>
+          <a href="/corrections.html">Corrections Policy</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/advertise.html">Advertise</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 MACHINEWIRE. Independent Industry Journalism.</span>
+      <span>No OEM partnership claimed unless explicitly disclosed.</span>
+    </div>
+  </footer>
+</body>
+</html>

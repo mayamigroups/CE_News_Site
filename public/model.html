@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Equipment &amp; Commercial Vehicle Model Directory | MACHINEWIRE</title>
+  <meta id="meta-description" name="description" content="Searchable directory of verified construction equipment, backhoe loader, excavator, crane, tractor, and heavy tipper truck models on MachineWire.">
+  <meta name="theme-color" content="#101820">
+  <link id="canonical-link" rel="canonical" href="http://localhost:3000/models">
+  <link rel="alternate" type="application/rss+xml" title="MachineWire RSS" href="/rss.xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/components.js" defer></script>
+  <script src="/model.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to equipment models</a>
+
+  <div class="topline">
+    <div class="wrap topline-inner">
+      <span id="today-date">EQUIPMENT &amp; VEHICLE SPECIFICATION INTELLIGENCE</span>
+      <div class="topline-links">
+        <a href="/manufacturers">OEM Directory</a>
+        <a href="/models">Equipment Models</a>
+        <a href="/india/">Regional Desks</a>
+        <a href="/editorial-policy.html">Editorial Standards</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="/" aria-label="MACHINEWIRE home">
+        <span class="brand-mark">MW<span>+</span></span>
+        <span class="brand-words">
+          MACHINE<span>WIRE</span>
+          <small>THE WORLD OF MACHINES. CONNECTED.</small>
+        </span>
+      </a>
+      <div class="header-ad" aria-label="Editorial scope">
+        VERIFIED EQUIPMENT &amp; VEHICLE PLATFORMS • OFFICIAL SOURCE ATTRIBUTION
+      </div>
+      <div class="header-actions">
+        <a class="button button-amber header-subscribe-btn" href="/manufacturers">OEM Profiles →</a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      </div>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <div class="wrap nav-inner">
+        <a href="/">Home</a>
+        <a href="/category/construction-equipment">Latest News</a>
+        <a href="/models" class="active">Equipment</a>
+        <a href="/manufacturers">Brands</a>
+        <a href="/category/technology">Technology</a>
+        <a href="/category/business">Business</a>
+        <a href="/category/reviews">Reviews</a>
+        <a href="/category/guides">Guides</a>
+        <a href="/india/">Regions</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="wrap section-main">
+    <nav id="model-breadcrumb" class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <strong id="model-crumb">Equipment &amp; Vehicle Models</strong>
+    </nav>
+
+    <!-- Specification Integrity Notice -->
+    <div class="editorial-Candidacy-note" role="note">
+      <strong>SPECIFICATION INTEGRITY NOTICE:</strong> MachineWire never invents specifications, model availability, prices, or manufacturer claims. Missing or unconfirmed brochure figures are explicitly labeled. Always verify serial-specific load charts and homologated specs with the official manufacturer before procurement or worksite deployment.
+    </div>
+
+    <!-- =====================================================================
+         VIEW 1: SEARCHABLE EQUIPMENT & MODEL DIRECTORY (/models)
+         ===================================================================== -->
+    <div id="model-directory-view">
+      <div class="section-banner">
+        <div>
+          <span class="eyebrow">TECHNICAL SPECIFICATION DIRECTORY</span>
+          <h1>Equipment &amp; Commercial Vehicle Models</h1>
+          <p class="lead">Filter and compare verified machine platforms by manufacturer, equipment type, model, country of origin, and category.</p>
+        </div>
+        <a class="button button-outline" href="/manufacturers">Browse OEM Brand Profiles →</a>
+      </div>
+
+      <section class="toolbar listing-toolbar" aria-label="Search and filter equipment models">
+        <label class="search-box" for="model-search">
+          <span>Search</span>
+          <input id="model-search" type="search" placeholder="Model name, manufacturer, equipment type, spec or application…">
+        </label>
+        <div class="listing-filters-grid listing-filters-five">
+          <select id="model-filter-manufacturer" class="region-select" aria-label="Filter by manufacturer">
+            <option value="">All Manufacturers</option>
+          </select>
+          <select id="model-filter-type" class="region-select" aria-label="Filter by equipment type">
+            <option value="">All Equipment Types</option>
+          </select>
+          <select id="model-filter-model" class="region-select" aria-label="Filter by specific model">
+            <option value="">All Models</option>
+          </select>
+          <select id="model-filter-country" class="region-select" aria-label="Filter by country">
+            <option value="">All Countries</option>
+          </select>
+          <select id="model-filter-category" class="region-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="results-Meta-bar">
+        <span id="model-results-count">Loading verified equipment models…</span>
+        <button id="model-reset-btn" type="button" class="button button-outline" hidden>Reset filters</button>
+      </div>
+
+      <div id="model-directory-grid" class="card-grid" aria-live="polite">
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         VIEW 2: INDIVIDUAL EQUIPMENT / MODEL PAGE (/models/:slug)
+         ===================================================================== -->
+    <div id="model-detail-view" hidden>
+      <section class="oem-profile-hero">
+        <div class="oem-profile-head">
+          <div>
+            <span class="eyebrow" id="detail-eyebrow">VERIFIED EQUIPMENT PLATFORM</span>
+            <h1 id="detail-name">Model Name</h1>
+            <p class="lead" id="detail-summary"></p>
+          </div>
+          <div class="oem-profile-actions">
+            <a id="detail-mfg-btn" class="button button-dark" href="/manufacturers">View Manufacturer Profile →</a>
+            <a id="detail-source-btn" class="button button-amber" href="#" target="_blank" rel="noopener noreferrer">Official OEM Reference ↗</a>
+          </div>
+        </div>
+
+        <div class="region-context-grid" id="detail-facts-grid"></div>
+      </section>
+
+      <!-- Visual & Official Specifications Table -->
+      <div class="oem-two-col">
+        <section class="oem-card-panel">
+          <span class="eyebrow">VISUAL REFERENCE &amp; LICENSING</span>
+          <h2>Platform Visual &amp; Verification Notice</h2>
+          <div id="detail-image-box"></div>
+          <div class="spec-disclaimer-box" id="detail-spec-note"></div>
+        </section>
+
+        <section class="oem-card-panel">
+          <span class="eyebrow">OFFICIAL REFERENCE SPECIFICATIONS</span>
+          <h2>Technical Specifications &amp; Status</h2>
+          <dl id="detail-specs-table" class="specs-list"></dl>
+        </section>
+      </div>
+
+      <!-- Applications & Key Engineering Features -->
+      <div class="oem-two-col">
+        <section class="oem-card-panel">
+          <span class="eyebrow">WORKSITE DEPLOYMENT</span>
+          <h2>Primary Applications</h2>
+          <ul id="detail-applications-list" class="oem-bullet-list"></ul>
+        </section>
+
+        <section class="oem-card-panel">
+          <span class="eyebrow">ARCHITECTURE &amp; SYSTEMS</span>
+          <h2>Verified Engineering Features</h2>
+          <ul id="detail-features-list" class="oem-bullet-list"></ul>
+        </section>
+      </div>
+
+      <!-- Competing Models in Same Class -->
+      <section class="content-block">
+        <div class="block-head">
+          <div>
+            <span class="eyebrow">CLASS BENCHMARKING</span>
+            <h2 id="detail-competing-heading">Competing Models in Class (Verified Directory)</h2>
+          </div>
+          <a class="section-link" href="/models">Compare all models →</a>
+        </div>
+        <div id="detail-competing-grid" class="card-grid"></div>
+      </section>
+
+      <!-- Related Editorial Articles -->
+      <section class="content-block">
+        <div class="block-head">
+          <div>
+            <span class="eyebrow">EDITORIAL COVERAGE</span>
+            <h2 id="detail-news-heading">Related News, Guides &amp; Technical Reports</h2>
+          </div>
+          <a class="section-link" href="/category/construction-equipment">All equipment news →</a>
+        </div>
+        <div id="detail-news-grid" class="card-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand footer-brand">
+          <span class="brand-mark">MW<span>+</span></span>
+          <span class="brand-words">
+            MACHINE<span>WIRE</span>
+            <small>THE WORLD OF MACHINES. CONNECTED.</small>
+          </span>
+        </div>
+        <p class="footer-copy">Global reporting on construction equipment, backhoe loaders, excavators, agricultural tractors, and heavy commercial vehicles.</p>
+      </div>
+      <div>
+        <h3>OEM &amp; Model Directories</h3>
+        <div class="footer-links">
+          <a href="/models">All Equipment Models</a>
+          <a href="/manufacturers">All Manufacturers</a>
+          <a href="/manufacturers/bull-machines">BULL Machines</a>
+          <a href="/manufacturers/jcb">JCB</a>
+          <a href="/manufacturers/caterpillar">Caterpillar</a>
+          <a href="/manufacturers/komatsu">Komatsu</a>
+          <a href="/manufacturers/volvo-construction-equipment">Volvo CE</a>
+          <a href="/manufacturers/tata-motors">Tata Motors</a>
+        </div>
+      </div>
+      <div>
+        <h3>Policies &amp; Standards</h3>
+        <div class="footer-links">
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/editorial-policy.html">Editorial Policy</a>
+          <a href="/corrections.html">Corrections Policy</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/advertise.html">Advertise</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 MACHINEWIRE. Independent Industry Journalism.</span>
+      <span>Specifications subject to official OEM brochure verification.</span>
+    </div>
+  </footer>
+</body>
+</html>

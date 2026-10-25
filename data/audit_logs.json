@@ -1,0 +1,42 @@
+[
+  {
+    "id": "da7036e2-88ea-4adb-85de-d8bb2563099f",
+    "at": "2026-10-25T16:16:52.416Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "1b8c43b6-3151-4eda-8f7b-b89412102a8d",
+    "at": "2026-10-25T16:15:23.305Z",
+    "actor": "editorial-admin",
+    "role": "unauthenticated",
+    "action": "auth.login_failed",
+    "target": "::1",
+    "level": "warn",
+    "details": "Failed sign-in attempt for username \"editorial-admin\"."
+  },
+  {
+    "id": "a0a82505-756e-467b-8175-d77f414156ca",
+    "at": "2026-10-25T16:14:34.501Z",
+    "actor": "editorial-admin",
+    "role": "unauthenticated",
+    "action": "auth.login_failed",
+    "target": "::1",
+    "level": "warn",
+    "details": "Failed sign-in attempt for username \"editorial-admin\"."
+  },
+  {
+    "id": "57c6bb91-27dd-4970-845d-0c7516025461",
+    "at": "2026-10-24T17:31:48.222Z",
+    "actor": "system",
+    "role": "super_admin",
+    "action": "system.migrate",
+    "target": "schema_v2",
+    "level": "info",
+    "details": "Initialized normalized content store, OEM directory, and admin audit log."
+  }
+]

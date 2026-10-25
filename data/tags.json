@@ -1,0 +1,248 @@
+[
+  {
+    "id": "tag-bull-machines",
+    "name": "BULL Machines",
+    "slug": "bull-machines",
+    "createdAt": "2026-10-23T18:41:37.044Z"
+  },
+  {
+    "id": "tag-backhoe-loaders",
+    "name": "Backhoe Loaders",
+    "slug": "backhoe-loaders",
+    "createdAt": "2026-10-23T18:41:37.044Z"
+  },
+  {
+    "id": "tag-construction-equipment",
+    "name": "Construction Equipment",
+    "slug": "construction-equipment",
+    "createdAt": "2026-10-23T18:41:37.044Z"
+  },
+  {
+    "id": "tag-buying-guide",
+    "name": "Buying guide",
+    "slug": "buying-guide",
+    "createdAt": "2026-10-23T18:41:37.054Z"
+  },
+  {
+    "id": "tag-commercial-vehicles",
+    "name": "Commercial Vehicles",
+    "slug": "commercial-vehicles",
+    "createdAt": "2026-10-23T18:41:37.064Z"
+  },
+  {
+    "id": "tag-tipper-trucks",
+    "name": "Tipper Trucks",
+    "slug": "tipper-trucks",
+    "createdAt": "2026-10-23T18:41:37.064Z"
+  },
+  {
+    "id": "tag-fleet-management",
+    "name": "Fleet Management",
+    "slug": "fleet-management",
+    "createdAt": "2026-10-23T18:41:37.064Z"
+  },
+  {
+    "id": "tag-earthmoving",
+    "name": "Earthmoving",
+    "slug": "earthmoving",
+    "createdAt": "2026-10-23T18:41:37.064Z"
+  },
+  {
+    "id": "tag-technology",
+    "name": "Technology",
+    "slug": "technology",
+    "createdAt": "2026-10-23T18:41:37.075Z"
+  },
+  {
+    "id": "tag-hydraulics",
+    "name": "Hydraulics",
+    "slug": "hydraulics",
+    "createdAt": "2026-10-23T18:41:37.075Z"
+  },
+  {
+    "id": "tag-telematics",
+    "name": "Telematics",
+    "slug": "telematics",
+    "createdAt": "2026-10-23T18:41:37.075Z"
+  },
+  {
+    "id": "tag-electrification",
+    "name": "Electrification",
+    "slug": "electrification",
+    "createdAt": "2026-10-23T18:41:37.075Z"
+  },
+  {
+    "id": "tag-events-exhibitions",
+    "name": "Events & Exhibitions",
+    "slug": "events-exhibitions",
+    "createdAt": "2026-10-23T18:41:37.086Z"
+  },
+  {
+    "id": "tag-excon",
+    "name": "EXCON",
+    "slug": "excon",
+    "createdAt": "2026-10-23T18:41:37.086Z"
+  },
+  {
+    "id": "tag-bauma",
+    "name": "Bauma",
+    "slug": "bauma",
+    "createdAt": "2026-10-23T18:41:37.086Z"
+  },
+  {
+    "id": "tag-conexpo",
+    "name": "CONEXPO",
+    "slug": "conexpo",
+    "createdAt": "2026-10-23T18:41:37.086Z"
+  },
+  {
+    "id": "tag-new-launches",
+    "name": "New Launches",
+    "slug": "new-launches",
+    "createdAt": "2026-10-23T18:41:37.093Z"
+  },
+  {
+    "id": "tag-supersmart",
+    "name": "SuperSmart",
+    "slug": "supersmart",
+    "createdAt": "2026-10-23T18:41:37.100Z"
+  },
+  {
+    "id": "tag-backhoe-loader",
+    "name": "Backhoe loader",
+    "slug": "backhoe-loader",
+    "createdAt": "2026-10-23T18:41:37.100Z"
+  },
+  {
+    "id": "tag-investment",
+    "name": "Investment",
+    "slug": "investment",
+    "createdAt": "2026-10-23T18:41:37.108Z"
+  },
+  {
+    "id": "tag-manufacturing",
+    "name": "Manufacturing",
+    "slug": "manufacturing",
+    "createdAt": "2026-10-23T18:41:37.108Z"
+  },
+  {
+    "id": "tag-exhibition",
+    "name": "Exhibition",
+    "slug": "exhibition",
+    "createdAt": "2026-10-23T18:41:37.116Z"
+  },
+  {
+    "id": "tag-total-cost-of-ownership",
+    "name": "Total cost of ownership",
+    "slug": "total-cost-of-ownership",
+    "createdAt": "2026-10-23T18:41:37.123Z"
+  },
+  {
+    "id": "tag-comparison",
+    "name": "Comparison",
+    "slug": "comparison",
+    "createdAt": "2026-10-25T15:28:24.194Z"
+  },
+  {
+    "id": "tag-jcb",
+    "name": "JCB",
+    "slug": "jcb",
+    "createdAt": "2026-10-25T15:28:24.194Z"
+  },
+  {
+    "id": "tag-case",
+    "name": "CASE",
+    "slug": "case",
+    "createdAt": "2026-10-25T15:28:24.194Z"
+  },
+  {
+    "id": "tag-john-deere",
+    "name": "John Deere",
+    "slug": "john-deere",
+    "createdAt": "2026-10-25T15:28:24.194Z"
+  },
+  {
+    "id": "tag-excavators",
+    "name": "Excavators",
+    "slug": "excavators",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-caterpillar",
+    "name": "Caterpillar",
+    "slug": "caterpillar",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-komatsu",
+    "name": "Komatsu",
+    "slug": "komatsu",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-volvo-ce",
+    "name": "Volvo CE",
+    "slug": "volvo-ce",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-sany",
+    "name": "SANY",
+    "slug": "sany",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-hd-hyundai",
+    "name": "HD Hyundai",
+    "slug": "hd-hyundai",
+    "createdAt": "2026-10-25T15:28:24.211Z"
+  },
+  {
+    "id": "tag-maintenance-guide",
+    "name": "Maintenance Guide",
+    "slug": "maintenance-guide",
+    "createdAt": "2026-10-25T15:28:24.232Z"
+  },
+  {
+    "id": "tag-dpf-scr",
+    "name": "DPF & SCR",
+    "slug": "dpf-scr",
+    "createdAt": "2026-10-25T15:28:24.232Z"
+  },
+  {
+    "id": "tag-undercarriage",
+    "name": "Undercarriage",
+    "slug": "undercarriage",
+    "createdAt": "2026-10-25T15:28:24.232Z"
+  },
+  {
+    "id": "tag-buying-guides",
+    "name": "Buying Guides",
+    "slug": "buying-guides",
+    "createdAt": "2026-10-25T15:28:24.232Z"
+  },
+  {
+    "id": "tag-explainer",
+    "name": "Explainer",
+    "slug": "explainer",
+    "createdAt": "2026-10-25T15:28:24.245Z"
+  },
+  {
+    "id": "tag-eu-stage-v",
+    "name": "EU Stage V",
+    "slug": "eu-stage-v",
+    "createdAt": "2026-10-25T15:28:24.245Z"
+  },
+  {
+    "id": "tag-cev-stage-v",
+    "name": "CEV Stage V",
+    "slug": "cev-stage-v",
+    "createdAt": "2026-10-25T15:28:24.245Z"
+  },
+  {
+    "id": "tag-epa-tier-4-final",
+    "name": "EPA Tier 4 Final",
+    "slug": "epa-tier-4-final",
+    "createdAt": "2026-10-25T15:28:24.245Z"
+  }
+]

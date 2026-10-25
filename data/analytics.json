@@ -1,0 +1,26 @@
+{
+  "regionViews": {},
+  "articleViews": {},
+  "updatedAt": "2026-10-25T16:24:07.442Z",
+  "categoryViews": {
+    "construction-equipment": 2,
+    "backhoe-loaders": 1,
+    "brands": 1,
+    "technology": 1,
+    "business": 1,
+    "reviews": 1,
+    "guides": 1,
+    "regions": 1
+  },
+  "manufacturerViews": {},
+  "modelViews": {},
+  "searchQueries": {},
+  "engagementEvents": {
+    "shareClicks": 0,
+    "sourceLinkClicks": 0,
+    "newsletterViews": 0,
+    "newsletterConversions": 0,
+    "totalReadSeconds": 0,
+    "readSamples": 0
+  }
+}

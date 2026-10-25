@@ -1,0 +1,13 @@
+[
+  {
+    "id": "adm-editorial-admin",
+    "username": "editorial-admin",
+    "email": "editor@machinewire.local",
+    "role": "super_admin",
+    "active": true,
+    "lastLoginAt": "2026-10-25T16:16:52.413Z",
+    "createdAt": "2026-10-23T18:41:37.030Z",
+    "updatedAt": "2026-10-25T16:16:52.414Z",
+    "passwordHash": "scrypt:4dcecf4ae582e4b28a408ad4d78fb283:7fef8a35ffee73d288a400a80e0533933c8f6f541d7efce320e0289d7a3e41edaabc313f25b1b6a7d756a755446a77c634b202e965c53d6b624b68b6aa36a927"
+  }
+]

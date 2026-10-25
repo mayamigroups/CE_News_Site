@@ -1,0 +1,1111 @@
+[
+  {
+    "id": "welcome-to-the-magazine",
+    "title": "Welcome to your construction equipment news desk",
+    "slug": "welcome-to-the-magazine",
+    "summary": "A new destination for backhoe loader updates, Bull Machines news, product launches and the global construction equipment industry.",
+    "excerpt": "A new destination for backhoe loader updates, Bull Machines news, product launches and the global construction equipment industry.",
+    "body": "This is the first demonstration story in the Bull Machines News website. Replace it with a verified report before launching publicly.\n\nOur editorial focus is construction equipment, backhoe loaders, manufacturer announcements, product launches, technology and industry developments. Every published article should link to reliable sources and clearly distinguish confirmed facts from analysis.\n\nUse the admin panel to create, edit and publish your own articles.",
+    "category": "Industry News",
+    "categoryId": "cat-industry-news",
+    "manufacturer": "Bull Machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Backhoe loader",
+    "model": "Full Lineup",
+    "equipmentModelId": "mdl-bull-machines-full-lineup",
+    "powerType": "Diesel",
+    "country": "India",
+    "countryId": "cty-india",
+    "region": "Asia-Pacific",
+    "regionId": "reg-asia-pacific",
+    "articleType": "news",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/"
+    ],
+    "tags": [
+      "Bull Machines",
+      "Backhoe Loaders",
+      "Construction Equipment"
+    ],
+    "specs": {
+      "Primary Focus": "Backhoe Loaders & Construction Equipment",
+      "Headquarters": "Coimbatore, India",
+      "Coverage Scope": "Global OEM & Fleet Intelligence"
+    },
+    "seo": {
+      "metaTitle": "Welcome to your construction equipment news desk",
+      "metaDescription": "A new destination for backhoe loader updates, Bull Machines news, product launches and the global construction equipment industry.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": true,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-22T09:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T09:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.840Z",
+    "updateHistory": [
+      {
+        "id": "e9294e49-a752-4c72-9962-30ef9a61ed25",
+        "at": "2026-10-23T18:41:37.034Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "imageCredit",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "backhoe-loader-buyers-guide-demo",
+    "title": "What to compare before choosing a backhoe loader",
+    "slug": "backhoe-loader-buyers-guide-demo",
+    "summary": "A practical checklist covering digging performance, loader capacity, service support, operating costs and the worksite conditions that matter.",
+    "excerpt": "A practical checklist covering digging performance, loader capacity, service support, operating costs and the worksite conditions that matter.",
+    "body": "This demonstration guide outlines the questions buyers can ask when comparing backhoe loaders.\n\nCompare the intended application, digging depth, bucket capacity, breakout force, machine dimensions, operator comfort, fuel use, service network, parts availability, warranty and total cost of ownership. Verify every model-specific figure against the manufacturer's current documentation.\n\nThis is evergreen editorial guidance, not a product specification or a recommendation for a particular model.",
+    "category": "Buying Guides",
+    "categoryId": "cat-buying-guides",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Backhoe loader",
+    "model": "Multi-brand Comparison",
+    "equipmentModelId": "mdl-all-manufacturers-multi-brand-comparison",
+    "powerType": "Diesel / Stage V / BS-V",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "guide",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/"
+    ],
+    "tags": [
+      "Backhoe Loaders",
+      "Buying Guide"
+    ],
+    "specs": {
+      "Equipment Class": "Center-pivot & Sideshift Backhoe Loaders",
+      "Key Metrics": "Digging Depth, Breakout Force, Hydraulic Flow",
+      "Evaluation Focus": "Total Cost of Ownership & Parts Network"
+    },
+    "seo": {
+      "metaTitle": "What to compare before choosing a backhoe loader",
+      "metaDescription": "A practical checklist covering digging performance, loader capacity, service support, operating costs and the worksite conditions that matter.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-21T08:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-21T08:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.855Z",
+    "updateHistory": [
+      {
+        "id": "1c5f614b-3907-4ba1-8245-a43ad14ec33b",
+        "at": "2026-10-23T18:41:37.045Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "imageCredit",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "global-commercial-vehicles-tipper-fleet-guide",
+    "title": "Evaluating heavy tipper and vocational truck specifications for site earthmoving",
+    "slug": "evaluating-heavy-tipper-and-vocational-truck-specifications-for-site-earthmoving",
+    "summary": "How fleet managers match axle configurations, GVW ratings, gradeability and body construction to quarry, mining and highway infrastructure contracts.",
+    "excerpt": "How fleet managers match axle configurations, GVW ratings, gradeability and body construction to quarry, mining and highway infrastructure contracts.",
+    "body": "Selecting vocational trucks and multi-axle tippers for heavy civil engineering requires balancing payload efficiency against site traction and driveline durability.\n\nFleet managers evaluating 6x4 and 8x4 tippers should compare gross vehicle weight (GVW) limits, engine torque curves at low RPM, crawler gear ratios, hub-reduction axles and high-tensile steel rock or box bodies. Equally important are telematics integration, braking retardation on haul roads and authorized service turnarounds near project corridors.\n\nAlways consult official chassis body-builder guidelines and homologated axle load regulations in your operating jurisdiction before finalizing fleet procurement.",
+    "category": "Commercial Vehicles",
+    "categoryId": "cat-commercial-vehicles",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Heavy tipper truck",
+    "model": "6x4 & 8x4 Vocational Platforms",
+    "equipmentModelId": "mdl-various-6x4-8x4-vocational-platforms",
+    "powerType": "Diesel / LNG / Electric",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "review",
+    "author": "Commercial Vehicles Desk",
+    "authorId": "aut-commercial-vehicles-desk",
+    "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "sourceUrl": "https://www.acea.auto/",
+    "sourceUrls": [
+      "https://www.acea.auto/"
+    ],
+    "tags": [
+      "Commercial Vehicles",
+      "Tipper Trucks",
+      "Fleet Management",
+      "Earthmoving"
+    ],
+    "specs": {
+      "Axle Configurations": "4x2, 6x4, 8x4 Rigid & Articulated",
+      "Body Types": "Box Body, Rock Body, U-Shape Tipper",
+      "Driveline Checkpoints": "Hub Reduction, Crawler Gear, Aux Braking"
+    },
+    "seo": {
+      "metaTitle": "Evaluating heavy tipper and vocational truck specifications for site earthmoving",
+      "metaDescription": "How fleet managers match axle configurations, GVW ratings, gradeability and body construction to quarry, mining and highway infrastructure contracts.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-20T11:30:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-20T11:30:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.869Z",
+    "updateHistory": [
+      {
+        "id": "b70d03f2-38a8-451e-922a-14137f5acdb3",
+        "at": "2026-10-23T18:41:37.055Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "imageCredit",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "powertrain-hydraulics-telematics-architecture-guide",
+    "title": "Machine architecture: Load-sensing hydraulics, telematics and worksite electrification",
+    "slug": "machine-architecture-load-sensing-hydraulics-telematics-and-worksite-electrification",
+    "summary": "A technical breakdown of closed-center load-sensing hydraulic systems, ISO 15143-3 (AEMP 2.0) fleet telematics and battery-electric compact machinery.",
+    "excerpt": "A technical breakdown of closed-center load-sensing hydraulic systems, ISO 15143-3 (AEMP 2.0) fleet telematics and battery-electric compact machinery.",
+    "body": "Modern earthmoving and material-handling equipment relies on integrated electronic-hydraulic control architectures to reduce fuel burn per ton moved.\n\nVariable-displacement axial piston pumps paired with load-sensing directional valves deliver hydraulic flow only on demand, cutting parasitic losses during roading and combined boom-swing cycles. On the digital side, standardized ISO 15143-3 (AEMP 2.0) telematics feeds allow mixed-fleet contractors to track idle-to-work ratios, fault codes, DEF levels and geofenced utilization in a single dashboard.\n\nMeanwhile, battery-electric compact excavators, wheel loaders and urban utility trucks are seeing targeted deployment in zero-emission municipal zones and indoor demolition where low noise and zero tailpipe exhaust outweigh charging infrastructure constraints.",
+    "category": "Technology",
+    "categoryId": "cat-technology",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Excavators & Loaders",
+    "model": "Next-Gen Hydraulic & EV Architecture",
+    "equipmentModelId": "mdl-various-next-gen-hydraulic-ev-architecture",
+    "powerType": "Hybrid / Battery-Electric / Diesel",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "analysis",
+    "author": "Technology & Powertrains Desk",
+    "authorId": "aut-technology-powertrains-desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "sourceUrl": "https://www.iso.org/standard/66768.html",
+    "sourceUrls": [
+      "https://www.iso.org/standard/66768.html"
+    ],
+    "tags": [
+      "Technology",
+      "Hydraulics",
+      "Telematics",
+      "Electrification"
+    ],
+    "specs": {
+      "Hydraulic System": "Closed-Center Load Sensing (CCLS)",
+      "Telematics Standard": "ISO 15143-3 / AEMP 2.0 API",
+      "Powertrain Scope": "Tier 4F / Stage V / CEV Stage V & BEV"
+    },
+    "seo": {
+      "metaTitle": "Machine architecture: Load-sensing hydraulics, telematics and worksite electrification",
+      "metaDescription": "A technical breakdown of closed-center load-sensing hydraulic systems, ISO 15143-3 (AEMP 2.0) fleet telematics and battery-electric compact machinery.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-19T14:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-19T14:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.882Z",
+    "updateHistory": [
+      {
+        "id": "19ca5890-5a9f-4410-8e56-9e78cce2978a",
+        "at": "2026-10-23T18:41:37.066Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "imageCredit",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "international-trade-shows-calendar-guide",
+    "title": "Global construction machinery and commercial vehicle trade show guide",
+    "slug": "global-construction-machinery-and-commercial-vehicle-trade-show-guide",
+    "summary": "How engineering, procurement and dealer teams track major exhibitions across India (EXCON), Europe (Bauma, IAA Transportation) and North America (CONEXPO).",
+    "excerpt": "How engineering, procurement and dealer teams track major exhibitions across India (EXCON), Europe (Bauma, IAA Transportation) and North America (CONEXPO).",
+    "body": "International trade exhibitions remain the primary venue where heavy equipment and commercial vehicle OEMs unveil production-ready machines, attachments and emissions-compliant powertrains.\n\nMajor industry events include EXCON in Bengaluru for South Asian earthmoving and infrastructure machinery, Bauma in Munich for global construction and mining technology, CONEXPO-CON/AGG in Las Vegas for North American contractors, and IAA Transportation in Hannover for commercial trucks, buses and logistics fleets.\n\nWhen covering exhibition announcements, our editorial desk distinguishes live production releases available for order from concept prototypes and regional specification previews.",
+    "category": "Events & Exhibitions",
+    "categoryId": "cat-events-exhibitions",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Construction & Commercial Vehicles",
+    "model": "Exhibition Calendar",
+    "equipmentModelId": "mdl-all-manufacturers-exhibition-calendar",
+    "powerType": "All Powertrains",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "guide",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "https://images.unsplash.com/photo-1541888946425-d09bb18086f6?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "sourceUrl": "https://www.excon.in/",
+    "sourceUrls": [
+      "https://www.excon.in/",
+      "https://bauma.de/",
+      "https://www.conexpoconagg.com/"
+    ],
+    "tags": [
+      "Events & Exhibitions",
+      "EXCON",
+      "Bauma",
+      "CONEXPO",
+      "Commercial Vehicles"
+    ],
+    "specs": {
+      "South Asia Hub": "EXCON (Bengaluru, India)",
+      "European Hubs": "Bauma (Munich) & IAA Transportation",
+      "North America Hub": "CONEXPO-CON/AGG (Las Vegas)"
+    },
+    "seo": {
+      "metaTitle": "Global construction machinery and commercial vehicle trade show guide",
+      "metaDescription": "How engineering, procurement and dealer teams track major exhibitions across India (EXCON), Europe (Bauma, IAA Transportation) and North America (CONEXPO).",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1541888946425-d09bb18086f6?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-18T10:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-18T10:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.896Z",
+    "updateHistory": [
+      {
+        "id": "d5e976b2-b02b-497d-ba73-1dc5605b85de",
+        "at": "2026-10-23T18:41:37.077Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "imageCredit",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "future-launches-draft",
+    "title": "Draft: Upcoming construction equipment launches",
+    "slug": "upcoming-construction-equipment-launches-draft",
+    "summary": "An unpublished draft for your editorial team to replace with a verified launch announcement.",
+    "excerpt": "An unpublished draft for your editorial team to replace with a verified launch announcement.",
+    "body": "Draft only. Add verified information, a primary source, publication date and editorial review before publishing.",
+    "category": "New Launches",
+    "categoryId": "cat-new-launches",
+    "manufacturer": "To be confirmed",
+    "manufacturerId": "mfg-to-be-confirmed",
+    "equipmentType": "Construction equipment",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "news",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "",
+    "sourceUrls": [],
+    "tags": [
+      "New Launches"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "Draft: Upcoming construction equipment launches",
+      "metaDescription": "An unpublished draft for your editorial team to replace with a verified launch announcement.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "draft",
+    "pipelineStage": "DRAFT",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T09:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.909Z",
+    "updateHistory": [
+      {
+        "id": "93ee617b-52c4-498c-a9ac-27651125813c",
+        "at": "2026-10-23T18:41:37.088Z",
+        "by": "System Migration",
+        "status": "draft",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "bc59bc79-1933-40d1-94e7-8900b43b2c05",
+    "title": "BULL Machines SuperSmart Backhoe Loader: Product Announcement Review",
+    "slug": "bull-machines-supersmart-backhoe-loader-product-announcement-review",
+    "summary": "A draft based on a reported company announcement. Verify the original release, model details and date before publication.",
+    "excerpt": "A draft based on a reported company announcement. Verify the original release, model details and date before publication.",
+    "body": "Company announcement draft: BULL Machines has been reported to introduce the SuperSmart backhoe loader with multiple engine options and an efficiency-focused feature set. Before publishing, confirm the launch date, exact engine variants, APM feature description and all performance claims against the original company release. Do not treat this draft as verified reporting.",
+    "category": "New Launches",
+    "categoryId": "cat-new-launches",
+    "manufacturer": "Bull Machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Backhoe loader",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "India",
+    "countryId": "cty-india",
+    "region": "Asia-Pacific",
+    "regionId": "reg-asia-pacific",
+    "articleType": "company-announcement",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "https://www.bullindia.com/bull-machines-unveils.php",
+    "sourceUrls": [
+      "https://www.bullindia.com/bull-machines-unveils.php"
+    ],
+    "tags": [
+      "BULL Machines",
+      "SuperSmart",
+      "Backhoe loader"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "BULL Machines SuperSmart Backhoe Loader: Product Announcement Review",
+      "metaDescription": "A draft based on a reported company announcement. Verify the original release, model details and date before publication.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "review",
+    "pipelineStage": "REVIEW",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T00:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.916Z",
+    "updateHistory": [
+      {
+        "id": "2cbce7c2-4fea-4b27-8982-5637aa6715bc",
+        "at": "2026-10-23T18:41:37.093Z",
+        "by": "System Migration",
+        "status": "review",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "5091afa9-8c7c-469f-b659-14c65611de06",
+    "title": "BULL Machines Investment and Production Expansion Plan",
+    "slug": "bull-machines-investment-and-production-expansion-plan",
+    "summary": "A draft about a reported investment plan; confirm whether targets were announced and later achieved.",
+    "excerpt": "A draft about a reported investment plan; confirm whether targets were announced and later achieved.",
+    "body": "Draft for editorial verification. A company announcement was reported to describe a planned investment and an intended increase in annual production capacity. Verify the exact investment amount, fiscal year, capacity baseline, target capacity and whether the plan has since changed. Clearly distinguish an announced target from a completed expansion.",
+    "category": "Industry News",
+    "categoryId": "cat-industry-news",
+    "manufacturer": "Bull Machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Construction equipment",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "India",
+    "countryId": "cty-india",
+    "region": "Asia-Pacific",
+    "regionId": "reg-asia-pacific",
+    "articleType": "company-announcement",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "https://www.bullindia.com/bull-machines-reveals-120cr.php",
+    "sourceUrls": [
+      "https://www.bullindia.com/bull-machines-reveals-120cr.php"
+    ],
+    "tags": [
+      "BULL Machines",
+      "Investment",
+      "Manufacturing"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "BULL Machines Investment and Production Expansion Plan",
+      "metaDescription": "A draft about a reported investment plan; confirm whether targets were announced and later achieved.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "review",
+    "pipelineStage": "REVIEW",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T00:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.926Z",
+    "updateHistory": [
+      {
+        "id": "8e2c3cbb-cdc6-4be6-8e6d-22930eba93f0",
+        "at": "2026-10-23T18:41:37.101Z",
+        "by": "System Migration",
+        "status": "review",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "2ad3e483-ba45-4fe6-ad5f-5a194c7380ec",
+    "title": "BULL Machines at EXCON 2025: Equipment Lineup",
+    "slug": "bull-machines-at-excon-2025-equipment-lineup",
+    "summary": "A draft overview of a reported exhibition appearance. Confirm the official show recap and model list.",
+    "excerpt": "A draft overview of a reported exhibition appearance. Confirm the official show recap and model list.",
+    "body": "Draft for editorial review. BULL Machines was reported to have displayed several equipment categories at EXCON 2025. Verify the official exhibition recap, exact product names and model numbers, and the dates of the event before publication. Add official images only when permitted and credit the source.",
+    "category": "Events & Exhibitions",
+    "categoryId": "cat-events-exhibitions",
+    "manufacturer": "Bull Machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Construction equipment",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "India",
+    "countryId": "cty-india",
+    "region": "Asia-Pacific",
+    "regionId": "reg-asia-pacific",
+    "articleType": "company-announcement",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "https://www.bullindia.com/about-us.php",
+    "sourceUrls": [
+      "https://www.bullindia.com/about-us.php"
+    ],
+    "tags": [
+      "BULL Machines",
+      "EXCON",
+      "Exhibition"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "BULL Machines at EXCON 2025: Equipment Lineup",
+      "metaDescription": "A draft overview of a reported exhibition appearance. Confirm the official show recap and model list.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "review",
+    "pipelineStage": "REVIEW",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T00:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.935Z",
+    "updateHistory": [
+      {
+        "id": "b433d386-fb71-4232-a084-799e8f46aaf0",
+        "at": "2026-10-23T18:41:37.109Z",
+        "by": "System Migration",
+        "status": "review",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "6874aa6b-4eed-489c-bd63-445d850243e8",
+    "title": "How to Compare Backhoe Loaders for Your Worksite",
+    "slug": "how-to-compare-backhoe-loaders-for-your-worksite",
+    "summary": "An evergreen buyer guide covering application, specifications, service access and total ownership cost.",
+    "excerpt": "An evergreen buyer guide covering application, specifications, service access and total ownership cost.",
+    "body": "A backhoe loader should be selected for the work it will actually perform. Buyers should compare digging depth, bucket capacity, breakout forces, loader performance, dimensions, transport needs, fuel consumption, operator comfort, safety equipment, service coverage, spare-parts availability and warranty terms. Compare figures only from current manufacturer brochures and test the machine in representative conditions where possible. This is general guidance, not a model-specific recommendation.",
+    "category": "Buying Guides",
+    "categoryId": "cat-buying-guides",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Backhoe loader",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "guide",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "https://www.bullindia.com/",
+    "sourceUrls": [
+      "https://www.bullindia.com/"
+    ],
+    "tags": [
+      "Backhoe loader",
+      "Buying guide",
+      "Total cost of ownership"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "How to Compare Backhoe Loaders for Your Worksite",
+      "metaDescription": "An evergreen buyer guide covering application, specifications, service access and total ownership cost.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "review",
+    "pipelineStage": "REVIEW",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T00:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.945Z",
+    "updateHistory": [
+      {
+        "id": "a3924dd0-daa8-4163-a21d-7ac81e99f405",
+        "at": "2026-10-23T18:41:37.116Z",
+        "by": "System Migration",
+        "status": "review",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "6687c70d-1d8e-465a-a8c8-a0dc4fe94ffa",
+    "title": "Construction Equipment Technology to Watch: Hydraulics, Telematics and Electrification",
+    "slug": "construction-equipment-technology-to-watch-hydraulics-telematics-and-electrification",
+    "summary": "An analysis draft requiring current examples and primary-source references before publication.",
+    "excerpt": "An analysis draft requiring current examples and primary-source references before publication.",
+    "body": "Analysis draft. Construction equipment technology coverage can examine hydraulic efficiency, machine telematics, operator-assistance systems, predictive maintenance and electrification. To turn this into a publishable article, add dated examples from manufacturers, distinguish announced prototypes from commercially available products, and cite primary documentation for every technical claim.",
+    "category": "Technology",
+    "categoryId": "cat-technology",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Construction equipment",
+    "model": "",
+    "equipmentModelId": null,
+    "powerType": "",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "analysis",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "",
+    "imageCredit": "",
+    "sourceUrl": "",
+    "sourceUrls": [],
+    "tags": [
+      "Technology",
+      "Hydraulics",
+      "Telematics",
+      "Electrification"
+    ],
+    "specs": {},
+    "seo": {
+      "metaTitle": "Construction Equipment Technology to Watch: Hydraulics, Telematics and Electrification",
+      "metaDescription": "An analysis draft requiring current examples and primary-source references before publication.",
+      "canonicalUrl": "",
+      "ogImage": "",
+      "keywords": [],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "review",
+    "pipelineStage": "REVIEW",
+    "scheduledAt": "",
+    "publishedAt": "",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-22T00:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.955Z",
+    "updateHistory": [
+      {
+        "id": "9c8ee7aa-3a04-4839-9881-2724590c904a",
+        "at": "2026-10-23T18:41:37.124Z",
+        "by": "System Migration",
+        "status": "review",
+        "action": "updated",
+        "changedFields": [
+          "summary",
+          "region",
+          "seo"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "backhoe-loader-center-pivot-vs-sideshift-comparison",
+    "title": "Center-Pivot vs. Sideshift Backhoe Loaders: Kinematics, Stabilizer Footprint and Worksite Comparison",
+    "slug": "center-pivot-vs-sideshift-backhoe-loaders-kinematics-worksite-comparison",
+    "summary": "An engineering and fleet comparison of center-pivot and sideshift backhoe loader carriage architectures across trenching stability, urban road width, and attachment versatility.",
+    "excerpt": "An engineering and fleet comparison of center-pivot and sideshift backhoe loader carriage architectures across trenching stability, urban road width, and attachment versatility.",
+    "body": "### Architectural Differences: Center-Pivot vs. Sideshift Kingpost\n\nWhen evaluating [Backhoe Loaders](/category/backhoe-loaders) across global regional markets, the primary structural distinction lies in the rear excavator mounting frame and stabilizer geometry:\n\n1. **Center-Pivot Architecture (Fixed Center Kingpost):** Predominant in [North America](/north-america/) and heavy utility corridors, center-pivot machines mount the boom swing casting at a fixed centerline point behind the rear axle, paired with wide-stance folding box-section outrigger stabilizers. Platforms such as the [John Deere 310 P-Tier](/models/john-deere-310-p-tier-backhoe-loader) and [CASE 580SV Construction King](/models/case-580sv-construction-king-backhoe) exemplify this configuration.\n2. **Sideshift Architecture (Hydraulically Clamped Sliding Kingpost):** Predominant across [India](/india/), [Europe](/europe/), and urban civil worksites, sideshift backhoe loaders mount the kingpost on parallel rear main-frame rails with hydraulic clamping cylinders and vertical drop-leg stabilizers. Reference platforms include the [BULL Machines HD76 Backhoe Loader](/models/bull-machines-hd76-backhoe-loader) and [JCB 3DX Backhoe Loader](/models/jcb-3dx-backhoe-loader).\n\n### Worksite & Operational Comparison Matrix\n\n- **Trenching Along Walls & Curbs:** Sideshift frames allow the operator to slide the kingpost laterally across the rear rail, enabling parallel trenching flush against boundary walls or highway barriers without repositioning the tractor chassis.\n- **Slope Levelling & Outrigger Footprint:** Center-pivot angled outriggers provide a wider lateral stance for straddling wide trenches on uneven right-of-way terrain, whereas vertical sideshift stabilizers minimize street lane encroachment in congested municipal zones.\n- **Transport Length & Visibility:** Sideshift booms fold transversely across the rear frame during roading, shortening overall transport overhang and improving rear-quarter sightlines.\n\n### Procurement Verification Checklist\n\nFleet managers should compare dipper tearout force, loader hinge-pin height, auxiliary hydraulic circuit flow for breakers, and local parts availability via the [MachineWire Equipment Model Directory](/models) and [Manufacturer Profiles](/manufacturers). Always verify exact operating weights and digging envelopes directly against the manufacturer's current regional brochure.",
+    "category": "Reviews & Comparisons",
+    "categoryId": "cat-reviews-comparisons",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Backhoe loader",
+    "model": "HD76, 3DX, 580SV & 310 P-Tier",
+    "equipmentModelId": "mdl-various-hd76-3dx-580sv-310-p-tier",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "review",
+    "author": "Technology & Powertrains Desk",
+    "authorId": "aut-technology-powertrains-desk",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Official OEM Comparison Guide",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/",
+      "https://www.jcb.com/",
+      "https://www.casece.com/",
+      "https://www.deere.com/"
+    ],
+    "tags": [
+      "Backhoe Loaders",
+      "Comparison",
+      "BULL Machines",
+      "JCB",
+      "CASE",
+      "John Deere"
+    ],
+    "specs": {
+      "Comparison Scope": "Center-Pivot vs. Sideshift Backhoe Loader Architectures",
+      "Reference Models": "BULL HD76, JCB 3DX, CASE 580SV, John Deere 310 P-Tier",
+      "Key Decision Factors": "Curb-Side Trenching, Stabilizer Width, Roading Overhang",
+      "Verification Rule": "Consult official OEM brochure for regional homologation specs"
+    },
+    "seo": {
+      "metaTitle": "Center-Pivot vs. Sideshift Backhoe Loaders Comparison | MACHINEWIRE",
+      "metaDescription": "Engineering comparison of center-pivot vs. sideshift backhoe loaders (BULL HD76, JCB 3DX, CASE 580SV, John Deere 310 P-Tier) for urban and civil worksites.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [
+        "center pivot vs sideshift backhoe",
+        "backhoe loader comparison",
+        "BULL HD76",
+        "JCB 3DX",
+        "CASE 580SV"
+      ],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-17T09:30:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-17T09:30:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.963Z",
+    "updateHistory": [
+      {
+        "id": "c0d57c5e-f3e1-4c0a-a934-122a5514803f",
+        "at": "2026-10-25T15:28:24.185Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "featured"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "20-tonne-crawler-excavator-class-comparison",
+    "title": "20-Tonne Class Hydraulic Crawler Excavators: Comparing Hydraulic Control, Undercarriage & Telematics Systems",
+    "slug": "20-tonne-crawler-excavator-comparison-hydraulics-undercarriage-telematics",
+    "summary": "How fleet engineers evaluate 20-to-22-tonne class crawler excavators across Caterpillar, Komatsu, Volvo CE, SANY and HD Hyundai for earthmoving and quarry production.",
+    "excerpt": "How fleet engineers evaluate 20-to-22-tonne class crawler excavators across Caterpillar, Komatsu, Volvo CE, SANY and HD Hyundai for earthmoving and quarry production.",
+    "body": "### The Global Benchmark Class in Earthmoving\n\nThe 20-to-22-tonne crawler [Excavators](/category/excavators) segment represents the highest-volume heavy earthmoving class worldwide, balancing highway lowbed transportability with high-cycle trenching, bulk excavation, and multi-axle tipper loading.\n\n### Comparing Core OEM Engineering Approaches\n\nAcross the verified platforms in the [MachineWire Equipment Model Directory](/models), leading manufacturers differentiate their 20-tonne class architectures through hydraulic valve control and digital operator assist:\n\n- **Caterpillar ([Cat 320 Hydraulic Excavator](/models/caterpillar-320-hydraulic-excavator)):** Integrates electro-hydraulic main control valves with factory-standard Cat Grade 2D, Grade Assist, and Payload on-board weighing.\n- **Komatsu ([PC210-10M0 Hydraulic Excavator](/models/komatsu-pc210-10m0-hydraulic-excavator)):** UtilizesKomatsu's proprietary Closed-Center Load Sensing System (CLSS) hydraulic architecture and KOMTRAX fleet monitoring.\n- **Volvo Construction Equipment ([EC210 Crawler Excavator](/models/volvo-ec210-crawler-excavator)):** Features electro-hydraulic pump flow optimization, boom/swing priority functions, and optional Dig Assist via Volvo Co-Pilot.\n- **SANY ([SY215C Hydraulic Excavator](/models/sany-sy215c-hydraulic-excavator)):** Employs positive-flow electronically controlled hydraulics tailored for heavy civil infrastructure across [China](/china/), [India](/india/), and [Southeast Asia](/southeast-asia/).\n- **HD Hyundai ([HX220L Crawler Excavator](/models/hd-hyundai-hx220l-crawler-excavator)):** Pairs Intelligent Power Control (IPC) pump regulation with Hi MATE remote diagnostics and optional 360-degree AAVM camera systems.\n\n### Fleet Evaluation Criteria\n\nRather than relying on headline engine horsepower alone, equipment directors should compare hydraulic flow regeneration during boom-down motions, track link pin sealing, bucket linkage pin diameters, and filter grouping for ground-level preventive maintenance.",
+    "category": "Excavators",
+    "categoryId": "cat-excavators",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Hydraulic excavator",
+    "model": "Cat 320, Komatsu PC210, Volvo EC210, SANY SY215C, HD Hyundai HX220L",
+    "equipmentModelId": "mdl-various-cat-320-komatsu-pc210-volvo-ec210-sany-sy215c-hd-hyundai-hx220l",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "review",
+    "author": "Editorial Desk",
+    "authorId": "aut-editorial-desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Multi-OEM Excavator Class Briefing",
+    "sourceUrl": "https://www.caterpillar.com/",
+    "sourceUrls": [
+      "https://www.caterpillar.com/",
+      "https://www.komatsu.com/",
+      "https://www.volvoce.com/",
+      "https://www.sanyglobal.com/",
+      "https://www.hd-hyundaice.com/"
+    ],
+    "tags": [
+      "Excavators",
+      "Comparison",
+      "Caterpillar",
+      "Komatsu",
+      "Volvo CE",
+      "SANY",
+      "HD Hyundai"
+    ],
+    "specs": {
+      "Equipment Class": "20–22 Tonne Crawler Hydraulic Excavators",
+      "Indexed Models": "Cat 320, Komatsu PC210-10M0, Volvo EC210, SANY SY215C, HD Hyundai HX220L",
+      "Hydraulic Architectures": "Electro-Hydraulic, CLSS Closed-Center, Positive Flow, IPC",
+      "Telematics Standards": "ISO 15143-3 (AEMP 2.0) Mixed-Fleet Compatible"
+    },
+    "seo": {
+      "metaTitle": "20-Tonne Crawler Excavator Comparison: Cat 320, Komatsu PC210, Volvo EC210, SANY SY215C | MACHINEWIRE",
+      "metaDescription": "Technical comparison of 20-tonne class crawler excavators across Caterpillar, Komatsu, Volvo CE, SANY and HD Hyundai covering hydraulics and telematics.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [
+        "20 tonne excavator comparison",
+        "Cat 320 vs Komatsu PC210",
+        "Volvo EC210",
+        "SANY SY215C",
+        "HD Hyundai HX220L"
+      ],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-16T11:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-16T11:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.976Z",
+    "updateHistory": [
+      {
+        "id": "9f444f94-6f76-47d6-933a-e95209327980",
+        "at": "2026-10-25T15:28:24.196Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "featured"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "preventive-maintenance-guide-hydraulics-dpf-undercarriage",
+    "title": "Preventive Maintenance Guide: Off-Highway Hydraulic Contamination Control, DPF/SCR Aftertreatment & Undercarriage Life",
+    "slug": "preventive-maintenance-guide-off-highway-hydraulics-dpf-scr-undercarriage",
+    "summary": "A practical maintenance explainer for fleet workshops covering ISO 4406 hydraulic oil cleanliness, Stage V / CEV Stage V DPF-SCR care, pin-and-bushing greasing, and track tensioning.",
+    "excerpt": "A practical maintenance explainer for fleet workshops covering ISO 4406 hydraulic oil cleanliness, Stage V / CEV Stage V DPF-SCR care, pin-and-bushing greasing, and track tensioning.",
+    "body": "### 1. Hydraulic Fluid Cleanliness & Contamination Control (ISO 4406)\n\nOn modern [Construction Equipment](/category/construction-equipment) — including [Backhoe Loaders](/category/backhoe-loaders), [Excavators](/category/excavators), and [Wheel Loaders](/category/wheel-loaders) — electro-hydraulic proportional valves and variable-displacement axial piston pumps operate with micron-level clearances.\n\n- **Breather & Return Filter Discipline:** Replace hydraulic reservoir breathers and return-line filter elements strictly at the intervals specified in the OEM operation and maintenance manual.\n- **Quick-Coupler Hygiene:** When swapping [Attachments](/category/attachments) (such as hydraulic breakers or augers), wipe flat-face auxiliary quick couplers clean before connection to prevent abrasive silica ingress.\n- **Scheduled Oil Sampling:** Use laboratory particle-count analysis (referenced to ISO 4406 cleanliness codes) to detect bronze pump wear or coolant cross-contamination before catastrophic failure occurs.\n\n### 2. Diesel Particulate Filter (DPF) & SCR / DEF Aftertreatment Care\n\nMachines and [Heavy Trucks](/category/heavy-trucks) operating under [India CEV Stage V / BS-VI](/india/), [EU Stage V](/europe/), and [EPA Tier 4 Final](/north-america/) emissions standards rely on Diesel Oxidation Catalysts (DOC), Diesel Particulate Filters (DPF), and Selective Catalytic Reduction (SCR):\n\n- **Avoid Interrupted Active Regenerations:** Train operators not to shut down the engine during an active DPF thermal regeneration unless a worksite safety hazard requires immediate stop.\n- **Hot Shutdown Cooldown:** Allow turbocharged engines to idle briefly before key-off so exhaust gas temperatures stabilize and DEF (AdBlue) dosing injectors can complete their purge cycle.\n- **ISO 22241 DEF Purity:** Store Diesel Exhaust Fluid in sealed, temperature-controlled containers to prevent urea crystallization in SCR dosing valves.\n\n### 3. Crawler Undercarriage & Loader Pin Maintenance\n\nUndercarriage wear accounts for a major share of lifetime maintenance cost on crawler dozers and excavators. Maintain track sag within the OEM's specified ground-condition window: over-tensioned tracks accelerate idler, sprocket, and bushing wear without improving tractive effort.",
+    "category": "Buying Guides",
+    "categoryId": "cat-buying-guides",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Earthmoving & Commercial Fleets",
+    "model": "Fleet Maintenance Protocol",
+    "equipmentModelId": "mdl-all-manufacturers-fleet-maintenance-protocol",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "guide",
+    "author": "Technology & Powertrains Desk",
+    "authorId": "aut-technology-powertrains-desk",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Workshop Maintenance Guide",
+    "sourceUrl": "https://www.iso.org/standard/70917.html",
+    "sourceUrls": [
+      "https://www.iso.org/standard/70917.html",
+      "https://www.oemoffhighway.com/"
+    ],
+    "tags": [
+      "Maintenance Guide",
+      "Hydraulics",
+      "DPF & SCR",
+      "Undercarriage",
+      "Buying Guides"
+    ],
+    "specs": {
+      "Cleanliness Standard": "ISO 4406 Hydraulic Fluid Particle Count",
+      "DEF / AdBlue Standard": "ISO 22241 Aqueous Urea Solution",
+      "Emissions Scope": "EU Stage V, EPA Tier 4 Final, India CEV Stage V & BS-VI",
+      "Primary Goal": "Unplanned Downtime Reduction & Component Life Extension"
+    },
+    "seo": {
+      "metaTitle": "Heavy Equipment Preventive Maintenance Guide: Hydraulics, DPF/SCR & Undercarriage | MACHINEWIRE",
+      "metaDescription": "Practical preventive maintenance guide for construction equipment and heavy trucks covering ISO 4406 hydraulic cleanliness, Stage V DPF/SCR care, and track tension.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [
+        "heavy equipment maintenance guide",
+        "hydraulic contamination ISO 4406",
+        "Stage V DPF maintenance",
+        "excavator undercarriage care"
+      ],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-15T10:15:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-15T10:15:00.000Z",
+    "updatedAt": "2026-10-25T16:11:45.988Z",
+    "updateHistory": [
+      {
+        "id": "e5929b7f-b433-42da-854e-f77edd0a671a",
+        "at": "2026-10-25T15:28:24.214Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "featured"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  },
+  {
+    "id": "off-highway-emissions-explainer-stage-v-tier-4-cev-v",
+    "title": "Technical Explainer: Navigating EU Stage V, US EPA Tier 4 Final, India CEV Stage V and China NRMM IV Off-Highway Emissions",
+    "slug": "off-highway-emissions-explainer-eu-stage-v-epa-tier-4-india-cev-stage-v",
+    "summary": "An engineering explainer comparing global non-road mobile machinery (NRMM) emissions regimes, particulate number (PN) limits, fuel sulfur requirements, and export fleet compatibility.",
+    "excerpt": "An engineering explainer comparing global non-road mobile machinery (NRMM) emissions regimes, particulate number (PN) limits, fuel sulfur requirements, and export fleet compatibility.",
+    "body": "### Why Global Emissions Alignment Matters for Equipment Buyers\n\nAs construction equipment manufacturers in [India](/india/), [China](/china/), [Europe](/europe/), [Japan & South Korea](/japan-south-korea/), and [North America](/north-america/) expand cross-border exports, understanding regional Non-Road Mobile Machinery (NRMM) homologation is essential for fleet procurement and secondary resale.\n\n### Regional Regulatory Breakdown\n\n1. **European Union ([EU Stage V](/europe/)):** Enforces a strict Particulate Number (PN) limit across engine power bands from 19 kW to 560 kW, effectively mandating closed-wall Diesel Particulate Filters (DPF) alongside SCR on medium and heavy machinery.\n2. **United States & Canada ([EPA Tier 4 Final](/north-america/)):** Regulates Particulate Matter (PM) mass and Nitrogen Oxides ($\\text{NO}_x$) to near-zero levels using ultra-low sulfur diesel (ULSD $\\le 15\\text{ ppm}$ sulfur).\n3. **India ([CEV Stage V](/india/)):** Aligns Indian Construction Equipment Vehicles (wheel loaders, backhoe loaders, compactors, cranes, graders) with Stage V particulate and $\\text{NO}_x$ thresholds, enabling Indian OEMs such as [BULL Machines](/manufacturers/bull-machines), [Mahindra](/manufacturers/mahindra), and Indian plants of [JCB](/manufacturers/jcb) and [CASE](/manufacturers/case) to engineer common global powertrain platforms.\n4. **China ([China NRMM Stage IV](/china/)):** Mandates DPF and on-board diagnostics (OBD) monitoring on off-highway diesel machinery produced by OEMs including [SANY](/manufacturers/sany) and [XCMG](/manufacturers/xcmg).\n\n### Export & Secondary Market Implications\n\nContractors deploying machines into regions with higher diesel sulfur content across parts of [Africa](/africa/), the [Middle East](/middle-east/), or [Latin America](/latin-america/) must verify whether a machine requires an OEM-approved high-sulfur export calibration or ultra-low sulfur fuel supply before shipping.",
+    "category": "Technology",
+    "categoryId": "cat-technology",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Off-highway diesel & hybrid powertrains",
+    "model": "NRMM Stage V / Tier 4F / CEV-V Platforms",
+    "equipmentModelId": "mdl-various-nrmm-stage-v-tier-4f-cev-v-platforms",
+    "powerType": "Diesel / Hybrid / Electric",
+    "country": "Global",
+    "countryId": "cty-global",
+    "region": "Global",
+    "regionId": "reg-global",
+    "articleType": "analysis",
+    "author": "Technology & Powertrains Desk",
+    "authorId": "aut-technology-powertrains-desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Regulatory Powertrain Briefing",
+    "sourceUrl": "https://www.energy.gov/news",
+    "sourceUrls": [
+      "https://www.energy.gov/news",
+      "https://www.oemoffhighway.com/"
+    ],
+    "tags": [
+      "Technology",
+      "Explainer",
+      "EU Stage V",
+      "CEV Stage V",
+      "EPA Tier 4 Final"
+    ],
+    "specs": {
+      "Europe Standard": "EU Stage V (Regulation EU 2016/1628 — PN Limit)",
+      "North America Standard": "US EPA Tier 4 Final (40 CFR Part 1039)",
+      "India Standard": "CEV Stage V (MoRTH Non-Road Emissions)",
+      "China Standard": "China NRMM Stage IV (GB 20891)"
+    },
+    "seo": {
+      "metaTitle": "Off-Highway Emissions Explainer: EU Stage V, EPA Tier 4 Final & India CEV Stage V | MACHINEWIRE",
+      "metaDescription": "Technical explainer comparing EU Stage V, US EPA Tier 4 Final, India CEV Stage V, and China IV off-highway construction equipment emissions regulations.",
+      "canonicalUrl": "",
+      "ogImage": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+      "keywords": [
+        "EU Stage V vs Tier 4 Final",
+        "India CEV Stage V",
+        "off-highway emissions explainer",
+        "NRMM regulations"
+      ],
+      "noIndex": false
+    },
+    "verificationNotes": "",
+    "rejectionReason": "",
+    "featured": false,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "scheduledAt": "",
+    "publishedAt": "2026-10-14T13:00:00.000Z",
+    "publicationRecord": null,
+    "newsroomDossier": null,
+    "createdAt": "2026-10-14T13:00:00.000Z",
+    "updatedAt": "2026-10-25T16:11:46.001Z",
+    "updateHistory": [
+      {
+        "id": "3bb418d2-2c12-4efb-af42-456ecaae4959",
+        "at": "2026-10-25T15:28:24.234Z",
+        "by": "System Migration",
+        "status": "published",
+        "action": "updated",
+        "changedFields": [
+          "featured"
+        ],
+        "note": "Normalized to v2 content architecture schema"
+      }
+    ]
+  }
+]

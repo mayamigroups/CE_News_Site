@@ -1,0 +1,640 @@
+[
+  {
+    "id": "mfg-bull-machines",
+    "name": "BULL Machines",
+    "slug": "bull-machines",
+    "country": "India",
+    "countryId": "cty-india",
+    "website": "https://bullmachines.com/",
+    "focus": "Backhoe loaders, construction equipment, skid-steer loaders & tractor attachments",
+    "description": "BULL Machines Pvt. Ltd. is an Indian construction equipment and agricultural attachment manufacturer headquartered in Coimbatore, Tamil Nadu. The company designs and manufactures backhoe loaders, skid-steer loaders, wheel loaders, telehandlers, and tractor-mounted front-end loader and backhoe attachments for domestic infrastructure, rural engineering, and international export markets.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Coimbatore, Tamil Nadu, India",
+    "overview": "BULL Machines Pvt. Ltd. is an Indian construction equipment and agricultural attachment manufacturer headquartered in Coimbatore, Tamil Nadu. The company designs and manufactures backhoe loaders, skid-steer loaders, wheel loaders, telehandlers, and tractor-mounted front-end loader and backhoe attachments for domestic infrastructure, rural engineering, and international export markets.",
+    "equipmentCategories": [
+      "Backhoe Loaders",
+      "Compact Equipment",
+      "Wheel Loaders",
+      "Telehandlers",
+      "Attachments",
+      "Tractors"
+    ],
+    "technologyHighlights": [
+      "CEV Stage IV / Stage V compliant earthmoving diesel powertrains",
+      "Smart hydraulic load-distribution and fuel-economy modes on backhoe loader platforms",
+      "Quick-attach tractor loader and radial backhoe implement engineering"
+    ],
+    "regionalFootprint": [
+      "India",
+      "Middle East",
+      "Africa",
+      "Southeast Asia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://bullmachines.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-jcb",
+    "name": "JCB",
+    "slug": "jcb",
+    "country": "United Kingdom",
+    "countryId": "cty-united-kingdom",
+    "website": "https://www.jcb.com/",
+    "focus": "Backhoe loaders, excavators, telehandlers, wheel loaders & site dumpers",
+    "description": "J.C. Bamford Excavators Limited (JCB) is a British multinational manufacturer of earthmoving, construction, agricultural, and material-handling equipment founded in 1945. Headquartered in Rocester, Staffordshire, JCB operates major manufacturing plants across the United Kingdom, India (Ballabgarh, Pune, Jaipur, Vadodara), North America, and Brazil.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Rocester, Staffordshire, United Kingdom",
+    "overview": "J.C. Bamford Excavators Limited (JCB) is a British multinational manufacturer of earthmoving, construction, agricultural, and material-handling equipment founded in 1945. Headquartered in Rocester, Staffordshire, JCB operates major manufacturing plants across the United Kingdom, India (Ballabgarh, Pune, Jaipur, Vadodara), North America, and Brazil.",
+    "equipmentCategories": [
+      "Backhoe Loaders",
+      "Excavators",
+      "Telehandlers",
+      "Wheel Loaders",
+      "Compact Equipment",
+      "Tractors"
+    ],
+    "technologyHighlights": [
+      "JCB LiveLink fleet telematics and remote diagnostics architecture",
+      "E-TECH battery-electric compact excavators, telehandlers, and site dumpers",
+      "Hydrogen internal combustion engine (H2 ICE) development for off-highway machinery"
+    ],
+    "regionalFootprint": [
+      "Europe",
+      "India",
+      "North America",
+      "Middle East",
+      "Australia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.jcb.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-caterpillar",
+    "name": "Caterpillar",
+    "slug": "caterpillar",
+    "country": "United States",
+    "countryId": "cty-united-states",
+    "website": "https://www.caterpillar.com/",
+    "focus": "Earthmoving, mining, roadbuilding, bulldozers, excavators & industrial power systems",
+    "description": "Caterpillar Inc. is a global manufacturer of construction and mining equipment, off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Through its global Cat dealer network, the company supplies excavators, crawler dozers, wheel loaders, motor graders, articulated trucks, and ultra-class mining haulers.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Irving, Texas, United States",
+    "overview": "Caterpillar Inc. is a global manufacturer of construction and mining equipment, off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Through its global Cat dealer network, the company supplies excavators, crawler dozers, wheel loaders, motor graders, articulated trucks, and ultra-class mining haulers.",
+    "equipmentCategories": [
+      "Excavators",
+      "Bulldozers",
+      "Wheel Loaders",
+      "Graders",
+      "Backhoe Loaders",
+      "Mining Equipment",
+      "Roadbuilding",
+      "Compact Equipment"
+    ],
+    "technologyHighlights": [
+      "Cat Command remote and autonomous haulage and dozing systems",
+      "Cat Grade 2D/3D factory-integrated electro-hydraulic grade control",
+      "VisionLink mixed-fleet telematics and Condition Monitoring services"
+    ],
+    "regionalFootprint": [
+      "North America",
+      "Europe",
+      "China",
+      "Australia",
+      "Latin America",
+      "Middle East",
+      "India",
+      "Africa"
+    ],
+    "officialSources": [
+      "https://www.caterpillar.com/",
+      "https://www.cat.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-komatsu",
+    "name": "Komatsu",
+    "slug": "komatsu",
+    "country": "Japan",
+    "countryId": "cty-japan",
+    "website": "https://www.komatsu.com/",
+    "focus": "Hydraulic excavators, bulldozers, wheel loaders, motor graders & rigid mining dump trucks",
+    "description": "Komatsu Ltd., founded in 1921 and headquartered in Tokyo, Japan, is one of the world’s largest manufacturers of construction, mining, forestry, and utility equipment. Komatsu develops in-house engines, closed-center load-sensing hydraulic components, axles, and autonomous mining haulage systems.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Minato-ku, Tokyo, Japan",
+    "overview": "Komatsu Ltd., founded in 1921 and headquartered in Tokyo, Japan, is one of the world’s largest manufacturers of construction, mining, forestry, and utility equipment. Komatsu develops in-house engines, closed-center load-sensing hydraulic components, axles, and autonomous mining haulage systems.",
+    "equipmentCategories": [
+      "Excavators",
+      "Bulldozers",
+      "Wheel Loaders",
+      "Mining Equipment",
+      "Graders",
+      "Compact Equipment"
+    ],
+    "technologyHighlights": [
+      "Smart Construction digital worksite and Intelligent Machine Control (iMC 2.0)",
+      "Autonomous Haulage System (AHS) FrontRunner for surface mining dump trucks",
+      "KOMTRAX satellite and cellular machine health monitoring"
+    ],
+    "regionalFootprint": [
+      "Japan & South Korea",
+      "North America",
+      "Europe",
+      "Southeast Asia",
+      "Australia",
+      "China",
+      "India",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.komatsu.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-volvo",
+    "name": "Volvo",
+    "slug": "volvo",
+    "country": "Sweden",
+    "countryId": "cty-sweden",
+    "website": "https://www.volvoce.com/",
+    "focus": "Articulated haulers, excavators & heavy commercial trucks",
+    "description": "",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-24T17:08:18.777Z"
+  },
+  {
+    "id": "mfg-case",
+    "name": "CASE",
+    "slug": "case",
+    "country": "United States",
+    "countryId": "cty-united-states",
+    "website": "https://www.casece.com/",
+    "focus": "Backhoe loaders, vibratory compactors, motor graders, skid-steer loaders & excavators",
+    "description": "CASE Construction Equipment, a brand of CNH Industrial founded in 1842 in Racine, Wisconsin, manufactures loader backhoes, excavators, motor graders, wheel loaders, vibratory soil and asphalt compactors, crawler dozers, and compact track loaders across North America, Europe, India (Pithampur), and Latin America.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Racine, Wisconsin, United States",
+    "overview": "CASE Construction Equipment, a brand of CNH Industrial founded in 1842 in Racine, Wisconsin, manufactures loader backhoes, excavators, motor graders, wheel loaders, vibratory soil and asphalt compactors, crawler dozers, and compact track loaders across North America, Europe, India (Pithampur), and Latin America.",
+    "equipmentCategories": [
+      "Backhoe Loaders",
+      "Roadbuilding",
+      "Excavators",
+      "Wheel Loaders",
+      "Graders",
+      "Compact Equipment",
+      "Bulldozers"
+    ],
+    "technologyHighlights": [
+      "Integrated factory loader-backhoe geometry and Pro Control swing dampening",
+      "CASE SiteWatch telematics and SiteConnect remote dealer diagnostics",
+      "Soil and tandem vibratory compaction technologies for highway corridors"
+    ],
+    "regionalFootprint": [
+      "North America",
+      "Europe",
+      "India",
+      "Latin America",
+      "Middle East",
+      "Africa"
+    ],
+    "officialSources": [
+      "https://www.casece.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-tata",
+    "name": "Tata",
+    "slug": "tata",
+    "country": "India",
+    "countryId": "cty-india",
+    "website": "https://www.tatamotors.com/",
+    "focus": "Commercial tipper trucks, prime movers & excavators",
+    "description": "",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-24T17:08:18.777Z"
+  },
+  {
+    "id": "mfg-mahindra",
+    "name": "Mahindra",
+    "slug": "mahindra",
+    "country": "India",
+    "countryId": "cty-india",
+    "website": "https://www.mahindraconstructionequipment.com/",
+    "focus": "Tractors, backhoe loaders, motor graders, heavy commercial trucks & utility pickups",
+    "description": "Mahindra & Mahindra Ltd. (Farm Equipment, Construction Equipment, and Truck & Bus divisions), headquartered in Mumbai with manufacturing at Chakan (Pune), is the world’s largest tractor manufacturer by volume and produces EarthMaster backhoe loaders, RoadMaster motor graders, Blazo X heavy tippers, and 4x4 pickups.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Mumbai / Pune, Maharashtra, India",
+    "overview": "Mahindra & Mahindra Ltd. (Farm Equipment, Construction Equipment, and Truck & Bus divisions), headquartered in Mumbai with manufacturing at Chakan (Pune), is the world’s largest tractor manufacturer by volume and produces EarthMaster backhoe loaders, RoadMaster motor graders, Blazo X heavy tippers, and 4x4 pickups.",
+    "equipmentCategories": [
+      "Tractors",
+      "Agricultural Machinery",
+      "Backhoe Loaders",
+      "Graders",
+      "Heavy Trucks",
+      "Pickups"
+    ],
+    "technologyHighlights": [
+      "DiGiSENSE cellular telematics for backhoe loaders, tractors, and commercial trucks",
+      "mPower FuelSmart multi-mode diesel engines for heavy tippers and haulers",
+      "Compact motor grader engineering tailored for rural and district road corridors"
+    ],
+    "regionalFootprint": [
+      "India",
+      "North America",
+      "Africa",
+      "Southeast Asia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.mahindraconstructionequipment.com/",
+      "https://www.mahindratruckandbus.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-all-manufacturers",
+    "name": "All Manufacturers",
+    "slug": "all-manufacturers",
+    "country": "Global",
+    "countryId": "cty-global",
+    "website": "",
+    "focus": "Cross-brand industry comparisons and buyer guides",
+    "description": "Cross-manufacturer reference category used by MachineWire editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "headquarters": "Global Editorial Reference",
+    "overview": "Cross-manufacturer reference category used by MachineWire editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
+    "equipmentCategories": [
+      "Construction Equipment",
+      "Backhoe Loaders",
+      "Heavy Trucks",
+      "Buying Guides"
+    ],
+    "technologyHighlights": [],
+    "regionalFootprint": [
+      "Global"
+    ],
+    "officialSources": [],
+    "verificationStatus": "Editorial Reference Category"
+  },
+  {
+    "id": "mfg-various",
+    "name": "Various",
+    "slug": "various",
+    "country": "Global",
+    "countryId": "cty-global",
+    "website": "",
+    "focus": "Multi-OEM industry coverage",
+    "description": "Multi-OEM editorial reference used for industry-wide technical architecture and fleet engineering reports.",
+    "createdAt": "2026-10-23T18:41:37.029Z",
+    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "headquarters": "Global Editorial Reference",
+    "overview": "Multi-OEM editorial reference used for industry-wide technical architecture and fleet engineering reports.",
+    "equipmentCategories": [
+      "Construction Equipment",
+      "Commercial Vehicles",
+      "Technology"
+    ],
+    "technologyHighlights": [],
+    "regionalFootprint": [
+      "Global"
+    ],
+    "officialSources": [],
+    "verificationStatus": "Editorial Reference Category"
+  },
+  {
+    "id": "mfg-xcmg",
+    "name": "XCMG",
+    "slug": "xcmg",
+    "country": "China",
+    "countryId": "cty-china",
+    "website": "https://www.xcmg.com/",
+    "focus": "All-terrain & crawler cranes, excavators, wheel loaders, road machinery & mining trucks",
+    "description": "Xuzhou Construction Machinery Group (XCMG), headquartered in Xuzhou, Jiangsu Province, China, is one of the top global construction machinery manufacturers, best known for ultra-tonnage mobile and crawler cranes, wheel loaders, roadbuilding machinery, hydraulic excavators, and mining haulage equipment.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Xuzhou, Jiangsu, China",
+    "overview": "Xuzhou Construction Machinery Group (XCMG), headquartered in Xuzhou, Jiangsu Province, China, is one of the top global construction machinery manufacturers, best known for ultra-tonnage mobile and crawler cranes, wheel loaders, roadbuilding machinery, hydraulic excavators, and mining haulage equipment.",
+    "equipmentCategories": [
+      "Cranes",
+      "Excavators",
+      "Wheel Loaders",
+      "Roadbuilding",
+      "Mining Equipment",
+      "Graders",
+      "Electric Commercial Vehicles"
+    ],
+    "technologyHighlights": [
+      "Ultra-large tonnage all-terrain and wind-power crawler crane engineering",
+      "Battery-swap and pure-electric wheel loaders and mining dump trucks",
+      "Xrea global industrial IoT fleet management platform"
+    ],
+    "regionalFootprint": [
+      "China",
+      "Southeast Asia",
+      "Middle East",
+      "Latin America",
+      "Africa",
+      "Europe",
+      "Australia"
+    ],
+    "officialSources": [
+      "https://www.xcmg.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-sany",
+    "name": "SANY",
+    "slug": "sany",
+    "country": "China",
+    "countryId": "cty-china",
+    "website": "https://www.sanyglobal.com/",
+    "focus": "Hydraulic excavators, mobile & crawler cranes, road machinery, port equipment & electric heavy trucks",
+    "description": "SANY Group is a Chinese multinational heavy machinery manufacturer with major R&D and manufacturing centers in Changsha, Kunshan, Beijing, Germany (Bedburg), India (Chakan, Pune), and the United States (Peachtree City, Georgia). SANY produces full-line hydraulic excavators, cranes, concrete pumps, road rollers, and battery-electric mining/port trucks.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Changsha, Hunan / Beijing, China",
+    "overview": "SANY Group is a Chinese multinational heavy machinery manufacturer with major R&D and manufacturing centers in Changsha, Kunshan, Beijing, Germany (Bedburg), India (Chakan, Pune), and the United States (Peachtree City, Georgia). SANY produces full-line hydraulic excavators, cranes, concrete pumps, road rollers, and battery-electric mining/port trucks.",
+    "equipmentCategories": [
+      "Excavators",
+      "Cranes",
+      "Roadbuilding",
+      "Wheel Loaders",
+      "Mining Equipment",
+      "Electric Commercial Vehicles",
+      "Heavy Trucks"
+    ],
+    "technologyHighlights": [
+      "Positive-flow and electronically controlled hydraulic excavator architectures",
+      "Battery-electric heavy tippers, concrete mixers, and crawler cranes",
+      "EVI cloud telematics and automated lighthouse manufacturing facilities"
+    ],
+    "regionalFootprint": [
+      "China",
+      "Southeast Asia",
+      "India",
+      "Middle East",
+      "Africa",
+      "Europe",
+      "Latin America",
+      "North America"
+    ],
+    "officialSources": [
+      "https://www.sanyglobal.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-hd-hyundai",
+    "name": "HD Hyundai",
+    "slug": "hd-hyundai",
+    "country": "South Korea",
+    "countryId": "cty-south-korea",
+    "website": "https://www.hd-hyundaice.com/",
+    "focus": "Crawler & wheeled excavators, wheel loaders, articulated dump trucks & skid-steer loaders",
+    "description": "HD Hyundai Construction Equipment (part of HD Hyundai XiteSolution alongside Develon) is a South Korean manufacturer of crawler and wheeled hydraulic excavators, wheel loaders, backhoe loaders, and material-handling machinery with plants in Ulsan (South Korea), Pune (India), China, and Brazil.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Bundang-gu, Seongnam / Seoul, South Korea",
+    "overview": "HD Hyundai Construction Equipment (part of HD Hyundai XiteSolution alongside Develon) is a South Korean manufacturer of crawler and wheeled hydraulic excavators, wheel loaders, backhoe loaders, and material-handling machinery with plants in Ulsan (South Korea), Pune (India), China, and Brazil.",
+    "equipmentCategories": [
+      "Excavators",
+      "Wheel Loaders",
+      "Backhoe Loaders",
+      "Mining Equipment",
+      "Compact Equipment"
+    ],
+    "technologyHighlights": [
+      "Hi MATE remote fleet management and AAVM 360-degree surround-view safety",
+      "EPIC elektronically controlled independent pump hydraulic systems",
+      "Hydrogen fuel-cell wheeled excavator and smart XiteCloud autonomous earthmoving"
+    ],
+    "regionalFootprint": [
+      "Japan & South Korea",
+      "North America",
+      "Europe",
+      "India",
+      "Middle East",
+      "Southeast Asia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.hd-hyundaice.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-kubota",
+    "name": "Kubota",
+    "slug": "kubota",
+    "country": "Japan",
+    "countryId": "cty-japan",
+    "website": "https://www.kubota.com/",
+    "focus": "Compact excavators, compact track loaders, utility tractors & industrial engines",
+    "description": "Kubota Corporation, founded in 1890 in Osaka, Japan, is a premier global manufacturer of compact construction equipment (mini excavators, track loaders, compact wheel loaders), utility and agricultural tractors, combine harvesters, and off-highway diesel and spark-ignited engines.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Naniwa-ku, Osaka, Japan",
+    "overview": "Kubota Corporation, founded in 1890 in Osaka, Japan, is a premier global manufacturer of compact construction equipment (mini excavators, track loaders, compact wheel loaders), utility and agricultural tractors, combine harvesters, and off-highway diesel and spark-ignited engines.",
+    "equipmentCategories": [
+      "Compact Equipment",
+      "Excavators",
+      "Tractors",
+      "Agricultural Machinery",
+      "Wheel Loaders"
+    ],
+    "technologyHighlights": [
+      "Zero-tail and ultra-tight tail-swing hydraulic mini excavator engineering",
+      "Load-sensing 3-pump hydraulic systems for smooth simultaneous attachment operation",
+      "Stage V / Tier 4 Final industrial diesel and hybrid powertrain platforms"
+    ],
+    "regionalFootprint": [
+      "Japan & South Korea",
+      "North America",
+      "Europe",
+      "Southeast Asia",
+      "India",
+      "Australia"
+    ],
+    "officialSources": [
+      "https://www.kubota.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-liebherr",
+    "name": "Liebherr",
+    "slug": "liebherr",
+    "country": "Germany",
+    "countryId": "cty-germany",
+    "website": "https://www.liebherr.com/",
+    "focus": "Mobile & crawler cranes, tower cranes, earthmoving excavators, wheel loaders & mining trucks",
+    "description": "The Liebherr Group, founded in 1949 in Kirchdorf an der Iller, Germany, and holding-headquartered in Bulle, Switzerland, is a family-owned technology and machinery manufacturer producing mobile, crawler, and tower cranes, hydrostatic wheel loaders, crawler dozers, and ultra-class mining excavators and trolley-assist haul trucks.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "headquarters": "Bulle, Switzerland / Biberach an der Riß, Germany",
+    "overview": "The Liebherr Group, founded in 1949 in Kirchdorf an der Iller, Germany, and holding-headquartered in Bulle, Switzerland, is a family-owned technology and machinery manufacturer producing mobile, crawler, and tower cranes, hydrostatic wheel loaders, crawler dozers, and ultra-class mining excavators and trolley-assist haul trucks.",
+    "equipmentCategories": [
+      "Cranes",
+      "Excavators",
+      "Wheel Loaders",
+      "Bulldozers",
+      "Mining Equipment",
+      "Telehandlers"
+    ],
+    "technologyHighlights": [
+      "XPower power-split drivelines on large wheel loaders and hydrostatic crawler dozers",
+      "LICCON3 crane control and VarioBase variable outrigger support technology",
+      "Trolley-Assist electric mining haul trucks and hydrogen-injection internal combustion engines"
+    ],
+    "regionalFootprint": [
+      "Europe",
+      "North America",
+      "Australia",
+      "Middle East",
+      "Latin America",
+      "China",
+      "India"
+    ],
+    "officialSources": [
+      "https://www.liebherr.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-john-deere",
+    "name": "John Deere",
+    "slug": "john-deere",
+    "country": "United States",
+    "countryId": "cty-united-states",
+    "website": "https://www.deere.com/",
+    "focus": "Tractors, agricultural machinery, backhoe loaders, motor graders, crawler dozers & forestry",
+    "description": "Deere & Company (John Deere), headquartered in Moline, Illinois, is a leading global manufacturer of agricultural tractors, harvesting machinery, construction earthmoving equipment, roadbuilding machinery (via the Wirtgen Group), and commercial power systems.",
+    "createdAt": "2026-10-24T17:08:18.777Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "headquarters": "Moline, Illinois, United States",
+    "overview": "Deere & Company (John Deere), headquartered in Moline, Illinois, is a leading global manufacturer of agricultural tractors, harvesting machinery, construction earthmoving equipment, roadbuilding machinery (via the Wirtgen Group), and commercial power systems.",
+    "equipmentCategories": [
+      "Tractors",
+      "Agricultural Machinery",
+      "Backhoe Loaders",
+      "Graders",
+      "Bulldozers",
+      "Wheel Loaders",
+      "Excavators",
+      "Compact Equipment"
+    ],
+    "technologyHighlights": [
+      "John Deere Operations Center & JDLink cloud telematics for agriculture and construction",
+      "SmartGrade mastless 3D grade control on crawler dozers and motor graders",
+      "E-Drive hybrid-electric and autonomous tillage/tractor guidance systems"
+    ],
+    "regionalFootprint": [
+      "North America",
+      "Latin America",
+      "Europe",
+      "India",
+      "Australia"
+    ],
+    "officialSources": [
+      "https://www.deere.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)"
+  },
+  {
+    "id": "mfg-volvo-construction-equipment",
+    "name": "Volvo Construction Equipment",
+    "slug": "volvo-construction-equipment",
+    "country": "Sweden",
+    "countryId": "cty-sweden",
+    "headquarters": "Eskilstuna / Gothenburg, Sweden",
+    "website": "https://www.volvoce.com/",
+    "focus": "Articulated haulers, wheel loaders, excavators, road compactors & electric machinery",
+    "description": "Volvo Construction Equipment (Volvo CE), part of the Volvo Group, is a Swedish manufacturer of articulated haulers, wheel loaders, hydraulic excavators, and roadbuilding machinery. Alongside Volvo Trucks, the group covers heavy earthmoving, quarry haulage, and commercial vocational transport.",
+    "overview": "Volvo Construction Equipment (Volvo CE), part of the Volvo Group, is a Swedish manufacturer of articulated haulers, wheel loaders, hydraulic excavators, and roadbuilding machinery. Alongside Volvo Trucks, the group covers heavy earthmoving, quarry haulage, and commercial vocational transport.",
+    "equipmentCategories": [
+      "Excavators",
+      "Wheel Loaders",
+      "Mining Equipment",
+      "Roadbuilding",
+      "Compact Equipment",
+      "Heavy Trucks",
+      "Electric Commercial Vehicles"
+    ],
+    "technologyHighlights": [
+      "Articulated hauler driveline engineering and OptiShift torque-converter lockup",
+      "Commercial battery-electric compact and mid-size excavators and wheel loaders",
+      "Volvo ActiveCare Direct telematics and Co-Pilot on-board weighing/dig assist"
+    ],
+    "regionalFootprint": [
+      "Europe",
+      "North America",
+      "China",
+      "Japan & South Korea",
+      "India",
+      "Middle East",
+      "Australia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.volvoce.com/",
+      "https://www.volvotrucks.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)",
+    "createdAt": "2026-10-24T17:21:07.671Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z"
+  },
+  {
+    "id": "mfg-tata-motors",
+    "name": "Tata Motors",
+    "slug": "tata-motors",
+    "country": "India",
+    "countryId": "cty-india",
+    "headquarters": "Mumbai, Maharashtra, India",
+    "website": "https://www.tatamotors.com/",
+    "focus": "Heavy tipper trucks, prime movers, pickups, vans, transit buses & construction equipment",
+    "description": "Tata Motors Limited is India’s largest commercial vehicle manufacturer, producing Prima and Signa multi-axle tippers, tractor-trailers, light commercial pickups, vans, and electric transit buses. Through Tata Hitachi (a joint venture with Hitachi Construction Machinery), the group also serves the hydraulic excavator and wheel loader sectors.",
+    "overview": "Tata Motors Limited is India’s largest commercial vehicle manufacturer, producing Prima and Signa multi-axle tippers, tractor-trailers, light commercial pickups, vans, and electric transit buses. Through Tata Hitachi (a joint venture with Hitachi Construction Machinery), the group also serves the hydraulic excavator and wheel loader sectors.",
+    "equipmentCategories": [
+      "Heavy Trucks",
+      "Pickups",
+      "Vans",
+      "Buses",
+      "Electric Commercial Vehicles",
+      "Excavators"
+    ],
+    "technologyHighlights": [
+      "Tata Fleet Edge connected vehicle telematics and fuel-efficiency analytics",
+      "Prima and Signa BS-VI Phase 2 heavy tipper chassis with hub-reduction axles",
+      "Battery-electric and hydrogen fuel-cell commercial buses and urban logistics trucks"
+    ],
+    "regionalFootprint": [
+      "India",
+      "Africa",
+      "Middle East",
+      "Southeast Asia",
+      "Latin America"
+    ],
+    "officialSources": [
+      "https://www.tatamotors.com/",
+      "https://cv.tatamotors.com/"
+    ],
+    "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)",
+    "createdAt": "2026-10-24T17:21:07.672Z",
+    "updatedAt": "2026-10-25T16:11:45.826Z"
+  }
+]

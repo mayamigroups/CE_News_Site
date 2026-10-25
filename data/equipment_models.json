@@ -1,0 +1,821 @@
+[
+  {
+    "id": "mdl-bull-machines-full-lineup",
+    "name": "Full Lineup",
+    "slug": "bull-machines-full-lineup",
+    "manufacturer": "Bull Machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Backhoe loader",
+    "powerType": "Diesel",
+    "specs": {
+      "Primary Focus": "Backhoe Loaders & Construction Equipment",
+      "Headquarters": "Coimbatore, India",
+      "Coverage Scope": "Global OEM & Fleet Intelligence"
+    },
+    "createdAt": "2026-10-23T18:41:37.042Z",
+    "updatedAt": "2026-10-25T16:11:45.849Z",
+    "manufacturerSlug": "bull-machines",
+    "category": "Industry News",
+    "country": "India",
+    "summary": "",
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://bullmachines.com/",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures."
+  },
+  {
+    "id": "mdl-all-manufacturers-multi-brand-comparison",
+    "name": "Multi-brand Comparison",
+    "slug": "all-manufacturers-multi-brand-comparison",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Backhoe loader",
+    "powerType": "Diesel / Stage V / BS-V",
+    "specs": {
+      "Equipment Class": "Center-pivot & Sideshift Backhoe Loaders",
+      "Key Metrics": "Digging Depth, Breakout Force, Hydraulic Flow",
+      "Evaluation Focus": "Total Cost of Ownership & Parts Network"
+    },
+    "createdAt": "2026-10-23T18:41:37.051Z",
+    "updatedAt": "2026-10-25T16:11:45.863Z",
+    "manufacturerSlug": "all-manufacturers",
+    "category": "Buying Guides",
+    "country": "Global",
+    "summary": "",
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://bullmachines.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures."
+  },
+  {
+    "id": "mdl-various-6x4-8x4-vocational-platforms",
+    "name": "6x4 & 8x4 Vocational Platforms",
+    "slug": "various-6x4-8x4-vocational-platforms",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Heavy tipper truck",
+    "powerType": "Diesel / LNG / Electric",
+    "specs": {
+      "Axle Configurations": "4x2, 6x4, 8x4 Rigid & Articulated",
+      "Body Types": "Box Body, Rock Body, U-Shape Tipper",
+      "Driveline Checkpoints": "Hub Reduction, Crawler Gear, Aux Braking"
+    },
+    "createdAt": "2026-10-23T18:41:37.062Z",
+    "updatedAt": "2026-10-25T16:11:45.877Z",
+    "manufacturerSlug": "various",
+    "category": "Commercial Vehicles",
+    "country": "Global",
+    "summary": "",
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.acea.auto/",
+    "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures."
+  },
+  {
+    "id": "mdl-various-next-gen-hydraulic-ev-architecture",
+    "name": "Next-Gen Hydraulic & EV Architecture",
+    "slug": "various-next-gen-hydraulic-ev-architecture",
+    "manufacturer": "Various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Excavators & Loaders",
+    "powerType": "Hybrid / Battery-Electric / Diesel",
+    "specs": {
+      "Hydraulic System": "Closed-Center Load Sensing (CCLS)",
+      "Telematics Standard": "ISO 15143-3 / AEMP 2.0 API",
+      "Powertrain Scope": "Tier 4F / Stage V / CEV Stage V & BEV"
+    },
+    "createdAt": "2026-10-23T18:41:37.073Z",
+    "updatedAt": "2026-10-25T16:11:45.890Z",
+    "manufacturerSlug": "various",
+    "category": "Technology",
+    "country": "Global",
+    "summary": "",
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.iso.org/standard/66768.html",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures."
+  },
+  {
+    "id": "mdl-all-manufacturers-exhibition-calendar",
+    "name": "Exhibition Calendar",
+    "slug": "all-manufacturers-exhibition-calendar",
+    "manufacturer": "All Manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Construction & Commercial Vehicles",
+    "powerType": "All Powertrains",
+    "specs": {
+      "South Asia Hub": "EXCON (Bengaluru, India)",
+      "European Hubs": "Bauma (Munich) & IAA Transportation",
+      "North America Hub": "CONEXPO-CON/AGG (Las Vegas)"
+    },
+    "createdAt": "2026-10-23T18:41:37.084Z",
+    "updatedAt": "2026-10-25T16:11:45.904Z",
+    "manufacturerSlug": "all-manufacturers",
+    "category": "Events & Exhibitions",
+    "country": "Global",
+    "summary": "",
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.excon.in/",
+    "image": "https://images.unsplash.com/photo-1541888946425-d09bb18086f6?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial / OEM Press Handout",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures."
+  },
+  {
+    "id": "mdl-bull-machines-hd76-hd96-backhoe-loader",
+    "name": "HD76 / HD96 Backhoe Loader Series",
+    "slug": "bull-machines-hd76-hd96-backhoe-loader",
+    "manufacturer": "BULL Machines",
+    "manufacturerSlug": "bull-machines",
+    "manufacturerId": "mfg-bull-machines",
+    "equipmentType": "Backhoe loader",
+    "category": "Backhoe Loaders",
+    "country": "India",
+    "powerType": "Diesel (CEV Stage IV / V)",
+    "summary": "Center-pivot and sideshift backhoe loader series engineered by BULL Machines in Coimbatore for trenching, utility loading, road works, and rural civil construction.",
+    "specs": {
+      "Equipment Class": "Backhoe Loader (2WD / 4WD Options)",
+      "Manufacturer": "BULL Machines Pvt. Ltd.",
+      "Manufacturing Origin": "Coimbatore, Tamil Nadu, India",
+      "Emission Regime": "India CEV Stage IV / Stage V (Export configurations vary)",
+      "Exact Bucket / Dig Depth Figures": "Consult official BULL Machines brochure for specific variant (HD76, HD96, Challenger)"
+    },
+    "applications": [
+      "Urban water, telecom, and drainage pipeline trenching",
+      "Highway shoulder grading and aggregate truck loading",
+      "Rural civil works, canal desilting, and building site preparation"
+    ],
+    "features": [
+      "Heavy-duty box-section boom and dipperstick geometry",
+      "ROPS/FOPS operator cabin with ergonomic dual-direction seating",
+      "Compatibility with rock breaker and quick-coupler attachments"
+    ],
+    "competingModels": [
+      "jcb-3dx-backhoe-loader",
+      "case-770-ex-backhoe-loader",
+      "caterpillar-424-backhoe-loader",
+      "mahindra-earthmaster-sx-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://bullmachines.com/",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official BULL Machines Documentation",
+    "specSourceNote": "Verified against official BULL Machines product portfolio. Exact operating weight, horsepower, and breakout force depend on variant and regional emission package; never assume unverified brochure figures.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-jcb-3dx-backhoe-loader",
+    "name": "3DX Backhoe Loader Platform",
+    "slug": "jcb-3dx-backhoe-loader",
+    "manufacturer": "JCB",
+    "manufacturerSlug": "jcb",
+    "manufacturerId": "mfg-jcb",
+    "equipmentType": "Backhoe loader",
+    "category": "Backhoe Loaders",
+    "country": "United Kingdom",
+    "powerType": "Diesel (JCB EcoMAX / Stage V / CEV Stage V)",
+    "summary": "Flagship sideshift backhoe loader platform widely deployed across civil construction, utility trenching, and plant hire fleets in India, Europe, and global markets.",
+    "specs": {
+      "Equipment Class": "Sideshift Backhoe Loader",
+      "Manufacturer": "JCB (J.C. Bamford Excavators)",
+      "Telematics System": "JCB LiveLink Standard",
+      "Drive Configurations": "2WD / 4WD Powershift & Synchroshuttle (Market Dependent)",
+      "Detailed Variant Specs": "Refer to official JCB regional specification sheet (3DX, 3DX Plus, 3DX Super)"
+    },
+    "applications": [
+      "Municipal utility trenching and road reinstatement",
+      "Material rehandling, hopper feeding, and tipper loading",
+      "Plant hire and multi-purpose civil contractor operations"
+    ],
+    "features": [
+      "JCB LiveLink remote fleet monitoring and geofencing",
+      "Multi-mode engine fuel-saving electronics and auto-idle",
+      "Sideshift kingpost for excavating flush along walls and curbs"
+    ],
+    "competingModels": [
+      "bull-machines-hd76-hd96-backhoe-loader",
+      "case-770-ex-backhoe-loader",
+      "caterpillar-424-backhoe-loader",
+      "john-deere-310-p-tier-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://www.jcb.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official JCB Documentation",
+    "specSourceNote": "Model family overview based on official JCB product lines. Regional specifications (UK/EU Stage V vs. India CEV Stage V) differ by engine rating and dipper option.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-caterpillar-320-hydraulic-excavator",
+    "name": "320 Hydraulic Crawler Excavator",
+    "slug": "caterpillar-320-hydraulic-excavator",
+    "manufacturer": "Caterpillar",
+    "manufacturerSlug": "caterpillar",
+    "manufacturerId": "mfg-caterpillar",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "United States",
+    "powerType": "Diesel (Cat C4.4 / Electro-Hydraulic)",
+    "summary": "20-tonne class medium hydraulic crawler excavator featuring factory-integrated Cat Grade 2D, Payload on-board weighing, and electro-hydraulic main control valves.",
+    "specs": {
+      "Equipment Class": "Medium Crawler Excavator (20-Tonne Class)",
+      "Manufacturer": "Caterpillar Inc.",
+      "Hydraulic Architecture": "Electro-Hydraulic Main Control Valve (No Pilot Lines)",
+      "On-Board Technology": "Cat Grade with 2D, Cat Payload, 2D E-Fence",
+      "Regional Engine Package": "Consult official Cat documentation for Tier 4 Final / Stage V / Stage IIIA equivalents"
+    },
+    "applications": [
+      "Bulk earthmoving, foundation excavation, and trenching",
+      "Quarry bench loading and highway cut-and-fill operations",
+      "Demolition and hydraulic breaker/grapple attachment work"
+    ],
+    "features": [
+      "Electro-hydraulic system with Smart Mode engine-to-pump matching",
+      "Standard Cat Grade 2D depth and slope guidance in cab monitor",
+      "Extended maintenance intervals with grouped ground-level filters"
+    ],
+    "competingModels": [
+      "komatsu-pc210-10m0-hydraulic-excavator",
+      "volvo-ec210-crawler-excavator",
+      "sany-sy215c-hydraulic-excavator",
+      "hd-hyundai-hx220l-crawler-excavator"
+    ],
+    "officialSourceUrl": "https://www.cat.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Caterpillar Documentation",
+    "specSourceNote": "Verified platform capabilities from official Caterpillar documentation. Exact operating weight and net power depend on undercarriage, boom/stick, and regional emissions tier.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-komatsu-pc210-10m0-hydraulic-excavator",
+    "name": "PC210 Hydraulic Excavator Series",
+    "slug": "komatsu-pc210-10m0-hydraulic-excavator",
+    "manufacturer": "Komatsu",
+    "manufacturerSlug": "komatsu",
+    "manufacturerId": "mfg-komatsu",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "Japan",
+    "powerType": "Diesel (Komatsu SAA6D107E Series)",
+    "summary": "20-tonne class crawler excavator engineered by Komatsu with Closed-Center Load Sensing System (CLSS) hydraulics and KOMTRAX fleet monitoring.",
+    "specs": {
+      "Equipment Class": "20-Tonne Class Hydraulic Crawler Excavator",
+      "Manufacturer": "Komatsu Ltd.",
+      "Hydraulic System": "HydrauMind Closed-Center Load Sensing System (CLSS)",
+      "Telematics": "KOMTRAX Remote Fleet Management",
+      "Configuration Note": "Consult official Komatsu regional datasheet for PC210-10M0 / PC210LC-11 specifications"
+    },
+    "applications": [
+      "Heavy civil earthmoving and highway corridor construction",
+      "Quarry overburden removal and aggregate loading",
+      "Deep trenching and infrastructure pipe laying"
+    ],
+    "features": [
+      "Six working modes (P, E, L, B, ATT/P, ATT/E) to match hydraulic flow to jobsite",
+      "KOMTRAX equipment management and Energy Saving guidance on cab monitor",
+      "Reinforced revolving frame and high-rigidity work equipment"
+    ],
+    "competingModels": [
+      "caterpillar-320-hydraulic-excavator",
+      "volvo-ec210-crawler-excavator",
+      "sany-sy215c-hydraulic-excavator",
+      "hd-hyundai-hx220l-crawler-excavator"
+    ],
+    "officialSourceUrl": "https://www.komatsu.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Komatsu Documentation",
+    "specSourceNote": "Overview derived from official Komatsu product documentation. Verify LC/standard undercarriage and regional emission package with local Komatsu distributor.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-volvo-ec210-crawler-excavator",
+    "name": "EC210 / A40G Heavy Earthmoving Platforms",
+    "slug": "volvo-ec210-crawler-excavator",
+    "manufacturer": "Volvo Construction Equipment",
+    "manufacturerSlug": "volvo-construction-equipment",
+    "manufacturerId": "mfg-volvo-construction-equipment",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "Sweden",
+    "powerType": "Diesel (Volvo D5 / D6 Series)",
+    "summary": "Volvo Construction Equipment 20-tonne class crawler excavator platform designed for quarry, roadbuilding, and general civil engineering.",
+    "specs": {
+      "Equipment Class": "20-Tonne Class Crawler Excavator",
+      "Manufacturer": "Volvo Construction Equipment",
+      "Hydraulic Control": "Electro-Hydraulic Positive Control with ECO Mode",
+      "Telematics": "Volvo CareTrack / ActiveCare Direct",
+      "Specification Reference": "Consult official Volvo CE regional specification sheet for exact boom/arm weights"
+    },
+    "applications": [
+      "Road construction, trenching, and general earthmoving",
+      "Quarry material handling and truck loading",
+      "Site preparation and utility installation"
+    ],
+    "features": [
+      "Integrated Volvo ECO mode for fuel efficiency without loss of breakout force",
+      "ROPS-certified Volvo Care Cab with high-visibility glazing",
+      "Dig Assist compatibility on supported regional configurations"
+    ],
+    "competingModels": [
+      "caterpillar-320-hydraulic-excavator",
+      "komatsu-pc210-10m0-hydraulic-excavator",
+      "sany-sy215c-hydraulic-excavator"
+    ],
+    "officialSourceUrl": "https://www.volvoce.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Volvo CE Documentation",
+    "specSourceNote": "Verified platform family from Volvo CE. Regional specifications and emission tiers vary by market.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-case-770-ex-backhoe-loader",
+    "name": "770 EX / 580N Backhoe Loader Series",
+    "slug": "case-770-ex-backhoe-loader",
+    "manufacturer": "CASE",
+    "manufacturerSlug": "case",
+    "manufacturerId": "mfg-case",
+    "equipmentType": "Backhoe loader",
+    "category": "Backhoe Loaders",
+    "country": "United States",
+    "powerType": "Diesel (FPT Industrial S8000 / F34)",
+    "summary": "Loader backhoe series engineered by CASE Construction Equipment featuring S-styled curved boom geometry and FPT Industrial diesel powertrains.",
+    "specs": {
+      "Equipment Class": "Loader Backhoe (Sideshift 770 EX / Center-Pivot 580N)",
+      "Manufacturer": "CASE Construction Equipment (CNH Industrial)",
+      "Boom Design": "Curved Over-Center Backhoe Boom",
+      "Telematics": "CASE SiteWatch",
+      "Regional Variants": "770 EX / 770 EX Plus (India/MEA) and 580N / 580SV (Americas/Europe)"
+    },
+    "applications": [
+      "Utility trenching, excavating over obstacles, and close-to-truck loading",
+      "Road base grading, material dozing, and site backfilling",
+      "Municipal maintenance and agricultural land development"
+    ],
+    "features": [
+      "Curved boom geometry for deeper trenching clearance and easier truck loading",
+      "Variable-volume or dual-gear hydraulic pump options by market",
+      "Heavy-duty front axle oscillation for uneven worksite terrain"
+    ],
+    "competingModels": [
+      "bull-machines-hd76-hd96-backhoe-loader",
+      "jcb-3dx-backhoe-loader",
+      "john-deere-310-p-tier-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://www.casece.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official CASE Documentation",
+    "specSourceNote": "Compiled from official CASE Construction Equipment lineups. Confirm local variant (770 EX vs. 580 series) for exact dimensions and power ratings.",
+    "createdAt": "2026-10-24T17:21:07.673Z",
+    "updatedAt": "2026-10-25T16:11:45.829Z"
+  },
+  {
+    "id": "mdl-john-deere-310-p-tier-backhoe-loader",
+    "name": "310 P-Tier Backhoe Loader",
+    "slug": "john-deere-310-p-tier-backhoe-loader",
+    "manufacturer": "John Deere",
+    "manufacturerSlug": "john-deere",
+    "manufacturerId": "mfg-john-deere",
+    "equipmentType": "Backhoe loader",
+    "category": "Backhoe Loaders",
+    "country": "United States",
+    "powerType": "Diesel (John Deere PowerTech)",
+    "summary": "Center-pivot production-tier backhoe loader from John Deere with powershift transmission, JDLink connectivity, and heavy-duty loader linkage.",
+    "specs": {
+      "Equipment Class": "Center-Pivot Backhoe Loader",
+      "Manufacturer": "John Deere (Deere & Company)",
+      "Tier Designation": "P-Tier (Production Tier)",
+      "Telematics": "JDLink / John Deere Operations Center",
+      "Specification Note": "Consult official John Deere datasheet for EPA Tier 4 Final / export engine specs"
+    },
+    "applications": [
+      "Street and underground utility repair",
+      "Site preparation, trenching, and truck loading",
+      "Snow removal and municipal fleet operations"
+    ],
+    "features": [
+      "AutoShift transmission and Eco Mode for reduced fuel consumption during roading",
+      "Single-pin loader bucket linkage for parallel visibility",
+      "Optional Extendahoe dipperstick for extended digging reach"
+    ],
+    "competingModels": [
+      "jcb-3dx-backhoe-loader",
+      "case-770-ex-backhoe-loader",
+      "bull-machines-hd76-hd96-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://www.deere.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official John Deere Documentation",
+    "specSourceNote": "Based on John Deere P-Tier backhoe loader architecture. Verify exact horsepower and dipper configuration with authorized John Deere dealer.",
+    "createdAt": "2026-10-24T17:21:07.674Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-kubota-kx040-4-compact-excavator",
+    "name": "KX040-4 / U55-4 Compact Excavator Series",
+    "slug": "kubota-kx040-4-compact-excavator",
+    "manufacturer": "Kubota",
+    "manufacturerSlug": "kubota",
+    "manufacturerId": "mfg-kubota",
+    "equipmentType": "Mini / compact excavator",
+    "category": "Compact Equipment",
+    "country": "Japan",
+    "powerType": "Diesel (Kubota Direct-Injection)",
+    "summary": "Compact 4-to-5.5 tonne hydraulic mini excavator series from Kubota designed for urban utilities, landscaping, and confined worksite trenching.",
+    "specs": {
+      "Equipment Class": "Compact / Mini Hydraulic Excavator (4–5.5 Tonne Class)",
+      "Manufacturer": "Kubota Corporation",
+      "Tail Swing Options": "Conventional (KX Series) & Tight Tail Swing (U Series)",
+      "Hydraulic System": "Load-Sensing Hydraulic System with Auxiliary Proportional Flow",
+      "Official Brochure": "Consult local Kubota distributor for regional ROPS/cab and blade options"
+    },
+    "applications": [
+      "Confined urban fiber-optic, water, and gas trenching",
+      "Residential foundation excavation and landscaping",
+      "Roadside drainage and tiltrotator/auger attachment work"
+    ],
+    "features": [
+      "Proportional thumb-switch auxiliary hydraulic flow control on joystick",
+      "Auto-idle and Eco Plus mode to minimize fuel consumption",
+      "optional 6-in-1 hydraulic angle dozer blade for rapid backfilling"
+    ],
+    "competingModels": [
+      "jcb-3dx-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://www.kubota.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Kubota Documentation",
+    "specSourceNote": "Verified compact excavator series from Kubota Corporation. Exact operating weight varies by rubber vs. steel tracks and canopy vs. enclosed cab.",
+    "createdAt": "2026-10-24T17:21:07.674Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-mahindra-earthmaster-sx-backhoe-loader",
+    "name": "EarthMaster SX / VX Backhoe Loader",
+    "slug": "mahindra-earthmaster-sx-backhoe-loader",
+    "manufacturer": "Mahindra",
+    "manufacturerSlug": "mahindra",
+    "manufacturerId": "mfg-mahindra",
+    "equipmentType": "Backhoe loader",
+    "category": "Backhoe Loaders",
+    "country": "India",
+    "powerType": "Diesel (Mahindra CEV Stage IV / V)",
+    "summary": "Indian-built backhoe loader platform from Mahindra Construction Equipment featuring banana boom geometry, joystick controls on VX trims, and DiGiSENSE telematics.",
+    "specs": {
+      "Equipment Class": "Sideshift Backhoe Loader",
+      "Manufacturer": "Mahindra Construction Equipment",
+      "Manufacturing Plant": "Chakan, Pune, Maharashtra, India",
+      "Telematics": "Mahindra DiGiSENSE Connected Fleet System",
+      "Trim Variants": "EarthMaster SX, VX, and SX IV (Verify current CEV Stage V datasheet)"
+    },
+    "applications": [
+      "Rural road construction, canal excavation, and pond desilting",
+      "Brick kiln, crusher plant, and building material loading",
+      "Municipal utility trenching and pipeline laying"
+    ],
+    "features": [
+      "DiGiSENSE SMS and app-based fuel, location, and utilization tracking",
+      "Curved banana boom for clearance over high-sided tipper trucks",
+      "Extended service intervals designed for remote Indian worksites"
+    ],
+    "competingModels": [
+      "bull-machines-hd76-hd96-backhoe-loader",
+      "jcb-3dx-backhoe-loader",
+      "case-770-ex-backhoe-loader"
+    ],
+    "officialSourceUrl": "https://www.mahindraconstructionequipment.com/",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Mahindra Documentation",
+    "specSourceNote": "Compiled from official Mahindra Construction Equipment product range. Verify CEV Stage V engine power and bucket sizes with authorized dealer.",
+    "createdAt": "2026-10-24T17:21:07.674Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-tata-motors-signa-prima-heavy-tipper",
+    "name": "Signa & Prima 2830.K / 3530.K Heavy Tipper Series",
+    "slug": "tata-motors-signa-prima-heavy-tipper",
+    "manufacturer": "Tata Motors",
+    "manufacturerSlug": "tata-motors",
+    "manufacturerId": "mfg-tata-motors",
+    "equipmentType": "Heavy tipper truck",
+    "category": "Heavy Trucks",
+    "country": "India",
+    "powerType": "Diesel (BS-VI Phase 2)",
+    "summary": "Multi-axle 6x4 (28-tonne GVW) and 8x4 (35-tonne GVW) heavy construction and mining tipper trucks built by Tata Motors for surface mining, quarry haulage, and highway earthworks.",
+    "specs": {
+      "Equipment Class": "Multi-Axle Heavy Tipper Truck (6x4 & 8x4)",
+      "Manufacturer": "Tata Motors Limited",
+      "GVW Classes": "28-Tonne (6x4) and 35-Tonne (8x4) Gross Vehicle Weight Categories",
+      "Telematics": "Tata Fleet Edge Standard",
+      "Body Options": "Box Body & Rock Scoop Body (Consult Tata Motors body-builder datasheet)"
+    },
+    "applications": [
+      "Overburden and coal haulage in open-cast mining corridors",
+      "Aggregate transport from stone crushers and quarries",
+      "National highway embankment earthmoving and port infrastructure"
+    ],
+    "features": [
+      "Heavy-duty hub-reduction rear axles and multi-mode fuel economy switch (Light/Medium/Heavy)",
+      "Hill Start Aid (HSA), Engine Brake, and iCGT brake technology",
+      "Ergonomic Signa and Prima cabins with HVAC and suspension seating"
+    ],
+    "competingModels": [
+      "various-6x4-8x4-vocational-platforms"
+    ],
+    "officialSourceUrl": "https://cv.tatamotors.com/",
+    "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Tata Motors Documentation",
+    "specSourceNote": "Platform overview based on Tata Motors Commercial Vehicles tipper range. Exact horsepower, gearbox (G1150 / automated), and body cubic capacity depend on model code.",
+    "createdAt": "2026-10-24T17:21:07.674Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-sany-sy215c-hydraulic-excavator",
+    "name": "SY215C Medium Hydraulic Excavator",
+    "slug": "sany-sy215c-hydraulic-excavator",
+    "manufacturer": "SANY",
+    "manufacturerSlug": "sany",
+    "manufacturerId": "mfg-sany",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "China",
+    "powerType": "Diesel (Electronically Controlled Positive Flow)",
+    "summary": "21.5-tonne class crawler hydraulic excavator manufactured by SANY for general earthmoving, quarry loading, and infrastructure projects across Asia, MEA, and global markets.",
+    "specs": {
+      "Equipment Class": "21-Tonne Class Hydraulic Crawler Excavator",
+      "Manufacturer": "SANY Group",
+      "Hydraulic Architecture": "Positive Flow Electronically Controlled Hydraulics",
+      "Manufacturing Hubs": "Kunshan (China), Chakan Pune (India), Bedburg (Germany)",
+      "Regional Specs": "Consult SANY regional brochure for China NR IV, India CEV, or EU Stage V package"
+    },
+    "applications": [
+      "General earthmoving, road cut-and-fill, and foundation digging",
+      "Stone quarry excavation and hydraulic rock breaker tasks",
+      "Municipal pipeline and water conservancy projects"
+    ],
+    "features": [
+      "Dynamic optimization matching between engine speed and main hydraulic pump flow",
+      "Reinforced boom, arm, and X-frame lower undercarriage",
+      "10-inch touchscreen cab display with working mode and attachment presets"
+    ],
+    "competingModels": [
+      "caterpillar-320-hydraulic-excavator",
+      "komatsu-pc210-10m0-hydraulic-excavator",
+      "volvo-ec210-crawler-excavator",
+      "hd-hyundai-hx220l-crawler-excavator"
+    ],
+    "officialSourceUrl": "https://www.sanyglobal.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official SANY Documentation",
+    "specSourceNote": "Verified from official SANY Global excavator portfolio. Engine brand and emission certification vary by regional market.",
+    "createdAt": "2026-10-24T17:21:07.675Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-xcmg-xct-xca-mobile-crane-series",
+    "name": "XCT / XCA All-Terrain & Truck Crane Series",
+    "slug": "xcmg-xct-xca-mobile-crane-series",
+    "manufacturer": "XCMG",
+    "manufacturerSlug": "xcmg",
+    "manufacturerId": "mfg-xcmg",
+    "equipmentType": "Mobile / all-terrain crane",
+    "category": "Cranes",
+    "country": "China",
+    "powerType": "Diesel / Hybrid Multi-Axle Carrier",
+    "summary": "Telescopic boom truck crane (XCT) and all-terrain crane (XCA) series engineered by XCMG for bridge erection, petrochemical plant lifting, and wind turbine installation.",
+    "specs": {
+      "Equipment Class": "Telescopic Truck Cranes & All-Terrain Cranes",
+      "Manufacturer": "XCMG (Xuzhou Construction Machinery Group)",
+      "Boom Profile": "U-Shaped High-Tensile Steel Telescopic Boom with Single-Cylinder Pinning",
+      "Telematics": "XCMG Xrea Crane Fleet Management",
+      "Load Chart Notice": "Always consult certified load charts for specific counterweight and outrigger span"
+    },
+    "applications": [
+      "Highway viaduct and metro bridge precast girder lifting",
+      "Industrial plant, refinery, and steel structure erection",
+      "Wind farm maintenance and heavy infrastructure hoisting"
+    ],
+    "features": [
+      "Single-cylinder automatic pinning telescoping system on medium and large tonnage models",
+      "Multi-axle all-wheel steering and hydro-pneumatic suspension on XCA all-terrain carriers",
+      "Intelligent boom deflection compensation and load moment limiter (LML)"
+    ],
+    "competingModels": [
+      "liebherr-ltm-all-terrain-mobile-crane"
+    ],
+    "officialSourceUrl": "https://www.xcmg.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official XCMG Documentation",
+    "specSourceNote": "Series overview from XCMG Hoisting Machinery division. Never perform lift planning without the serial-specific OEM load chart.",
+    "createdAt": "2026-10-24T17:21:07.675Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-liebherr-ltm-all-terrain-mobile-crane",
+    "name": "LTM Mobile All-Terrain Crane Series",
+    "slug": "liebherr-ltm-all-terrain-mobile-crane",
+    "manufacturer": "Liebherr",
+    "manufacturerSlug": "liebherr",
+    "manufacturerId": "mfg-liebherr",
+    "equipmentType": "All-terrain mobile crane",
+    "category": "Cranes",
+    "country": "Germany",
+    "powerType": "Diesel / ECOmode Single-Engine Concept",
+    "summary": "All-terrain telescopic mobile crane family manufactured by Liebherr-Werk Ehingen GmbH in Germany, featuring Telematik pinning booms, VarioBase outrigger monitoring, and LICCON crane control.",
+    "specs": {
+      "Equipment Class": "All-Terrain Mobile Crane (LTM Series)",
+      "Manufacturer": "Liebherr Group (Ehingen, Germany)",
+      "Control System": "LICCON2 / LICCON3 with VarioBase & VarioBallast",
+      "Telescoping System": "Telematik Single-Cylinder Automatic Pinning",
+      "Load Chart Notice": "Refer to official Liebherr LICCON load planner for exact radius and boom configuration"
+    },
+    "applications": [
+      "Heavy industrial erection, tower crane assembly, and bridge construction",
+      "Constrained urban lifts utilizing asymmetrical VarioBase outrigger extensions",
+      "Energy infrastructure, petrochemical, and wind power rigging"
+    ],
+    "features": [
+      "VarioBase individual outrigger length and load capacity calculation in real time",
+      "ECOmode and ECOdrive for reduced fuel consumption and lower jobsite noise",
+      "VarioBallast adjustable counterweight radius for tight worksites"
+    ],
+    "competingModels": [
+      "xcmg-xct-xca-mobile-crane-series"
+    ],
+    "officialSourceUrl": "https://www.liebherr.com/",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official Liebherr Documentation",
+    "specSourceNote": "Verified technical systems from Liebherr-Werk Ehingen GmbH. Specific axle loads and road homologation depend on national transport regulations.",
+    "createdAt": "2026-10-24T17:21:07.675Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-hd-hyundai-hx220l-crawler-excavator",
+    "name": "HX220L Crawler Hydraulic Excavator",
+    "slug": "hd-hyundai-hx220l-crawler-excavator",
+    "manufacturer": "HD Hyundai",
+    "manufacturerSlug": "hd-hyundai",
+    "manufacturerId": "mfg-hd-hyundai",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "South Korea",
+    "powerType": "Diesel (Cummins / HD Hyundai Stage V)",
+    "summary": "22-tonne class crawler hydraulic excavator from HD Hyundai Construction Equipment equipped with IPC (Intelligent Power Control), Hi MATE telematics, and optional AAVM 360-degree camera safety.",
+    "specs": {
+      "Equipment Class": "22-Tonne Class Hydraulic Crawler Excavator",
+      "Manufacturer": "HD Hyundai Construction Equipment",
+      "Hydraulic Control": "IPC (Intelligent Power Control) & EPIC System",
+      "Telematics": "Hi MATE Remote Management System",
+      "Regional Note": "Consult HD Hyundai regional dealer for HX220L / R210 SMART Plus India specs"
+    },
+    "applications": [
+      "Heavy earthmoving, civil engineering, and road corridor excavation",
+      "Quarry aggregate extraction and truck loading",
+      "Demolition and multi-attachment utility contracting"
+    ],
+    "features": [
+      "Intelligent Power Control (IPC) regulates pump flow based on operator lever inputs",
+      "Optional Advanced Around View Monitoring (AAVM) with Intelligent Moving Object Detection (IMOD)",
+      "Reinforced durable X-chassis and heavy-duty boom/arm structures"
+    ],
+    "competingModels": [
+      "caterpillar-320-hydraulic-excavator",
+      "komatsu-pc210-10m0-hydraulic-excavator",
+      "volvo-ec210-crawler-excavator",
+      "sany-sy215c-hydraulic-excavator"
+    ],
+    "officialSourceUrl": "https://www.hd-hyundaice.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Editorial Reference / Consult Official HD Hyundai Documentation",
+    "specSourceNote": "Compiled from official HD Hyundai Construction Equipment documentation. Verify local model designation (HX series vs. SMART Plus series in India).",
+    "createdAt": "2026-10-24T17:21:07.675Z",
+    "updatedAt": "2026-10-25T16:11:45.830Z"
+  },
+  {
+    "id": "mdl-various-hd76-3dx-580sv-310-p-tier",
+    "name": "HD76, 3DX, 580SV & 310 P-Tier",
+    "slug": "various-hd76-3dx-580sv-310-p-tier",
+    "manufacturer": "Various",
+    "manufacturerSlug": "various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Backhoe loader",
+    "category": "Reviews & Comparisons",
+    "country": "Global",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "summary": "",
+    "specs": {
+      "Comparison Scope": "Center-Pivot vs. Sideshift Backhoe Loader Architectures",
+      "Reference Models": "BULL HD76, JCB 3DX, CASE 580SV, John Deere 310 P-Tier",
+      "Key Decision Factors": "Curb-Side Trenching, Stabilizer Width, Roading Overhang",
+      "Verification Rule": "Consult official OEM brochure for regional homologation specs"
+    },
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://bullmachines.com/",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Official OEM Comparison Guide",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
+    "createdAt": "2026-10-25T15:28:24.191Z",
+    "updatedAt": "2026-10-25T16:11:45.970Z"
+  },
+  {
+    "id": "mdl-various-cat-320-komatsu-pc210-volvo-ec210-sany-sy215c-hd-hyundai-hx220l",
+    "name": "Cat 320, Komatsu PC210, Volvo EC210, SANY SY215C, HD Hyundai HX220L",
+    "slug": "various-cat-320-komatsu-pc210-volvo-ec210-sany-sy215c-hd-hyundai-hx220l",
+    "manufacturer": "Various",
+    "manufacturerSlug": "various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Hydraulic excavator",
+    "category": "Excavators",
+    "country": "Global",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "summary": "",
+    "specs": {
+      "Equipment Class": "20–22 Tonne Crawler Hydraulic Excavators",
+      "Indexed Models": "Cat 320, Komatsu PC210-10M0, Volvo EC210, SANY SY215C, HD Hyundai HX220L",
+      "Hydraulic Architectures": "Electro-Hydraulic, CLSS Closed-Center, Positive Flow, IPC",
+      "Telematics Standards": "ISO 15143-3 (AEMP 2.0) Mixed-Fleet Compatible"
+    },
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.caterpillar.com/",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Multi-OEM Excavator Class Briefing",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
+    "createdAt": "2026-10-25T15:28:24.204Z",
+    "updatedAt": "2026-10-25T16:11:45.983Z"
+  },
+  {
+    "id": "mdl-all-manufacturers-fleet-maintenance-protocol",
+    "name": "Fleet Maintenance Protocol",
+    "slug": "all-manufacturers-fleet-maintenance-protocol",
+    "manufacturer": "All Manufacturers",
+    "manufacturerSlug": "all-manufacturers",
+    "manufacturerId": "mfg-all-manufacturers",
+    "equipmentType": "Earthmoving & Commercial Fleets",
+    "category": "Buying Guides",
+    "country": "Global",
+    "powerType": "Diesel Stage V / Tier 4 Final / CEV Stage V",
+    "summary": "",
+    "specs": {
+      "Cleanliness Standard": "ISO 4406 Hydraulic Fluid Particle Count",
+      "DEF / AdBlue Standard": "ISO 22241 Aqueous Urea Solution",
+      "Emissions Scope": "EU Stage V, EPA Tier 4 Final, India CEV Stage V & BS-VI",
+      "Primary Goal": "Unplanned Downtime Reduction & Component Life Extension"
+    },
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.iso.org/standard/70917.html",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Workshop Maintenance Guide",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
+    "createdAt": "2026-10-25T15:28:24.227Z",
+    "updatedAt": "2026-10-25T16:11:45.996Z"
+  },
+  {
+    "id": "mdl-various-nrmm-stage-v-tier-4f-cev-v-platforms",
+    "name": "NRMM Stage V / Tier 4F / CEV-V Platforms",
+    "slug": "various-nrmm-stage-v-tier-4f-cev-v-platforms",
+    "manufacturer": "Various",
+    "manufacturerSlug": "various",
+    "manufacturerId": "mfg-various",
+    "equipmentType": "Off-highway diesel & hybrid powertrains",
+    "category": "Technology",
+    "country": "Global",
+    "powerType": "Diesel / Hybrid / Electric",
+    "summary": "",
+    "specs": {
+      "Europe Standard": "EU Stage V (Regulation EU 2016/1628 — PN Limit)",
+      "North America Standard": "US EPA Tier 4 Final (40 CFR Part 1039)",
+      "India Standard": "CEV Stage V (MoRTH Non-Road Emissions)",
+      "China Standard": "China NRMM Stage IV (GB 20891)"
+    },
+    "applications": [],
+    "features": [],
+    "competingModels": [],
+    "officialSourceUrl": "https://www.energy.gov/news",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
+    "imageCredit": "Editorial Reference / Regulatory Powertrain Briefing",
+    "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
+    "createdAt": "2026-10-25T15:28:24.242Z",
+    "updatedAt": "2026-10-25T16:11:46.009Z"
+  }
+]

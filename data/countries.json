@@ -1,0 +1,242 @@
+[
+  {
+    "id": "cty-global",
+    "name": "Global",
+    "slug": "global",
+    "isoCode": "",
+    "region": "Global",
+    "regionId": "reg-global",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:46.004Z"
+  },
+  {
+    "id": "cty-india",
+    "name": "India",
+    "slug": "india",
+    "isoCode": "",
+    "region": "Asia-Pacific",
+    "regionId": "reg-asia-pacific",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.938Z"
+  },
+  {
+    "id": "cty-germany",
+    "name": "Germany",
+    "slug": "germany",
+    "isoCode": "DEU",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-united-kingdom",
+    "name": "United Kingdom",
+    "slug": "united-kingdom",
+    "isoCode": "GBR",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-sweden",
+    "name": "Sweden",
+    "slug": "sweden",
+    "isoCode": "SWE",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-united-states",
+    "name": "United States",
+    "slug": "united-states",
+    "isoCode": "USA",
+    "region": "North America",
+    "regionId": "reg-north-america",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-japan",
+    "name": "Japan",
+    "slug": "japan",
+    "isoCode": "JPN",
+    "region": "Japan & South Korea",
+    "regionId": "reg-japan-south-korea",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-europe",
+    "name": "Europe",
+    "slug": "europe",
+    "isoCode": "EUR",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-north-america",
+    "name": "North America",
+    "slug": "north-america",
+    "isoCode": "NAM",
+    "region": "North America",
+    "regionId": "reg-north-america",
+    "createdAt": "2026-10-23T18:41:37.025Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-canada",
+    "name": "Canada",
+    "slug": "canada",
+    "isoCode": "CAN",
+    "region": "North America",
+    "regionId": "reg-north-america",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-mexico",
+    "name": "Mexico",
+    "slug": "mexico",
+    "isoCode": "MEX",
+    "region": "North America",
+    "regionId": "reg-north-america",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-china",
+    "name": "China",
+    "slug": "china",
+    "isoCode": "CHN",
+    "region": "China",
+    "regionId": "reg-china",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-south-korea",
+    "name": "South Korea",
+    "slug": "south-korea",
+    "isoCode": "KOR",
+    "region": "Japan & South Korea",
+    "regionId": "reg-japan-south-korea",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-france",
+    "name": "France",
+    "slug": "france",
+    "isoCode": "FRA",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-italy",
+    "name": "Italy",
+    "slug": "italy",
+    "isoCode": "ITA",
+    "region": "Europe",
+    "regionId": "reg-europe",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-united-arab-emirates",
+    "name": "United Arab Emirates",
+    "slug": "united-arab-emirates",
+    "isoCode": "ARE",
+    "region": "Middle East",
+    "regionId": "reg-middle-east",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-saudi-arabia",
+    "name": "Saudi Arabia",
+    "slug": "saudi-arabia",
+    "isoCode": "SAU",
+    "region": "Middle East",
+    "regionId": "reg-middle-east",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-indonesia",
+    "name": "Indonesia",
+    "slug": "indonesia",
+    "isoCode": "IDN",
+    "region": "Southeast Asia",
+    "regionId": "reg-southeast-asia",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-thailand",
+    "name": "Thailand",
+    "slug": "thailand",
+    "isoCode": "THA",
+    "region": "Southeast Asia",
+    "regionId": "reg-southeast-asia",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-vietnam",
+    "name": "Vietnam",
+    "slug": "vietnam",
+    "isoCode": "VNM",
+    "region": "Southeast Asia",
+    "regionId": "reg-southeast-asia",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-australia",
+    "name": "Australia",
+    "slug": "australia",
+    "isoCode": "AUS",
+    "region": "Australia",
+    "regionId": "reg-australia",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-brazil",
+    "name": "Brazil",
+    "slug": "brazil",
+    "isoCode": "BRA",
+    "region": "Latin America",
+    "regionId": "reg-latin-america",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-chile",
+    "name": "Chile",
+    "slug": "chile",
+    "isoCode": "CHL",
+    "region": "Latin America",
+    "regionId": "reg-latin-america",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  },
+  {
+    "id": "cty-south-africa",
+    "name": "South Africa",
+    "slug": "south-africa",
+    "isoCode": "ZAF",
+    "region": "Africa",
+    "regionId": "reg-africa",
+    "createdAt": "2026-10-24T17:08:18.772Z",
+    "updatedAt": "2026-10-25T16:11:45.822Z"
+  }
+]

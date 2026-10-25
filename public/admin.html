@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Editorial Admin &amp; Operations | MACHINEWIRE</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#101820">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#admin-main">Skip to admin workspace</a>
+
+  <div class="topline">
+    <div class="wrap topline-inner">
+      <span>MACHINEWIRE • THE WORLD OF MACHINES. CONNECTED.</span>
+      <span id="admin-session-indicator">EDITORIAL &amp; OPERATIONS ADMIN</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-main">
+      <a class="brand" href="/" aria-label="MACHINEWIRE home">
+        <span class="brand-mark">MW<span>+</span></span>
+        <span class="brand-words">
+          MACHINE<span>WIRE</span>
+          <small>THE WORLD OF MACHINES. CONNECTED.</small>
+        </span>
+      </a>
+      <div class="header-ad">ROLE-BASED PUBLISHING • AUDIT LOGGED • SCRYPT SECURED</div>
+      <div class="header-actions">
+        <a class="back-link" href="/" target="_blank">View live website ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap admin-wrap" id="admin-main">
+    <div class="admin-heading">
+      <div>
+        <span class="eyebrow">PUBLISHING &amp; CATALOG WORKSPACE</span>
+        <h1>MachineWire Editorial Desk</h1>
+        <p>Manage articles, 6-stage editorial workflow, authors, categories, tags, manufacturers, equipment models, regions, approved sources, images, newsletters, jobs, audit logs, and SEO settings.</p>
+      </div>
+      <div class="admin-head-controls">
+        <span class="admin-status" id="role-badge-pill"><i></i> Normalized Store (v2)</span>
+        <button id="manual-refresh" class="button button-outline" type="button" hidden>↻ Refresh Data</button>
+        <button id="create-backup" class="button button-outline" type="button" hidden>Backup Snapshot</button>
+        <button id="logout" class="button button-outline" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <div id="admin-alert" class="admin-alert" hidden role="alert"></div>
+
+    <!-- SIGN IN PANEL -->
+    <section id="login-panel" class="admin-panel login-panel">
+      <h2>Admin Sign In</h2>
+      <p>Sign in with your editorial account or the master <code>ADMIN_PASSWORD</code> configured in your environment variables.</p>
+      <form id="login-form">
+        <label for="admin-username">Editor username</label>
+        <input id="admin-username" value="editorial-admin" autocomplete="username" required>
+        <label for="admin-password">Password</label>
+        <input id="admin-password" type="password" autocomplete="current-password" required>
+        <button class="button button-dark" type="submit">Sign in to desk →</button>
+      </form>
+      <p class="form-hint">Roles supported: <code>super_admin</code>, <code>managing_editor</code>, <code>reviewer</code>, and <code>author</code>. Passwords are hashed server-side using <code>crypto.scryptSync</code>; secrets are never exposed in frontend code.</p>
+    </section>
+
+    <!-- AUTHENTICATED DASHBOARD -->
+    <div id="dashboard" hidden>
+      <!-- KPI Overview Strip -->
+      <div class="admin-stats">
+        <div><small>Total Stories</small><strong id="stat-total">0</strong></div>
+        <div><small>Published</small><strong id="stat-published">0</strong></div>
+        <div><small>Draft / Review / Scheduled</small><strong id="stat-drafts">0</strong></div>
+        <div><small>OEMs &amp; Models</small><strong id="stat-oems">0</strong></div>
+        <div><small>Approved Sources</small><strong id="stat-sources">0</strong></div>
+        <div><small>Subscribers</small><strong id="stat-subscribers">0</strong></div>
+        <div><small>News Tips</small><strong id="stat-tips">0</strong></div>
+      </div>
+
+      <!-- 10-Screen Workspace Navigation Tabs -->
+      <nav class="admin-tabs-bar" id="admin-tabs" aria-label="Admin workspace screens">
+        <button type="button" class="admin-tab active" data-tab="tab-articles">1. Articles &amp; Authors</button>
+        <button type="button" class="admin-tab" data-tab="tab-taxonomy">2. Categories &amp; Tags</button>
+        <button type="button" class="admin-tab" data-tab="tab-oems">3. Manufacturers &amp; Models</button>
+        <button type="button" class="admin-tab" data-tab="tab-geo">4. Countries &amp; Regions</button>
+        <button type="button" class="admin-tab" data-tab="tab-sources">5. Approved Sources</button>
+        <button type="button" class="admin-tab" data-tab="tab-images">6. Images &amp; Credits</button>
+        <button type="button" class="admin-tab" data-tab="tab-newsletter">7. Newsletter &amp; Tips</button>
+        <button type="button" class="admin-tab" data-tab="tab-jobs">8. Jobs, Errors &amp; Logs</button>
+        <button type="button" class="admin-tab" data-tab="tab-settings">9. SEO, Settings &amp; Roles</button>
+        <button type="button" class="admin-tab" data-tab="tab-ai-seo" style="background:var(--accent,#0052cc);color:#fff;font-weight:700;">10. AI SEO &amp; Newsroom</button>
+      </nav>
+
+      <!-- ===================================================================
+           SCREEN 1: ARTICLES & AUTHORS
+           =================================================================== -->
+      <section id="tab-articles" class="admin-tab-pane">
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <div class="panel-title">
+              <h2 id="editor-title">Create an article</h2>
+              <div class="story-actions">
+                <button id="preview-article-btn" class="button button-outline" type="button">👁 Preview</button>
+                <button id="check-duplicate-btn" class="button button-outline" type="button">Check Duplicate</button>
+                <button id="reset-form" class="button button-outline" type="button">New article +</button>
+              </div>
+            </div>
+
+            <!-- Live Duplicate Warning Banner -->
+            <div id="duplicate-warning-banner" class="admin-dup-warning" hidden></div>
+
+            <form id="article-form" class="article-form">
+              <input id="article-id" type="hidden">
+
+              <label for="title">Headline *</label>
+              <input id="title" maxlength="180" required placeholder="Write a clear, factual headline">
+
+              <label for="slug">Custom URL slug (optional)</label>
+              <input id="slug" maxlength="100" placeholder="auto-generated-from-headline">
+
+              <label for="excerpt">Summary / Excerpt *</label>
+              <textarea id="excerpt" rows="2" maxlength="400" required placeholder="What happened and why does it matter?"></textarea>
+
+              <label for="body">Article content *</label>
+              <textarea id="body" rows="9" required placeholder="Write the article. Add facts, context and source attribution."></textarea>
+
+              <div class="form-two">
+                <div>
+                  <label for="category">Category</label>
+                  <select id="category">
+                    <option>Industry News</option>
+                    <option>Bull Machines</option>
+                    <option>Construction Equipment</option>
+                    <option>Backhoe Loaders</option>
+                    <option>Excavators</option>
+                    <option>Wheel Loaders</option>
+                    <option>Bulldozers</option>
+                    <option>Cranes</option>
+                    <option>Graders</option>
+                    <option>Telehandlers</option>
+                    <option>Roadbuilding</option>
+                    <option>Mining Equipment</option>
+                    <option>Compact Equipment</option>
+                    <option>Attachments</option>
+                    <option>Tractors</option>
+                    <option>Agricultural Machinery</option>
+                    <option>Commercial Vehicles</option>
+                    <option>Heavy Trucks</option>
+                    <option>Pickups</option>
+                    <option>Vans</option>
+                    <option>Buses</option>
+                    <option>Electric Commercial Vehicles</option>
+                    <option>New Launches</option>
+                    <option>Technology</option>
+                    <option>Business</option>
+                    <option>Buying Guides</option>
+                    <option>Market Updates</option>
+                    <option>Projects</option>
+                    <option>Events &amp; Exhibitions</option>
+                    <option>Videos</option>
+                    <option>Reviews &amp; Comparisons</option>
+                    <option>Industry &amp; Business</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="manufacturer">Manufacturer / OEM</label>
+                  <input id="manufacturer" list="manufacturer-datalist" placeholder="BULL Machines, JCB, Volvo, Tata Motors…">
+                  <datalist id="manufacturer-datalist"></datalist>
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="equipment-type">Equipment / vehicle type</label>
+                  <input id="equipment-type" placeholder="Backhoe loader, excavator, 8x4 tipper truck">
+                </div>
+                <div>
+                  <label for="model">Model / platform</label>
+                  <input id="model" placeholder="HD76, 3DX, 320, Signa 2830.K…">
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="country">Country</label>
+                  <input id="country" list="country-datalist" placeholder="India, Germany, United States, Global">
+                  <datalist id="country-datalist"></datalist>
+                </div>
+                <div>
+                  <label for="region">Region</label>
+                  <select id="region">
+                    <option value="Global">Global</option>
+                    <option value="India">India</option>
+                    <option value="North America">North America</option>
+                    <option value="Europe">Europe</option>
+                    <option value="China">China</option>
+                    <option value="Japan &amp; South Korea">Japan &amp; South Korea</option>
+                    <option value="Middle East">Middle East</option>
+                    <option value="Southeast Asia">Southeast Asia</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Latin America">Latin America</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia-Pacific">Asia-Pacific</option>
+                    <option value="Middle East &amp; Africa">Middle East &amp; Africa</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="power-type">Powertrain (optional)</label>
+                  <input id="power-type" placeholder="Diesel Stage V, CEV-V, Battery-Electric…">
+                </div>
+                <div>
+                  <label for="article-type">Article type</label>
+                  <select id="article-type">
+                    <option value="news">News report</option>
+                    <option value="company-announcement">Company announcement</option>
+                    <option value="analysis">Analysis</option>
+                    <option value="opinion">Opinion</option>
+                    <option value="guide">Guide</option>
+                    <option value="review">Review / comparison</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="status">Publication status</label>
+                  <select id="status">
+                    <option value="draft">Draft (Stage: DRAFT)</option>
+                    <option value="review">Needs review (Stage: REVIEW)</option>
+                    <option value="approved">Approved (Stage: APPROVED)</option>
+                    <option value="scheduled">Scheduled (Stage: SCHEDULED)</option>
+                    <option value="published">Published (Stage: PUBLISHED)</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="scheduled-at">Scheduled publish time</label>
+                  <input id="scheduled-at" type="datetime-local">
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="author">Author / desk</label>
+                  <input id="author" list="author-datalist" value="Editorial Desk">
+                  <datalist id="author-datalist"></datalist>
+                </div>
+                <div>
+                  <label for="tags">Tags (comma separated)</label>
+                  <input id="tags" placeholder="Backhoe loaders, India, Launch">
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="image">Image URL (optional)</label>
+                  <input id="image" type="url" placeholder="https://…">
+                </div>
+                <div>
+                  <label for="image-credit">Image credit / license</label>
+                  <input id="image-credit" placeholder="BULL Machines Press Handout / Editorial">
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
+                  <label for="source-url">Primary source URL (Evidence)</label>
+                  <input id="source-url" type="url" placeholder="https://manufacturer.com/news/…">
+                </div>
+                <div>
+                  <label for="source-urls">Additional source URLs (one per line)</label>
+                  <textarea id="source-urls" rows="2" placeholder="https://official-source.example/news"></textarea>
+                </div>
+              </div>
+
+              <label for="specs-input">Technical specifications / key facts (optional, one <code>Key: Value</code> per line)</label>
+              <textarea id="specs-input" rows="3" placeholder="Digging Depth: 4.77 m&#10;Engine Power: 74 hp&#10;Operating Weight: 7,650 kg"></textarea>
+
+              <details class="seo-accordion">
+                <summary>SEO Metadata, Verification &amp; Revision Note</summary>
+                <div class="form-two">
+                  <div>
+                    <label for="seo-title">SEO Meta Title</label>
+                    <input id="seo-title" maxlength="180" placeholder="Defaults to headline">
+                  </div>
+                  <div>
+                    <label for="seo-canonical">Canonical URL (optional)</label>
+                    <input id="seo-canonical" type="url" placeholder="https://…">
+                  </div>
+                </div>
+                <label for="seo-description">SEO Meta Description</label>
+                <textarea id="seo-description" rows="2" maxlength="320" placeholder="Defaults to summary/excerpt"></textarea>
+                <div class="form-two">
+                  <div>
+                    <label for="seo-keywords">SEO Keywords (comma separated)</label>
+                    <input id="seo-keywords" placeholder="backhoe loader, earthmoving, CEV Stage V">
+                  </div>
+                  <div>
+                    <label for="revision-note">Update / Revision Note</label>
+                    <input id="revision-note" placeholder="Verified specs against official brochure">
+                  </div>
+                </div>
+              </details>
+
+              <label class="checkbox-label">
+                <input type="checkbox" id="featured"> Feature this story on the homepage
+              </label>
+
+              <div class="form-actions">
+                <button class="button button-outline" type="button" id="save-draft">Save draft</button>
+                <button class="button button-outline" type="button" id="submit-review-btn">Send to Review</button>
+                <button class="button button-dark" type="submit">Save article →</button>
+              </div>
+
+              <div id="revision-history-box" class="revision-history-box" hidden>
+                <h3>Article Update History &amp; Audit Trail</h3>
+                <ul id="revision-history-list" class="revision-list"></ul>
+              </div>
+            </form>
+          </section>
+
+          <div class="admin-side-stack">
+            <section class="admin-panel story-list-panel">
+              <div class="panel-title">
+                <h2>All Stories &amp; Quick Status Workflow</h2>
+              </div>
+              <div class="admin-filter-row">
+                <input id="admin-search" type="search" placeholder="Filter stories by title, model, source or OEM…">
+                <select id="admin-status-filter">
+                  <option value="">All statuses</option>
+                  <option value="published">Published</option>
+                  <option value="scheduled">Scheduled</option>
+                  <option value="approved">Approved</option>
+                  <option value="review">Needs review</option>
+                  <option value="draft">Draft</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </div>
+              <div id="admin-story-list" class="admin-story-list"></div>
+            </section>
+
+            <!-- Authors Management Sub-Panel -->
+            <section class="admin-panel">
+              <div class="panel-title">
+                <h2>Editorial Authors &amp; Desks</h2>
+              </div>
+              <form id="author-mgr-form" class="mini-crud-form">
+                <div class="form-two">
+                  <input id="aut-name" required placeholder="Author or Desk Name *">
+                  <input id="aut-role" placeholder="Role (e.g., Technical Editor)">
+                </div>
+                <div class="form-two">
+                  <input id="aut-email" type="email" placeholder="desk@machinewire.local">
+                  <button class="button button-dark" type="submit">Save Author +</button>
+                </div>
+              </form>
+              <div id="admin-authors-list" class="admin-story-list"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 2: CATEGORIES & TAGS
+           =================================================================== -->
+      <section id="tab-taxonomy" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Manage Categories (26+ Editorial Desks)</h2>
+            <form id="category-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="cat-name" required placeholder="Category Name (e.g., Crawler Cranes) *">
+                <input id="cat-section" placeholder="Section slug (e.g., cranes)">
+              </div>
+              <input id="cat-desc" placeholder="Category description for SEO and listing banner">
+              <button class="button button-dark" type="submit">Save Category →</button>
+            </form>
+            <div id="admin-categories-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Manage Topic Tags</h2>
+            <form id="tag-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="tag-name" required placeholder="Tag Name (e.g., CEV Stage V) *">
+                <button class="button button-dark" type="submit">Add Tag +</button>
+              </div>
+            </form>
+            <div id="admin-tags-list" class="admin-story-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 3: MANUFACTURERS & EQUIPMENT MODELS
+           =================================================================== -->
+      <section id="tab-oems" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Manage Manufacturers (Directory Candidates)</h2>
+            <form id="mfg-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="mfg-name" required placeholder="Manufacturer Name (e.g., BULL Machines) *">
+                <input id="mfg-country" placeholder="Origin Country (e.g., India)">
+              </div>
+              <div class="form-two">
+                <input id="mfg-hq" placeholder="Confirmed Headquarters (e.g., Coimbatore, India)">
+                <input id="mfg-website" type="url" placeholder="Official Website (https://…)">
+              </div>
+              <input id="mfg-focus" placeholder="Primary equipment focus">
+              <textarea id="mfg-overview" rows="2" placeholder="Verified company overview (never claim unverified partnerships)"></textarea>
+              <button class="button button-dark" type="submit">Save Manufacturer Profile →</button>
+            </form>
+            <div id="admin-mfgs-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Manage Equipment &amp; Vehicle Models</h2>
+            <form id="model-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="mdl-name" required placeholder="Verified Model Name (e.g., HD76 Backhoe) *">
+                <input id="mdl-mfg" required placeholder="Manufacturer (e.g., BULL Machines) *">
+              </div>
+              <div class="form-two">
+                <input id="mdl-type" placeholder="Equipment Type (e.g., Backhoe loader)">
+                <input id="mdl-category" placeholder="Category (e.g., Backhoe Loaders)">
+              </div>
+              <div class="form-two">
+                <input id="mdl-power" placeholder="Powertrain (e.g., Diesel CEV Stage V)">
+                <input id="mdl-source" type="url" placeholder="Official Brochure / Source URL (https://…)">
+              </div>
+              <textarea id="mdl-summary" rows="2" placeholder="Verified model summary & applications"></textarea>
+              <textarea id="mdl-specs" rows="2" placeholder="Official Specs (one Key: Value per line)"></textarea>
+              <button class="button button-dark" type="submit">Save Equipment Model →</button>
+            </form>
+            <div id="admin-models-list" class="admin-story-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 4: COUNTRIES & REGIONS
+           =================================================================== -->
+      <section id="tab-geo" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Manage Regional Hubs</h2>
+            <form id="region-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="reg-name" required placeholder="Region Name (e.g., Southeast Asia) *">
+                <input id="reg-slug" placeholder="Slug (optional, e.g., southeast-asia)">
+              </div>
+              <input id="reg-desc" placeholder="Regional market description">
+              <button class="button button-dark" type="submit">Save Region →</button>
+            </form>
+            <div id="admin-regions-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Manage Countries &amp; Markets</h2>
+            <form id="country-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="cty-name" required placeholder="Country Name (e.g., India) *">
+                <input id="cty-iso" maxlength="3" placeholder="ISO Code (e.g., IND)">
+              </div>
+              <div class="form-two">
+                <input id="cty-region" placeholder="Parent Region (e.g., India or Europe)">
+                <button class="button button-dark" type="submit">Save Country →</button>
+              </div>
+            </form>
+            <div id="admin-countries-list" class="admin-story-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 5: APPROVED NEWS SOURCES & COLLECTION QUEUE
+           =================================================================== -->
+      <section id="tab-sources" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <div class="panel-title">
+              <h2>Approved News Source Registry</h2>
+              <div class="story-actions">
+                <button id="check-all-sources-live" class="button button-dark" type="button">Check Enabled Feeds (Live) ↻</button>
+                <button id="check-all-sources-test" class="button button-outline" type="button">Run Sample Test Mode</button>
+              </div>
+            </div>
+            <p class="form-hint">Register verified RSS/Atom feeds, official OEM newsrooms, and authorized API endpoints. Respects <code>robots.txt</code>, rate limits, and copyright.</p>
+            <form id="source-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="src-title" required placeholder="Source Name (e.g., OEM Off-Highway Feed) *">
+                <input id="src-url" type="url" required placeholder="Official Website URL (https://…) *">
+              </div>
+              <div class="form-two">
+                <input id="src-feed-url" type="url" placeholder="RSS / Atom Feed URL (https://…/rss)">
+                <input id="src-api-endpoint" type="url" placeholder="Authorized API Endpoint (optional)">
+              </div>
+              <div class="form-two">
+                <input id="src-manufacturer" placeholder="Manufacturer (e.g., BULL Machines or Various)">
+                <input id="src-category" placeholder="Category (e.g., Construction Equipment)">
+              </div>
+              <div class="form-two">
+                <input id="src-country" placeholder="Country (e.g., India, United States, Global)">
+                <input id="src-region" placeholder="Region (e.g., North America, India, Global)">
+              </div>
+              <div class="form-two">
+                <select id="src-type">
+                  <option value="rss-feed">RSS / Atom Feed (No API Key)</option>
+                  <option value="regulatory-rss">Government / Regulatory RSS</option>
+                  <option value="oem-web-reference">Official OEM Web Reference</option>
+                  <option value="authorized-api">Authorized Partner API (Requires Key)</option>
+                </select>
+                <input id="src-interval" type="number" min="5" max="1440" value="60" placeholder="Polling interval (mins)">
+              </div>
+              <label class="checkbox-label">
+                <input type="checkbox" id="src-enabled" checked> Enable source for collection checks
+              </label>
+              <button class="button button-dark" type="submit">Register / Update Source →</button>
+            </form>
+            <div id="admin-sources-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <div class="panel-title">
+              <h2>Collected Dispatches Queue (Separate from Published Articles)</h2>
+            </div>
+            <p class="form-hint">Discovered feed items are fingerprinted, deduplicated, and stored here for editorial verification. Click <strong>AI Newsroom Analyze → Review Queue</strong> to run the 6-role specialist pipeline (Research, Factual Verification, Technical Review, Regional Context, Editorial Quality, SEO) or promote directly to a blank <code>draft</code>.</p>
+            <div id="admin-collected-list" class="admin-story-list"><p class="muted">No collected items yet. Click "Check Source Now" on any feed.</p></div>
+          </section>
+        </div>
+
+        <!-- CONFIGURABLE AI-ASSISTED NEWSROOM SPECIALIST PANEL -->
+        <section class="admin-panel" style="margin-top:24px;">
+          <div class="panel-title">
+            <div>
+              <span class="kicker">6-Role Specialist Editorial Pipeline · Human-in-the-Loop</span>
+              <h2>Configurable AI-Assisted Newsroom &amp; Verification Dossier</h2>
+            </div>
+            <div id="newsroom-mode-badge" class="role-badge-pill"><i></i> Loading Newsroom Config…</div>
+          </div>
+
+          <div id="newsroom-disclosure-banner" class="duplicate-warning-banner" style="display:block;margin-bottom:16px;background:#FFFBEB;border-color:#F5A623;color:#17212B;">
+            <strong>Editorial Verification Rule: AI agreement is NOT proof of accuracy.</strong>
+            All newsroom-generated drafts are strictly routed to the <strong>Admin Review Queue (<code>status="review"</code>)</strong> and are never auto-published. Quotes, machine specifications, prices, financial figures, and product launch dates are flagged for mandatory human verification against the primary source link.
+          </div>
+
+          <div class="admin-layout">
+            <div>
+              <h3>Analyze Collected Dispatch or Raw Source Evidence</h3>
+              <p class="form-hint">Works with or without an external <code>AI_API_KEY</code>. When no key is configured in <code>.env</code>, the newsroom executes its deterministic local 6-specialist-role pipeline at $0.00 API cost.</p>
+              <form id="newsroom-manual-form" class="mini-crud-form">
+                <input id="nr-title" required placeholder="Source Headline (e.g., Stage V Hydraulic Pump Control Advances for Backhoe Loaders) *">
+                <div class="form-two">
+                  <input id="nr-source-name" required placeholder="Source Name (e.g., OEM Off-Highway) *">
+                  <input id="nr-source-url" type="url" required placeholder="Primary Source HTTPS URL (Evidence) *">
+                </div>
+                <div class="form-two">
+                  <input id="nr-manufacturer" placeholder="Manufacturer (optional, auto-detected)">
+                  <input id="nr-country" placeholder="Country / Region (optional, auto-detected)">
+                </div>
+                <textarea id="nr-excerpt" rows="3" required placeholder="Paste permitted source excerpt or factual release notes to analyze (never invent quotes, specs, or prices) *"></textarea>
+                <button class="button button-dark" type="submit">Run 8-Step Newsroom Workflow → Send to Review Queue</button>
+              </form>
+
+              <h3 style="margin-top:20px;">Active Specialist Roles &amp; API Cost Disclosure</h3>
+              <div id="newsroom-config-summary" class="admin-story-list"></div>
+            </div>
+
+            <div>
+              <h3>Latest Newsroom Verification Dossier (Steps 1–8)</h3>
+              <div id="newsroom-dossier-output" class="admin-story-list">
+                <p class="muted">Select "AI Newsroom Analyze → Review Queue" on any collected dispatch above, or run the manual evidence form to inspect the 8-step verification dossier.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 6: IMAGES & IMAGE CREDITS
+           =================================================================== -->
+      <section id="tab-images" class="admin-tab-pane" hidden>
+        <section class="admin-panel">
+          <h2>Editorial Image Registry &amp; License Credits</h2>
+          <p class="form-hint">Every editorial photograph or OEM press handout must carry explicit alt text, credit attribution, and license terms.</p>
+          <form id="image-mgr-form" class="mini-crud-form">
+            <div class="form-two">
+              <input id="img-url" type="url" required placeholder="Image HTTPS URL *">
+              <input id="img-credit" required placeholder="Image Credit (e.g., JCB Press Handout) *">
+            </div>
+            <div class="form-two">
+              <input id="img-alt" required placeholder="Descriptive Alt Text *">
+              <input id="img-license" placeholder="License (e.g., Official OEM Press Use)">
+            </div>
+            <button class="button button-dark" type="submit">Save Image &amp; Credit →</button>
+          </form>
+          <div id="admin-images-list" class="admin-story-list"></div>
+        </section>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 7: NEWSLETTER SUBSCRIBERS, TEMPLATES, SOCIAL DISTRIBUTION & TIPS
+           =================================================================== -->
+      <section id="tab-newsletter" class="admin-tab-pane" hidden>
+        <section class="admin-panel" style="margin-bottom:24px;">
+          <div class="panel-title">
+            <div>
+              <span class="kicker">Consent · Email Verification · Unsubscribe · Duplicate Send Prevention</span>
+              <h2>Newsletter Templates &amp; Content-Distribution Engine</h2>
+            </div>
+            <div class="story-actions">
+              <button id="preview-daily-newsletter-btn" class="button button-outline" type="button">Preview Daily Dispatch</button>
+              <button id="preview-weekly-newsletter-btn" class="button button-outline" type="button">Preview Weekly Briefing</button>
+              <button id="send-weekly-newsletter-btn" class="button button-dark" type="button">Dispatch Weekly Newsletter →</button>
+            </div>
+          </div>
+          <div id="admin-distribution-provider-status" class="catalog-summary-grid" style="margin-bottom:16px;"></div>
+
+          <div class="admin-layout">
+            <div>
+              <h3>Daily / Weekly Newsletter Template Preview</h3>
+              <div id="admin-newsletter-template-preview" class="admin-story-list">
+                <p class="muted">Select "Preview Daily Dispatch" or "Preview Weekly Briefing" to inspect the generated HTML &amp; plain-text briefing with one-click unsubscribe headers.</p>
+              </div>
+            </div>
+            <div>
+              <h3>Social Media Distribution &amp; Delivery Logs</h3>
+              <form id="social-distribute-form" class="mini-crud-form">
+                <div class="form-two">
+                  <select id="social-article-select" required>
+                    <option value="">Select Published Article…</option>
+                  </select>
+                  <select id="social-channel-select">
+                    <option value="linkedin">LinkedIn Company Page API</option>
+                    <option value="x_twitter">X / Twitter API v2</option>
+                    <option value="webhook">Authorized Syndication Webhook</option>
+                  </select>
+                </div>
+                <button class="button button-dark" type="submit">Distribute Article / Prepare Share Bundle →</button>
+              </form>
+              <div id="admin-distribution-logs-list" class="admin-story-list" style="margin-top:12px;"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Newsletter Subscribers (Interests, Consent &amp; Verification)</h2>
+            <div id="admin-newsletter-list" class="admin-story-list"><p class="muted">No subscribers yet.</p></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Submitted News Tips &amp; Corrections</h2>
+            <div id="admin-submissions-list" class="admin-story-list"><p class="muted">No tips submitted yet.</p></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 8: COLLECTION JOBS, ERRORS & ACTIVITY LOGS
+           =================================================================== -->
+      <section id="tab-jobs" class="admin-tab-pane" hidden>
+        <!-- 8-STAGE EDITORIAL PIPELINE TRACKER -->
+        <section class="admin-panel" style="margin-bottom:24px;">
+          <div class="panel-title">
+            <div>
+              <span class="kicker">8-Stage Editorial Pipeline · Job Locking · Publication Gate Controls</span>
+              <h2>DISCOVERED → COLLECTED → DEDUPLICATED → DRAFT → REVIEW → APPROVED → SCHEDULED → PUBLISHED</h2>
+            </div>
+            <div class="story-actions">
+              <button id="run-rules-test-suite-btn" class="button button-dark" type="button">Run 5-Gate &amp; Sensitive-Topic Verification Suite ✓</button>
+            </div>
+          </div>
+
+          <div id="pipeline-stage-bar" class="catalog-summary-grid" style="margin-bottom:16px;"></div>
+
+          <div class="admin-layout">
+            <div>
+              <h3>Editorial Mode, Scheduling &amp; Conditional Auto-Publish Controls</h3>
+              <p class="form-hint" id="scheduler-hosting-disclosure">Default mode is <strong>Draft / Review</strong>. Automatic publication remains disabled until all 5 verification gates (source, factual evidence, originality, image rights, and quality) have been tested and a <code>super_admin</code> explicitly enables it. Recalls, safety issues, disputes, allegations, financial claims, conflicting reports, and uncertain technical details are always routed to human review.</p>
+              <form id="workflow-config-form" class="mini-crud-form">
+                <div class="form-two">
+                  <div>
+                    <label for="wf-sched-interval">Scheduler Interval (seconds)</label>
+                    <input id="wf-sched-interval" type="number" min="10" max="3600" value="60">
+                  </div>
+                  <div>
+                    <label for="wf-max-retries">Max Job Retries Before Failure Alert</label>
+                    <input id="wf-max-retries" type="number" min="1" max="5" value="3">
+                  </div>
+                </div>
+                <div id="wf-rules-tested-summary" style="margin:8px 0;font-size:13px;"></div>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="wf-auto-publish-toggle"> Enable Conditional Automatic Publication (Only for stories passing all 5 tested gates &amp; 0 sensitive flags)
+                </label>
+                <button class="button button-dark" type="submit">Save Workflow &amp; Scheduler Configuration →</button>
+              </form>
+
+              <h3 style="margin-top:20px;">Failure Alerts &amp; Retry Exhaustion Log</h3>
+              <div id="admin-failure-alerts-list" class="admin-story-list"></div>
+            </div>
+
+            <div>
+              <h3>Publication &amp; Rollback Record (What Was Published &amp; Why)</h3>
+              <p class="form-hint">Immutable record of every approved, scheduled, published, or rolled-back/unpublished story and the verification rationale.</p>
+              <div id="admin-publication-ledger-list" class="admin-story-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Collection Jobs, Schedulers &amp; Validation Warnings</h2>
+            <div id="admin-jobs-list" class="admin-story-list"></div>
+            <h3 style="margin-top:20px;">Content &amp; Source Validation Warnings</h3>
+            <div id="admin-warnings-list" class="admin-story-list"></div>
+            <h3 style="margin-top:20px;">Database Snapshots &amp; Backups</h3>
+            <div id="admin-catalog-summary" class="catalog-summary-grid"></div>
+            <div id="admin-backups-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Audit &amp; Activity Logs</h2>
+            <div id="admin-audit-list" class="admin-story-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 9: SEO METADATA, WEBSITE SETTINGS & ADMIN ROLES
+           =================================================================== -->
+      <section id="tab-settings" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <section class="admin-panel">
+            <h2>Global SEO Metadata &amp; Website Settings</h2>
+            <form id="settings-mgr-form" class="article-form">
+              <div class="form-two">
+                <div>
+                  <label for="set-site-name">Brand Name</label>
+                  <input id="set-site-name" required>
+                </div>
+                <div>
+                  <label for="set-tagline">Brand Tagline</label>
+                  <input id="set-tagline" required>
+                </div>
+              </div>
+              <label for="set-meta-title">Default SEO Meta Title</label>
+              <input id="set-meta-title">
+              <label for="set-meta-desc">Default SEO Meta Description</label>
+              <textarea id="set-meta-desc" rows="2"></textarea>
+              <div class="form-two">
+                <div>
+                  <label for="set-canonical">Canonical Base URL</label>
+                  <input id="set-canonical" type="url">
+                </div>
+                <div>
+                  <label for="set-contact-email">Editorial Contact Email</label>
+                  <input id="set-contact-email" type="email">
+                </div>
+              </div>
+              <div class="form-two">
+                <div>
+                  <label for="set-ga-id">Google Analytics 4 Measurement ID (Optional)</label>
+                  <input id="set-ga-id" placeholder="e.g., G-XXXXXXXXXX (or set GA_MEASUREMENT_ID)">
+                </div>
+                <div>
+                  <label for="set-plausible-domain">Plausible Analytics Domain (Optional)</label>
+                  <input id="set-plausible-domain" placeholder="e.g., machinewire.example.com">
+                </div>
+              </div>
+              <div class="form-two">
+                <div>
+                  <label for="set-gsc-code">Google Search Console Verification Code (Optional)</label>
+                  <input id="set-gsc-code" placeholder="google-site-verification token">
+                </div>
+                <div>
+                  <label for="set-gsc-url">Search Console Property URL (Optional)</label>
+                  <input id="set-gsc-url" type="url" placeholder="https://machinewire.example.com">
+                </div>
+              </div>
+              <label class="checkbox-label">
+                <input type="checkbox" id="set-require-source" checked> Require primary source URL before publishing
+              </label>
+              <button class="button button-dark" type="submit">Save Website, SEO &amp; Analytics Settings →</button>
+            </form>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Search Performance, Audience Telemetry &amp; Demand-Driven Content Prioritization</h2>
+            <p class="muted" style="margin-bottom:12px;">Tracks measured page views, internal search queries, popular categories, regional reader demand, newsletter conversions, and engagement. Content priority is computed from source quality, verified demand, and actual performance — search rankings and traffic numbers are never promised.</p>
+            <div id="admin-seo-analytics-summary" class="catalog-summary-grid"></div>
+            <h3 style="margin-top:16px;">Prioritized Content Queue (Source Quality + Demand + Engagement)</h3>
+            <div id="admin-content-priority-list" class="admin-story-list"></div>
+          </section>
+
+          <section class="admin-panel">
+            <h2>Role-Based Admin Users (super_admin only)</h2>
+            <form id="user-mgr-form" class="mini-crud-form">
+              <div class="form-two">
+                <input id="usr-username" required placeholder="Username (e.g., review-desk) *">
+                <input id="usr-email" type="email" required placeholder="Email *">
+              </div>
+              <div class="form-two">
+                <select id="usr-role">
+                  <option value="author">Author (Draft &amp; Submit Review)</option>
+                  <option value="reviewer">Reviewer (Review &amp; Reject)</option>
+                  <option value="managing_editor">Managing Editor (Publish, Schedule, Delete)</option>
+                  <option value="super_admin">Super Admin (Full System &amp; Users)</option>
+                </select>
+                <input id="usr-password" type="password" placeholder="Password (min 6 chars, scrypt hashed)">
+              </div>
+              <button class="button button-dark" type="submit">Save Admin User →</button>
+            </form>
+            <div id="admin-users-list" class="admin-story-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 10: AI SEO & NEWSROOM AUTOMATION OPERATIONS DASHBOARD
+           =================================================================== -->
+      <section id="tab-ai-seo" class="admin-tab-pane" hidden>
+        <div class="admin-layout">
+          <!-- Overview Strip & Status -->
+          <section class="admin-panel" style="grid-column: 1 / -1;">
+            <div class="panel-title">
+              <div>
+                <h2>Central AI SEO &amp; Newsroom Operations Desk</h2>
+                <p class="muted" style="margin-top:4px;">Single-pipeline intelligence architecture orchestrating 10 coordinated AI specialist roles over shared evidence. Operates deterministically with local fallbacks or single-pass cloud LLM. Never promises rankings, generates fake impressions, or publishes without human review.</p>
+              </div>
+              <div class="story-actions">
+                <button id="refresh-ai-dash-btn" class="button button-outline" type="button">🔄 Refresh Dashboard</button>
+                <button id="run-tech-audit-btn" class="button button-dark" type="button">⚡ Run Technical SEO Audit</button>
+              </div>
+            </div>
+
+            <!-- Health & Pipeline KPI Summary Strip -->
+            <div class="admin-stats" id="ai-seo-kpi-strip" style="margin-top:16px;">
+              <div><small>Monitored Sources</small><strong id="ai-stat-sources">-</strong></div>
+              <div><small>Discovered / Deduplicated</small><strong id="ai-stat-discovered">-</strong></div>
+              <div><small>Active Review Drafts</small><strong id="ai-stat-drafts">-</strong></div>
+              <div><small>Articles Published</small><strong id="ai-stat-published">-</strong></div>
+              <div><small>SEO Tasks (Pending/Total)</small><strong id="ai-stat-tasks">-</strong></div>
+              <div><small>Tech SEO Score</small><strong id="ai-stat-health">-</strong></div>
+              <div><small>AI Provider / Estimated Cost</small><strong id="ai-stat-cost">$0.00</strong></div>
+            </div>
+          </section>
+
+          <!-- 10 Coordinated Specialist Roles -->
+          <section class="admin-panel" style="grid-column: 1 / -1;">
+            <div class="panel-title">
+              <h2>10 Coordinated AI Specialist Roles</h2>
+              <span class="badge badge-published">Shared Context Queue · Single Configured Provider</span>
+            </div>
+            <p class="muted" style="margin-bottom:14px;">Specialist roles collaborate over verified facts, preventing duplicated work, hallucinations, and separate subscription fees.</p>
+            <div id="ai-specialist-roles-grid" class="catalog-summary-grid"></div>
+          </section>
+
+          <!-- Technical SEO Audit & Crawlability -->
+          <section class="admin-panel">
+            <div class="panel-title">
+              <h2>Technical SEO &amp; Crawlability Audit</h2>
+              <span id="audit-status-badge" class="badge">Running</span>
+            </div>
+            <p class="muted" style="margin-bottom:12px;">Validates URL structure, metadata integrity, OpenGraph, sitemap.xml, robots.txt, canonical slugs, and verified source evidence.</p>
+            <div id="tech-audit-summary-box" style="margin-bottom:14px;padding:12px;background:var(--bg-light,#f8f9fa);border-radius:4px;border:1px solid var(--border,#e1e4e8);"></div>
+            <h3>Audit Checks &amp; Detected Issues</h3>
+            <div id="tech-audit-issues-list" class="admin-story-list"></div>
+          </section>
+
+          <!-- Real Search Telemetry & Strategy -->
+          <section class="admin-panel">
+            <div class="panel-title">
+              <h2>Search Telemetry &amp; Organic Strategy</h2>
+              <span class="badge">Verified Telemetry</span>
+            </div>
+            <p class="muted" style="margin-bottom:12px;">Presents actual measured engagement and search telemetry. Discloses when Google Search Console or Analytics APIs await credentials rather than fabricating traffic.</p>
+            <div id="search-telemetry-box" style="margin-bottom:14px;padding:12px;background:var(--bg-light,#f8f9fa);border-radius:4px;border:1px solid var(--border,#e1e4e8);"></div>
+            <h3>Content Pipeline &amp; Verification Health</h3>
+            <div id="content-pipeline-health-box"></div>
+          </section>
+
+          <!-- 90-Day SEO Execution Roadmap -->
+          <section class="admin-panel" style="grid-column: 1 / -1;">
+            <div class="panel-title">
+              <h2>90-Day Sustainable Organic Growth Roadmap</h2>
+              <span class="badge badge-published">Structured Execution</span>
+            </div>
+            <p class="muted" style="margin-bottom:14px;">Phased rollout designed for durable indexing, topical authority in heavy machinery and commercial vehicles, and human editorial quality.</p>
+            <div id="roadmap-phases-container" class="admin-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;"></div>
+          </section>
+
+          <!-- Interactive SEO Task Queue -->
+          <section class="admin-panel" style="grid-column: 1 / -1;">
+            <div class="panel-title">
+              <div>
+                <h2>Interactive SEO &amp; Newsroom Task Queue</h2>
+                <p class="muted" style="margin-top:4px;">Tasks prioritized by <code>Priority = (Importance × 0.5 + Confidence × 0.3 + Effort × 0.2) × 10</code>. Review, assign, complete, or reject actionable opportunities.</p>
+              </div>
+              <div class="story-actions">
+                <select id="task-filter-role" style="padding:6px;border:1px solid var(--border,#ccc);border-radius:4px;">
+                  <option value="">All Specialist Roles</option>
+                  <option value="coordinator">Coordinator</option>
+                  <option value="keyword_research">Keyword Research</option>
+                  <option value="news_research">News Research</option>
+                  <option value="news_writer">News Writer</option>
+                  <option value="fact_checker">Fact Checker</option>
+                  <option value="article_seo">Article SEO</option>
+                  <option value="technical_seo">Technical SEO</option>
+                  <option value="regional_seo">Regional SEO</option>
+                  <option value="manufacturer_seo">Manufacturer SEO</option>
+                  <option value="analytics_strategy">Analytics &amp; Strategy</option>
+                </select>
+                <select id="task-filter-status" style="padding:6px;border:1px solid var(--border,#ccc);border-radius:4px;">
+                  <option value="">All Statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Create New Task Form -->
+            <form id="create-seo-task-form" class="mini-crud-form" style="margin-top:14px;background:var(--bg-light,#fbfbfb);padding:14px;border:1px solid var(--border,#e1e4e8);border-radius:4px;">
+              <h4 style="margin-bottom:10px;">Queue New SEO / Newsroom Task</h4>
+              <div class="form-two">
+                <input id="task-title" required placeholder="Task Title (e.g., Optimize Komatsu PC210 Model Hub) *">
+                <select id="task-role" required>
+                  <option value="keyword_research">Keyword Research</option>
+                  <option value="news_research">News Research</option>
+                  <option value="news_writer">News Writer</option>
+                  <option value="fact_checker">Fact Checker</option>
+                  <option value="article_seo">Article SEO</option>
+                  <option value="technical_seo" selected>Technical SEO</option>
+                  <option value="regional_seo">Regional SEO</option>
+                  <option value="manufacturer_seo">Manufacturer SEO</option>
+                  <option value="analytics_strategy">Analytics &amp; Strategy</option>
+                  <option value="coordinator">Coordinator</option>
+                </select>
+              </div>
+              <div class="form-two" style="margin-top:8px;">
+                <select id="task-category">
+                  <option value="technical_audit">Technical SEO Audit</option>
+                  <option value="keyword_research">Keyword Research</option>
+                  <option value="article_optimization">Article Optimization</option>
+                  <option value="internal_linking">Internal Linking</option>
+                  <option value="manufacturer_hub">Manufacturer Hub</option>
+                  <option value="duplicate_content">Duplicate / Thin Content</option>
+                  <option value="sitemap_canonical">Sitemap &amp; Canonical</option>
+                  <option value="regional_opportunity">Regional Opportunity</option>
+                  <option value="content_refresh">Content Refresh</option>
+                  <option value="industry_outreach">Industry Outreach</option>
+                </select>
+                <input id="task-target" placeholder="Target URL / Slug / OEM (e.g., /oems/komatsu)">
+              </div>
+              <div class="form-two" style="margin-top:8px;">
+                <textarea id="task-evidence" rows="2" placeholder="Evidence / Rationale (e.g., Missing Stage V power spec table)" style="width:100%;"></textarea>
+                <textarea id="task-action" rows="2" placeholder="Recommended Action (e.g., Add verified hydraulic breakout figures)" style="width:100%;"></textarea>
+              </div>
+              <div class="form-two" style="margin-top:8px;align-items:center;">
+                <div style="display:flex;gap:12px;">
+                  <label style="font-size:0.85rem;">Importance (1-10): <input id="task-importance" type="number" min="1" max="10" value="8" style="width:60px;"></label>
+                  <label style="font-size:0.85rem;">Confidence (1-10): <input id="task-confidence" type="number" min="1" max="10" value="9" style="width:60px;"></label>
+                  <label style="font-size:0.85rem;">Effort:
+                    <select id="task-effort">
+                      <option value="low">Low</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </label>
+                </div>
+                <button class="button button-dark" type="submit" style="justify-self:end;">Add to Task Queue →</button>
+              </div>
+            </form>
+
+            <div id="ai-seo-tasks-table" style="margin-top:16px;"></div>
+          </section>
+        </div>
+      </section>
+    </div>
+
+    <!-- PRE-PUBLISH ARTICLE PREVIEW MODAL -->
+    <div id="preview-modal" class="admin-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="preview-modal-title">
+      <div class="admin-modal-card">
+        <div class="panel-title">
+          <h2 id="preview-modal-title">Article Pre-Publish Preview</h2>
+          <button id="close-preview-btn" class="button button-outline" type="button">Close ×</button>
+        </div>
+        <div id="preview-modal-body" class="preview-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-bottom">
+      <span>MachineWire Editorial &amp; Operations Desk</span>
+      <span>Role-Based Access Control · Audit Logged · Not Indexed</span>
+    </div>
+  </footer>
+</body>
+</html>

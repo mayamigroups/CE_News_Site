@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "migrations": [
+    {
+      "version": 2,
+      "appliedAt": "2026-10-23T18:41:37.131Z",
+      "description": "Normalized 12 entity models, article SEO, imageCredit, 6 statuses, and updateHistory"
+    }
+  ],
+  "updatedAt": "2026-10-23T18:41:37.131Z"
+}
