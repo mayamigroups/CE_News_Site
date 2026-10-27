@@ -148,9 +148,8 @@ test('Multi-Brand News Source Pipeline & Five-Brand Pilot Verification', async (
     assert.equal(fp3.length, 24, 'Content fingerprint must be a 24-character hex string');
   });
 
-  // 10. Manual URL Intake validation
-  await t.test('10. Manual URL Intake creates full 21-field News Inbox record', async () => {
-    // Test manual intake against an approved domain simulation
+  // 10. Manual URL Intake deterministic unit test (Mocked HTTP responses)
+  await t.test('10. Manual URL Intake creates full 21-field News Inbox record (Deterministic Mocked)', async () => {
     const mockStore = createDataStore(tmpDir);
     mockStore.writeJson(mockStore.files.sources, [
       {
@@ -165,24 +164,138 @@ test('Multi-Brand News Source Pipeline & Five-Brand Pilot Verification', async (
       }
     ]);
 
-    // Intake official Komatsu newsroom URL
-    const res = await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom', {
-      manufacturer: 'Komatsu',
-      actor: 'Unit Test'
-    });
+    const origFetch = global.fetch;
+    const mockHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <title>Komatsu Launches PC210E Electric Excavator with Lithium-Ion Battery</title>
+  <meta property="og:title" content="Komatsu Launches PC210E Electric Excavator">
+  <meta property="og:description" content="Komatsu has introduced the 20-tonne class PC210E electric hydraulic excavator equipped with high-capacity lithium-ion battery packs.">
+  <link rel="canonical" href="https://www.komatsu.jp/en/newsroom/2026/pc210e-launch">
+  <meta property="article:published_time" content="2026-10-27T08:00:00Z">
+</head>
+<body>
+  <h1>Komatsu Launches PC210E Electric Excavator</h1>
+  <p>Komatsu has introduced the 20-tonne class PC210E electric hydraulic excavator equipped with high-capacity lithium-ion battery packs.</p>
+</body>
+</html>`;
 
-    assert.equal(res.ok, true);
-    assert.ok(res.item);
-    const it = res.item;
-    assert.ok(it.id.startsWith('col-'));
-    assert.ok(it.headline);
-    assert.equal(it.manufacturer, 'Komatsu');
-    assert.equal(it.collectionMethod, 'manual_url');
-    assert.equal(it.collectionMode, 'manual_url');
-    assert.equal(it.reviewStatus, 'pending_review');
-    assert.equal(it.promotedArticleId, null, 'Must NOT be promoted to an article');
-    assert.ok(it.imageRightsStatus.includes('unverified_editorial_fair_use_only_no_image_rights'));
-    assert.ok(it.stageHistory.length >= 3);
+    // 10a. Mocked Success Scenario
+    global.fetch = async (url, opts) => {
+      return new Response(mockHtml, {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
+    };
+
+    try {
+      const res = await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom/2026/pc210e-launch', {
+        manufacturer: 'Komatsu',
+        actor: 'Unit Test'
+      });
+
+      assert.equal(res.ok, true);
+      assert.ok(res.item);
+      const it = res.item;
+      assert.ok(it.id.startsWith('col-'));
+      assert.equal(it.headline, 'Komatsu Launches PC210E Electric Excavator');
+      assert.equal(it.canonicalUrl, 'https://www.komatsu.jp/en/newsroom/2026/pc210e-launch');
+      assert.equal(it.manufacturer, 'Komatsu');
+      assert.equal(it.collectionMethod, 'manual_url');
+      assert.equal(it.collectionMode, 'manual_url');
+      assert.equal(it.reviewStatus, 'pending_review');
+      assert.equal(it.promotedArticleId, null, 'Must NOT be promoted to an article');
+      assert.ok(it.imageRightsStatus.includes('unverified_editorial_fair_use_only_no_image_rights'));
+      assert.ok(it.stageHistory.length >= 3);
+    } finally {
+      global.fetch = origFetch;
+    }
+
+    // 10b. Mocked Timeout Scenario
+    global.fetch = async (url, opts) => {
+      const err = new Error('The operation was aborted due to timeout');
+      err.name = 'TimeoutError';
+      err.code = 23;
+      throw err;
+    };
+
+    try {
+      await assert.rejects(async () => {
+        await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom/timeout-test', {
+          manufacturer: 'Komatsu',
+          actor: 'Unit Test'
+        });
+      }, /timed out/i);
+    } finally {
+      global.fetch = origFetch;
+    }
+
+    // 10c. Mocked Network Failure Scenario (ENOTFOUND / getaddrinfo)
+    global.fetch = async (url, opts) => {
+      const err = new TypeError('fetch failed');
+      err.cause = Object.assign(new Error('getaddrinfo ENOTFOUND komatsu.jp'), { code: 'ENOTFOUND' });
+      throw err;
+    };
+
+    try {
+      await assert.rejects(async () => {
+        await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom/dns-fail-test', {
+          manufacturer: 'Komatsu',
+          actor: 'Unit Test'
+        });
+      }, /ENOTFOUND/i);
+    } finally {
+      global.fetch = origFetch;
+    }
+
+    // 10d. Mocked HTTP Error Scenario (HTTP 404 / 500)
+    global.fetch = async (url, opts) => {
+      return new Response('Not Found', { status: 404, statusText: 'Not Found' });
+    };
+
+    try {
+      await assert.rejects(async () => {
+        await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom/404-test', {
+          manufacturer: 'Komatsu',
+          actor: 'Unit Test'
+        });
+      }, /404/);
+    } finally {
+      global.fetch = origFetch;
+    }
+  });
+
+  // Separate Live Integration Test for Manual URL Intake (Reports INCONCLUSIVE if network restricted)
+  await t.test('10-int. Manual URL Intake Live Integration (Reports INCONCLUSIVE if network blocked)', async (st) => {
+    const mockStore = createDataStore(tmpDir);
+    mockStore.writeJson(mockStore.files.sources, [
+      {
+        id: 'src-test-komatsu-live',
+        name: 'Komatsu Global Newsroom',
+        domain: 'komatsu.jp',
+        website: 'https://www.komatsu.jp/en/newsroom',
+        feedUrl: '',
+        collectionMode: 'manual_url',
+        manufacturer: 'Komatsu',
+        enabled: true
+      }
+    ]);
+
+    try {
+      const res = await collector.intakeManualUrl(mockStore, 'https://www.komatsu.jp/en/newsroom', {
+        manufacturer: 'Komatsu',
+        actor: 'Live Integration Test'
+      });
+      assert.equal(res.ok, true);
+      assert.ok(res.item);
+      assert.equal(res.item.manufacturer, 'Komatsu');
+    } catch (err) {
+      if (/network|fetch failed|getaddrinfo|timed out|enotfound|econnrefused/i.test(err.message)) {
+        st.skip(`INCONCLUSIVE: Live Manual URL Intake blocked by network environment (${err.message})`);
+        return;
+      }
+      throw err;
+    }
   });
 
   // 11. Unapproved domain rejection

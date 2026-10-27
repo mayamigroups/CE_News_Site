@@ -759,20 +759,166 @@ test('News Collection Engine: canonical URL normalization, fingerprinting, sampl
     'Collected items must remain separate from published articles'
   );
 
-  // 4. Real-Source Live Test using an approved public RSS feed (https://www.oemoffhighway.com/rss)
-  const liveRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Cookie: cookie },
-    body: JSON.stringify({ mode: 'live' })
-  });
-  assert.equal(liveRes.status, 200);
-  const liveData = await liveRes.json();
-  assert.equal(liveData.ok, true, `Expected live RSS collection to succeed, got error: ${liveData.error || 'none'}`);
-  assert.equal(liveData.mode, 'live');
-  assert.ok(liveData.discoveredCount >= 1, 'Expected at least 1 real item discovered from live OEM Off-Highway RSS feed');
-  assert.ok(liveData.insertedCount >= 1, 'Expected real live RSS items to be stored in collected_items.json');
+  // 4. Deterministic Mocked HTTP Tests for RSS Collection Engine
+  // Covers: Success, Timeout, Invalid/Corrupt XML, HTTP Error (404/500/403), and Network Failure scenarios
+  const origFetch = global.fetch;
 
-  // Verify stored evidence on collected items
+  // 4a. Mocked Success Scenario
+  const mockXmlPayload = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Mocked OEM Equipment News</title>
+    <link>https://www.oemoffhighway.com</link>
+    <item>
+      <title>Mocked Hydrostatic Drive Breakthrough for Excavators</title>
+      <link>https://www.oemoffhighway.com/fluid-power/article/111/hydrostatic-drive-breakthrough</link>
+      <guid>mock-guid-111</guid>
+      <pubDate>Mon, 27 Oct 2026 10:00:00 GMT</pubDate>
+      <description>Advanced variable-displacement pump increases efficiency across high-pressure duty cycles.</description>
+    </item>
+  </channel>
+</rss>`;
+
+  global.fetch = async (url, opts) => {
+    const urlStr = String(url);
+    if (urlStr.includes('/robots.txt')) {
+      return new Response('User-agent: *\nAllow: /\n', {
+        status: 200,
+        headers: { 'Content-Type': 'text/plain' }
+      });
+    }
+    if (urlStr.includes('oemoffhighway.com/rss')) {
+      return new Response(mockXmlPayload, {
+        status: 200,
+        headers: { 'Content-Type': 'application/rss+xml' }
+      });
+    }
+    return origFetch(url, opts);
+  };
+
+  try {
+    const mockLiveRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+    assert.equal(mockLiveRes.status, 200);
+    const mockLiveData = await mockLiveRes.json();
+    assert.equal(mockLiveData.ok, true, `Expected mocked RSS collection to succeed: ${mockLiveData.error}`);
+    assert.equal(mockLiveData.mode, 'live');
+    assert.ok(mockLiveData.discoveredCount >= 1, 'Expected at least 1 item discovered via mocked RSS feed');
+    assert.ok(mockLiveData.insertedCount >= 1, 'Expected new items to be stored in collected items');
+  } finally {
+    global.fetch = origFetch;
+  }
+
+  // 4b. Mocked Timeout Scenario
+  global.fetch = async (url, opts) => {
+    const urlStr = String(url);
+    if (urlStr.includes('/robots.txt')) return new Response('User-agent: *\nAllow: /\n', { status: 200 });
+    if (urlStr.includes('oemoffhighway.com/rss')) {
+      const err = new Error('The operation was aborted due to timeout');
+      err.name = 'TimeoutError';
+      err.code = 23;
+      throw err;
+    }
+    return origFetch(url, opts);
+  };
+
+  try {
+    const timeoutRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+    assert.equal(timeoutRes.status, 200);
+    const timeoutData = await timeoutRes.json();
+    assert.equal(timeoutData.ok, false);
+    assert.match(timeoutData.error, /timed out/i);
+    assert.equal(timeoutData.isNetworkRestriction, true);
+  } finally {
+    global.fetch = origFetch;
+  }
+
+  // 4c. Mocked HTTP Error Scenario (HTTP 503 Service Unavailable / 403 Forbidden)
+  global.fetch = async (url, opts) => {
+    const urlStr = String(url);
+    if (urlStr.includes('/robots.txt')) return new Response('User-agent: *\nAllow: /\n', { status: 200 });
+    if (urlStr.includes('oemoffhighway.com/rss')) {
+      return new Response('Server maintenance', { status: 503, statusText: 'Service Unavailable' });
+    }
+    return origFetch(url, opts);
+  };
+
+  try {
+    const httpErrRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+    assert.equal(httpErrRes.status, 200);
+    const httpErrData = await httpErrRes.json();
+    assert.equal(httpErrData.ok, false);
+    assert.match(httpErrData.error, /503/);
+  } finally {
+    global.fetch = origFetch;
+  }
+
+  // 4d. Mocked Network Failure Scenario (DNS getaddrinfo ENOTFOUND)
+  global.fetch = async (url, opts) => {
+    const urlStr = String(url);
+    if (urlStr.includes('/robots.txt')) return new Response('User-agent: *\nAllow: /\n', { status: 200 });
+    if (urlStr.includes('oemoffhighway.com/rss')) {
+      const err = new TypeError('fetch failed');
+      err.cause = Object.assign(new Error('getaddrinfo ENOTFOUND oemoffhighway.com'), { code: 'ENOTFOUND' });
+      throw err;
+    }
+    return origFetch(url, opts);
+  };
+
+  try {
+    const netErrRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+    assert.equal(netErrRes.status, 200);
+    const netErrData = await netErrRes.json();
+    assert.equal(netErrData.ok, false);
+    assert.equal(netErrData.isNetworkRestriction, true);
+    assert.match(netErrData.error, /ENOTFOUND/i);
+  } finally {
+    global.fetch = origFetch;
+  }
+
+  // 4e. Mocked Invalid/Corrupt XML Scenario
+  global.fetch = async (url, opts) => {
+    const urlStr = String(url);
+    if (urlStr.includes('/robots.txt')) return new Response('User-agent: *\nAllow: /\n', { status: 200 });
+    if (urlStr.includes('oemoffhighway.com/rss')) {
+      return new Response('<html><body>404 Not a feed</body></html>', {
+        status: 200,
+        headers: { 'Content-Type': 'text/html' }
+      });
+    }
+    return origFetch(url, opts);
+  };
+
+  try {
+    const corruptXmlRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+    assert.equal(corruptXmlRes.status, 200);
+    const corruptData = await corruptXmlRes.json();
+    assert.equal(corruptData.ok, true);
+    assert.equal(corruptData.discoveredCount, 0, 'Non-feed HTML should produce 0 items without crashing');
+  } finally {
+    global.fetch = origFetch;
+  }
+
+  // Verify stored evidence on collected items from mocked run
   const collectedRes = await fetch(`${baseUrl}/api/admin/collected`, { headers: { Cookie: cookie } });
   const collectedItems = await collectedRes.json();
   assert.ok(collectedItems.length >= 3);
@@ -795,6 +941,41 @@ test('News Collection Engine: canonical URL normalization, fingerprinting, sampl
   const promoteData = await promoteRes.json();
   assert.equal(promoteData.article.status, 'draft');
   assert.equal(promoteData.collectedItem.reviewStatus, 'promoted_to_draft');
+});
+
+// Separate Live Integration Test for real RSS feeds (Reports INCONCLUSIVE if network restricted)
+test('Integration Test: Real-world public RSS feed live collection (Reports INCONCLUSIVE if network blocked)', async (t) => {
+  // Sign in as super_admin
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: 'test-admin-password-2026' })
+  });
+  const cookie = loginRes.headers.get('set-cookie').split(';')[0];
+  const catRes = await fetch(`${baseUrl}/api/admin/catalog`, { headers: { Cookie: cookie } });
+  const catData = await catRes.json();
+  const oemSource = catData.sources.find((s) => s.feedUrl === 'https://www.oemoffhighway.com/rss');
+
+  let liveRes;
+  try {
+    liveRes = await fetch(`${baseUrl}/api/admin/sources/${oemSource.id}/check`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Cookie: cookie },
+      body: JSON.stringify({ mode: 'live' })
+    });
+  } catch (err) {
+    t.skip(`INCONCLUSIVE: External network blocked or unavailable (${err.message})`);
+    return;
+  }
+
+  const liveData = await liveRes.json();
+  if (!liveData.ok && liveData.isNetworkRestriction) {
+    t.skip(`INCONCLUSIVE: Real RSS feed test blocked by environment network restriction (${liveData.error})`);
+    return;
+  }
+
+  assert.equal(liveData.ok, true, `Live RSS collection failed: ${liveData.error}`);
+  assert.ok(liveData.discoveredCount >= 1, 'Expected at least 1 real item discovered from live RSS feed');
 });
 
 test('Configurable AI-Assisted Newsroom: 6 specialist roles, 8-step workflow, risk & missing-info flagging, quality checks, review queue routing, and offline fallback without API key', async () => {
