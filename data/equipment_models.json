@@ -13,7 +13,7 @@
       "Coverage Scope": "Global OEM & Fleet Intelligence"
     },
     "createdAt": "2026-10-23T18:41:37.042Z",
-    "updatedAt": "2026-10-25T16:11:45.849Z",
+    "updatedAt": "2026-10-27T13:05:43.978Z",
     "manufacturerSlug": "bull-machines",
     "category": "Industry News",
     "country": "India",
@@ -40,7 +40,7 @@
       "Evaluation Focus": "Total Cost of Ownership & Parts Network"
     },
     "createdAt": "2026-10-23T18:41:37.051Z",
-    "updatedAt": "2026-10-25T16:11:45.863Z",
+    "updatedAt": "2026-10-27T13:05:43.998Z",
     "manufacturerSlug": "all-manufacturers",
     "category": "Buying Guides",
     "country": "Global",
@@ -67,7 +67,7 @@
       "Driveline Checkpoints": "Hub Reduction, Crawler Gear, Aux Braking"
     },
     "createdAt": "2026-10-23T18:41:37.062Z",
-    "updatedAt": "2026-10-25T16:11:45.877Z",
+    "updatedAt": "2026-10-27T13:05:44.014Z",
     "manufacturerSlug": "various",
     "category": "Commercial Vehicles",
     "country": "Global",
@@ -94,7 +94,7 @@
       "Powertrain Scope": "Tier 4F / Stage V / CEV Stage V & BEV"
     },
     "createdAt": "2026-10-23T18:41:37.073Z",
-    "updatedAt": "2026-10-25T16:11:45.890Z",
+    "updatedAt": "2026-10-27T13:05:44.029Z",
     "manufacturerSlug": "various",
     "category": "Technology",
     "country": "Global",
@@ -121,7 +121,7 @@
       "North America Hub": "CONEXPO-CON/AGG (Las Vegas)"
     },
     "createdAt": "2026-10-23T18:41:37.084Z",
-    "updatedAt": "2026-10-25T16:11:45.904Z",
+    "updatedAt": "2026-10-27T13:05:44.046Z",
     "manufacturerSlug": "all-manufacturers",
     "category": "Events & Exhibitions",
     "country": "Global",
@@ -174,7 +174,7 @@
     "imageCredit": "Editorial Reference / Consult Official BULL Machines Documentation",
     "specSourceNote": "Verified against official BULL Machines product portfolio. Exact operating weight, horsepower, and breakout force depend on variant and regional emission package; never assume unverified brochure figures.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-jcb-3dx-backhoe-loader",
@@ -216,7 +216,7 @@
     "imageCredit": "Editorial Reference / Consult Official JCB Documentation",
     "specSourceNote": "Model family overview based on official JCB product lines. Regional specifications (UK/EU Stage V vs. India CEV Stage V) differ by engine rating and dipper option.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-caterpillar-320-hydraulic-excavator",
@@ -258,7 +258,7 @@
     "imageCredit": "Editorial Reference / Consult Official Caterpillar Documentation",
     "specSourceNote": "Verified platform capabilities from official Caterpillar documentation. Exact operating weight and net power depend on undercarriage, boom/stick, and regional emissions tier.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-komatsu-pc210-10m0-hydraulic-excavator",
@@ -300,7 +300,7 @@
     "imageCredit": "Editorial Reference / Consult Official Komatsu Documentation",
     "specSourceNote": "Overview derived from official Komatsu product documentation. Verify LC/standard undercarriage and regional emission package with local Komatsu distributor.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-volvo-ec210-crawler-excavator",
@@ -341,7 +341,7 @@
     "imageCredit": "Editorial Reference / Consult Official Volvo CE Documentation",
     "specSourceNote": "Verified platform family from Volvo CE. Regional specifications and emission tiers vary by market.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-case-770-ex-backhoe-loader",
@@ -382,7 +382,7 @@
     "imageCredit": "Editorial Reference / Consult Official CASE Documentation",
     "specSourceNote": "Compiled from official CASE Construction Equipment lineups. Confirm local variant (770 EX vs. 580 series) for exact dimensions and power ratings.",
     "createdAt": "2026-10-24T17:21:07.673Z",
-    "updatedAt": "2026-10-25T16:11:45.829Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-john-deere-310-p-tier-backhoe-loader",
@@ -423,7 +423,7 @@
     "imageCredit": "Editorial Reference / Consult Official John Deere Documentation",
     "specSourceNote": "Based on John Deere P-Tier backhoe loader architecture. Verify exact horsepower and dipper configuration with authorized John Deere dealer.",
     "createdAt": "2026-10-24T17:21:07.674Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-kubota-kx040-4-compact-excavator",
@@ -462,7 +462,7 @@
     "imageCredit": "Editorial Reference / Consult Official Kubota Documentation",
     "specSourceNote": "Verified compact excavator series from Kubota Corporation. Exact operating weight varies by rubber vs. steel tracks and canopy vs. enclosed cab.",
     "createdAt": "2026-10-24T17:21:07.674Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-mahindra-earthmaster-sx-backhoe-loader",
@@ -503,7 +503,7 @@
     "imageCredit": "Editorial Reference / Consult Official Mahindra Documentation",
     "specSourceNote": "Compiled from official Mahindra Construction Equipment product range. Verify CEV Stage V engine power and bucket sizes with authorized dealer.",
     "createdAt": "2026-10-24T17:21:07.674Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-tata-motors-signa-prima-heavy-tipper",
@@ -542,7 +542,7 @@
     "imageCredit": "Editorial Reference / Consult Official Tata Motors Documentation",
     "specSourceNote": "Platform overview based on Tata Motors Commercial Vehicles tipper range. Exact horsepower, gearbox (G1150 / automated), and body cubic capacity depend on model code.",
     "createdAt": "2026-10-24T17:21:07.674Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-sany-sy215c-hydraulic-excavator",
@@ -584,7 +584,7 @@
     "imageCredit": "Editorial Reference / Consult Official SANY Documentation",
     "specSourceNote": "Verified from official SANY Global excavator portfolio. Engine brand and emission certification vary by regional market.",
     "createdAt": "2026-10-24T17:21:07.675Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-xcmg-xct-xca-mobile-crane-series",
@@ -623,7 +623,7 @@
     "imageCredit": "Editorial Reference / Consult Official XCMG Documentation",
     "specSourceNote": "Series overview from XCMG Hoisting Machinery division. Never perform lift planning without the serial-specific OEM load chart.",
     "createdAt": "2026-10-24T17:21:07.675Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-liebherr-ltm-all-terrain-mobile-crane",
@@ -662,7 +662,7 @@
     "imageCredit": "Editorial Reference / Consult Official Liebherr Documentation",
     "specSourceNote": "Verified technical systems from Liebherr-Werk Ehingen GmbH. Specific axle loads and road homologation depend on national transport regulations.",
     "createdAt": "2026-10-24T17:21:07.675Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-hd-hyundai-hx220l-crawler-excavator",
@@ -704,7 +704,7 @@
     "imageCredit": "Editorial Reference / Consult Official HD Hyundai Documentation",
     "specSourceNote": "Compiled from official HD Hyundai Construction Equipment documentation. Verify local model designation (HX series vs. SMART Plus series in India).",
     "createdAt": "2026-10-24T17:21:07.675Z",
-    "updatedAt": "2026-10-25T16:11:45.830Z"
+    "updatedAt": "2026-10-27T13:05:43.960Z"
   },
   {
     "id": "mdl-various-hd76-3dx-580sv-310-p-tier",
@@ -732,7 +732,7 @@
     "imageCredit": "Editorial Reference / Official OEM Comparison Guide",
     "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
     "createdAt": "2026-10-25T15:28:24.191Z",
-    "updatedAt": "2026-10-25T16:11:45.970Z"
+    "updatedAt": "2026-10-27T13:05:44.125Z"
   },
   {
     "id": "mdl-various-cat-320-komatsu-pc210-volvo-ec210-sany-sy215c-hd-hyundai-hx220l",
@@ -760,7 +760,7 @@
     "imageCredit": "Editorial Reference / Multi-OEM Excavator Class Briefing",
     "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
     "createdAt": "2026-10-25T15:28:24.204Z",
-    "updatedAt": "2026-10-25T16:11:45.983Z"
+    "updatedAt": "2026-10-27T13:05:44.141Z"
   },
   {
     "id": "mdl-all-manufacturers-fleet-maintenance-protocol",
@@ -788,7 +788,7 @@
     "imageCredit": "Editorial Reference / Workshop Maintenance Guide",
     "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
     "createdAt": "2026-10-25T15:28:24.227Z",
-    "updatedAt": "2026-10-25T16:11:45.996Z"
+    "updatedAt": "2026-10-27T13:05:44.163Z"
   },
   {
     "id": "mdl-various-nrmm-stage-v-tier-4f-cev-v-platforms",
@@ -816,6 +816,6 @@
     "imageCredit": "Editorial Reference / Regulatory Powertrain Briefing",
     "specSourceNote": "Consult official manufacturer brochure for regional homologation and exact configuration figures.",
     "createdAt": "2026-10-25T15:28:24.242Z",
-    "updatedAt": "2026-10-25T16:11:46.009Z"
+    "updatedAt": "2026-10-27T13:05:44.186Z"
   }
 ]

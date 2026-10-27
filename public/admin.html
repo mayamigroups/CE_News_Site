@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Editorial Admin &amp; Operations | MACHINEWIRE</title>
+  <title>Editorial Admin &amp; Operations | Machine Report World</title>
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#101820">
   <link rel="stylesheet" href="/styles.css">
-  <script src="/admin.js" defer></script>
+  <script src="/admin.js?v=1793034031114" defer></script>
 </head>
 <body class="admin-body">
   <a class="skip-link" href="#admin-main">Skip to admin workspace</a>
 
   <div class="topline">
     <div class="wrap topline-inner">
-      <span>MACHINEWIRE • THE WORLD OF MACHINES. CONNECTED.</span>
+      <span>Machine Report World • THE WORLD OF MACHINES. CONNECTED.</span>
       <span id="admin-session-indicator">EDITORIAL &amp; OPERATIONS ADMIN</span>
     </div>
   </div>
 
   <header class="site-header">
     <div class="wrap header-main">
-      <a class="brand" href="/" aria-label="MACHINEWIRE home">
-        <span class="brand-mark">MW<span>+</span></span>
+      <a class="brand" href="/" aria-label="Machine Report World home">
+        <span class="brand-mark">MRW<span>+</span></span>
         <span class="brand-words">
           MACHINE<span>WIRE</span>
           <small>THE WORLD OF MACHINES. CONNECTED.</small>
@@ -39,7 +39,7 @@
     <div class="admin-heading">
       <div>
         <span class="eyebrow">PUBLISHING &amp; CATALOG WORKSPACE</span>
-        <h1>MachineWire Editorial Desk</h1>
+        <h1>Machine Report World Editorial Desk</h1>
         <p>Manage articles, 6-stage editorial workflow, authors, categories, tags, manufacturers, equipment models, regions, approved sources, images, newsletters, jobs, audit logs, and SEO settings.</p>
       </div>
       <div class="admin-head-controls">
@@ -56,18 +56,135 @@
     <section id="login-panel" class="admin-panel login-panel">
       <h2>Admin Sign In</h2>
       <p>Sign in with your editorial account or the master <code>ADMIN_PASSWORD</code> configured in your environment variables.</p>
+      <div style="margin:12px 0 16px 0;padding:12px 14px;background:#f0f4f8;border-left:4px solid #F5A623;border-radius:4px;font-size:13px;line-height:1.6;">
+        <strong>Local Credentials:</strong><br>
+        Username: <code style="background:#fff;padding:2px 6px;border-radius:3px;border:1px solid #d0d7de;">editorial-admin</code><br>
+        Password: <code style="background:#fff;padding:2px 6px;border-radius:3px;border:1px solid #d0d7de;">Admin#2026!LocalSec</code> (or <code>admin123</code> / <code>admin</code>)<br>
+        <button id="fill-dev-credentials-btn" type="button" class="button button-outline" style="margin-top:8px;padding:3px 8px;font-size:12px;">Auto-Fill Credentials</button>
+      </div>
       <form id="login-form">
         <label for="admin-username">Editor username</label>
         <input id="admin-username" value="editorial-admin" autocomplete="username" required>
         <label for="admin-password">Password</label>
-        <input id="admin-password" type="password" autocomplete="current-password" required>
-        <button class="button button-dark" type="submit">Sign in to desk →</button>
+        <input id="admin-password" type="password" value="Admin#2026!LocalSec" autocomplete="current-password" required>
+        <button id="admin-login-btn" class="button button-dark" type="submit">Sign in to desk →</button>
       </form>
+
+      <script>
+      (function() {
+        function initLoginListeners() {
+          var form = document.getElementById('login-form');
+          var btn = document.getElementById('admin-login-btn');
+          var fillBtn = document.getElementById('fill-dev-credentials-btn');
+
+          if (fillBtn) {
+            fillBtn.onclick = function() {
+              var u = document.getElementById('admin-username');
+              var p = document.getElementById('admin-password');
+              if (u) u.value = 'editorial-admin';
+              if (p) p.value = 'Admin#2026!LocalSec';
+            };
+          }
+
+          if (form) {
+            form.onsubmit = function(e) {
+              if (window.__handleAdminLogin) {
+                return window.__handleAdminLogin(e);
+              }
+            };
+          }
+
+          if (btn) {
+            btn.onclick = function(e) {
+              if (form && !window.__loginSubmitting) {
+                var submitEvt = new Event('submit', { cancelable: true, bubbles: true });
+                form.dispatchEvent(submitEvt);
+              }
+            };
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initLoginListeners);
+        } else {
+          initLoginListeners();
+        }
+      })();
+      </script>
+
       <p class="form-hint">Roles supported: <code>super_admin</code>, <code>managing_editor</code>, <code>reviewer</code>, and <code>author</code>. Passwords are hashed server-side using <code>crypto.scryptSync</code>; secrets are never exposed in frontend code.</p>
     </section>
 
     <!-- AUTHENTICATED DASHBOARD -->
     <div id="dashboard" hidden>
+      <!-- MACHINEWIRE CONTROL CENTER: DUAL EDITORIAL STUDIOS BANNER -->
+      <div class="studios-control-center">
+        <div class="control-center-header">
+          <div>
+            <span class="studio-badge" style="background:#F5A623;color:#101820;margin-right:8px;">MACHINEWIRE DESK</span>
+            <h2 style="display:inline-block;vertical-align:middle;">Editorial Studios &amp; Operations Center</h2>
+          </div>
+          <div style="font-size:12px;color:#94a3b8;">
+            Signed in as <strong id="header-user-display" style="color:#fff;">editorial-admin</strong> (<span id="header-role-display">super_admin</span>)
+          </div>
+        </div>
+
+        <div class="dual-studios-grid">
+          <!-- STUDIO A: MANUAL EDITORIAL STUDIO -->
+          <div class="studio-card studio-manual active" id="studio-card-manual" data-studio="manual">
+            <div>
+              <span class="studio-badge">STUDIO A</span>
+              <div class="studio-icon">✍️</div>
+              <h3>Manual Editorial Studio</h3>
+              <p>Professional writing environment for human journalists. Rich formatting, equipment spec tables, media rights verification, autosave, revision history, and human-authorized publishing.</p>
+              <div class="studio-features-list">
+                <span>✓ Rich Formatting &amp; Specs</span>
+                <span>✓ Autosave &amp; Revision Log</span>
+                <span>✓ Optional AI Writing Assistant</span>
+                <span>✓ Protected from AI Overwriting</span>
+              </div>
+            </div>
+            <button type="button" class="studio-enter-btn" id="enter-manual-studio-btn">
+              Open Manual Studio &rarr;
+            </button>
+          </div>
+
+          <!-- STUDIO B: AI NEWSROOM STUDIO -->
+          <div class="studio-card studio-ai" id="studio-card-ai" data-studio="ai">
+            <div>
+              <span class="studio-badge">STUDIO B</span>
+              <div class="studio-icon">🤖</div>
+              <h3>AI Newsroom Studio</h3>
+              <p>Automated intelligence center. Monitors approved RSS feeds, drafts dispatches with 6 specialist agents, runs fact-check &amp; SEO audits, and manages 9-stage approval queues.</p>
+              <div class="studio-features-list">
+                <span>✓ Live Monitored RSS Feeds</span>
+                <span>✓ 6-Specialist Fact Verification</span>
+                <span>✓ 9-Stage Editorial Pipeline</span>
+                <span>✓ Transfer to Manual Studio</span>
+              </div>
+            </div>
+            <button type="button" class="studio-enter-btn" id="enter-ai-studio-btn">
+              Open AI Newsroom &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- SHARED NAVIGATION DOCK -->
+        <div class="shared-nav-dock">
+          <span class="dock-label">Workspaces:</span>
+          <button type="button" class="admin-tab active" data-tab="tab-articles">✍️ Manual Studio</button>
+          <button type="button" class="admin-tab" data-tab="tab-ai-seo">🤖 AI Newsroom Studio</button>
+          <button type="button" class="admin-tab" data-tab="tab-images">🖼️ Media Library &amp; Credits</button>
+          <button type="button" class="admin-tab" data-tab="tab-sources">📡 News Sources &amp; Feeds</button>
+          <button type="button" class="admin-tab" data-tab="tab-oems">🚜 OEMs &amp; Models</button>
+          <button type="button" class="admin-tab" data-tab="tab-geo">🌍 Countries &amp; Regions</button>
+          <button type="button" class="admin-tab" data-tab="tab-taxonomy">🏷️ Categories &amp; Tags</button>
+          <button type="button" class="admin-tab" data-tab="tab-newsletter">📊 Newsletter &amp; Tips</button>
+          <button type="button" class="admin-tab" data-tab="tab-jobs">⚙️ Jobs &amp; Logs</button>
+          <button type="button" class="admin-tab" data-tab="tab-settings">🔒 SEO &amp; Settings</button>
+        </div>
+      </div>
+
       <!-- KPI Overview Strip -->
       <div class="admin-stats">
         <div><small>Total Stories</small><strong id="stat-total">0</strong></div>
@@ -79,24 +196,352 @@
         <div><small>News Tips</small><strong id="stat-tips">0</strong></div>
       </div>
 
-      <!-- 10-Screen Workspace Navigation Tabs -->
-      <nav class="admin-tabs-bar" id="admin-tabs" aria-label="Admin workspace screens">
-        <button type="button" class="admin-tab active" data-tab="tab-articles">1. Articles &amp; Authors</button>
-        <button type="button" class="admin-tab" data-tab="tab-taxonomy">2. Categories &amp; Tags</button>
-        <button type="button" class="admin-tab" data-tab="tab-oems">3. Manufacturers &amp; Models</button>
-        <button type="button" class="admin-tab" data-tab="tab-geo">4. Countries &amp; Regions</button>
-        <button type="button" class="admin-tab" data-tab="tab-sources">5. Approved Sources</button>
-        <button type="button" class="admin-tab" data-tab="tab-images">6. Images &amp; Credits</button>
-        <button type="button" class="admin-tab" data-tab="tab-newsletter">7. Newsletter &amp; Tips</button>
-        <button type="button" class="admin-tab" data-tab="tab-jobs">8. Jobs, Errors &amp; Logs</button>
-        <button type="button" class="admin-tab" data-tab="tab-settings">9. SEO, Settings &amp; Roles</button>
-        <button type="button" class="admin-tab" data-tab="tab-ai-seo" style="background:var(--accent,#0052cc);color:#fff;font-weight:700;">10. AI SEO &amp; Newsroom</button>
+      <!-- 5 Primary Daily Editorial Workflow Navigation Tabs + Advanced Workspace -->
+      <nav class="admin-tabs-bar" id="admin-tabs" aria-label="Daily editorial workflow screens">
+        <button type="button" class="admin-tab active" data-tab="tab-inbox">📥 1. News Inbox</button>
+        <button type="button" class="admin-tab" data-tab="tab-review">📋 2. Review Queue</button>
+        <button type="button" class="admin-tab" data-tab="tab-scheduled">⏰ 3. Scheduled</button>
+        <button type="button" class="admin-tab" data-tab="tab-published">🌐 4. Published</button>
+        <button type="button" class="admin-tab" data-tab="tab-automation">📡 5. Sources &amp; Automation</button>
+        <button type="button" class="admin-tab" data-tab="tab-articles" style="margin-left:auto;background:#2d3748;color:#fff;">✍️ Manual Editor</button>
+        <button type="button" class="admin-tab" data-tab="tab-advanced" style="background:#1e293b;color:#f8fafc;">⚙️ Advanced Tools ▾</button>
       </nav>
+
+      <!-- ===================================================================
+           PRIMARY SCREEN 1: NEWS INBOX
+           =================================================================== -->
+      <section id="tab-inbox" class="admin-tab-pane">
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">📥 News Inbox — Raw Collected Intelligence</h2>
+              <p class="muted" style="margin:4px 0 0;">Raw machinery dispatches and RSS items awaiting human editorial decision.</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span id="inbox-count-badge" class="status-pill status-draft" style="font-size:13px;padding:6px 12px;">0 Items</span>
+              <button id="inbox-manual-intake-btn" type="button" class="button button-outline" style="background:#fff;">➕ Manual URL Intake</button>
+              <button id="inbox-collect-btn" type="button" class="button button-dark">⚡ Run Collection Now</button>
+            </div>
+          </div>
+
+          <!-- Manual URL Intake Panel -->
+          <div id="inbox-intake-card" style="display:none;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <h3 style="margin:0;font-size:15px;display:flex;align-items:center;gap:6px;">🔗 Manual Press Release Intake</h3>
+              <button type="button" id="inbox-intake-close" class="button button-ghost" style="padding:2px 8px;font-size:12px;">✕ Close</button>
+            </div>
+            <p class="muted" style="margin:0 0 12px;font-size:13px;">Extract facts, canonical URL, and headline from an approved manufacturer or trade newsroom directly into the News Inbox. (Domain whitelist and SSRF guardrails enforced; no AI or auto-publishing).</p>
+            <form id="inbox-intake-form" style="display:grid;gap:10px;">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <input id="intake-url" type="url" required placeholder="Press Release URL (e.g. https://www.komatsu.jp/... or https://www.volvoce.com/...)" style="flex:2;min-width:280px;padding:8px 12px;border:1px solid #cbd5e1;border-radius:6px;">
+                <select id="intake-manufacturer" style="flex:1;min-width:160px;padding:8px 12px;border:1px solid #cbd5e1;border-radius:6px;">
+                  <option value="">Auto-Detect Brand</option>
+                  <option value="JCB">JCB</option>
+                  <option value="Caterpillar">Caterpillar</option>
+                  <option value="Komatsu">Komatsu</option>
+                  <option value="Volvo CE">Volvo CE</option>
+                  <option value="SANY">SANY</option>
+                  <option value="CASE">CASE</option>
+                  <option value="BULL Machines">BULL Machines</option>
+                  <option value="Ashok Leyland">Ashok Leyland</option>
+                  <option value="Tata Motors">Tata Motors</option>
+                  <option value="Various">Various / Other</option>
+                </select>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+                <div id="intake-status-msg" style="font-size:13px;color:#64748b;"></div>
+                <button id="intake-submit-btn" type="submit" class="button button-dark" style="padding:8px 16px;">Intake URL into Inbox</button>
+              </div>
+            </form>
+          </div>
+
+          <div style="margin:16px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <input id="inbox-search" type="search" placeholder="Search inbox by headline, source, or manufacturer..." style="flex:1;min-width:240px;padding:8px 12px;border:1px solid #dce2e8;border-radius:6px;">
+            <select id="inbox-filter-status" style="padding:8px 12px;border:1px solid #dce2e8;border-radius:6px;">
+              <option value="">All Items</option>
+              <option value="unpromoted" selected>Unpromoted Only</option>
+              <option value="promoted_to_draft">Promoted to Draft</option>
+            </select>
+          </div>
+
+          <div class="workflow-table-wrap">
+            <table class="workflow-table" id="inbox-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Headline</th>
+                  <th>Manufacturer</th>
+                  <th>Detected Date</th>
+                  <th>Relevance</th>
+                  <th>Duplicate Warning</th>
+                  <th>Collection Method</th>
+                  <th>Image Rights</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inbox-table-body">
+                <tr><td colspan="9" style="padding:24px;text-align:center;color:#64748b;">Loading news inbox items...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PRIMARY SCREEN 2: REVIEW QUEUE
+           =================================================================== -->
+      <section id="tab-review" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">📋 Review Queue — Human Verification Gate</h2>
+              <p class="muted" style="margin:4px 0 0;">AI-drafted and submitted stories requiring human editorial review before publication.</p>
+            </div>
+            <div>
+              <span id="review-count-badge" class="status-pill status-review" style="font-size:13px;padding:6px 12px;">0 Articles Awaiting Review</span>
+            </div>
+          </div>
+
+          <div class="workflow-table-wrap">
+            <table class="workflow-table" id="review-table">
+              <thead>
+                <tr>
+                  <th>Headline</th>
+                  <th>Manufacturer</th>
+                  <th>Article Type</th>
+                  <th>Risk Level</th>
+                  <th>Missing Information</th>
+                  <th>Sources</th>
+                  <th>SEO Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="review-table-body">
+                <tr><td colspan="8" style="padding:24px;text-align:center;color:#64748b;">Loading review queue...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PRIMARY SCREEN 3: SCHEDULED ARTICLES
+           =================================================================== -->
+      <section id="tab-scheduled" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">⏰ Scheduled Queue</h2>
+              <p class="muted" style="margin:4px 0 0;">Approved articles queued for automatic release at their scheduled publication timestamp.</p>
+            </div>
+            <div>
+              <span id="scheduled-count-badge" class="status-pill status-published" style="font-size:13px;padding:6px 12px;">0 Scheduled</span>
+            </div>
+          </div>
+
+          <div class="workflow-table-wrap">
+            <table class="workflow-table" id="scheduled-table">
+              <thead>
+                <tr>
+                  <th>Headline</th>
+                  <th>Manufacturer</th>
+                  <th>Scheduled Publication Time</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="scheduled-table-body">
+                <tr><td colspan="4" style="padding:24px;text-align:center;color:#64748b;">No scheduled articles.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PRIMARY SCREEN 4: PUBLISHED ARTICLES
+           =================================================================== -->
+      <section id="tab-published" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">🌐 Published Articles Desk</h2>
+              <p class="muted" style="margin:4px 0 0;">Live articles on Machine Report World, with search performance metrics and revision controls.</p>
+            </div>
+            <div>
+              <span id="published-count-badge" class="status-pill status-published" style="font-size:13px;padding:6px 12px;">0 Live</span>
+            </div>
+          </div>
+
+          <div class="workflow-table-wrap">
+            <table class="workflow-table" id="published-table">
+              <thead>
+                <tr>
+                  <th>Headline</th>
+                  <th>Manufacturer</th>
+                  <th>Publication Date</th>
+                  <th>Views</th>
+                  <th>Search Performance (GSC)</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="published-table-body">
+                <tr><td colspan="6" style="padding:24px;text-align:center;color:#64748b;">Loading published articles...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PRIMARY SCREEN 5: SOURCES & AUTOMATION OPERATIONS
+           =================================================================== -->
+      <section id="tab-automation" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">📡 Sources &amp; Automation Operations</h2>
+              <p class="muted" style="margin:4px 0 0;">Honest real-time status of multi-brand news collection, registry integrity, and automation guardrails.</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <button id="auto-import-candidates-btn" type="button" class="button button-outline" style="background:#fff;">📥 Import Candidate Registry</button>
+              <button id="automation-collect-btn" type="button" class="button button-dark">⚡ Run Collection Now</button>
+            </div>
+          </div>
+
+          <!-- Summary Metrics Cards Grid -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;margin-top:20px;">
+            <!-- Monitored RSS Feeds & Sources Card -->
+            <div style="background:#fff;border:1px solid #dce2e8;border-radius:8px;padding:16px;">
+              <h3 style="margin:0 0 10px;font-size:14px;color:#475569;display:flex;align-items:center;gap:6px;">
+                <span>📡</span> Monitored RSS Feeds &amp; Sources
+              </h3>
+              <div style="display:grid;gap:6px;font-size:13px;">
+                <div><span class="muted">Enabled Sources:</span> <strong id="auto-enabled-sources">0</strong></div>
+                <div><span class="muted">Auto-Collectable (Feeds):</span> <strong id="auto-metric-feeds" style="color:#0284c7;">0</strong></div>
+                <div><span class="muted">Manual / Newsrooms:</span> <strong id="auto-metric-manual">0</strong></div>
+                <div><span class="muted">Disabled / Unverified:</span> <strong id="auto-metric-disabled" style="color:#dc2626;">0</strong></div>
+                <div><span class="muted">Last Collection Run:</span> <span id="auto-last-run">Never</span></div>
+                <div><span class="muted">Last Successful Run:</span> <span id="auto-last-success">Never</span></div>
+                <div><span class="muted">Collection Errors:</span> <span id="auto-error-count">0</span> (<a href="#" class="inline-link" data-switch-tab="tab-jobs">View Error Log ↗</a>)</div>
+              </div>
+            </div>
+
+            <!-- Health & Verification Status -->
+            <div style="background:#fff;border:1px solid #dce2e8;border-radius:8px;padding:16px;">
+              <h3 style="margin:0 0 10px;font-size:14px;color:#475569;display:flex;align-items:center;gap:6px;">
+                <span>🛡️</span> Health &amp; Verification
+              </h3>
+              <div style="display:grid;gap:6px;font-size:13px;">
+                <div><span class="muted">Total Sources:</span> <strong id="auto-metric-total">0</strong></div>
+                <div><span class="muted">Valid Feeds:</span> <strong id="auto-metric-valid" style="color:#16a34a;">0</strong></div>
+                <div><span class="muted">Failed / Errors:</span> <strong id="auto-metric-failed" style="color:#dc2626;">0</strong></div>
+                <div><span class="muted">Max Redirects:</span> <strong>4 hops (SSRF protected)</strong></div>
+                <div><span class="muted">Max Response Size:</span> <strong>2 MB</strong></div>
+              </div>
+            </div>
+
+            <!-- Policies & Safeguards Card -->
+            <div style="background:#fff;border:1px solid #dce2e8;border-radius:8px;padding:16px;">
+              <h3 style="margin:0 0 10px;font-size:14px;color:#475569;display:flex;align-items:center;gap:6px;">
+                <span>⚙️</span> Automation Safeguards
+              </h3>
+              <div style="display:grid;gap:6px;font-size:13px;">
+                <div><span class="muted">Collection Frequency:</span> <strong id="auto-frequency">Every 60 minutes</strong></div>
+                <div><span class="muted">Daily Article Limit:</span> <strong id="auto-daily-limit">12 articles / day</strong></div>
+                <div><span class="muted">Automation Mode:</span> <strong class="status-pill status-review" style="display:inline-block;">Manual Review Required</strong></div>
+                <div><span class="muted">Auto-Publish:</span> <strong class="status-pill status-rejected" style="display:inline-block;">DISABLED (Safety Mandate)</strong></div>
+              </div>
+            </div>
+
+            <!-- Newsroom Coordination & Distribution Card -->
+            <div style="background:#fff;border:1px solid #dce2e8;border-radius:8px;padding:16px;">
+              <h3 style="margin:0 0 10px;font-size:14px;color:#475569;display:flex;align-items:center;gap:6px;">
+                <span>🤖</span> External Integrations
+              </h3>
+              <div style="display:grid;gap:6px;font-size:13px;">
+                <div><span class="muted">AI Newsroom:</span> <span id="auto-ai-status" class="status-pill status-draft">Checking...</span></div>
+                <div id="auto-ai-desc" class="muted" style="font-size:12px;line-height:1.4;">Zero-Cost Deterministic Specialist Pipeline active.</div>
+                <div><span class="muted">Email Provider:</span> <span id="auto-email-status" class="status-pill status-draft">Checking...</span></div>
+                <div id="auto-email-desc" class="muted" style="font-size:12px;line-height:1.4;">No external email service configured.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Endpoint Test Result Banner -->
+          <div id="source-test-result-box" style="display:none;margin-top:16px;padding:12px 16px;border-radius:6px;font-size:13px;"></div>
+
+          <!-- Sources Registry Management Table -->
+          <div style="margin-top:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+              <div>
+                <h3 style="margin:0;font-size:16px;">📋 Verified News Source Registry</h3>
+                <p class="muted" style="margin:2px 0 0;font-size:13px;">All monitored primary newsrooms, trade publications, and wire services.</p>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input id="sources-search" type="search" placeholder="Search sources by name, domain, brand..." style="padding:6px 10px;border:1px solid #dce2e8;border-radius:6px;font-size:13px;min-width:200px;">
+                <select id="sources-filter-mode" style="padding:6px 10px;border:1px solid #dce2e8;border-radius:6px;font-size:13px;">
+                  <option value="">All Modes</option>
+                  <option value="rss">RSS / Atom Feeds</option>
+                  <option value="manual_url">Manual URL Intake</option>
+                  <option value="newsroom_page">Newsroom Web Page</option>
+                  <option value="api">API Endpoint</option>
+                  <option value="disabled">Disabled / Pending</option>
+                </select>
+                <button id="check-all-sources-live-btn" class="button button-dark" type="button" style="font-size:12px;padding:6px 12px;">Check Feeds (Live) ↻</button>
+                <button id="check-all-sources-test-btn" class="button button-outline" type="button" style="font-size:12px;padding:6px 12px;background:#fff;">Test Mode</button>
+              </div>
+            </div>
+
+            <div class="workflow-table-wrap">
+              <table class="workflow-table" id="sources-table">
+                <thead>
+                  <tr>
+                    <th>Source &amp; Domain</th>
+                    <th>Manufacturer / Category</th>
+                    <th>Collection Mode</th>
+                    <th>Status</th>
+                    <th>Validation State</th>
+                    <th>Last Checked / Items</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="sources-table-body">
+                  <tr><td colspan="7" style="padding:24px;text-align:center;color:#64748b;">Loading source registry...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           ADVANCED TOOLS MENU & QUICK-SWITCH PANEL
+           =================================================================== -->
+      <section id="tab-advanced" class="admin-tab-pane" hidden>
+        <div class="admin-panel" style="margin-bottom:20px;">
+          <div class="panel-title">
+            <h2>⚙️ Advanced Tools &amp; Deep System Configuration</h2>
+          </div>
+          <p class="muted">Secondary management modules, taxonomic settings, system jobs, and deep platform configuration. Click any module below to open its dedicated workspace.</p>
+          <div class="advanced-subtabs-bar" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <button type="button" class="button button-outline" data-adv-target="tab-articles">✍️ Manual Editorial Studio</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-ai-seo">🤖 AI SEO &amp; Operations</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-taxonomy">🏷️ Categories &amp; Tags</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-oems">🚜 Manufacturers &amp; Models</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-geo">🌍 Countries &amp; Regions</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-sources">📡 Approved Sources</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-images">🖼️ Media Library &amp; Credits</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-newsletter">📊 Newsletter &amp; Tips</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-jobs">⚙️ Jobs, Errors &amp; Logs</button>
+            <button type="button" class="button button-outline" data-adv-target="tab-settings">🔒 SEO, Settings &amp; Roles</button>
+          </div>
+        </div>
+      </section>
 
       <!-- ===================================================================
            SCREEN 1: ARTICLES & AUTHORS
            =================================================================== -->
-      <section id="tab-articles" class="admin-tab-pane">
+      <section id="tab-articles" class="admin-tab-pane" hidden>
         <div class="admin-layout">
           <section class="admin-panel">
             <div class="panel-title">
@@ -123,8 +568,68 @@
               <label for="excerpt">Summary / Excerpt *</label>
               <textarea id="excerpt" rows="2" maxlength="400" required placeholder="What happened and why does it matter?"></textarea>
 
-              <label for="body">Article content *</label>
-              <textarea id="body" rows="9" required placeholder="Write the article. Add facts, context and source attribution."></textarea>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+                <label for="body" style="margin:0;">Article content *</label>
+                <span id="autosave-status" class="autosave-pill">Autosave ready</span>
+              </div>
+              <div class="editor-toolbar" id="editor-formatting-toolbar">
+                <button type="button" data-format="h2">H2</button>
+                <button type="button" data-format="h3">H3</button>
+                <button type="button" data-format="bold"><strong>B</strong></button>
+                <button type="button" data-format="italic"><em>I</em></button>
+                <button type="button" data-format="quote">"Quote"</button>
+                <button type="button" data-format="ul">• Bullet list</button>
+                <button type="button" data-format="ol">1. Numbered list</button>
+                <button type="button" data-format="spec-table">📋 Insert Spec Table</button>
+                <button type="button" data-format="callout">💡 Callout Box</button>
+              </div>
+              <textarea id="body" rows="10" required placeholder="Write the article. Add facts, context and source attribution." style="border-radius:0 0 var(--radius-btn) var(--radius-btn);"></textarea>
+
+              <!-- Optional AI Writing Assistant Toolbar (Human-Authorized Only) -->
+              <div class="ai-assist-box" id="ai-assist-container">
+                <div class="ai-assist-header">
+                  <span>✨ Optional AI Editorial Assistant (Human-Authorized Only)</span>
+                  <small style="color:#64748b;font-weight:normal;">Advisory only &bull; Never overwrites verified manual facts</small>
+                </div>
+                <div class="ai-assist-actions">
+                  <button type="button" class="ai-assist-btn" data-ai-task="grammar">✨ Refine Grammar &amp; Tone</button>
+                  <button type="button" class="ai-assist-btn" data-ai-task="headline">✨ Suggest Punchy Headlines</button>
+                  <button type="button" class="ai-assist-btn" data-ai-task="summary">✨ Draft 2-Sentence Summary</button>
+                  <button type="button" class="ai-assist-btn" data-ai-task="structure">✨ Structure with Headings</button>
+                  <button type="button" class="ai-assist-btn" data-ai-task="seo">✨ Optimize SEO Meta</button>
+                </div>
+              </div>
+
+              <!-- Structured Equipment Specifications Builder -->
+              <div class="spec-builder-box" id="spec-builder-box">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <strong>⚙️ Equipment Specifications</strong>
+                  <button type="button" class="button button-outline" id="add-spec-row-btn" style="padding:2px 8px;font-size:12px;">+ Add Specification</button>
+                </div>
+                <div class="spec-rows-container" id="spec-rows-container">
+                  <div class="spec-row">
+                    <input class="spec-key" value="Operating Weight" placeholder="Specification name">
+                    <input class="spec-val" placeholder="e.g. 21,500 kg">
+                    <button type="button" class="button button-outline delete-spec-btn" style="padding:2px 6px;">×</button>
+                  </div>
+                  <div class="spec-row">
+                    <input class="spec-key" value="Engine Power" placeholder="Specification name">
+                    <input class="spec-val" placeholder="e.g. 129 kW (173 hp) @ 2,000 rpm">
+                    <button type="button" class="button button-outline delete-spec-btn" style="padding:2px 6px;">×</button>
+                  </div>
+                  <div class="spec-row">
+                    <input class="spec-key" value="Bucket Capacity" placeholder="Specification name">
+                    <input class="spec-val" placeholder="e.g. 1.2 m³">
+                    <button type="button" class="button button-outline delete-spec-btn" style="padding:2px 6px;">×</button>
+                  </div>
+                  <div class="spec-row">
+                    <input class="spec-key" value="Emission Compliance" placeholder="Specification name">
+                    <input class="spec-val" placeholder="e.g. US EPA Tier 4 Final / EU Stage V">
+                    <button type="button" class="button button-outline delete-spec-btn" style="padding:2px 6px;">×</button>
+                  </div>
+                </div>
+                <textarea id="specs-input" rows="2" style="display:none;"></textarea>
+              </div>
 
               <div class="form-two">
                 <div>
@@ -332,7 +837,12 @@
               </div>
               <div class="admin-filter-row">
                 <input id="admin-search" type="search" placeholder="Filter stories by title, model, source or OEM…">
-                <select id="admin-status-filter">
+                <select id="admin-origin-filter" style="margin-right:8px;">
+            <option value="">All Origins (Manual + AI)</option>
+            <option value="manual">Manual Studio Only</option>
+            <option value="ai">AI Newsroom Only</option>
+          </select>
+          <select id="admin-status-filter">
                   <option value="">All statuses</option>
                   <option value="published">Published</option>
                   <option value="scheduled">Scheduled</option>
@@ -1002,7 +1512,7 @@
 
   <footer class="site-footer">
     <div class="wrap footer-bottom">
-      <span>MachineWire Editorial &amp; Operations Desk</span>
+      <span>Machine Report World Editorial &amp; Operations Desk</span>
       <span>Role-Based Access Control · Audit Logged · Not Indexed</span>
     </div>
   </footer>

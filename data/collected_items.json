@@ -1,1 +1,302 @@
-[]
+[
+  {
+    "id": "col-f17e6349b962",
+    "headline": "JCB Newsroom | Discover JCB&#x2019;s latest news",
+    "title": "JCB Newsroom | Discover JCB&#x2019;s latest news",
+    "summary": "Welcome to the JCB Newsroom &#x2013; your hub for the latest JCB product and community news, plus downloadable images, all in one place.",
+    "sourceExcerpt": "Welcome to the JCB Newsroom &#x2013; your hub for the latest JCB product and community news, plus downloadable images, all in one place.",
+    "excerpt": "Welcome to the JCB Newsroom &#x2013; your hub for the latest JCB product and community news, plus downloadable images, all in one place.",
+    "originalUrl": "https://www.jcb.com/en-GB/explore/newsroom/",
+    "canonicalUrl": "https://www.jcb.com/en-GB/explore/newsroom",
+    "sourceId": "src-0edd36efec0a",
+    "sourceName": "jcb.com reference",
+    "publisher": "jcb.com reference",
+    "manufacturer": "JCB",
+    "category": "Construction Equipment",
+    "country": "United Kingdom",
+    "region": "Global",
+    "originalPublicationDate": null,
+    "publishedAt": null,
+    "collectionDate": "2026-10-27T14:08:02.185Z",
+    "retrievedAt": "2026-10-27T14:08:02.185Z",
+    "collectionMode": "manual_url",
+    "collectionMethod": "manual_url",
+    "duplicateStatus": "unique",
+    "duplicateWarning": false,
+    "contentFingerprint": "c82a70db38fb7eef9d2fbb29",
+    "titleFingerprint": "8f3d986eb98a97fd789d26c6",
+    "imageUrl": null,
+    "image": null,
+    "imageRightsStatus": "unverified_editorial_fair_use_only_no_image_rights",
+    "reviewStatus": "pending_review",
+    "pipelineStage": "DEDUPLICATED",
+    "verificationEvidence": {
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "intakeBy": "Pilot Verification Test",
+      "copyrightNotice": "Headline and excerpt only; full story remains on official publisher origin. Image requires independent license verification."
+    },
+    "verificationNotes": "Verified via Manual URL Intake from approved domain www.jcb.com. Headline, excerpt, and canonical URL extracted directly from official press release.",
+    "stageHistory": [
+      {
+        "stage": "DISCOVERED",
+        "at": "2026-10-27T14:08:02.185Z",
+        "by": "Pilot Verification Test",
+        "note": "Discovered via Manual URL Intake (https://www.jcb.com/en-GB/explore/newsroom/)"
+      },
+      {
+        "stage": "COLLECTED",
+        "at": "2026-10-27T14:08:02.185Z",
+        "by": "Pilot Verification Test",
+        "note": "Collected canonical URL https://www.jcb.com/en-GB/explore/newsroom"
+      },
+      {
+        "stage": "DEDUPLICATED",
+        "at": "2026-10-27T14:08:02.185Z",
+        "by": "Pilot Verification Test",
+        "note": "Assigned duplicateStatus=\"unique\" (Title FP: 8f3d986e)"
+      }
+    ],
+    "promotedArticleId": null
+  },
+  {
+    "id": "col-65cda17a41c1",
+    "headline": "Construction Equipment Manufacturers - Backhoe Loader in India",
+    "title": "Construction Equipment Manufacturers - Backhoe Loader in India",
+    "summary": "Construction Equipment Manufacturers, Suppliers & Exporters in India. Bull Construction Machinery, Backhoe Loader & Earth-Moving Equipment are operator comfort & safe",
+    "sourceExcerpt": "Construction Equipment Manufacturers, Suppliers & Exporters in India. Bull Construction Machinery, Backhoe Loader & Earth-Moving Equipment are operator comfort & safe",
+    "excerpt": "Construction Equipment Manufacturers, Suppliers & Exporters in India. Bull Construction Machinery, Backhoe Loader & Earth-Moving Equipment are operator comfort & safe",
+    "originalUrl": "https://www.bullindia.com/bull-machines-unveils.php",
+    "canonicalUrl": "https://www.bullindia.com/media.php",
+    "sourceId": "src-f09ebfb81c15",
+    "sourceName": "BULL Machines Official Announcements",
+    "publisher": "BULL Machines",
+    "manufacturer": "BULL Machines",
+    "category": "Backhoe Loaders",
+    "country": "India",
+    "region": "India",
+    "originalPublicationDate": null,
+    "publishedAt": null,
+    "collectionDate": "2026-10-27T14:08:01.927Z",
+    "retrievedAt": "2026-10-27T14:08:01.927Z",
+    "collectionMode": "manual_url",
+    "collectionMethod": "manual_url",
+    "duplicateStatus": "unique",
+    "duplicateWarning": false,
+    "contentFingerprint": "5342a5fda31b78026a6f5251",
+    "titleFingerprint": "38be7c907b2d7c7e93736d83",
+    "imageUrl": "https://www.bullindia.com/images/banner/bull-global-footprint.jpg",
+    "image": "https://www.bullindia.com/images/banner/bull-global-footprint.jpg",
+    "imageRightsStatus": "unverified_editorial_fair_use_only_no_image_rights",
+    "reviewStatus": "pending_review",
+    "pipelineStage": "DEDUPLICATED",
+    "verificationEvidence": {
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "intakeBy": "Pilot Verification Test",
+      "copyrightNotice": "Headline and excerpt only; full story remains on official publisher origin. Image requires independent license verification."
+    },
+    "verificationNotes": "Verified via Manual URL Intake from approved domain www.bullindia.com. Headline, excerpt, and canonical URL extracted directly from official press release.",
+    "stageHistory": [
+      {
+        "stage": "DISCOVERED",
+        "at": "2026-10-27T14:08:01.927Z",
+        "by": "Pilot Verification Test",
+        "note": "Discovered via Manual URL Intake (https://www.bullindia.com/bull-machines-unveils.php)"
+      },
+      {
+        "stage": "COLLECTED",
+        "at": "2026-10-27T14:08:01.927Z",
+        "by": "Pilot Verification Test",
+        "note": "Collected canonical URL https://www.bullindia.com/media.php"
+      },
+      {
+        "stage": "DEDUPLICATED",
+        "at": "2026-10-27T14:08:01.927Z",
+        "by": "Pilot Verification Test",
+        "note": "Assigned duplicateStatus=\"unique\" (Title FP: 38be7c90)"
+      }
+    ],
+    "promotedArticleId": null
+  },
+  {
+    "id": "col-354bb11ab313",
+    "headline": "SANY News-",
+    "title": "SANY News-",
+    "summary": "The latest news and updates, direct from SANY-",
+    "sourceExcerpt": "The latest news and updates, direct from SANY-",
+    "excerpt": "The latest news and updates, direct from SANY-",
+    "originalUrl": "https://www.sanyglobal.com/news_list/",
+    "canonicalUrl": "https://www.sanyglobal.com/news_list",
+    "sourceId": "src-2b37762314ad",
+    "sourceName": "sanyglobal.com reference",
+    "publisher": "sanyglobal.com reference",
+    "manufacturer": "SANY",
+    "category": "Heavy Machinery",
+    "country": "China",
+    "region": "Global",
+    "originalPublicationDate": null,
+    "publishedAt": null,
+    "collectionDate": "2026-10-27T14:08:01.221Z",
+    "retrievedAt": "2026-10-27T14:08:01.221Z",
+    "collectionMode": "manual_url",
+    "collectionMethod": "manual_url",
+    "duplicateStatus": "unique",
+    "duplicateWarning": false,
+    "contentFingerprint": "f9f555c18744b477f991b201",
+    "titleFingerprint": "e9ea6edcfe0b9f0d3c218241",
+    "imageUrl": "https://sanyglobal-img.sany.com.cn/static/common/head-footer-img/logo.jpg",
+    "image": "https://sanyglobal-img.sany.com.cn/static/common/head-footer-img/logo.jpg",
+    "imageRightsStatus": "unverified_editorial_fair_use_only_no_image_rights",
+    "reviewStatus": "pending_review",
+    "pipelineStage": "DEDUPLICATED",
+    "verificationEvidence": {
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "intakeBy": "Pilot Verification Test",
+      "copyrightNotice": "Headline and excerpt only; full story remains on official publisher origin. Image requires independent license verification."
+    },
+    "verificationNotes": "Verified via Manual URL Intake from approved domain www.sanyglobal.com. Headline, excerpt, and canonical URL extracted directly from official press release.",
+    "stageHistory": [
+      {
+        "stage": "DISCOVERED",
+        "at": "2026-10-27T14:08:01.221Z",
+        "by": "Pilot Verification Test",
+        "note": "Discovered via Manual URL Intake (https://www.sanyglobal.com/news_list/)"
+      },
+      {
+        "stage": "COLLECTED",
+        "at": "2026-10-27T14:08:01.221Z",
+        "by": "Pilot Verification Test",
+        "note": "Collected canonical URL https://www.sanyglobal.com/news_list"
+      },
+      {
+        "stage": "DEDUPLICATED",
+        "at": "2026-10-27T14:08:01.221Z",
+        "by": "Pilot Verification Test",
+        "note": "Assigned duplicateStatus=\"unique\" (Title FP: e9ea6edc)"
+      }
+    ],
+    "promotedArticleId": null
+  },
+  {
+    "id": "col-779605b02dc9",
+    "headline": "News and stories | Volvo Construction Equipment Global",
+    "title": "News and stories | Volvo Construction Equipment Global",
+    "summary": "The latest news and stories from Volvo Construction Equipment.",
+    "sourceExcerpt": "The latest news and stories from Volvo Construction Equipment.",
+    "excerpt": "The latest news and stories from Volvo Construction Equipment.",
+    "originalUrl": "https://www.volvoce.com/global/en/news-and-events/news-and-stories/",
+    "canonicalUrl": "https://www.volvoce.com/global/en/news-and-events/news-and-stories",
+    "sourceId": "src-db0b47f78e92",
+    "sourceName": "volvoce.com reference",
+    "publisher": "volvoce.com reference",
+    "manufacturer": "Volvo CE",
+    "category": "Construction Equipment",
+    "country": "Sweden",
+    "region": "Global",
+    "originalPublicationDate": null,
+    "publishedAt": null,
+    "collectionDate": "2026-10-27T14:08:00.368Z",
+    "retrievedAt": "2026-10-27T14:08:00.368Z",
+    "collectionMode": "manual_url",
+    "collectionMethod": "manual_url",
+    "duplicateStatus": "unique",
+    "duplicateWarning": false,
+    "contentFingerprint": "036b369ccd3b03c42ce2d81e",
+    "titleFingerprint": "0d5528565e9317b8b2f53e22",
+    "imageUrl": null,
+    "image": null,
+    "imageRightsStatus": "unverified_editorial_fair_use_only_no_image_rights",
+    "reviewStatus": "pending_review",
+    "pipelineStage": "DEDUPLICATED",
+    "verificationEvidence": {
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "intakeBy": "Pilot Verification Test",
+      "copyrightNotice": "Headline and excerpt only; full story remains on official publisher origin. Image requires independent license verification."
+    },
+    "verificationNotes": "Verified via Manual URL Intake from approved domain www.volvoce.com. Headline, excerpt, and canonical URL extracted directly from official press release.",
+    "stageHistory": [
+      {
+        "stage": "DISCOVERED",
+        "at": "2026-10-27T14:08:00.368Z",
+        "by": "Pilot Verification Test",
+        "note": "Discovered via Manual URL Intake (https://www.volvoce.com/global/en/news-and-events/news-and-stories/)"
+      },
+      {
+        "stage": "COLLECTED",
+        "at": "2026-10-27T14:08:00.368Z",
+        "by": "Pilot Verification Test",
+        "note": "Collected canonical URL https://www.volvoce.com/global/en/news-and-events/news-and-stories"
+      },
+      {
+        "stage": "DEDUPLICATED",
+        "at": "2026-10-27T14:08:00.368Z",
+        "by": "Pilot Verification Test",
+        "note": "Assigned duplicateStatus=\"unique\" (Title FP: 0d552856)"
+      }
+    ],
+    "promotedArticleId": null
+  },
+  {
+    "id": "col-e21afa6f1a15",
+    "headline": "Newsroom | Komatsu global site",
+    "title": "Newsroom | Komatsu global site",
+    "summary": "Newsroom. This page introduces the latest updates, press releases and more from Komatsu.",
+    "sourceExcerpt": "Newsroom. This page introduces the latest updates, press releases and more from Komatsu.",
+    "excerpt": "Newsroom. This page introduces the latest updates, press releases and more from Komatsu.",
+    "originalUrl": "https://www.komatsu.jp/en/newsroom",
+    "canonicalUrl": "https://www.komatsu.jp/en/newsroom",
+    "sourceId": "src-b59651c02a3d",
+    "sourceName": "Komatsu Global Newsroom",
+    "publisher": "Komatsu",
+    "manufacturer": "Komatsu",
+    "category": "Construction Equipment",
+    "country": "Japan",
+    "region": "Global",
+    "originalPublicationDate": null,
+    "publishedAt": null,
+    "collectionDate": "2026-10-27T14:07:59.678Z",
+    "retrievedAt": "2026-10-27T14:07:59.678Z",
+    "collectionMode": "manual_url",
+    "collectionMethod": "manual_url",
+    "duplicateStatus": "unique",
+    "duplicateWarning": false,
+    "contentFingerprint": "08f75962e373cb089ca9d673",
+    "titleFingerprint": "9ff163dfad05ffcdf7ba3f80",
+    "imageUrl": "https://www.komatsu.jp/en/-/media/common/logo.svg?rev=739e973b465844bb9d4ff79a8d473c01&amp;hash=24F0A484367DB3D75325B247A235BB04",
+    "image": "https://www.komatsu.jp/en/-/media/common/logo.svg?rev=739e973b465844bb9d4ff79a8d473c01&amp;hash=24F0A484367DB3D75325B247A235BB04",
+    "imageRightsStatus": "unverified_editorial_fair_use_only_no_image_rights",
+    "reviewStatus": "pending_review",
+    "pipelineStage": "DEDUPLICATED",
+    "verificationEvidence": {
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "intakeBy": "Pilot Verification Test",
+      "copyrightNotice": "Headline and excerpt only; full story remains on official publisher origin. Image requires independent license verification."
+    },
+    "verificationNotes": "Verified via Manual URL Intake from approved domain www.komatsu.jp. Headline, excerpt, and canonical URL extracted directly from official press release.",
+    "stageHistory": [
+      {
+        "stage": "DISCOVERED",
+        "at": "2026-10-27T14:07:59.678Z",
+        "by": "Pilot Verification Test",
+        "note": "Discovered via Manual URL Intake (https://www.komatsu.jp/en/newsroom)"
+      },
+      {
+        "stage": "COLLECTED",
+        "at": "2026-10-27T14:07:59.678Z",
+        "by": "Pilot Verification Test",
+        "note": "Collected canonical URL https://www.komatsu.jp/en/newsroom"
+      },
+      {
+        "stage": "DEDUPLICATED",
+        "at": "2026-10-27T14:07:59.678Z",
+        "by": "Pilot Verification Test",
+        "note": "Assigned duplicateStatus=\"unique\" (Title FP: 9ff163df)"
+      }
+    ],
+    "promotedArticleId": null
+  }
+]

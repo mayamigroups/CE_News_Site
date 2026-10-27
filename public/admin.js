@@ -1,3 +1,75 @@
+
+window.__loginSubmitting = false;
+
+window.__handleAdminLogin = async function(e) {
+  if (e) e.preventDefault();
+  if (window.__loginSubmitting) return;
+
+  const submitBtn = $('#admin-login-btn') || $('#login-form button[type="submit"]') || $('#login-form button');
+  const originalText = submitBtn ? submitBtn.textContent : 'Sign in to desk →';
+  const username = $('#admin-username')?.value?.trim();
+  const password = $('#admin-password')?.value;
+
+  if (!username || !password) {
+    alertMsg('Please enter both username and password.', 'error');
+    return;
+  }
+
+  window.__loginSubmitting = true;
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing in...';
+  }
+  clearAlert();
+
+  try {
+    const res = await api('/api/admin/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password })
+    });
+    if (res.token) {
+      sessionStorage.setItem('bm_token', res.token);
+    }
+    sessionInfo = res;
+    if ($('#admin-password')) $('#admin-password').value = '';
+    alertMsg('Authenticated successfully as ' + res.username + '. Opening desk...', 'success');
+    await showDashboard(true);
+  } catch (err) {
+    alertMsg(err.message || 'Login failed. Please verify your credentials.', 'error');
+  } finally {
+    window.__loginSubmitting = false;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  }
+};
+
+function switchStudio(target) {
+  const manualCard = $('#studio-card-manual');
+  const aiCard = $('#studio-card-ai');
+
+  if (target === 'manual') {
+    if (manualCard) manualCard.classList.add('active');
+    if (aiCard) aiCard.classList.remove('active');
+    // Switch to tab-articles
+    $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'tab-articles'));
+    $$('.admin-tab-pane').forEach(pane => {
+      pane.hidden = pane.id !== 'tab-articles';
+    });
+    $('#article-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (target === 'ai') {
+    if (aiCard) aiCard.classList.add('active');
+    if (manualCard) manualCard.classList.remove('active');
+    // Switch to tab-ai-seo
+    $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'tab-ai-seo'));
+    $$('.admin-tab-pane').forEach(pane => {
+      pane.hidden = pane.id !== 'tab-ai-seo';
+    });
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  }
+}
+
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -34,13 +106,25 @@ function clearAlert() {
 }
 
 async function api(url, opts = {}) {
-  const r = await fetch(url, {
-    ...opts,
-    headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) }
-  });
+  if (window.location.protocol === 'file:') {
+    throw new Error('You are viewing admin.html via file:///. Please navigate to http://localhost:3000/admin.html in your browser.');
+  }
+  const token = sessionStorage.getItem('bm_token');
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  let r;
+  try {
+    r = await fetch(url, {
+      credentials: 'same-origin',
+      ...opts,
+      headers
+    });
+  } catch (netErr) {
+    throw new Error('Backend unavailable: Unable to reach server. Please check your network connection and verify the server is running on port 3000.');
+  }
   let data = {};
   try { data = await r.json(); } catch {}
-  if (!r.ok) throw new Error(data.error || 'Request failed');
+  if (!r.ok) throw new Error(data.error || 'Request failed (' + r.status + ' ' + r.statusText + ')');
   return data;
 }
 
@@ -84,9 +168,24 @@ function formatSpecsInput(specs) {
   return Object.entries(specs).map(([k, v]) => `${k}: ${v}`).join('\n');
 }
 
+function collectSpecsFromBuilder() {
+  const specs = {};
+  const rows = $('#spec-rows-container .spec-row');
+  for (const row of rows) {
+    const k = row.querySelector('.spec-key')?.value.trim();
+    const v = row.querySelector('.spec-val')?.value.trim();
+    if (k && v) specs[k] = v;
+  }
+  return specs;
+}
+
 function formData(statusOverride) {
   const chosenStatus = statusOverride || $('#status').value;
   const summaryVal = $('#excerpt').value;
+  const builderSpecs = collectSpecsFromBuilder();
+  const inputSpecs = parseSpecsInput($('#specs-input')?.value || '');
+  const combinedSpecs = { ...inputSpecs, ...builderSpecs };
+
   return {
     title: $('#title').value,
     slug: $('#slug').value,
@@ -103,11 +202,18 @@ function formData(statusOverride) {
     articleType: $('#article-type').value,
     scheduledAt: $('#scheduled-at').value ? new Date($('#scheduled-at').value).toISOString() : '',
     sourceUrls: $('#source-urls').value.split(/\r?\n/).map(x => x.trim()).filter(Boolean),
-    specs: parseSpecsInput($('#specs-input').value),
+    specs: combinedSpecs,
     author: $('#author').value,
     tags: $('#tags').value.split(',').map(x => x.trim()).filter(Boolean),
     image: $('#image').value,
     imageCredit: $('#image-credit').value,
+    mediaRights: {
+      licenseType: $('#image-license')?.value || 'OEM Press Kit / Editorial Fair Use',
+      credit: $('#image-credit')?.value || '',
+      altText: $('#image-alt')?.value || $('#title')?.value || '',
+      verified: $('#image-rights-verified') ? $('#image-rights-verified').checked : true
+    },
+    origin: $('#article-id')?.value ? (articles.find(a => a.id === $('#article-id').value)?.origin || 'manual') : 'manual',
     sourceUrl: $('#source-url').value,
     seo: {
       metaTitle: $('#seo-title').value,
@@ -163,15 +269,32 @@ $('#title')?.addEventListener('blur', () => checkDuplicateNow(false));
 $('#source-url')?.addEventListener('blur', () => checkDuplicateNow(false));
 $('#check-duplicate-btn')?.addEventListener('click', () => checkDuplicateNow(true));
 
-// Pre-Publish Article Preview Modal
-$('#preview-article-btn')?.addEventListener('click', () => {
+// Pre-Publish Article Preview Modal with Actionable SEO Audit
+$('#preview-article-btn')?.addEventListener('click', async () => {
   const data = formData();
   const modal = $('#preview-modal');
   const body = $('#preview-modal-body');
   if (!modal || !body) return;
 
+  const currentArtId = $('#article-id')?.value || data.id;
+  const targetArt = articles.find(x => x.id === currentArtId) || data;
+
+  // Fetch or evaluate article SEO audit
+  let audit = targetArt.seoAudit || null;
+  if (currentArtId) {
+    try {
+      const res = await api(`/api/admin/articles/${encodeURIComponent(currentArtId)}/seo-audit`);
+      audit = res.seoAudit;
+    } catch {}
+  }
+
   const specsEntries = Object.entries(data.specs || {});
   const paragraphs = esc(data.body || 'No body content entered yet.').split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+
+  const auditScore = audit?.score ?? 'N/A';
+  const auditStatus = audit?.status || 'unverified';
+  const auditErrors = audit?.errors || [];
+  const auditWarnings = audit?.warnings || [];
 
   body.innerHTML = `
     <div class="preview-meta-strip">
@@ -182,6 +305,43 @@ $('#preview-article-btn')?.addEventListener('click', () => {
       <span>Market: <strong>${esc(data.country || 'Global')} (${esc(data.region || 'Global')})</strong></span>
       ${data.scheduledAt ? `<span>Scheduled: <strong>${new Date(data.scheduledAt).toLocaleString()}</strong></span>` : ''}
     </div>
+
+    <!-- PRE-PUBLICATION SEO AUDIT STRIP -->
+    <div style="margin:16px 0;padding:14px;background:var(--bg-light,#f8f9fa);border-radius:8px;border:1px solid var(--border,#e1e4e8);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <strong>Pre-Publication SEO Audit</strong>
+          <span class="badge ${auditScore >= 85 ? 'badge-published' : (auditScore >= 65 ? 'badge-review' : 'badge-rejected')}">
+            Score: ${auditScore}/100 (${esc(auditStatus.toUpperCase())})
+          </span>
+          <small class="muted">${audit?.checksCount || 10} Checks · ${auditErrors.length} Errors · ${auditWarnings.length} Warnings</small>
+        </div>
+        ${currentArtId ? `<button id="rerun-preview-seo-audit-btn" data-id="${esc(currentArtId)}" class="button button-outline" type="button" style="padding:4px 10px;font-size:12px;">🔄 Rerun SEO Audit</button>` : ''}
+      </div>
+
+      ${auditErrors.length ? `
+        <div style="margin:8px 0;padding:8px;background:#FEE4E2;border-left:4px solid #D92D20;border-radius:4px;color:#7A271A;font-size:12px;">
+          <strong>Critical Pre-Publish SEO Errors (${auditErrors.length}):</strong>
+          <ul style="margin:4px 0 0 16px;padding:0;">
+            ${auditErrors.map(e => `<li><strong>${esc(e.name)}:</strong> ${esc(e.details)} <em>Fix: ${esc(e.recommendedFix)}</em></li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+
+      ${auditWarnings.length ? `
+        <div style="margin:8px 0;padding:8px;background:#FEF0C7;border-left:4px solid #DC6803;border-radius:4px;color:#7A2E0E;font-size:12px;">
+          <strong>Actionable SEO Recommendations (${auditWarnings.length}):</strong>
+          <ul style="margin:4px 0 0 16px;padding:0;">
+            ${auditWarnings.map(w => `<li><strong>${esc(w.name)}:</strong> ${esc(w.details)} <em>Fix: ${esc(w.recommendedFix)}</em></li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+
+      ${!auditErrors.length && !auditWarnings.length && audit ? `
+        <p style="margin:0;color:#027A48;font-size:12px;">✓ All pre-publication SEO and metadata checks passed with high quality score.</p>
+      ` : ''}
+    </div>
+
     <h3>${esc(data.title || 'Untitled Draft')}</h3>
     <p class="lead">${esc(data.summary || 'No summary entered yet.')}</p>
     <p><small>By <strong>${esc(data.author || 'Editorial Desk')}</strong> · Primary Source Evidence: ${data.sourceUrl ? `<a href="${esc(data.sourceUrl)}" target="_blank" rel="noopener">${esc(data.sourceUrl)} ↗</a>` : '<strong style="color:#B42318;">Missing Primary Source URL</strong>'}</small></p>
@@ -190,6 +350,19 @@ $('#preview-article-btn')?.addEventListener('click', () => {
     <div class="preview-body-copy">${paragraphs}</div>
   `;
   modal.hidden = false;
+
+  $('#rerun-preview-seo-audit-btn')?.addEventListener('click', async (e) => {
+    const artId = e.currentTarget.dataset.id;
+    if (!artId) return;
+    try {
+      const res = await api(`/api/admin/articles/${encodeURIComponent(artId)}/seo-audit`, { method: 'POST' });
+      alertMsg(`SEO Audit rerun completed. Score: ${res.seoAudit.score}/100 (${res.seoAudit.status}).`, 'success');
+      await refresh();
+      $('#preview-article-btn')?.click();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+  });
 });
 
 $('#close-preview-btn')?.addEventListener('click', () => {
@@ -212,9 +385,12 @@ function renderStories() {
 
   const q = ($('#admin-search')?.value || '').trim().toLowerCase();
   const statusFilter = $('#admin-status-filter')?.value || '';
+  const originFilter = $('#admin-origin-filter')?.value || '';
 
   const filtered = articles.filter(a => {
     if (statusFilter && a.status !== statusFilter) return false;
+    const itemOrigin = a.origin || (a.newsroomDossier ? 'ai' : 'manual');
+    if (originFilter && itemOrigin !== originFilter) return false;
     if (q && ![a.title, a.manufacturer, a.category, a.equipmentType, a.country, a.region, a.model, a.sourceUrl].join(' ').toLowerCase().includes(q)) return false;
     return true;
   });
@@ -222,17 +398,20 @@ function renderStories() {
   $('#admin-story-list').innerHTML = filtered.length
     ? filtered.map(a => {
       const hasSource = Boolean(a.sourceUrl || (a.sourceUrls && a.sourceUrls.length));
+      const itemOrigin = a.origin || (a.newsroomDossier ? 'ai' : 'manual');
       const updatedStr = a.updatedAt ? new Date(a.updatedAt).toLocaleString() : 'N/A';
       const schedStr = a.scheduledAt ? ` · ⏰ Scheduled: ${new Date(a.scheduledAt).toLocaleString()}` : '';
       return `<div class="admin-story">
         <div>
           <div class="story-badges-line">
+            <span class="status-pill ${itemOrigin === 'manual' ? 'status-published' : 'status-draft'}">${itemOrigin === 'manual' ? '✍️ Manual' : '🤖 AI Newsroom'}</span>
             <span class="status-pill status-${esc(a.status)}">${esc(a.status)}</span>
             <span class="status-pill status-draft">Stage: ${esc(a.pipelineStage || a.status.toUpperCase())}</span>
             ${a.featured ? '<span class="status-pill status-featured">Featured</span>' : ''}
             <span class="source-evidence-pill ${hasSource ? 'evidence-ok' : 'evidence-missing'}">
               ${hasSource ? '✓ Source Verified' : '⚠ Missing Source URL'}
             </span>
+            ${a.seoAudit ? `<span class="status-pill ${a.seoAudit.passed ? 'status-published' : (a.seoAudit.errorsCount > 0 ? 'status-rejected' : 'status-review')}">SEO: ${a.seoAudit.score}/100</span>` : ''}
           </div>
           <strong>${esc(a.title)}</strong>
           <small>
@@ -244,6 +423,8 @@ function renderStories() {
         </div>
         <div class="story-actions">
           ${a.status === 'published' ? `<a class="story-link-btn" href="/news/${encodeURIComponent(a.slug)}" target="_blank">View ↗</a>` : ''}
+          <button data-seo-audit="${esc(a.id)}" type="button" title="Rerun pre-publication SEO audit">SEO Audit</button>
+          ${itemOrigin === 'ai' ? `<button data-transfer-manual="${esc(a.id)}" type="button" title="Transfer from AI Newsroom to Manual Studio">Transfer to Manual ✍️</button>` : ''}
           <button data-edit="${esc(a.id)}" type="button">Edit</button>
           ${a.status === 'review' || a.status === 'draft' ? `<button data-wf-transition="approve" data-id="${esc(a.id)}" type="button" title="Approve after verification">Approve ✓</button>` : ''}
           ${a.status !== 'published' ? `<button data-wf-transition="publish_now" data-id="${esc(a.id)}" type="button" title="Publish now">Publish</button>` : ''}
@@ -869,28 +1050,6 @@ function renderAiOperationsPanel() {
   renderSeoTasksTable();
 }
 
-  // 5. 90-Day Roadmap Render
-  const roadmapContainer = $('#roadmap-phases-container');
-  if (roadmapContainer && Array.isArray(d.ninetyDayExecutionRoadmap)) {
-    roadmapContainer.innerHTML = d.ninetyDayExecutionRoadmap.map(phase => `
-      <div class="admin-panel" style="background:#fff;border:1px solid var(--border,#e1e4e8);padding:14px;border-radius:4px;">
-        <span class="status-pill status-published">${esc(phase.phase)}</span>
-        <h4 style="margin:8px 0 6px 0;">${esc(phase.title)}</h4>
-        <p class="muted" style="font-size:0.85rem;margin-bottom:10px;">${esc(phase.focus)}</p>
-        <ul style="padding-left:18px;font-size:0.85rem;line-height:1.45;margin-bottom:10px;">
-          ${(phase.keyDeliverables || []).map(del => `<li>${esc(del)}</li>`).join('')}
-        </ul>
-        <div style="font-size:0.8rem;border-top:1px solid var(--border,#eee);padding-top:6px;color:var(--text-light,#555);">
-          <strong>KPI Metric:</strong> ${esc(phase.successMetric)}
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // 6. Interactive Task Queue Table
-  renderSeoTasksTable();
-}
-
 function renderSeoTasksTable() {
   const container = $('#ai-seo-tasks-table');
   if (!container) return;
@@ -1019,6 +1178,547 @@ function renderAuxPanels() {
   }
 }
 
+function loadArticleIntoEditor(articleId) {
+  const a = articles.find(x => x.id === articleId);
+  if (!a) return;
+  $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'tab-articles'));
+  $$('.admin-tab-pane').forEach(pane => {
+    pane.hidden = pane.id !== 'tab-articles';
+  });
+  $('#article-id').value = a.id;
+  const fieldMap = {
+    title: '#title',
+    slug: '#slug',
+    body: '#body',
+    category: '#category',
+    manufacturer: '#manufacturer',
+    author: '#author',
+    image: '#image',
+    imageCredit: '#image-credit',
+    equipmentType: '#equipment-type',
+    country: '#country',
+    region: '#region',
+    model: '#model',
+    powerType: '#power-type',
+    articleType: '#article-type',
+    status: '#status'
+  };
+  for (const [key, selector] of Object.entries(fieldMap)) {
+    const field = $(selector);
+    if (field) field.value = a[key] || '';
+  }
+  $('#excerpt').value = a.summary || a.excerpt || '';
+  if ($('#image-alt')) $('#image-alt').value = a.mediaRights?.altText || a.seo?.metaDescription || '';
+  if ($('#image-license')) $('#image-license').value = a.mediaRights?.licenseType || 'OEM Press Kit / Editorial Fair Use';
+  if ($('#image-rights-verified')) $('#image-rights-verified').checked = a.mediaRights ? a.mediaRights.verified !== false : true;
+
+  const specContainer = $('#spec-rows-container');
+  if (specContainer) {
+    specContainer.innerHTML = '';
+    const specsObj = (a.specs && typeof a.specs === 'object') ? a.specs : parseSpecsInput(a.specs);
+    const specEntries = Object.entries(specsObj);
+    if (specEntries.length) {
+      for (const [k, v] of specEntries) {
+        addSpecRow(k, v);
+      }
+    } else {
+      addSpecRow('Operating Weight', '');
+      addSpecRow('Engine Power', '');
+      addSpecRow('Bucket Capacity', '');
+      addSpecRow('Emission Standard', '');
+    }
+  }
+  $('#tags').value = (a.tags || []).join(', ');
+  $('#source-url').value = a.sourceUrl || '';
+  $('#source-urls').value = (a.sourceUrls || []).join('\n');
+  $('#specs-input').value = formatSpecsInput(a.specs);
+  $('#seo-title').value = a.seo?.metaTitle || '';
+  $('#seo-description').value = a.seo?.metaDescription || '';
+  $('#seo-canonical').value = a.seo?.canonicalUrl || '';
+  $('#seo-keywords').value = (a.seo?.keywords || []).join(', ');
+  $('#revision-note').value = '';
+  $('#scheduled-at').value = a.scheduledAt ? new Date(a.scheduledAt).toISOString().slice(0, 16) : '';
+  $('#featured').checked = !!a.featured;
+  $('#editor-title').textContent = 'Edit article: ' + a.title;
+  $('#save-draft').textContent = 'Save changes as draft';
+
+  const revBox = $('#revision-history-box');
+  const revList = $('#revision-history-list');
+  if (revBox && revList && Array.isArray(a.updateHistory) && a.updateHistory.length) {
+    revBox.hidden = false;
+    revList.innerHTML = a.updateHistory
+      .slice()
+      .reverse()
+      .map(h => `<li><strong>${esc(h.action)}</strong> by ${esc(h.by)} on ${new Date(h.at).toLocaleString()} — <em>${esc(h.note || '')}</em></li>`)
+      .join('');
+  } else if (revBox) {
+    revBox.hidden = true;
+  }
+
+  $('#article-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openArticlePreview(art) {
+  const modal = $('#preview-modal');
+  const body = $('#preview-modal-body');
+  if (!modal || !body || !art) return;
+
+  const currentArtId = art.id;
+  const audit = art.seoAudit || null;
+  const specsEntries = Object.entries(art.specs || {});
+  const paragraphs = esc(art.body || 'No body content entered yet.').split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+
+  const auditScore = audit?.score ?? 'N/A';
+  const auditStatus = audit?.status || 'unverified';
+  const auditErrors = audit?.errors || [];
+  const auditWarnings = audit?.warnings || [];
+
+  body.innerHTML = `
+    <div class="preview-meta-strip">
+      <span class="status-pill status-${esc(art.status)}">Status: ${esc(art.status)}</span>
+      <span>Category: <strong>${esc(art.category)}</strong></span>
+      <span>OEM: <strong>${esc(art.manufacturer || 'Not specified')}</strong></span>
+      <span>Model: <strong>${esc(art.model || 'N/A')}</strong></span>
+      <span>Market: <strong>${esc(art.country || 'Global')} (${esc(art.region || 'Global')})</strong></span>
+      ${art.scheduledAt ? `<span>Scheduled: <strong>${new Date(art.scheduledAt).toLocaleString()}</strong></span>` : ''}
+    </div>
+
+    <div style="margin:16px 0;padding:14px;background:var(--bg-light,#f8f9fa);border-radius:8px;border:1px solid var(--border,#e1e4e8);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <strong>Pre-Publication SEO Audit</strong>
+          <span class="badge ${auditScore >= 85 ? 'badge-published' : (auditScore >= 65 ? 'badge-review' : 'badge-rejected')}">
+            Score: ${auditScore}/100 (${esc(auditStatus.toUpperCase())})
+          </span>
+          <small class="muted">${audit?.checksCount || 10} Checks · ${auditErrors.length} Errors · ${auditWarnings.length} Warnings</small>
+        </div>
+      </div>
+      ${auditErrors.length ? `
+        <div style="margin-top:8px;">
+          <strong style="color:#B42318;font-size:12px;">Blocking SEO Errors:</strong>
+          <ul style="margin:4px 0 0;padding-left:20px;font-size:12px;color:#B42318;">
+            ${auditErrors.map(e => `<li><strong>${esc(e.check)}:</strong> ${esc(e.message)} <em>(${esc(e.fix)})</em></li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      ${!auditErrors.length && !auditWarnings.length && audit ? `
+        <p style="margin:0;color:#027A48;font-size:12px;">✓ All pre-publication SEO and metadata checks passed with high quality score.</p>
+      ` : ''}
+    </div>
+
+    <h3>${esc(art.title || 'Untitled Draft')}</h3>
+    <p class="lead">${esc(art.summary || art.excerpt || 'No summary entered yet.')}</p>
+    <p><small>By <strong>${esc(art.author || 'Editorial Desk')}</strong> · Primary Source: ${art.sourceUrl ? `<a href="${esc(art.sourceUrl)}" target="_blank" rel="noopener">${esc(art.sourceUrl)} ↗</a>` : '<strong style="color:#B42318;">Missing Primary Source URL</strong>'}</small></p>
+    ${art.image ? `<figure style="margin:12px 0;"><img src="${esc(art.image)}" alt="${esc(art.title)}" style="max-height:280px;width:100%;object-fit:cover;border-radius:8px;"><figcaption><small>Credit: ${esc(art.imageCredit || 'Missing image credit')}</small></figcaption></figure>` : ''}
+    ${specsEntries.length ? `<dl class="mini-spec-list">${specsEntries.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
+    <div class="preview-body-copy">${paragraphs}</div>
+  `;
+  modal.hidden = false;
+}
+
+function renderNewsInbox() {
+  const tbody = $('#inbox-table-body');
+  if (!tbody) return;
+  const q = ($('#inbox-search')?.value || '').trim().toLowerCase();
+  const filter = $('#inbox-filter-status')?.value || 'unpromoted';
+
+  let items = (collectedItems || []).filter(c => {
+    if (filter === 'unpromoted' && c.reviewStatus === 'promoted_to_draft') return false;
+    if (filter === 'promoted_to_draft' && c.reviewStatus !== 'promoted_to_draft') return false;
+    if (q) {
+      const match = [c.headline, c.title, c.sourceName, c.manufacturer, c.summary, c.excerpt].join(' ').toLowerCase();
+      if (!match.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if ($('#inbox-count-badge')) {
+    $('#inbox-count-badge').textContent = `${items.length} Items`;
+  }
+
+  if (!items.length) {
+    tbody.innerHTML = `<tr><td colspan="8" style="padding:24px;text-align:center;color:#64748b;">No collected news items in inbox. Click "Manual URL Intake" to intake a press release or "Run Collection Now" to poll verified feeds.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = items.map(c => {
+    const title = c.headline || c.title || 'Untitled Story';
+    const excerpt = c.sourceExcerpt || c.excerpt || c.summary || '';
+    const itemUrl = c.canonicalUrl || c.originalUrl || c.url || '#';
+    const method = c.collectionMethod || 'manual_url';
+    const dupStatus = c.duplicateStatus || 'unique';
+    const isDup = c.duplicateWarning || (dupStatus && dupStatus.startsWith('duplicate')) || (articles || []).some(a => {
+      if (a.title && title && a.title.trim().toLowerCase() === title.trim().toLowerCase()) return true;
+      if (a.sourceUrl && itemUrl && a.sourceUrl === itemUrl) return true;
+      return false;
+    });
+
+    const methodLabels = {
+      rss: 'RSS Feed',
+      atom: 'Atom Feed',
+      sitemap: 'XML Sitemap',
+      manual_url: 'Manual URL',
+      newsroom_page: 'Newsroom Page'
+    };
+    const methodBadge = `<span class="status-pill status-draft" style="font-size:11px;font-weight:600;">${esc(methodLabels[method] || method)}</span>`;
+
+    const dupBadge = isDup
+      ? `<span class="status-pill status-rejected" style="font-size:11px;">⚠️ ${esc((dupStatus || 'duplicate').replace('_', ' '))}</span>`
+      : `<span class="status-pill status-published" style="font-size:11px;">✓ Unique</span>`;
+
+    const rightsStatus = c.imageRightsStatus || 'unverified_editorial_fair_use_only_no_image_rights';
+    const rightsBadge = rightsStatus.includes('verified')
+      ? `<span class="status-pill status-published" style="font-size:11px;">✓ Verified Rights</span>`
+      : `<span class="status-pill status-draft" style="font-size:11px;color:#92400e;background:#fef3c7;border:1px solid #fde68a;">⚠️ No Image Rights (Fair Use Only)</span>`;
+
+    const relScore = c.relevanceScore !== undefined
+      ? `${Math.round(c.relevanceScore * 100)}%`
+      : (c.relevance ? `${c.relevance}%` : '85%');
+
+    const dateStr = c.originalPublicationDate || c.publishedAt || c.collectionDate || c.collectedAt;
+    const dtFormatted = dateStr ? new Date(dateStr).toLocaleDateString() : 'Recent';
+
+    return `<tr>
+      <td><strong>${esc(c.sourceName || c.publisher || 'Official Source')}</strong></td>
+      <td>
+        <a href="${esc(itemUrl)}" target="_blank" rel="noopener" class="inline-link" style="font-weight:600;font-size:14px;">${esc(title)} ↗</a>
+        ${excerpt ? `<small style="display:block;color:#64748b;margin-top:3px;line-height:1.4;">${esc(excerpt.slice(0, 160))}...</small>` : ''}
+      </td>
+      <td><span class="status-pill status-draft">${esc(c.manufacturer || 'Various')}</span></td>
+      <td style="white-space:nowrap;color:#64748b;font-size:12px;">${esc(dtFormatted)}</td>
+      <td><strong>${esc(relScore)}</strong></td>
+      <td>${dupBadge}</td>
+      <td>${methodBadge}</td>
+      <td>${rightsBadge}</td>
+      <td style="text-align:right;">
+        <div class="action-btn-group" style="display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;">
+          <button type="button" class="btn-success" data-inbox-draft="${esc(c.id)}" style="font-size:12px;padding:4px 8px;">Create Draft ✍️</button>
+          <a href="${esc(itemUrl)}" target="_blank" rel="noopener" class="button button-outline" style="font-size:12px;padding:4px 8px;text-decoration:none;display:inline-block;">Open Source ↗</a>
+          <button type="button" class="btn-danger" data-inbox-ignore="${esc(c.id)}" style="font-size:12px;padding:4px 8px;">Ignore</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderReviewQueue() {
+  const tbody = $('#review-table-body');
+  if (!tbody) return;
+
+  const reviewArticles = (articles || []).filter(a => a.status === 'review');
+  if ($('#review-count-badge')) {
+    $('#review-count-badge').textContent = `${reviewArticles.length} Articles Awaiting Review`;
+  }
+
+  if (!reviewArticles.length) {
+    tbody.innerHTML = `<tr><td colspan="8" style="padding:24px;text-align:center;color:#64748b;">Review queue is clear! No articles currently require editorial review.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = reviewArticles.map(a => {
+    let riskLevel = 'Low';
+    let riskPill = 'status-published';
+    const highRiskClaims = a.newsroomDossier?.highRiskClaims || [];
+    if (highRiskClaims.length > 0) {
+      riskLevel = `High (${highRiskClaims.length} claims)`;
+      riskPill = 'status-rejected';
+    } else if (a.riskLevel === 'high') {
+      riskLevel = 'High';
+      riskPill = 'status-rejected';
+    } else if (a.riskLevel === 'medium' || !a.sourceUrl) {
+      riskLevel = 'Medium';
+      riskPill = 'status-review';
+    }
+
+    let missingInfo = 'None detected';
+    if (a.newsroomDossier?.missingInformation?.length) {
+      missingInfo = a.newsroomDossier.missingInformation.slice(0, 2).join('; ');
+    } else if (!a.sourceUrl && (!a.sourceUrls || !a.sourceUrls.length)) {
+      missingInfo = 'Missing primary source link';
+    }
+
+    const srcCount = (a.sourceUrls && a.sourceUrls.length) || (a.sourceUrl ? 1 : 0);
+
+    let seoStatus = 'Needs Review';
+    let seoPill = 'status-draft';
+    if (a.seoAudit) {
+      if (a.seoAudit.passed) {
+        seoStatus = `Optimized (${a.seoAudit.score}/100)`;
+        seoPill = 'status-published';
+      } else if (a.seoAudit.errorsCount > 0) {
+        seoStatus = `Issues (${a.seoAudit.score}/100)`;
+        seoPill = 'status-rejected';
+      } else {
+        seoStatus = `Needs Review (${a.seoAudit.score}/100)`;
+        seoPill = 'status-review';
+      }
+    }
+
+    return `<tr>
+      <td>
+        <strong>${esc(a.title)}</strong>
+        <small style="display:block;color:#64748b;margin-top:2px;">By ${esc(a.author || 'Staff')} · ${esc(a.category)}</small>
+      </td>
+      <td><span class="status-pill status-draft">${esc(a.manufacturer || 'Unassigned')}</span></td>
+      <td><span class="status-pill status-draft">${esc(a.articleType || a.category || 'News')}</span></td>
+      <td><span class="status-pill ${riskPill}">${esc(riskLevel)}</span></td>
+      <td style="max-width:200px;font-size:12px;color:#64748b;">${esc(missingInfo)}</td>
+      <td><strong>${srcCount}</strong></td>
+      <td><span class="status-pill ${seoPill}">${esc(seoStatus)}</span></td>
+      <td style="text-align:right;">
+        <div class="action-btn-group">
+          <button type="button" data-review-read="${esc(a.id)}">Read 👁</button>
+          <button type="button" data-edit="${esc(a.id)}">Edit ✍️</button>
+          <button type="button" class="btn-success" data-review-approve="${esc(a.id)}">Approve &amp; Schedule ✓</button>
+          <button type="button" class="btn-danger" data-review-reject="${esc(a.id)}">Reject ✕</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderScheduledQueue() {
+  const tbody = $('#scheduled-table-body');
+  if (!tbody) return;
+
+  const scheduled = (articles || []).filter(a => a.status === 'scheduled');
+  if ($('#scheduled-count-badge')) {
+    $('#scheduled-count-badge').textContent = `${scheduled.length} Scheduled`;
+  }
+
+  if (!scheduled.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="padding:24px;text-align:center;color:#64748b;">No scheduled articles in queue.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = scheduled.map(a => {
+    const schedDate = a.scheduledAt ? new Date(a.scheduledAt) : null;
+    const schedStr = schedDate ? schedDate.toLocaleString() : 'Not Set';
+    const isPastDue = schedDate && Date.now() >= schedDate.getTime();
+
+    return `<tr>
+      <td>
+        <strong>${esc(a.title)}</strong>
+        <small style="display:block;color:#64748b;margin-top:2px;">${esc(a.category)} · By ${esc(a.author || 'Editorial Desk')}</small>
+      </td>
+      <td><span class="status-pill status-draft">${esc(a.manufacturer || 'Various')}</span></td>
+      <td>
+        <strong style="color:${isPastDue ? '#dc2626' : '#166534'};">⏰ ${esc(schedStr)}</strong>
+        ${isPastDue ? `<span class="status-pill status-rejected" style="margin-left:6px;">Due for release</span>` : ''}
+      </td>
+      <td style="text-align:right;">
+        <div class="action-btn-group">
+          <button type="button" class="btn-success" data-scheduled-publish="${esc(a.id)}">Publish Now 🚀</button>
+          <button type="button" data-scheduled-reschedule="${esc(a.id)}">Change Time ⏰</button>
+          <button type="button" data-scheduled-return="${esc(a.id)}">Return to Review ↩</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderPublishedDesk() {
+  const tbody = $('#published-table-body');
+  if (!tbody) return;
+
+  const published = (articles || []).filter(a => a.status === 'published');
+  if ($('#published-count-badge')) {
+    $('#published-count-badge').textContent = `${published.length} Live`;
+  }
+
+  if (!published.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="padding:24px;text-align:center;color:#64748b;">No published articles found.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = published.map(a => {
+    const pubDate = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString() : 'Published';
+    const views = a.views || (a.analytics && a.analytics.views) || '—';
+
+    const gsc = siteSettings.googleSearchConsole;
+    let gscMetric = '<span style="color:#94a3b8;font-size:12px;">Not Connected</span>';
+    if (gsc && gsc.status === 'connected' && a.searchConsole) {
+      gscMetric = `<span style="font-size:12px;color:#166534;">${a.searchConsole.impressions || 0} impr · ${a.searchConsole.clicks || 0} clicks · pos ${a.searchConsole.position || '—'}</span>`;
+    }
+
+    return `<tr>
+      <td>
+        <a href="/news/${encodeURIComponent(a.slug)}" target="_blank" rel="noopener" class="inline-link" style="font-weight:600;">${esc(a.title)} ↗</a>
+        <small style="display:block;color:#64748b;margin-top:2px;">${esc(a.category)} · By ${esc(a.author || 'Editorial Desk')}</small>
+      </td>
+      <td><span class="status-pill status-draft">${esc(a.manufacturer || 'Various')}</span></td>
+      <td style="white-space:nowrap;color:#64748b;">${esc(pubDate)}</td>
+      <td><strong>${esc(views)}</strong></td>
+      <td>${gscMetric}</td>
+      <td style="text-align:right;">
+        <div class="action-btn-group">
+          <button type="button" data-edit="${esc(a.id)}">Edit ✍️</button>
+          <button type="button" data-published-update-note="${esc(a.id)}">Update Note 📝</button>
+          <button type="button" class="btn-danger" data-published-unpublish="${esc(a.id)}">Unpublish ↩</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderAutomationDashboard() {
+  const sources = catalog.sources || [];
+  const enabledSources = sources.filter(s => s.enabled !== false && s.collectionMode !== 'disabled');
+  const feedSources = sources.filter(s => s.collectionMode === 'rss' || s.collectionMode === 'atom');
+  const manualSources = sources.filter(s => s.collectionMode === 'manual_url' || s.collectionMode === 'newsroom_page');
+  const disabledSources = sources.filter(s => s.enabled === false || s.collectionMode === 'disabled');
+  const validFeeds = sources.filter(s => s.lastValidationStatus === 'valid' || s.lastCheckStatus === 'success');
+  const failedSources = sources.filter(s => (s.consecutiveFailureCount && s.consecutiveFailureCount > 0) || s.lastCheckStatus === 'error');
+
+  if ($('#auto-metric-total')) $('#auto-metric-total').textContent = sources.length;
+  if ($('#auto-metric-feeds')) $('#auto-metric-feeds').textContent = feedSources.length;
+  if ($('#auto-metric-manual')) $('#auto-metric-manual').textContent = manualSources.length;
+  if ($('#auto-metric-disabled')) $('#auto-metric-disabled').textContent = disabledSources.length;
+  if ($('#auto-metric-valid')) $('#auto-metric-valid').textContent = validFeeds.length;
+  if ($('#auto-metric-failed')) $('#auto-metric-failed').textContent = failedSources.length;
+
+  if ($('#auto-enabled-sources')) {
+    $('#auto-enabled-sources').textContent = `${enabledSources.length} of ${sources.length} sources enabled`;
+  }
+
+  const rssJob = (logsData.jobs || []).find(j => j.id === 'job-rss-collector');
+  const lastRunTime = rssJob?.lastRunAt || newsroomConfig?.lastRun?.timestamp;
+  const lastSuccessTime = rssJob?.lastSuccessAt || (rssJob?.status === 'success' ? rssJob.lastRunAt : null);
+
+  if ($('#auto-last-run')) {
+    $('#auto-last-run').textContent = lastRunTime ? new Date(lastRunTime).toLocaleString() : 'Never';
+  }
+  if ($('#auto-last-success')) {
+    $('#auto-last-success').textContent = lastSuccessTime ? new Date(lastSuccessTime).toLocaleString() : (lastRunTime ? 'Same as last run' : 'Never');
+  }
+
+  const errorLogs = (logsData.auditLogs || []).filter(l => l.level === 'error' || l.action?.includes('error') || l.action?.includes('fail'));
+  if ($('#auto-error-count')) {
+    $('#auto-error-count').textContent = errorLogs.length;
+  }
+
+  if ($('#auto-frequency')) {
+    $('#auto-frequency').textContent = `Every ${siteSettings.rssIntervalMinutes || 60} minutes`;
+  }
+  if ($('#auto-daily-limit')) {
+    $('#auto-daily-limit').textContent = `${siteSettings.dailyArticleLimit || 12} articles / day`;
+  }
+
+  const aiStatusEl = $('#auto-ai-status');
+  const aiDescEl = $('#auto-ai-desc');
+  if (aiStatusEl && aiDescEl) {
+    if (newsroomConfig?.keyConfigured) {
+      aiStatusEl.className = 'status-pill status-published';
+      aiStatusEl.textContent = `Connected (${newsroomConfig.provider} / ${newsroomConfig.model})`;
+      aiDescEl.textContent = `Active single-call consolidated JSON newsroom coordinator with strict number-grounding guardrails.`;
+    } else {
+      aiStatusEl.className = 'status-pill status-draft';
+      aiStatusEl.textContent = `Not Connected — Zero-Cost Deterministic Mode`;
+      aiDescEl.textContent = `Zero-Cost Deterministic Specialist Pipeline active. Works 100% locally with 0 external API keys required. All entity extraction, duplicate detection, and risk scoring operate offline.`;
+    }
+  }
+
+  const emailStatusEl = $('#auto-email-status');
+  const emailDescEl = $('#auto-email-desc');
+  if (emailStatusEl && emailDescEl) {
+    const isConnected = distributionConfigData?.providerConnected || distributionConfigData?.emailService?.connected;
+    const providerName = distributionConfigData?.emailService?.provider || 'none';
+    if (isConnected && providerName !== 'none') {
+      emailStatusEl.className = 'status-pill status-published';
+      emailStatusEl.textContent = `Connected (${providerName})`;
+      emailDescEl.textContent = `Active transactional email delivery configured.`;
+    } else {
+      emailStatusEl.className = 'status-pill status-draft';
+      emailStatusEl.textContent = `Not Configured — Email Delivery Inactive`;
+      emailDescEl.textContent = `No external email service (Mailgun / SendGrid) configured. Newsletter subscribers are saved safely to database, but automated sending is offline.`;
+    }
+  }
+
+  renderSourcesRegistryTable();
+}
+
+function renderSourcesRegistryTable() {
+  const tbody = $('#sources-table-body');
+  if (!tbody) return;
+
+  const sources = catalog.sources || [];
+  const q = ($('#sources-search')?.value || '').trim().toLowerCase();
+  const modeFilter = $('#sources-filter-mode')?.value || '';
+
+  const filtered = sources.filter(s => {
+    if (modeFilter && s.collectionMode !== modeFilter) return false;
+    if (q) {
+      const match = [s.name, s.publisher, s.domain, s.manufacturer, s.category, s.collectionMode].join(' ').toLowerCase();
+      if (!match.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="padding:24px;text-align:center;color:#64748b;">No sources match search criteria.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(s => {
+    const isEnabled = s.enabled !== false && s.collectionMode !== 'disabled';
+    const statusPill = isEnabled
+      ? `<span class="status-pill status-published" style="font-size:11px;">Enabled</span>`
+      : `<span class="status-pill status-rejected" style="font-size:11px;">Disabled</span>`;
+
+    const modeLabels = {
+      rss: 'RSS Feed',
+      atom: 'Atom Feed',
+      sitemap: 'XML Sitemap',
+      manual_url: 'Manual URL Intake',
+      newsroom_page: 'Newsroom Page',
+      api: 'API Endpoint',
+      disabled: 'Disabled (Pending)'
+    };
+    const modeLabel = modeLabels[s.collectionMode] || s.collectionMode || 'Manual';
+
+    let validationBadge = `<span class="status-pill status-draft" style="font-size:11px;">Untested</span>`;
+    if (s.lastValidationStatus === 'valid' || s.lastCheckStatus === 'success') {
+      validationBadge = `<span class="status-pill status-published" style="font-size:11px;">✓ Validated</span>`;
+    } else if (s.lastValidationStatus === 'invalid' || s.lastCheckStatus === 'error' || s.consecutiveFailureCount > 0) {
+      validationBadge = `<span class="status-pill status-rejected" style="font-size:11px;">⚠️ Error</span>`;
+    }
+
+    const lastChecked = s.lastCheckedAt ? new Date(s.lastCheckedAt).toLocaleDateString() : 'Never';
+    const itemCount = s.itemCount || (collectedItems || []).filter(c => c.sourceId === s.id).length;
+    const targetUrl = s.feedUrl || s.website || s.url || '';
+
+    return `<tr>
+      <td>
+        <strong>${esc(s.name)}</strong>
+        <small style="display:block;color:#64748b;font-size:11px;">${esc(s.domain || '')}</small>
+      </td>
+      <td>
+        <span>${esc(s.manufacturer || 'Various')}</span>
+        <small style="display:block;color:#64748b;font-size:11px;">${esc(s.category || 'Machinery')}</small>
+      </td>
+      <td><span class="status-pill status-draft" style="font-size:11px;font-weight:600;">${esc(modeLabel)}</span></td>
+      <td>${statusPill}</td>
+      <td>${validationBadge}</td>
+      <td style="font-size:12px;color:#64748b;">${esc(lastChecked)} (${itemCount} items)</td>
+      <td style="text-align:right;">
+        <div style="display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;">
+          <button type="button" class="button button-outline" data-source-test="${esc(s.id)}" data-source-url="${esc(targetUrl)}" style="padding:3px 7px;font-size:11px;background:#fff;">Test Source</button>
+          <button type="button" class="button button-outline" data-source-toggle="${esc(s.id)}" data-source-enabled="${isEnabled ? 'true' : 'false'}" style="padding:3px 7px;font-size:11px;background:#fff;">${isEnabled ? 'Disable' : 'Enable'}</button>
+          ${targetUrl ? `<a href="${esc(targetUrl)}" target="_blank" rel="noopener" class="button button-outline" style="padding:3px 7px;font-size:11px;text-decoration:none;">Open ↗</a>` : ''}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderDailyWorkflows() {
+  renderNewsInbox();
+  renderReviewQueue();
+  renderScheduledQueue();
+  renderPublishedDesk();
+  renderAutomationDashboard();
+}
+
 async function refresh() {
   const [sessData, artData, subData, tipData, catData, bkpData, logRes, setRes, colRes, nrRes, wfRes, seoRes, distRes, aiDashRes, aiTasksRes] = await Promise.all([
     api('/api/admin/session'),
@@ -1059,6 +1759,8 @@ async function refresh() {
   if ($('#role-badge-pill')) {
     $('#role-badge-pill').innerHTML = `<i></i> ${esc(sessionInfo.username)} (${esc(sessionInfo.role)})`;
   }
+    if ($('#header-user-display')) $('#header-user-display').textContent = sessionInfo.username;
+  if ($('#header-role-display')) $('#header-role-display').textContent = sessionInfo.role;
   if ($('#admin-session-indicator')) {
     $('#admin-session-indicator').textContent = `SIGNED IN: ${sessionInfo.username.toUpperCase()} [${sessionInfo.role.toUpperCase()}]`;
   }
@@ -1071,9 +1773,10 @@ async function refresh() {
   renderJobsAndLogs();
   renderSettingsForm();
   renderAiOperationsPanel();
+  renderDailyWorkflows();
 }
 
-async function showDashboard() {
+async function showDashboard(fromLogin = false) {
   try {
     await refresh();
     $('#login-panel').hidden = true;
@@ -1082,36 +1785,50 @@ async function showDashboard() {
     $('#create-backup').hidden = false;
     $('#logout').hidden = false;
     clearAlert();
-  } catch {
-    $('#login-panel').hidden = false;
-    $('#dashboard').hidden = true;
-    $('#manual-refresh').hidden = true;
-    $('#create-backup').hidden = true;
-    $('#logout').hidden = true;
+  } catch (err) {
+    console.error('showDashboard error:', err);
+    if (fromLogin) {
+      alertMsg('Dashboard load error: ' + (err.message || 'Request failed'));
+    }
+    if (!sessionInfo?.username && !sessionStorage.getItem('bm_token')) {
+      $('#login-panel').hidden = false;
+      $('#dashboard').hidden = true;
+      $('#manual-refresh').hidden = true;
+      $('#create-backup').hidden = true;
+      $('#logout').hidden = true;
+    } else {
+      // Even if one secondary panel had a soft error, show dashboard!
+      $('#login-panel').hidden = true;
+      $('#dashboard').hidden = false;
+      $('#manual-refresh').hidden = false;
+      $('#create-backup').hidden = false;
+      $('#logout').hidden = false;
+    }
   }
 }
 
-$('#login-form').addEventListener('submit', async e => {
-  e.preventDefault();
-  try {
-    await api('/api/admin/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: $('#admin-username')?.value || 'editorial-admin',
-        password: $('#admin-password').value
-      })
-    });
-    $('#admin-password').value = '';
-    await showDashboard();
-  } catch (err) {
-    alertMsg(err.message);
-  }
+$('#fill-dev-credentials-btn')?.addEventListener('click', () => {
+  if ($('#admin-username')) $('#admin-username').value = 'editorial-admin';
+  if ($('#admin-password')) $('#admin-password').value = 'Admin#2026!LocalSec';
+});
+
+$('#login-form')?.addEventListener('submit', window.__handleAdminLogin);
+$('#admin-login-btn')?.addEventListener('click', window.__handleAdminLogin);
+
+$('#enter-manual-studio-btn')?.addEventListener('click', () => switchStudio('manual'));
+$('#studio-card-manual')?.addEventListener('click', (e) => {
+  if (!e.target.closest('button')) switchStudio('manual');
+});
+$('#enter-ai-studio-btn')?.addEventListener('click', () => switchStudio('ai'));
+$('#studio-card-ai')?.addEventListener('click', (e) => {
+  if (!e.target.closest('button')) switchStudio('ai');
 });
 
 $('#logout').addEventListener('click', async () => {
   try {
     await api('/api/admin/logout', { method: 'POST', body: '{}' });
   } finally {
+    sessionStorage.removeItem('bm_token');
     $('#dashboard').hidden = true;
     $('#login-panel').hidden = false;
     $('#manual-refresh').hidden = true;
@@ -1156,6 +1873,7 @@ $('#reset-form').addEventListener('click', () => {
 });
 $('#admin-search')?.addEventListener('input', renderStories);
 $('#admin-status-filter')?.addEventListener('change', renderStories);
+$('#admin-origin-filter')?.addEventListener('change', renderStories);
 
 async function saveArticle(status) {
   try {
@@ -1190,6 +1908,35 @@ $('#admin-story-list').addEventListener('click', async e => {
   const del = e.target.closest('[data-delete]');
   const quickStatus = e.target.closest('[data-quick-status]');
   const wfTransition = e.target.closest('[data-wf-transition]');
+
+  const transferBtn = e.target.closest('[data-transfer-manual]');
+  if (transferBtn) {
+    const targetId = transferBtn.dataset.transferManual;
+    try {
+      const res = await api(`/api/admin/articles/${encodeURIComponent(targetId)}/transfer-to-manual`, { method: 'POST' });
+      alertMsg(`Article "${res.article.title}" transferred to Manual Studio. AI newsroom runs will no longer overwrite it.`, 'success');
+      await refresh();
+      switchStudio('manual');
+      const editBtn = $(`[data-edit="${res.article.id}"]`);
+      if (editBtn) editBtn.click();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  const seoAuditBtn = e.target.closest('[data-seo-audit]');
+  if (seoAuditBtn) {
+    const targetId = seoAuditBtn.dataset.seoAudit;
+    try {
+      const res = await api(`/api/admin/articles/${encodeURIComponent(targetId)}/seo-audit`, { method: 'POST' });
+      alertMsg(`Pre-Publication SEO Audit for "${res.title}": Score ${res.seoAudit.score}/100 (${res.seoAudit.status}). ${res.seoAudit.errorsCount} errors, ${res.seoAudit.warningsCount} warnings.`, res.seoAudit.errorsCount > 0 ? 'warning' : 'success');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
 
   if (wfTransition) {
     const targetId = wfTransition.dataset.id;
@@ -1230,59 +1977,8 @@ $('#admin-story-list').addEventListener('click', async e => {
   }
 
   if (edit) {
-    const a = articles.find(x => x.id === edit.dataset.edit);
-    if (!a) return;
-    $('#article-id').value = a.id;
-    const fieldMap = {
-      title: '#title',
-      slug: '#slug',
-      body: '#body',
-      category: '#category',
-      manufacturer: '#manufacturer',
-      author: '#author',
-      image: '#image',
-      imageCredit: '#image-credit',
-      equipmentType: '#equipment-type',
-      country: '#country',
-      region: '#region',
-      model: '#model',
-      powerType: '#power-type',
-      articleType: '#article-type',
-      status: '#status'
-    };
-    for (const [key, selector] of Object.entries(fieldMap)) {
-      const field = $(selector);
-      if (field) field.value = a[key] || '';
-    }
-    $('#excerpt').value = a.summary || a.excerpt || '';
-    $('#tags').value = (a.tags || []).join(', ');
-    $('#source-url').value = a.sourceUrl || '';
-    $('#source-urls').value = (a.sourceUrls || []).join('\n');
-    $('#specs-input').value = formatSpecsInput(a.specs);
-    $('#seo-title').value = a.seo?.metaTitle || '';
-    $('#seo-description').value = a.seo?.metaDescription || '';
-    $('#seo-canonical').value = a.seo?.canonicalUrl || '';
-    $('#seo-keywords').value = (a.seo?.keywords || []).join(', ');
-    $('#revision-note').value = '';
-    $('#scheduled-at').value = a.scheduledAt ? new Date(a.scheduledAt).toISOString().slice(0, 16) : '';
-    $('#featured').checked = !!a.featured;
-    $('#editor-title').textContent = 'Edit article';
-    $('#save-draft').textContent = 'Save changes as draft';
-
-    const revBox = $('#revision-history-box');
-    const revList = $('#revision-history-list');
-    if (revBox && revList && Array.isArray(a.updateHistory) && a.updateHistory.length) {
-      revBox.hidden = false;
-      revList.innerHTML = a.updateHistory
-        .slice()
-        .reverse()
-        .map(h => `<li><strong>${esc(h.action)}</strong> by ${esc(h.by)} on ${new Date(h.at).toLocaleString()} — <em>${esc(h.note || '')}</em></li>`)
-        .join('');
-    } else if (revBox) {
-      revBox.hidden = true;
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    loadArticleIntoEditor(edit.dataset.edit);
+    return;
   }
   if (del) {
     const targetArt = articles.find(x => x.id === del.dataset.delete);
@@ -1890,3 +2586,638 @@ $('#ai-seo-tasks-table')?.addEventListener('click', async e => {
 });
 
 showDashboard();
+
+
+// Spec builder dynamic rows
+function addSpecRow(key = '', val = '') {
+  const container = $('#spec-rows-container');
+  if (!container) return;
+  const row = document.createElement('div');
+  row.className = 'spec-row';
+  row.innerHTML = `
+    <input class="spec-key" value="${esc(key)}" placeholder="Specification name">
+    <input class="spec-val" value="${esc(val)}" placeholder="e.g. 21,500 kg">
+    <button type="button" class="button button-outline delete-spec-btn" style="padding:2px 6px;">×</button>
+  `;
+  container.appendChild(row);
+}
+
+$('#add-spec-row-btn')?.addEventListener('click', () => addSpecRow());
+
+$('#spec-rows-container')?.addEventListener('click', e => {
+  if (e.target.classList.contains('delete-spec-btn')) {
+    e.target.closest('.spec-row')?.remove();
+    triggerDirty();
+  }
+});
+
+// Rich formatting toolbar
+$('#editor-formatting-toolbar')?.addEventListener('click', e => {
+  const btn = e.target.closest('[data-format]');
+  const textarea = $('#body');
+  if (!btn || !textarea) return;
+  const format = btn.dataset.format;
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const sel = textarea.value.substring(start, end);
+
+  let rep = '';
+  if (format === 'h2') rep = `\n\n## ${sel || 'Section Heading'}\n\n`;
+  else if (format === 'h3') rep = `\n\n### ${sel || 'Subheading'}\n\n`;
+  else if (format === 'bold') rep = `**${sel || 'bold text'}**`;
+  else if (format === 'italic') rep = `*${sel || 'italic text'}*`;
+  else if (format === 'quote') rep = `\n\n> "${sel || 'Executive or official statement'}"\n\n`;
+  else if (format === 'ul') rep = `\n\n- ${sel || 'Key operational feature'}\n- Verified capability\n- Regional availability\n\n`;
+  else if (format === 'ol') rep = `\n\n1. ${sel || 'First milestone'}\n2. Second milestone\n3. Fleet rollout\n\n`;
+  else if (format === 'spec-table') rep = `\n\n| Specification | Verified Metric |\n| :--- | :--- |\n| Operating Weight | 21,500 kg |\n| Engine Rated Power | 129 kW (173 hp) |\n| Bucket Capacity | 1.2 m³ |\n| Emission Standard | US EPA Tier 4 Final / EU Stage V |\n\n`;
+  else if (format === 'callout') rep = `\n\n> [!NOTE]\n> **Industry Context:** ${sel || 'Important commercial machinery development and fleet deployment context.'}\n\n`;
+
+  textarea.setRangeText(rep, start, end, 'end');
+  textarea.focus();
+  triggerDirty();
+});
+
+// Optional AI Writing Assistant
+$('#ai-assist-container')?.addEventListener('click', async e => {
+  const btn = e.target.closest('[data-ai-task]');
+  if (!btn) return;
+  const task = btn.dataset.aiTask;
+  const origText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Processing...';
+
+  const text = $('#body')?.value || '';
+  const title = $('#title')?.value || '';
+
+  try {
+    const res = await api('/api/admin/ai/assist', {
+      method: 'POST',
+      body: JSON.stringify({ text, title, task })
+    });
+
+    if (task === 'grammar') {
+      if (confirm('Apply grammar and clarity refinements to the article body? (Verified facts are preserved)')) {
+        $('#body').value = res.result;
+        alertMsg(`Grammar and tone refined using ${res.provider}.`, 'success');
+      }
+    } else if (task === 'headline') {
+      if (confirm(`Apply suggested headline: "${res.result}"?`)) {
+        $('#title').value = res.result;
+        alertMsg('Suggested headline applied.', 'success');
+      }
+    } else if (task === 'summary') {
+      if (confirm(`Apply 2-sentence summary to excerpt: "${res.result}"?`)) {
+        $('#excerpt').value = res.result;
+        alertMsg('Executive summary applied.', 'success');
+      }
+    } else if (task === 'structure') {
+      if (confirm('Append structured technical subheadings and bullet points to article body?')) {
+        $('#body').value = ($('#body').value + '\n\n' + res.result).trim();
+        alertMsg('Structured headings added.', 'success');
+      }
+    } else if (task === 'seo') {
+      if (res.result?.metaTitle) $('#seo-title').value = res.result.metaTitle;
+      if (res.result?.metaDescription) $('#seo-description').value = res.result.metaDescription;
+      if (res.result?.keywords) $('#seo-keywords').value = res.result.keywords.join(', ');
+      alertMsg('Optimized SEO metadata applied.', 'success');
+    }
+    triggerDirty();
+  } catch (err) {
+    alertMsg('AI Assistant error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origText;
+  }
+});
+
+// Autosave system
+let isFormDirty = false;
+function triggerDirty() {
+  isFormDirty = true;
+  const pill = $('#autosave-status');
+  if (pill) {
+    pill.className = 'autosave-pill saving';
+    pill.textContent = 'Unsaved changes';
+  }
+}
+$('#article-form')?.addEventListener('input', triggerDirty);
+
+setInterval(async () => {
+  if (!isFormDirty) return;
+  const title = $('#title')?.value?.trim();
+  const body = $('#body')?.value?.trim();
+  if (!title || title.length < 8 || !body || body.length < 20) return;
+
+  const pill = $('#autosave-status');
+  if (pill) {
+    pill.className = 'autosave-pill saving';
+    pill.textContent = 'Autosaving draft...';
+  }
+
+  try {
+    const data = formData('draft');
+    const id = $('#article-id')?.value;
+    let saved;
+    if (id) {
+      saved = await api('/api/admin/articles/' + encodeURIComponent(id), {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      });
+    } else {
+      saved = await api('/api/admin/articles', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      });
+      if (saved?.id) $('#article-id').value = saved.id;
+    }
+    isFormDirty = false;
+    const nowTime = new Date().toLocaleTimeString();
+    if (pill) {
+      pill.className = 'autosave-pill saved';
+      pill.textContent = `Draft saved at ${nowTime}`;
+    }
+  } catch (err) {
+    if (pill) {
+      pill.className = 'autosave-pill';
+      pill.textContent = 'Autosave paused';
+    }
+  }
+}, 30000);
+
+// ============================================================================
+// DAILY EDITORIAL WORKFLOW ACTION LISTENERS
+// ============================================================================
+
+// Search and filter for News Inbox
+$('#inbox-search')?.addEventListener('input', renderNewsInbox);
+$('#inbox-filter-status')?.addEventListener('change', renderNewsInbox);
+
+// Manual URL Intake UI
+$('#inbox-manual-intake-btn')?.addEventListener('click', () => {
+  const card = $('#inbox-intake-card');
+  if (card) {
+    card.style.display = card.style.display === 'none' ? 'block' : 'none';
+    if (card.style.display === 'block') $('#intake-url')?.focus();
+  }
+});
+
+$('#inbox-intake-close')?.addEventListener('click', () => {
+  const card = $('#inbox-intake-card');
+  if (card) card.style.display = 'none';
+});
+
+$('#inbox-intake-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = ($('#intake-url')?.value || '').trim();
+  const manufacturer = $('#intake-manufacturer')?.value || '';
+  const statusEl = $('#intake-status-msg');
+  const submitBtn = $('#intake-submit-btn');
+
+  if (!url) return;
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Intaking...';
+  }
+  if (statusEl) {
+    statusEl.style.color = '#0284c7';
+    statusEl.textContent = 'Fetching and extracting metadata from approved newsroom...';
+  }
+
+  try {
+    const res = await api('/api/admin/collected/intake-url', {
+      method: 'POST',
+      body: JSON.stringify({ url, manufacturer: manufacturer || undefined })
+    });
+    if (statusEl) {
+      statusEl.style.color = '#16a34a';
+      statusEl.textContent = `✓ Ingested: "${res.item?.headline || 'Press Release'}". Duplicate check: ${res.duplicateStatus || 'unique'}.`;
+    }
+    alertMsg(`Successfully placed into News Inbox: "${res.item?.headline || 'Story'}"`, 'success');
+    $('#intake-url').value = '';
+    const updated = await api('/api/admin/collected').catch(() => []);
+    collectedItems = updated;
+    renderNewsInbox();
+  } catch (err) {
+    if (statusEl) {
+      statusEl.style.color = '#dc2626';
+      statusEl.textContent = `Intake failed: ${err.message}`;
+    }
+    alertMsg(err.message);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Intake URL into Inbox';
+    }
+  }
+});
+
+// Sources registry search and filter listeners
+$('#sources-search')?.addEventListener('input', renderSourcesRegistryTable);
+$('#sources-filter-mode')?.addEventListener('change', renderSourcesRegistryTable);
+
+// Candidate Registry Import
+$('#auto-import-candidates-btn')?.addEventListener('click', async (e) => {
+  const btn = e.currentTarget;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Importing...';
+  }
+  try {
+    const res = await api('/api/admin/sources/import-candidates', { method: 'POST', body: '{}' });
+    alertMsg(`Import complete! Total sources: ${res.totalSources}, Updated: ${res.updatedCount}, Inserted: ${res.insertedCount}`, 'success');
+    await refresh();
+  } catch (err) {
+    alertMsg(`Import error: ${err.message}`);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '📥 Import Candidate Registry';
+    }
+  }
+});
+
+$('#check-all-sources-live-btn')?.addEventListener('click', e => triggerNewsCollection(e.currentTarget));
+$('#check-all-sources-test-btn')?.addEventListener('click', async (e) => {
+  const btn = e.currentTarget;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Testing...';
+  }
+  try {
+    const res = await api('/api/admin/sources/check-all', {
+      method: 'POST',
+      body: JSON.stringify({ mode: 'test' })
+    });
+    alertMsg(`Test collection finished. Checked ${res.sourcesChecked || 0} feeds, inserted ${res.totalInserted || 0} sample items.`, 'success');
+    await refresh();
+  } catch (err) {
+    alertMsg(err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Test Mode';
+    }
+  }
+});
+
+// Manual Collection Buttons
+async function triggerNewsCollection(btn) {
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Collecting...';
+  }
+  try {
+    const res = await api('/api/admin/sources/check-all', {
+      method: 'POST',
+      body: JSON.stringify({ mode: 'live' })
+    });
+    alertMsg(`RSS news collection finished. Detected ${res.newArticlesCount || res.collectedCount || 0} items.`, 'success');
+    await refresh();
+  } catch (err) {
+    alertMsg('Collection error: ' + err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '⚡ Run Collection Now';
+    }
+  }
+}
+
+$('#inbox-collect-btn')?.addEventListener('click', e => triggerNewsCollection(e.currentTarget));
+$('#automation-collect-btn')?.addEventListener('click', e => triggerNewsCollection(e.currentTarget));
+
+// Delegated click handler for workflow tables, advanced navigation, and action buttons
+document.addEventListener('click', async e => {
+  // Advanced subtab jumping
+  const advBtn = e.target.closest('[data-adv-target]');
+  if (advBtn) {
+    const targetTab = advBtn.dataset.advTarget;
+    $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === targetTab));
+    $$('.admin-tab-pane').forEach(pane => {
+      pane.hidden = pane.id !== targetTab;
+    });
+    return;
+  }
+
+  // Switch tab links
+  const switchLink = e.target.closest('[data-switch-tab]');
+  if (switchLink) {
+    e.preventDefault();
+    const targetTab = switchLink.dataset.switchTab;
+    $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === targetTab));
+    $$('.admin-tab-pane').forEach(pane => {
+      pane.hidden = pane.id !== targetTab;
+    });
+    return;
+  }
+
+  // Inbox: Create Draft
+  const inboxDraftBtn = e.target.closest('[data-inbox-draft]');
+  if (inboxDraftBtn) {
+    const id = inboxDraftBtn.dataset.inboxDraft;
+    const c = collectedItems.find(x => x.id === id);
+    if (!c) return;
+    $$('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'tab-articles'));
+    $$('.admin-tab-pane').forEach(pane => {
+      pane.hidden = pane.id !== 'tab-articles';
+    });
+    resetForm();
+    $('#article-id').value = '';
+    $('#title').value = c.title || '';
+    $('#excerpt').value = (c.summary || c.title || '').slice(0, 300);
+    $('#body').value = c.content || c.summary || c.title || '';
+    $('#source-url').value = c.url || '';
+    if (c.manufacturer && $('#manufacturer')) $('#manufacturer').value = c.manufacturer;
+    if (c.category && $('#category')) $('#category').value = c.category;
+    $('#status').value = 'draft';
+    $('#editor-title').textContent = 'Create draft from collected intelligence: ' + (c.title || '');
+    alertMsg(`Draft prefilled from "${c.sourceName}". Please review, format, and save.`, 'success');
+    try {
+      await api(`/api/admin/collected/${encodeURIComponent(c.id)}/promote`, { method: 'POST' });
+    } catch {}
+    $('#article-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  // Inbox: Ignore
+  const inboxIgnoreBtn = e.target.closest('[data-inbox-ignore]');
+  if (inboxIgnoreBtn) {
+    const id = inboxIgnoreBtn.dataset.inboxIgnore;
+    try {
+      await api(`/api/admin/collected/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      collectedItems = collectedItems.filter(x => x.id !== id);
+      renderNewsInbox();
+      alertMsg('Collected item removed from active inbox.', 'info');
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Source: Test Endpoint
+  const srcTestBtn = e.target.closest('[data-source-test]');
+  if (srcTestBtn) {
+    const testUrl = srcTestBtn.dataset.sourceUrl;
+    const banner = $('#source-test-result-box');
+    if (!testUrl) {
+      alertMsg('No endpoint URL configured for this source.');
+      return;
+    }
+    srcTestBtn.disabled = true;
+    srcTestBtn.textContent = 'Testing...';
+    if (banner) {
+      banner.style.display = 'block';
+      banner.style.background = '#f0f9ff';
+      banner.style.border = '1px solid #bae6fd';
+      banner.style.color = '#0369a1';
+      banner.textContent = `Validating endpoint "${testUrl}" (testing HTTP status, redirects, format, dates, SSRF safe)...`;
+    }
+    try {
+      const res = await api('/api/admin/sources/validate', {
+        method: 'POST',
+        body: JSON.stringify({ url: testUrl })
+      });
+      if (banner) {
+        if (res.valid) {
+          banner.style.background = '#f0fdf4';
+          banner.style.border = '1px solid #bbf7d0';
+          banner.style.color = '#15803d';
+          banner.innerHTML = `<strong>✓ Valid machine endpoint:</strong> ${esc(res.notes || 'OK')} | HTTP ${res.httpStatus} | Format: ${esc(res.detectedFormat)} | Sample items: ${res.itemCount} | Dates extractable: ${res.canExtractDates ? 'Yes' : 'No'}`;
+        } else {
+          banner.style.background = '#fef2f2';
+          banner.style.border = '1px solid #fecaca';
+          banner.style.color = '#b91c1c';
+          banner.innerHTML = `<strong>⚠️ Verification Failed:</strong> ${esc(res.notes || res.error || 'Endpoint invalid')} | HTTP ${res.httpStatus || 'N/A'}`;
+        }
+      }
+    } catch (err) {
+      if (banner) {
+        banner.style.background = '#fef2f2';
+        banner.style.border = '1px solid #fecaca';
+        banner.style.color = '#b91c1c';
+        banner.textContent = `Endpoint test error: ${err.message}`;
+      }
+    } finally {
+      srcTestBtn.disabled = false;
+      srcTestBtn.textContent = 'Test Source';
+    }
+    return;
+  }
+
+  // Source: Toggle Enabled
+  const srcToggleBtn = e.target.closest('[data-source-toggle]');
+  if (srcToggleBtn) {
+    const sourceId = srcToggleBtn.dataset.sourceToggle;
+    const currentlyEnabled = srcToggleBtn.dataset.sourceEnabled === 'true';
+    srcToggleBtn.disabled = true;
+    try {
+      const res = await api(`/api/admin/sources/${encodeURIComponent(sourceId)}/toggle`, {
+        method: 'POST',
+        body: JSON.stringify({ enabled: !currentlyEnabled })
+      });
+      alertMsg(`Source "${res.source?.name}" is now ${res.source?.enabled ? 'enabled' : 'disabled'}.`, 'success');
+      if (catalog.sources) {
+        const idx = catalog.sources.findIndex(s => s.id === sourceId);
+        if (idx >= 0) catalog.sources[idx] = res.source;
+      }
+      renderAutomationDashboard();
+    } catch (err) {
+      alertMsg(err.message);
+    } finally {
+      srcToggleBtn.disabled = false;
+    }
+    return;
+  }
+
+  // Review Queue: Read Preview
+  const reviewReadBtn = e.target.closest('[data-review-read]');
+  if (reviewReadBtn) {
+    const id = reviewReadBtn.dataset.reviewRead;
+    const a = articles.find(x => x.id === id);
+    if (a) openArticlePreview(a);
+    return;
+  }
+
+  // Review Queue: Approve & Schedule
+  const reviewApproveBtn = e.target.closest('[data-review-approve]');
+  if (reviewApproveBtn) {
+    const id = reviewApproveBtn.dataset.reviewApprove;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    const defaultTime = new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString().slice(0, 16);
+    const dtInput = prompt(`Approve & Schedule publication for "${a.title}".\nEnter scheduled publication time (YYYY-MM-DDTHH:MM, or type 'now' to publish immediately):`, defaultTime);
+    if (!dtInput) return;
+    const isNow = dtInput.trim().toLowerCase() === 'now';
+    const scheduledAt = isNow ? null : new Date(dtInput).toISOString();
+    const nextStatus = isNow ? 'published' : 'scheduled';
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: nextStatus,
+          scheduledAt,
+          publishedAt: isNow ? new Date().toISOString() : undefined,
+          revisionNote: isNow ? 'Approved and published immediately by editor' : `Approved and scheduled for publication at ${scheduledAt}`
+        })
+      });
+      alertMsg(`Article "${a.title}" ${isNow ? 'published live' : 'scheduled for release'}.`, 'success');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Review Queue: Reject
+  const reviewRejectBtn = e.target.closest('[data-review-reject]');
+  if (reviewRejectBtn) {
+    const id = reviewRejectBtn.dataset.reviewReject;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    const note = prompt(`Enter reason for rejection (returns article to draft with note):`, 'Requires additional primary source fact verification');
+    if (note === null) return;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: 'draft',
+          revisionNote: `Rejected in Review Queue: ${note}`
+        })
+      });
+      alertMsg(`Article "${a.title}" returned to draft status.`, 'info');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Scheduled: Publish Now
+  const schedPubBtn = e.target.closest('[data-scheduled-publish]');
+  if (schedPubBtn) {
+    const id = schedPubBtn.dataset.scheduledPublish;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    if (!confirm(`Publish "${a.title}" live right now?`)) return;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: 'published',
+          publishedAt: new Date().toISOString(),
+          revisionNote: 'Published manually from Scheduled Queue'
+        })
+      });
+      alertMsg(`Article "${a.title}" is now published live!`, 'success');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Scheduled: Change Time
+  const schedReschedBtn = e.target.closest('[data-scheduled-reschedule]');
+  if (schedReschedBtn) {
+    const id = schedReschedBtn.dataset.scheduledReschedule;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    const curTime = a.scheduledAt ? new Date(a.scheduledAt).toISOString().slice(0, 16) : new Date(Date.now() + 3600000).toISOString().slice(0, 16);
+    const newTime = prompt(`Change scheduled publication time for "${a.title}":`, curTime);
+    if (!newTime) return;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          scheduledAt: new Date(newTime).toISOString(),
+          revisionNote: `Publication rescheduled to ${newTime}`
+        })
+      });
+      alertMsg(`Article "${a.title}" rescheduled.`, 'success');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Scheduled: Return to Review
+  const schedReturnBtn = e.target.closest('[data-scheduled-return]');
+  if (schedReturnBtn) {
+    const id = schedReturnBtn.dataset.scheduledReturn;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    if (!confirm(`Return "${a.title}" to Review Queue?`)) return;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: 'review',
+          revisionNote: 'Returned to Review Queue from Scheduled'
+        })
+      });
+      alertMsg(`Article "${a.title}" returned to Review Queue.`, 'info');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Published: Update Note
+  const pubNoteBtn = e.target.closest('[data-published-update-note]');
+  if (pubNoteBtn) {
+    const id = pubNoteBtn.dataset.publishedUpdateNote;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    const note = prompt(`Enter update note to append to live article "${a.title}":`);
+    if (!note || !note.trim()) return;
+    const timestamp = new Date().toLocaleString();
+    const updateFormatted = `\n\n**UPDATE (${timestamp}):** ${note.trim()}\n`;
+    const newBody = (a.body || '') + updateFormatted;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          body: newBody,
+          updatedAt: new Date().toISOString(),
+          revisionNote: `Editorial update note: ${note.trim().slice(0, 80)}`
+        })
+      });
+      alertMsg(`Live article updated with editorial note.`, 'success');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Published: Unpublish
+  const pubUnpublishBtn = e.target.closest('[data-published-unpublish]');
+  if (pubUnpublishBtn) {
+    const id = pubUnpublishBtn.dataset.publishedUnpublish;
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    if (!confirm(`Unpublish live article "${a.title}" and return it to draft?`)) return;
+    try {
+      await api(`/api/admin/articles/${encodeURIComponent(a.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          status: 'draft',
+          revisionNote: 'Unpublished by editor from Published Desk'
+        })
+      });
+      alertMsg(`Article "${a.title}" unpublished and moved to draft.`, 'info');
+      await refresh();
+    } catch (err) {
+      alertMsg(err.message);
+    }
+    return;
+  }
+
+  // Any other data-edit button outside of #admin-story-list
+  const anyEdit = e.target.closest('[data-edit]');
+  if (anyEdit && !e.target.closest('#admin-story-list')) {
+    loadArticleIntoEditor(anyEdit.dataset.edit);
+  }
+});

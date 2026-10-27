@@ -1,6 +1,6 @@
 /**
- * MachineWire — Reusable UI Components, Category Taxonomy & SEO Helpers
- * Brand: MACHINEWIRE | Tagline: THE WORLD OF MACHINES. CONNECTED.
+ * Machine Report World — Reusable UI Components, Category Taxonomy & SEO Helpers
+ * Brand: Machine Report World | Tagline: THE WORLD OF MACHINES. CONNECTED.
  */
 (function (global) {
   const esc = (s = '') =>
@@ -465,8 +465,8 @@
   }
 
   function renderBrandPlaceholder(subtitle = 'THE WORLD OF MACHINES. CONNECTED.') {
-    return `<div class="image-placeholder" role="img" aria-label="MachineWire editorial placeholder">
-      <span>MACHINE<span>WIRE</span></span>
+    return `<div class="image-placeholder" role="img" aria-label="Machine Report World editorial placeholder">
+      <span>MACHINE REPORT <span>WORLD</span></span>
       <small>${esc(subtitle)}</small>
     </div>`;
   }
@@ -497,7 +497,7 @@
       ${srcset ? `srcset="${srcset}" sizes="${sizes}"` : ''}
       alt="${esc(label)}"
       ${loadingAttr}
-      onerror="this.outerHTML='<div class=\\'image-placeholder\\'><span>MACHINE<span>WIRE</span></span><small>THE WORLD OF MACHINES. CONNECTED.</small></div>'"
+      onerror="this.outerHTML='<div class=\\'image-placeholder\\'><span>MACHINE REPORT <span>WORLD</span></span><small>THE WORLD OF MACHINES. CONNECTED.</small></div>'"
     >${creditBadge}`;
   }
 
@@ -513,7 +513,7 @@
       <a class="card-image" href="${href}" aria-label="${esc(a.title)}">
         ${renderEditorialImage({
           url: a.image,
-          alt: `${a.title} — ${a.manufacturer || 'MachineWire'}`,
+          alt: `${a.title} — ${a.manufacturer || 'Machine Report World'}`,
           credit,
           aspect: 'card',
           lazy,

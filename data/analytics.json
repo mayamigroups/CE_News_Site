@@ -1,7 +1,13 @@
 {
   "regionViews": {},
-  "articleViews": {},
-  "updatedAt": "2026-10-25T16:24:07.442Z",
+  "articleViews": {
+    "welcome-to-the-magazine": 7,
+    "backhoe-loader-buyers-guide-demo": 4,
+    "global-construction-machinery-and-commercial-vehicle-trade-show-guide": 1,
+    "evaluating-heavy-tipper-and-vocational-truck-specifications-for-site-earthmoving": 1,
+    "20-tonne-crawler-excavator-comparison-hydraulics-undercarriage-telematics": 3
+  },
+  "updatedAt": "2026-10-27T14:12:23.229Z",
   "categoryViews": {
     "construction-equipment": 2,
     "backhoe-loaders": 1,
@@ -10,9 +16,17 @@
     "business": 1,
     "reviews": 1,
     "guides": 1,
-    "regions": 1
+    "regions": 1,
+    "industry-news": 7,
+    "buying-guides": 4,
+    "events-exhibitions": 1,
+    "commercial-vehicles": 1,
+    "excavators": 3
   },
-  "manufacturerViews": {},
+  "manufacturerViews": {
+    "bull-machines": 7,
+    "all-manufacturers": 5
+  },
   "modelViews": {},
   "searchQueries": {},
   "engagementEvents": {

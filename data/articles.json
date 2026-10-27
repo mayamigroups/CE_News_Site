@@ -23,10 +23,26 @@
     "authorId": "aut-editorial-desk",
     "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial / OEM Press Handout",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial / OEM Press Handout",
+      "altText": "A new destination for backhoe loader updates, Bull Machines news, product launches and the global construction equipment industry.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://bullmachines.com/",
     "sourceUrls": [
       "https://bullmachines.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Full Lineup"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Bull Machines",
       "Backhoe Loaders",
@@ -54,8 +70,10 @@
     "publishedAt": "2026-10-22T09:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T09:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.840Z",
+    "updatedAt": "2026-10-27T13:05:43.967Z",
     "updateHistory": [
       {
         "id": "e9294e49-a752-4c72-9962-30ef9a61ed25",
@@ -96,10 +114,26 @@
     "authorId": "aut-editorial-desk",
     "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial / OEM Press Handout",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial / OEM Press Handout",
+      "altText": "A practical checklist covering digging performance, loader capacity, service support, operating costs and the worksite conditions that matter.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://bullmachines.com/",
     "sourceUrls": [
       "https://bullmachines.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Multi-brand Comparison"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Backhoe Loaders",
       "Buying Guide"
@@ -126,8 +160,10 @@
     "publishedAt": "2026-10-21T08:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-21T08:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.855Z",
+    "updatedAt": "2026-10-27T13:05:43.985Z",
     "updateHistory": [
       {
         "id": "1c5f614b-3907-4ba1-8245-a43ad14ec33b",
@@ -168,10 +204,26 @@
     "authorId": "aut-commercial-vehicles-desk",
     "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial / OEM Press Handout",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial / OEM Press Handout",
+      "altText": "How fleet managers match axle configurations, GVW ratings, gradeability and body construction to quarry, mining and highway infrastructure contracts.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.acea.auto/",
     "sourceUrls": [
       "https://www.acea.auto/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "6x4 & 8x4 Vocational Platforms"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Commercial Vehicles",
       "Tipper Trucks",
@@ -200,8 +252,10 @@
     "publishedAt": "2026-10-20T11:30:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-20T11:30:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.869Z",
+    "updatedAt": "2026-10-27T13:05:44.004Z",
     "updateHistory": [
       {
         "id": "b70d03f2-38a8-451e-922a-14137f5acdb3",
@@ -242,10 +296,26 @@
     "authorId": "aut-technology-powertrains-desk",
     "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial / OEM Press Handout",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial / OEM Press Handout",
+      "altText": "A technical breakdown of closed-center load-sensing hydraulic systems, ISO 15143-3 (AEMP 2.0) fleet telematics and battery-electric compact machinery.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.iso.org/standard/66768.html",
     "sourceUrls": [
       "https://www.iso.org/standard/66768.html"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Next-Gen Hydraulic & EV Architecture"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Technology",
       "Hydraulics",
@@ -274,8 +344,10 @@
     "publishedAt": "2026-10-19T14:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-19T14:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.882Z",
+    "updatedAt": "2026-10-27T13:05:44.020Z",
     "updateHistory": [
       {
         "id": "19ca5890-5a9f-4410-8e56-9e78cce2978a",
@@ -316,12 +388,28 @@
     "authorId": "aut-editorial-desk",
     "image": "https://images.unsplash.com/photo-1541888946425-d09bb18086f6?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial / OEM Press Handout",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial / OEM Press Handout",
+      "altText": "How engineering, procurement and dealer teams track major exhibitions across India (EXCON), Europe (Bauma, IAA Transportation) and North America (CONEXPO).",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.excon.in/",
     "sourceUrls": [
       "https://www.excon.in/",
       "https://bauma.de/",
       "https://www.conexpoconagg.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Exhibition Calendar"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Events & Exhibitions",
       "EXCON",
@@ -351,8 +439,10 @@
     "publishedAt": "2026-10-18T10:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-18T10:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.896Z",
+    "updatedAt": "2026-10-27T13:05:44.037Z",
     "updateHistory": [
       {
         "id": "d5e976b2-b02b-497d-ba73-1dc5605b85de",
@@ -393,8 +483,22 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "An unpublished draft for your editorial team to replace with a verified launch announcement.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "",
     "sourceUrls": [],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "New Launches"
     ],
@@ -416,8 +520,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T09:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.909Z",
+    "updatedAt": "2026-10-27T13:05:44.053Z",
     "updateHistory": [
       {
         "id": "93ee617b-52c4-498c-a9ac-27651125813c",
@@ -458,10 +564,24 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "A draft based on a reported company announcement. Verify the original release, model details and date before publication.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.bullindia.com/bull-machines-unveils.php",
     "sourceUrls": [
       "https://www.bullindia.com/bull-machines-unveils.php"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "BULL Machines",
       "SuperSmart",
@@ -485,8 +605,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T00:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.916Z",
+    "updatedAt": "2026-10-27T13:05:44.060Z",
     "updateHistory": [
       {
         "id": "2cbce7c2-4fea-4b27-8982-5637aa6715bc",
@@ -527,10 +649,24 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "A draft about a reported investment plan; confirm whether targets were announced and later achieved.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.bullindia.com/bull-machines-reveals-120cr.php",
     "sourceUrls": [
       "https://www.bullindia.com/bull-machines-reveals-120cr.php"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "BULL Machines",
       "Investment",
@@ -554,8 +690,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T00:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.926Z",
+    "updatedAt": "2026-10-27T13:05:44.071Z",
     "updateHistory": [
       {
         "id": "8e2c3cbb-cdc6-4be6-8e6d-22930eba93f0",
@@ -596,10 +734,24 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "A draft overview of a reported exhibition appearance. Confirm the official show recap and model list.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.bullindia.com/about-us.php",
     "sourceUrls": [
       "https://www.bullindia.com/about-us.php"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "BULL Machines",
       "EXCON",
@@ -623,8 +775,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T00:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.935Z",
+    "updatedAt": "2026-10-27T13:05:44.083Z",
     "updateHistory": [
       {
         "id": "b433d386-fb71-4232-a084-799e8f46aaf0",
@@ -665,10 +819,24 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "An evergreen buyer guide covering application, specifications, service access and total ownership cost.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.bullindia.com/",
     "sourceUrls": [
       "https://www.bullindia.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Backhoe loader",
       "Buying guide",
@@ -692,8 +860,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T00:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.945Z",
+    "updatedAt": "2026-10-27T13:05:44.093Z",
     "updateHistory": [
       {
         "id": "a3924dd0-daa8-4163-a21d-7ac81e99f405",
@@ -734,8 +904,22 @@
     "authorId": "aut-editorial-desk",
     "image": "",
     "imageCredit": "",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "",
+      "altText": "An analysis draft requiring current examples and primary-source references before publication.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "",
     "sourceUrls": [],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Technology",
       "Hydraulics",
@@ -760,8 +944,10 @@
     "publishedAt": "",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-22T00:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.955Z",
+    "updatedAt": "2026-10-27T13:05:44.104Z",
     "updateHistory": [
       {
         "id": "9c8ee7aa-3a04-4839-9881-2724590c904a",
@@ -802,6 +988,13 @@
     "authorId": "aut-technology-powertrains-desk",
     "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial Reference / Official OEM Comparison Guide",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial Reference / Official OEM Comparison Guide",
+      "altText": "Engineering comparison of center-pivot vs. sideshift backhoe loaders (BULL HD76, JCB 3DX, CASE 580SV, John Deere 310 P-Tier) for urban and civil worksites.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://bullmachines.com/",
     "sourceUrls": [
       "https://bullmachines.com/",
@@ -809,6 +1002,15 @@
       "https://www.casece.com/",
       "https://www.deere.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "HD76, 3DX, 580SV & 310 P-Tier"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Backhoe Loaders",
       "Comparison",
@@ -846,8 +1048,10 @@
     "publishedAt": "2026-10-17T09:30:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-17T09:30:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.963Z",
+    "updatedAt": "2026-10-27T13:05:44.114Z",
     "updateHistory": [
       {
         "id": "c0d57c5e-f3e1-4c0a-a934-122a5514803f",
@@ -886,6 +1090,13 @@
     "authorId": "aut-editorial-desk",
     "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial Reference / Multi-OEM Excavator Class Briefing",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial Reference / Multi-OEM Excavator Class Briefing",
+      "altText": "Technical comparison of 20-tonne class crawler excavators across Caterpillar, Komatsu, Volvo CE, SANY and HD Hyundai covering hydraulics and telematics.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.caterpillar.com/",
     "sourceUrls": [
       "https://www.caterpillar.com/",
@@ -894,6 +1105,15 @@
       "https://www.sanyglobal.com/",
       "https://www.hd-hyundaice.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Cat 320, Komatsu PC210, Volvo EC210, SANY SY215C, HD Hyundai HX220L"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Excavators",
       "Comparison",
@@ -932,8 +1152,10 @@
     "publishedAt": "2026-10-16T11:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-16T11:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.976Z",
+    "updatedAt": "2026-10-27T13:05:44.133Z",
     "updateHistory": [
       {
         "id": "9f444f94-6f76-47d6-933a-e95209327980",
@@ -972,11 +1194,27 @@
     "authorId": "aut-technology-powertrains-desk",
     "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial Reference / Workshop Maintenance Guide",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial Reference / Workshop Maintenance Guide",
+      "altText": "Practical preventive maintenance guide for construction equipment and heavy trucks covering ISO 4406 hydraulic cleanliness, Stage V DPF/SCR care, and track tension.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.iso.org/standard/70917.html",
     "sourceUrls": [
       "https://www.iso.org/standard/70917.html",
       "https://www.oemoffhighway.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "Fleet Maintenance Protocol"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Maintenance Guide",
       "Hydraulics",
@@ -1012,8 +1250,10 @@
     "publishedAt": "2026-10-15T10:15:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-15T10:15:00.000Z",
-    "updatedAt": "2026-10-25T16:11:45.988Z",
+    "updatedAt": "2026-10-27T13:05:44.147Z",
     "updateHistory": [
       {
         "id": "e5929b7f-b433-42da-854e-f77edd0a671a",
@@ -1052,11 +1292,27 @@
     "authorId": "aut-technology-powertrains-desk",
     "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85",
     "imageCredit": "Editorial Reference / Regulatory Powertrain Briefing",
+    "mediaRights": {
+      "licenseType": "OEM Press Kit / Editorial",
+      "credit": "Editorial Reference / Regulatory Powertrain Briefing",
+      "altText": "Technical explainer comparing EU Stage V, US EPA Tier 4 Final, India CEV Stage V, and China IV off-highway construction equipment emissions regulations.",
+      "verified": true
+    },
+    "origin": "manual",
     "sourceUrl": "https://www.energy.gov/news",
     "sourceUrls": [
       "https://www.energy.gov/news",
       "https://www.oemoffhighway.com/"
     ],
+    "keyFacts": [],
+    "whyItMatters": "",
+    "confirmedFacts": [],
+    "analysis": "",
+    "equipmentModels": [
+      "NRMM Stage V / Tier 4F / CEV-V Platforms"
+    ],
+    "isSponsored": false,
+    "sponsorName": "",
     "tags": [
       "Technology",
       "Explainer",
@@ -1092,8 +1348,10 @@
     "publishedAt": "2026-10-14T13:00:00.000Z",
     "publicationRecord": null,
     "newsroomDossier": null,
+    "seoAudit": null,
+    "revisions": [],
     "createdAt": "2026-10-14T13:00:00.000Z",
-    "updatedAt": "2026-10-25T16:11:46.001Z",
+    "updatedAt": "2026-10-27T13:05:44.173Z",
     "updateHistory": [
       {
         "id": "3bb418d2-2c12-4efb-af42-456ecaae4959",

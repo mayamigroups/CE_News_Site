@@ -9,7 +9,7 @@
     "focus": "Backhoe loaders, construction equipment, skid-steer loaders & tractor attachments",
     "description": "BULL Machines Pvt. Ltd. is an Indian construction equipment and agricultural attachment manufacturer headquartered in Coimbatore, Tamil Nadu. The company designs and manufactures backhoe loaders, skid-steer loaders, wheel loaders, telehandlers, and tractor-mounted front-end loader and backhoe attachments for domestic infrastructure, rural engineering, and international export markets.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Coimbatore, Tamil Nadu, India",
     "overview": "BULL Machines Pvt. Ltd. is an Indian construction equipment and agricultural attachment manufacturer headquartered in Coimbatore, Tamil Nadu. The company designs and manufactures backhoe loaders, skid-steer loaders, wheel loaders, telehandlers, and tractor-mounted front-end loader and backhoe attachments for domestic infrastructure, rural engineering, and international export markets.",
     "equipmentCategories": [
@@ -47,7 +47,7 @@
     "focus": "Backhoe loaders, excavators, telehandlers, wheel loaders & site dumpers",
     "description": "J.C. Bamford Excavators Limited (JCB) is a British multinational manufacturer of earthmoving, construction, agricultural, and material-handling equipment founded in 1945. Headquartered in Rocester, Staffordshire, JCB operates major manufacturing plants across the United Kingdom, India (Ballabgarh, Pune, Jaipur, Vadodara), North America, and Brazil.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Rocester, Staffordshire, United Kingdom",
     "overview": "J.C. Bamford Excavators Limited (JCB) is a British multinational manufacturer of earthmoving, construction, agricultural, and material-handling equipment founded in 1945. Headquartered in Rocester, Staffordshire, JCB operates major manufacturing plants across the United Kingdom, India (Ballabgarh, Pune, Jaipur, Vadodara), North America, and Brazil.",
     "equipmentCategories": [
@@ -86,7 +86,7 @@
     "focus": "Earthmoving, mining, roadbuilding, bulldozers, excavators & industrial power systems",
     "description": "Caterpillar Inc. is a global manufacturer of construction and mining equipment, off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Through its global Cat dealer network, the company supplies excavators, crawler dozers, wheel loaders, motor graders, articulated trucks, and ultra-class mining haulers.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Irving, Texas, United States",
     "overview": "Caterpillar Inc. is a global manufacturer of construction and mining equipment, off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Through its global Cat dealer network, the company supplies excavators, crawler dozers, wheel loaders, motor graders, articulated trucks, and ultra-class mining haulers.",
     "equipmentCategories": [
@@ -130,7 +130,7 @@
     "focus": "Hydraulic excavators, bulldozers, wheel loaders, motor graders & rigid mining dump trucks",
     "description": "Komatsu Ltd., founded in 1921 and headquartered in Tokyo, Japan, is one of the world’s largest manufacturers of construction, mining, forestry, and utility equipment. Komatsu develops in-house engines, closed-center load-sensing hydraulic components, axles, and autonomous mining haulage systems.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Minato-ku, Tokyo, Japan",
     "overview": "Komatsu Ltd., founded in 1921 and headquartered in Tokyo, Japan, is one of the world’s largest manufacturers of construction, mining, forestry, and utility equipment. Komatsu develops in-house engines, closed-center load-sensing hydraulic components, axles, and autonomous mining haulage systems.",
     "equipmentCategories": [
@@ -183,7 +183,7 @@
     "focus": "Backhoe loaders, vibratory compactors, motor graders, skid-steer loaders & excavators",
     "description": "CASE Construction Equipment, a brand of CNH Industrial founded in 1842 in Racine, Wisconsin, manufactures loader backhoes, excavators, motor graders, wheel loaders, vibratory soil and asphalt compactors, crawler dozers, and compact track loaders across North America, Europe, India (Pithampur), and Latin America.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Racine, Wisconsin, United States",
     "overview": "CASE Construction Equipment, a brand of CNH Industrial founded in 1842 in Racine, Wisconsin, manufactures loader backhoes, excavators, motor graders, wheel loaders, vibratory soil and asphalt compactors, crawler dozers, and compact track loaders across North America, Europe, India (Pithampur), and Latin America.",
     "equipmentCategories": [
@@ -235,7 +235,7 @@
     "focus": "Tractors, backhoe loaders, motor graders, heavy commercial trucks & utility pickups",
     "description": "Mahindra & Mahindra Ltd. (Farm Equipment, Construction Equipment, and Truck & Bus divisions), headquartered in Mumbai with manufacturing at Chakan (Pune), is the world’s largest tractor manufacturer by volume and produces EarthMaster backhoe loaders, RoadMaster motor graders, Blazo X heavy tippers, and 4x4 pickups.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Mumbai / Pune, Maharashtra, India",
     "overview": "Mahindra & Mahindra Ltd. (Farm Equipment, Construction Equipment, and Truck & Bus divisions), headquartered in Mumbai with manufacturing at Chakan (Pune), is the world’s largest tractor manufacturer by volume and produces EarthMaster backhoe loaders, RoadMaster motor graders, Blazo X heavy tippers, and 4x4 pickups.",
     "equipmentCategories": [
@@ -272,11 +272,11 @@
     "countryId": "cty-global",
     "website": "",
     "focus": "Cross-brand industry comparisons and buyer guides",
-    "description": "Cross-manufacturer reference category used by MachineWire editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
+    "description": "Cross-manufacturer reference category used by Machine Report World editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Global Editorial Reference",
-    "overview": "Cross-manufacturer reference category used by MachineWire editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
+    "overview": "Cross-manufacturer reference category used by Machine Report World editors for multi-brand specification guides, exhibition calendars, and regulatory explainers.",
     "equipmentCategories": [
       "Construction Equipment",
       "Backhoe Loaders",
@@ -300,7 +300,7 @@
     "focus": "Multi-OEM industry coverage",
     "description": "Multi-OEM editorial reference used for industry-wide technical architecture and fleet engineering reports.",
     "createdAt": "2026-10-23T18:41:37.029Z",
-    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Global Editorial Reference",
     "overview": "Multi-OEM editorial reference used for industry-wide technical architecture and fleet engineering reports.",
     "equipmentCategories": [
@@ -325,7 +325,7 @@
     "focus": "All-terrain & crawler cranes, excavators, wheel loaders, road machinery & mining trucks",
     "description": "Xuzhou Construction Machinery Group (XCMG), headquartered in Xuzhou, Jiangsu Province, China, is one of the top global construction machinery manufacturers, best known for ultra-tonnage mobile and crawler cranes, wheel loaders, roadbuilding machinery, hydraulic excavators, and mining haulage equipment.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Xuzhou, Jiangsu, China",
     "overview": "Xuzhou Construction Machinery Group (XCMG), headquartered in Xuzhou, Jiangsu Province, China, is one of the top global construction machinery manufacturers, best known for ultra-tonnage mobile and crawler cranes, wheel loaders, roadbuilding machinery, hydraulic excavators, and mining haulage equipment.",
     "equipmentCategories": [
@@ -366,7 +366,7 @@
     "focus": "Hydraulic excavators, mobile & crawler cranes, road machinery, port equipment & electric heavy trucks",
     "description": "SANY Group is a Chinese multinational heavy machinery manufacturer with major R&D and manufacturing centers in Changsha, Kunshan, Beijing, Germany (Bedburg), India (Chakan, Pune), and the United States (Peachtree City, Georgia). SANY produces full-line hydraulic excavators, cranes, concrete pumps, road rollers, and battery-electric mining/port trucks.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Changsha, Hunan / Beijing, China",
     "overview": "SANY Group is a Chinese multinational heavy machinery manufacturer with major R&D and manufacturing centers in Changsha, Kunshan, Beijing, Germany (Bedburg), India (Chakan, Pune), and the United States (Peachtree City, Georgia). SANY produces full-line hydraulic excavators, cranes, concrete pumps, road rollers, and battery-electric mining/port trucks.",
     "equipmentCategories": [
@@ -408,7 +408,7 @@
     "focus": "Crawler & wheeled excavators, wheel loaders, articulated dump trucks & skid-steer loaders",
     "description": "HD Hyundai Construction Equipment (part of HD Hyundai XiteSolution alongside Develon) is a South Korean manufacturer of crawler and wheeled hydraulic excavators, wheel loaders, backhoe loaders, and material-handling machinery with plants in Ulsan (South Korea), Pune (India), China, and Brazil.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Bundang-gu, Seongnam / Seoul, South Korea",
     "overview": "HD Hyundai Construction Equipment (part of HD Hyundai XiteSolution alongside Develon) is a South Korean manufacturer of crawler and wheeled hydraulic excavators, wheel loaders, backhoe loaders, and material-handling machinery with plants in Ulsan (South Korea), Pune (India), China, and Brazil.",
     "equipmentCategories": [
@@ -447,7 +447,7 @@
     "focus": "Compact excavators, compact track loaders, utility tractors & industrial engines",
     "description": "Kubota Corporation, founded in 1890 in Osaka, Japan, is a premier global manufacturer of compact construction equipment (mini excavators, track loaders, compact wheel loaders), utility and agricultural tractors, combine harvesters, and off-highway diesel and spark-ignited engines.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Naniwa-ku, Osaka, Japan",
     "overview": "Kubota Corporation, founded in 1890 in Osaka, Japan, is a premier global manufacturer of compact construction equipment (mini excavators, track loaders, compact wheel loaders), utility and agricultural tractors, combine harvesters, and off-highway diesel and spark-ignited engines.",
     "equipmentCategories": [
@@ -485,7 +485,7 @@
     "focus": "Mobile & crawler cranes, tower cranes, earthmoving excavators, wheel loaders & mining trucks",
     "description": "The Liebherr Group, founded in 1949 in Kirchdorf an der Iller, Germany, and holding-headquartered in Bulle, Switzerland, is a family-owned technology and machinery manufacturer producing mobile, crawler, and tower cranes, hydrostatic wheel loaders, crawler dozers, and ultra-class mining excavators and trolley-assist haul trucks.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.827Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Bulle, Switzerland / Biberach an der Riß, Germany",
     "overview": "The Liebherr Group, founded in 1949 in Kirchdorf an der Iller, Germany, and holding-headquartered in Bulle, Switzerland, is a family-owned technology and machinery manufacturer producing mobile, crawler, and tower cranes, hydrostatic wheel loaders, crawler dozers, and ultra-class mining excavators and trolley-assist haul trucks.",
     "equipmentCategories": [
@@ -525,7 +525,7 @@
     "focus": "Tractors, agricultural machinery, backhoe loaders, motor graders, crawler dozers & forestry",
     "description": "Deere & Company (John Deere), headquartered in Moline, Illinois, is a leading global manufacturer of agricultural tractors, harvesting machinery, construction earthmoving equipment, roadbuilding machinery (via the Wirtgen Group), and commercial power systems.",
     "createdAt": "2026-10-24T17:08:18.777Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z",
+    "updatedAt": "2026-10-27T13:05:43.958Z",
     "headquarters": "Moline, Illinois, United States",
     "overview": "Deere & Company (John Deere), headquartered in Moline, Illinois, is a leading global manufacturer of agricultural tractors, harvesting machinery, construction earthmoving equipment, roadbuilding machinery (via the Wirtgen Group), and commercial power systems.",
     "equipmentCategories": [
@@ -596,7 +596,7 @@
     ],
     "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)",
     "createdAt": "2026-10-24T17:21:07.671Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z"
+    "updatedAt": "2026-10-27T13:05:43.958Z"
   },
   {
     "id": "mfg-tata-motors",
@@ -635,6 +635,6 @@
     ],
     "verificationStatus": "Initial Directory Candidate — Independent Editorial Coverage (No Partnership Claimed)",
     "createdAt": "2026-10-24T17:21:07.672Z",
-    "updatedAt": "2026-10-25T16:11:45.826Z"
+    "updatedAt": "2026-10-27T13:05:43.958Z"
   }
 ]

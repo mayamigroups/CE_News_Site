@@ -1,5 +1,315 @@
 [
   {
+    "id": "6521035f-4972-4a74-a4ee-d8d6b02eb8b8",
+    "at": "2026-10-27T14:08:03.069Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "JCB Newsroom | Discover JCB&#x2019;s latest news",
+    "level": "info",
+    "details": "Manual URL intake completed for \"JCB Newsroom | Discover JCB&#x2019;s latest news\" (https://www.jcb.com/en-GB/explore/newsroom) [duplicateStatus: unique]."
+  },
+  {
+    "id": "ccffc809-af0b-4b34-afaf-35978cf42872",
+    "at": "2026-10-27T14:08:02.177Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "Construction Equipment Manufacturers - Backhoe Loader in India",
+    "level": "info",
+    "details": "Manual URL intake completed for \"Construction Equipment Manufacturers - Backhoe Loader in India\" (https://www.bullindia.com/media.php) [duplicateStatus: unique]."
+  },
+  {
+    "id": "0a7a6250-3382-40a3-acc0-e67af227de4f",
+    "at": "2026-10-27T14:08:01.926Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "SANY News-",
+    "level": "info",
+    "details": "Manual URL intake completed for \"SANY News-\" (https://www.sanyglobal.com/news_list) [duplicateStatus: unique]."
+  },
+  {
+    "id": "5db67886-99ea-4a40-9710-8853ae7b6dc4",
+    "at": "2026-10-27T14:08:01.215Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "News and stories | Volvo Construction Equipment Global",
+    "level": "info",
+    "details": "Manual URL intake completed for \"News and stories | Volvo Construction Equipment Global\" (https://www.volvoce.com/global/en/news-and-events/news-and-stories) [duplicateStatus: unique]."
+  },
+  {
+    "id": "b3dc8e38-995b-45c6-8d8b-a82734de4f54",
+    "at": "2026-10-27T14:08:00.364Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "Newsroom | Komatsu global site",
+    "level": "info",
+    "details": "Manual URL intake completed for \"Newsroom | Komatsu global site\" (https://www.komatsu.jp/en/newsroom) [duplicateStatus: unique]."
+  },
+  {
+    "id": "8648f003-c648-4499-b577-991418fc6631",
+    "at": "2026-10-27T14:07:56.143Z",
+    "actor": "pilot-runner",
+    "role": "super_admin",
+    "action": "collector.import_candidate_registry",
+    "target": "sources.json",
+    "level": "info",
+    "details": "Imported candidate registry: normalized 37 sources, updated 13, inserted 0 new candidate sources."
+  },
+  {
+    "id": "8d8e47f4-490e-4870-b8fe-c44a2d6eeff7",
+    "at": "2026-10-27T13:54:28.438Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "JCB Newsroom | Discover JCB&#x2019;s latest news",
+    "level": "info",
+    "details": "Manual URL intake completed for \"JCB Newsroom | Discover JCB&#x2019;s latest news\" (https://www.jcb.com/en-GB/explore/newsroom) [duplicateStatus: unique]."
+  },
+  {
+    "id": "c65d04c4-027d-4b79-83b0-e79fb3d8175f",
+    "at": "2026-10-27T13:54:28.013Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "Construction Equipment Manufacturers - Backhoe Loader in India",
+    "level": "info",
+    "details": "Manual URL intake completed for \"Construction Equipment Manufacturers - Backhoe Loader in India\" (https://www.bullindia.com/media.php) [duplicateStatus: unique]."
+  },
+  {
+    "id": "7102f288-ad2b-46e6-bc82-e38372b3455c",
+    "at": "2026-10-27T13:54:27.763Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "SANY News-",
+    "level": "info",
+    "details": "Manual URL intake completed for \"SANY News-\" (https://www.sanyglobal.com/news_list) [duplicateStatus: unique]."
+  },
+  {
+    "id": "90e41882-c694-4bdf-a831-7a8bca1232d0",
+    "at": "2026-10-27T13:54:27.299Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "News and stories | Volvo Construction Equipment Global",
+    "level": "info",
+    "details": "Manual URL intake completed for \"News and stories | Volvo Construction Equipment Global\" (https://www.volvoce.com/global/en/news-and-events/news-and-stories) [duplicateStatus: unique]."
+  },
+  {
+    "id": "5ade796c-fb7e-4c11-87a3-d164b4497286",
+    "at": "2026-10-27T13:54:26.420Z",
+    "actor": "Pilot Verification Test",
+    "role": "super_admin",
+    "action": "collector.manual_url_intake",
+    "target": "Newsroom | Komatsu global site",
+    "level": "info",
+    "details": "Manual URL intake completed for \"Newsroom | Komatsu global site\" (https://www.komatsu.jp/en/newsroom) [duplicateStatus: unique]."
+  },
+  {
+    "id": "e94a83ca-73cb-45e2-8cc9-a119528fecbb",
+    "at": "2026-10-27T13:54:22.253Z",
+    "actor": "pilot-runner",
+    "role": "super_admin",
+    "action": "collector.import_candidate_registry",
+    "target": "sources.json",
+    "level": "info",
+    "details": "Imported candidate registry: normalized 37 sources, updated 13, inserted 0 new candidate sources."
+  },
+  {
+    "id": "fd0bfd03-be7e-47a5-bdab-e8564b18bba4",
+    "at": "2026-10-27T13:53:09.253Z",
+    "actor": "Migration",
+    "role": "super_admin",
+    "action": "collector.import_candidate_registry",
+    "target": "sources.json",
+    "level": "info",
+    "details": "Imported candidate registry: normalized 37 sources, updated 1, inserted 12 new candidate sources."
+  },
+  {
+    "id": "d7fb7aef-1ee4-40c7-9150-1c212d483544",
+    "at": "2026-10-27T04:03:05.349Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "47f4823a-0cf9-45b2-8fc0-f6c5343a19f2",
+    "at": "2026-10-27T04:03:04.540Z",
+    "actor": "editorial-admin",
+    "role": "unauthenticated",
+    "action": "auth.login_failed",
+    "target": "::1",
+    "level": "warn",
+    "details": "Failed sign-in attempt for username \"editorial-admin\"."
+  },
+  {
+    "id": "e3fa47ae-42a7-43fa-b9d6-32696751155b",
+    "at": "2026-10-27T04:02:11.843Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "13a99d1d-6318-4c93-8a38-d5cc9c89048d",
+    "at": "2026-10-27T04:02:10.979Z",
+    "actor": "editorial-admin",
+    "role": "unauthenticated",
+    "action": "auth.login_failed",
+    "target": "::1",
+    "level": "warn",
+    "details": "Failed sign-in attempt for username \"editorial-admin\"."
+  },
+  {
+    "id": "b208f976-52ec-4c64-9690-096d134492b0",
+    "at": "2026-10-27T03:38:46.677Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "bf79ff11-ab95-42ea-92bb-f8fc1a115bd8",
+    "at": "2026-10-26T17:10:10.011Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.logout",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Admin session signed out."
+  },
+  {
+    "id": "3e620683-484a-4a3f-a5b4-6c6f057aca5b",
+    "at": "2026-10-26T17:10:08.579Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "e0298fb4-42b5-4e28-8535-5e65a74ec0ff",
+    "at": "2026-10-26T17:10:07.659Z",
+    "actor": "editorial-admin",
+    "role": "unauthenticated",
+    "action": "auth.login_failed",
+    "target": "::1",
+    "level": "warn",
+    "details": "Failed sign-in attempt for username \"editorial-admin\"."
+  },
+  {
+    "id": "30e597ec-6f8d-4716-8e53-b0c6d632e591",
+    "at": "2026-10-26T17:04:21.498Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "21d81aef-aeee-4ac7-9ed5-f16538a61c70",
+    "at": "2026-10-26T17:00:01.708Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "175a35b3-f417-4be6-9ccf-7b24a187f92d",
+    "at": "2026-10-26T16:59:27.699Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "4ab1ac73-2d53-4943-8b98-eac09f9c4e68",
+    "at": "2026-10-26T16:59:06.336Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "e335c977-5470-4d90-a806-9fc2e3f000e2",
+    "at": "2026-10-26T16:59:06.209Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "138d4ecb-1510-4f02-9863-cfeb18dce867",
+    "at": "2026-10-26T16:53:27.747Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "129eebef-044f-4a2b-a22d-91a8ee79e7db",
+    "at": "2026-10-26T16:53:27.691Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "69d0fffc-61b9-4fce-8990-22865101ec0d",
+    "at": "2026-10-26T16:53:27.613Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "4b62c700-9bdd-48ca-b3e1-faafbeec0bfa",
+    "at": "2026-10-26T16:51:30.356Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
+    "id": "3c7d12f5-cb7a-44a8-9ac4-1a705a1ae7da",
+    "at": "2026-10-26T16:50:48.194Z",
+    "actor": "editorial-admin",
+    "role": "super_admin",
+    "action": "auth.login",
+    "target": "editorial-admin",
+    "level": "info",
+    "details": "Signed in with role \"super_admin\"."
+  },
+  {
     "id": "da7036e2-88ea-4adb-85de-d8bb2563099f",
     "at": "2026-10-25T16:16:52.416Z",
     "actor": "editorial-admin",

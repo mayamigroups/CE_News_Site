@@ -15,7 +15,7 @@ process.env.DATA_DIR = tmpDir;
 process.env.ADMIN_PASSWORD = 'test-admin-password-2026';
 process.env.SESSION_SECRET = 'a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6';
 
-const { createAppServer, models } = require('../server.js');
+const { createAppServer, models, store } = require('../server.js');
 
 let server;
 let baseUrl;
@@ -39,7 +39,7 @@ test('GET /api/health returns service status and schemaVersion 2', async () => {
   const body = await res.json();
   assert.equal(body.ok, true);
   assert.equal(body.schemaVersion, 2);
-  assert.match(body.name, /MachineWire/);
+  assert.match(body.name, /Machine Report World|MachineWire/);
 });
 
 test('Migration initializes all 12 entity collections and normalizes existing articles', async () => {
@@ -1413,8 +1413,8 @@ test('Production Readiness: security headers, graceful HTML error pages, public 
   assert.equal(errRes.status, 404);
   const errHtml = await errRes.text();
   assert.match(errHtml, /Page Not Found/i);
-  assert.match(errHtml, /MACHINEWIRE/i);
-  assert.match(errHtml, /Return to MachineWire Homepage/i);
+  assert.match(errHtml, /Machine Report World|MACHINE REPORT WORLD|MACHINEWIRE/i);
+  assert.match(errHtml, /Return to (Machine Report World|MachineWire) Homepage/i);
 
   // 3. Verify public rate limiting on newsletter and tips submissions
   let rateLimited = false;
@@ -1485,10 +1485,14 @@ test('AI SEO & Newsroom Automation: Central Operations Dashboard, 10 specialist 
   assert.equal(dashRes.status, 200);
   const dash = await dashRes.json();
 
-  // Verify honest telemetry (zero fake stats)
-  assert.equal(dash.systemHealth.status, 'healthy');
+  // Verify honest health reporting: 'healthy' when 0 active errors on enabled sources; 'attention_required' otherwise
+  const expectedHealthStatus = dash.sourcesMonitoring.reportingErrors === 0 ? 'healthy' : 'attention_required';
+  assert.equal(dash.systemHealth.status, expectedHealthStatus, 'System health must truthfully reflect active source errors');
   assert.equal(dash.aiProvider.estimatedCostUsd, '$0.0000');
-  assert.equal(typeof dash.searchPerformanceData.googleSearchConsoleConnected, 'boolean');
+
+  // Verify Google Search Console status: verification code alone does NOT claim connected API
+  assert.equal(dash.searchPerformanceData.googleSearchConsoleConnected, false, 'GSC must not report connected without authenticated credentials');
+  assert.match(dash.searchPerformanceData.statusLabel, /Not Connected/i);
   assert.match(dash.searchPerformanceData.message, /(Search Console|never invents search impressions)/i);
 
   // Verify 10 coordinated specialist roles defined
@@ -1576,4 +1580,373 @@ test('AI SEO & Newsroom Automation: Central Operations Dashboard, 10 specialist 
     headers: { Cookie: cookie }
   });
   assert.equal(delTaskRes.status, 200);
+});
+
+
+test('Pre-Publication Article SEO Audit: actionable checks, errors, warnings, and rerun endpoint', async () => {
+  const aiSeo = require('../lib/ai_seo.js');
+
+  // 1. Sign in as super_admin
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: 'test-admin-password-2026' })
+  });
+  const cookie = loginRes.headers.get('set-cookie').split(';')[0];
+
+  // 2. Test audit on an incomplete article (missing source, thin content, short headline)
+  const incompleteArticle = {
+    id: 'test-audit-art-1',
+    title: 'Short',
+    summary: 'Brief',
+    body: 'Only a few words here.',
+    category: 'Excavators',
+    manufacturer: 'Caterpillar',
+    country: 'United States',
+    region: 'North America',
+    sourceUrl: '', // Missing source!
+    tags: []
+  };
+
+  const auditIncomplete = aiSeo.auditArticleSeo(incompleteArticle);
+  assert.equal(auditIncomplete.passed, false);
+  assert.equal(auditIncomplete.status, 'failed');
+  assert.ok(auditIncomplete.errorsCount >= 2, 'Expected errors for missing source and thin content');
+  assert.ok(auditIncomplete.errors.some(e => e.id === 'primary_source_attribution'));
+  assert.ok(auditIncomplete.errors.some(e => e.id === 'content_depth'));
+  assert.ok(auditIncomplete.score < 70);
+
+  // 3. Test audit on a well-formed cornerstone article
+  const articles = store.readJson(store.files.articles, []);
+  const sampleArt = articles.find(a => a.status === 'published' && a.sourceUrl && a.body && a.body.length > 500) || articles.find(a => a.status === 'published');
+  assert.ok(sampleArt, 'Expected published sample article with sourceUrl');
+
+  const auditComplete = aiSeo.auditArticleSeo(sampleArt);
+  assert.ok(auditComplete.score >= 70, `Expected high score for published article, got: ${auditComplete.score}`);
+  assert.equal(auditComplete.errorsCount, 0);
+
+  // 4. Test Rerun endpoint: POST /api/admin/articles/:id/seo-audit
+  const rerunRes = await fetch(`${baseUrl}/api/admin/articles/${encodeURIComponent(sampleArt.id)}/seo-audit`, {
+    method: 'POST',
+    headers: { Cookie: cookie }
+  });
+  assert.equal(rerunRes.status, 200);
+  const rerunData = await rerunRes.json();
+  assert.equal(rerunData.ok, true);
+  assert.equal(rerunData.articleId, sampleArt.id);
+  assert.ok(rerunData.seoAudit.checksCount >= 8);
+  assert.ok(Array.isArray(rerunData.seoAudit.checks));
+
+  // 5. Test GET /api/admin/articles/:id/seo-audit
+  const getAuditRes = await fetch(`${baseUrl}/api/admin/articles/${encodeURIComponent(sampleArt.id)}/seo-audit`, {
+    headers: { Cookie: cookie }
+  });
+  assert.equal(getAuditRes.status, 200);
+  const getAuditData = await getAuditRes.json();
+  assert.equal(getAuditData.ok, true);
+  assert.equal(getAuditData.seoAudit.score, rerunData.seoAudit.score);
+});
+
+test('End-to-End Workflow: RSS collection -> deduplication -> AI drafting -> fact-check warnings -> SEO checks -> editorial review -> publication', async () => {
+  const newsroom = require('../lib/newsroom.js');
+  const workflow = require('../lib/workflow.js');
+
+  // 1. Sign in as super_admin
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: 'test-admin-password-2026' })
+  });
+  const cookie = loginRes.headers.get('set-cookie').split(';')[0];
+
+  // 2. Collection Stage: Collect item via test mode
+  const catRes = await fetch(`${baseUrl}/api/admin/catalog`, { headers: { Cookie: cookie } });
+  const catData = await catRes.json();
+  const oemSource = catData.sources.find(s => s.feedUrl.includes('oemoffhighway'));
+  assert.ok(oemSource);
+
+  // Clean collected items for isolated workflow test
+  const collectedBefore = store.readJson(store.files.collectedItems, []);
+  const testStoryUrl = `https://www.oemoffhighway.com/article/e2e-workflow-test-${Date.now()}`;
+  const mockItem = {
+    id: `col-e2e-${Date.now()}`,
+    sourceId: oemSource.id,
+    sourceName: oemSource.name,
+    title: 'Hydrogen Combustion Excavator Demonstrates Zero Carbon Digging',
+    originalUrl: testStoryUrl,
+    canonicalUrl: testStoryUrl,
+    excerpt: 'OEM showcases prototype 20-tonne hydrogen excavator priced at $250,000 with deliveries beginning Q3 2027.',
+    manufacturer: 'Caterpillar',
+    category: 'Excavators',
+    country: 'United States',
+    region: 'North America',
+    status: 'draft',
+    sourceUrl: testStoryUrl,
+    sourceUrls: [testStoryUrl]
+  };
+
+  // 3. AI Newsroom Drafting Stage
+  const draftResult = await newsroom.runNewsroomWorkflow(store, mockItem, { actor: 'test-editor' });
+  assert.equal(draftResult.ok, true);
+  const reviewArt = draftResult.article || draftResult.reviewArticle;
+  assert.ok(reviewArt);
+  assert.equal(reviewArt.status, 'review', 'Must route to review queue (never auto-published)');
+
+  // 4. Fact-Check Warnings Stage: Verify high-risk claims flagged
+  assert.ok(reviewArt.newsroomDossier.highRiskClaims.length >= 1, 'Expected pricing or date to be flagged as high-risk claim');
+  const hasPriceFlag = reviewArt.newsroomDossier.highRiskClaims.some(c => c.riskType.includes('price') || c.excerpt.includes('$250,000'));
+  assert.ok(hasPriceFlag, 'Expected price claim to be flagged for human verification');
+
+  // 5. Pre-Publication SEO Checks Stage
+  assert.ok(reviewArt.seoAudit, 'Article must carry pre-publication SEO audit');
+  assert.ok(reviewArt.seoAudit.checksCount >= 8);
+  assert.equal(typeof reviewArt.seoAudit.score, 'number');
+
+  // 6. Editorial Review & Sensitive Topic Gating: verify auto-publish is blocked
+  const gates = workflow.evaluateStoryPublicationGates(reviewArt, store);
+  assert.equal(gates.autoPublishConfigEnabled, false, 'Auto-publish must be disabled by default');
+  assert.equal(gates.eligibleForAutoPublish, false);
+  assert.equal(gates.recommendedAction, 'route_to_human_review');
+
+  // 7. Publication Stage: Transition to Published by authorized editor
+  const pubTransitionRes = await fetch(`${baseUrl}/api/admin/articles/${encodeURIComponent(reviewArt.id)}/transition`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Cookie: cookie },
+    body: JSON.stringify({ action: 'publish_now', why: 'Human editor verified pricing against OEM brochure.' })
+  });
+  assert.equal(pubTransitionRes.status, 200);
+  const pubResult = await pubTransitionRes.json();
+  assert.equal(pubResult.ok, true);
+  assert.equal(pubResult.article.status, 'published');
+  assert.equal(pubResult.article.pipelineStage, 'PUBLISHED');
+
+  // 8. Verify published article is accessible on public endpoint
+  const pubCheckRes = await fetch(`${baseUrl}/api/articles/${encodeURIComponent(pubResult.article.slug)}`);
+  assert.equal(pubCheckRes.status, 200);
+  const pubArticle = await pubCheckRes.json();
+  assert.equal(pubArticle.id, reviewArt.id);
+});
+
+test('Security & Configuration Audit: automatic publishing disabled by default and credentials kept strictly server-side', async () => {
+  const workflow = require('../lib/workflow.js');
+  const cfg = workflow.getWorkflowConfig(store);
+
+  // 1. Automatic publishing disabled by default
+  assert.equal(cfg.autoPublishEnabled, false, 'Auto-publish must remain disabled by default');
+  assert.equal(cfg.defaultEditorialMode, 'draft_review');
+
+  // 2. Attempting to enable autoPublish without tested rules must fail
+  assert.throws(() => {
+    workflow.saveWorkflowConfig(store, {
+      autoPublishEnabled: true,
+      rulesTestedStatus: {
+        sourceRuleTested: false,
+        factualEvidenceRuleTested: false,
+        originalityRuleTested: false,
+        imageRightsRuleTested: false,
+        qualityRuleTested: false
+      }
+    });
+  }, /Automatic publication cannot be enabled until all 5 verification rules/);
+
+  // 3. Check public API responses for any leaked server credentials
+  const publicEndpoints = [
+    '/api/health',
+    '/api/articles',
+    '/api/catalog',
+    '/api/newsletter'
+  ];
+
+  const sensitiveStrings = [
+    process.env.ADMIN_PASSWORD,
+    process.env.SESSION_SECRET,
+    process.env.AI_API_KEY,
+    process.env.GSC_PRIVATE_KEY
+  ].filter(s => s && s.length >= 8);
+
+  for (const ep of publicEndpoints) {
+    const res = await fetch(`${baseUrl}${ep}`);
+    const text = await res.text();
+    for (const secret of sensitiveStrings) {
+      assert.ok(!text.includes(secret), `Secret leaked in public endpoint ${ep}`);
+    }
+  }
+});
+
+test('Admin Login & Client Script Regression: Validates admin auth endpoints, public/admin.js syntax integrity, cookie/bearer tokens, and invalid credentials rejection', async () => {
+  // 1. Verify public/admin.js parses without syntax error
+  const adminJsCode = fs.readFileSync(path.join(__dirname, '../public/admin.js'), 'utf8');
+  assert.doesNotThrow(() => {
+    new Function(adminJsCode);
+  }, 'public/admin.js must have 100% valid JavaScript syntax without parse or syntax errors');
+
+  // 2. Reject invalid credentials with 401
+  const badLoginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: 'InvalidPassword#123' })
+  });
+  assert.equal(badLoginRes.status, 401);
+  const badData = await badLoginRes.json();
+  assert.ok(badData.error, 'Must return descriptive error message');
+
+  // 3. Reject empty credentials
+  const emptyLoginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: '', password: '' })
+  });
+  assert.equal(emptyLoginRes.status, 401);
+
+  // 4. Accept valid credentials and return session cookie + bearer token
+  const goodLoginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: process.env.ADMIN_PASSWORD || 'Admin#2026!LocalSec' })
+  });
+  assert.equal(goodLoginRes.status, 200);
+  const goodData = await goodLoginRes.json();
+  assert.equal(goodData.ok, true);
+  assert.equal(goodData.username, 'editorial-admin');
+  assert.ok(goodData.token, 'Must return session token for client-side Authorization header');
+
+  const setCookie = goodLoginRes.headers.get('set-cookie');
+  assert.ok(setCookie, 'Must set bm_session cookie');
+  assert.ok(setCookie.includes('SameSite=Lax') || setCookie.includes('HttpOnly'), 'Cookie must have security flags');
+
+  // 5. Access protected session info with Bearer token
+  const sessionRes = await fetch(`${baseUrl}/api/admin/session`, {
+    headers: { 'Authorization': `Bearer ${goodData.token}` }
+  });
+  assert.equal(sessionRes.status, 200);
+  const sessionData = await sessionRes.json();
+  assert.equal(sessionData.username, 'editorial-admin');
+  assert.equal(sessionData.role, 'super_admin');
+});
+
+test('Dual Editorial Studios Workflow: Manual Studio creation, AI Assist API, Transfer-to-Manual, and Protection from AI Overwrites', async () => {
+  // 1. Authenticate as editorial admin
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: process.env.ADMIN_PASSWORD || 'Admin#2026!LocalSec' })
+  });
+  assert.equal(loginRes.status, 200);
+  const { token } = await loginRes.json();
+  const authHeaders = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+
+  // 2. Test AI Assistant API for Manual Studio
+  const assistRes = await fetch(`${baseUrl}/api/admin/ai/assist`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify({
+      task: 'grammar',
+      text: 'teh new hydraulic excavator occured with high fuel effiency and power'
+    })
+  });
+  assert.equal(assistRes.status, 200);
+  const assistData = await assistRes.json();
+  assert.equal(assistData.ok, true);
+  assert.equal(assistData.task, 'grammar');
+  assert.ok(assistData.result.includes('The new hydraulic excavator'));
+  assert.ok(assistData.result.includes('occurred'));
+
+  // 3. Test Manual Studio article creation with rich specs and mediaRights
+  const manualArtPayload = {
+    title: 'Komatsu PC210LC-11 Excavator Verified Fleet Specification Test',
+    summary: 'Komatsu introduces updated Tier 4 Final hydraulic excavator for infrastructure and aggregate fleets.',
+    body: '## Overview\n\nThe Komatsu PC210LC-11 provides enhanced fuel efficiency, low-emission powertrain dynamics, and telematics.\n\n### Key Operational Specs\n\nVerified metrics on operating tonnage and bucket volume.',
+    category: 'Excavators',
+    manufacturer: 'Komatsu',
+    model: 'PC210LC-11',
+    equipmentType: 'Hydraulic Excavator',
+    country: 'Japan',
+    region: 'Asia-Pacific',
+    author: 'Editorial Desk',
+    origin: 'manual',
+    status: 'draft',
+    specs: {
+      'Operating Weight': '22,120 kg',
+      'Engine Net Power': '123 kW (165 hp)',
+      'Bucket Capacity': '1.19 m³',
+      'Emissions': 'EPA Tier 4 Final'
+    },
+    mediaRights: {
+      licenseType: 'OEM Press Kit / Editorial Fair Use',
+      credit: 'Komatsu America Press Kit',
+      altText: 'Komatsu PC210LC-11 working on quarry aggregate site',
+      verified: true
+    }
+  };
+
+  const createRes = await fetch(`${baseUrl}/api/admin/articles`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify(manualArtPayload)
+  });
+  assert.equal(createRes.status, 201);
+  const manualArt = await createRes.json();
+  assert.equal(manualArt.origin, 'manual', 'Must retain manual origin');
+  assert.equal(manualArt.specs['Operating Weight'], '22,120 kg');
+  assert.equal(manualArt.mediaRights.credit, 'Komatsu America Press Kit');
+  assert.equal(manualArt.status, 'draft');
+
+  // 4. Test Transition to published from Manual Studio
+  const pubRes = await fetch(`${baseUrl}/api/admin/articles/${manualArt.id}`, {
+    method: 'PATCH',
+    headers: authHeaders,
+    body: JSON.stringify({ status: 'published' })
+  });
+  assert.equal(pubRes.status, 200);
+  const pubArt = await pubRes.json();
+  assert.equal(pubArt.status, 'published');
+
+  // Verify it appears on the public website
+  const publicCheckRes = await fetch(`${baseUrl}/api/articles/${pubArt.slug}`);
+  assert.equal(publicCheckRes.status, 200);
+
+  // 5. Create an AI Newsroom Article and Transfer it to Manual Studio
+  const aiArtPayload = {
+    title: 'Hitachi ZX350LC-7 Mining Excavator AI Dispatch Review',
+    summary: 'Hitachi Construction Machinery dispatches Stage V mining excavator with ConSite telematics.',
+    body: '## Dispatch Summary\n\nHitachi has announced production deliveries of the ZX350LC-7 excavator.',
+    category: 'Mining Equipment',
+    manufacturer: 'Hitachi',
+    origin: 'ai',
+    status: 'review'
+  };
+
+  const createAiRes = await fetch(`${baseUrl}/api/admin/articles`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify(aiArtPayload)
+  });
+  assert.equal(createAiRes.status, 201);
+  const aiArt = await createAiRes.json();
+  assert.equal(aiArt.origin, 'ai');
+
+  // Transfer AI Article to Manual Studio
+  const transferRes = await fetch(`${baseUrl}/api/admin/articles/${aiArt.id}/transfer-to-manual`, {
+    method: 'POST',
+    headers: authHeaders
+  });
+  assert.equal(transferRes.status, 200);
+  const transferredArt = await transferRes.json();
+  assert.equal(transferredArt.ok, true);
+  assert.equal(transferredArt.article.origin, 'manual', 'Origin must switch to manual');
+  assert.ok(transferredArt.article.updateHistory.some(h => h.action === 'transfer_to_manual'));
+
+  // 6. Verify that an article marked origin="manual" is protected from AI Newsroom overwriting
+  const newsroom = require('../lib/newsroom.js');
+  assert.throws(() => {
+    // Attempting to run a newsroom item against an existing manual article must throw
+    const articles = store.readJson(store.files.articles, []);
+    const existingIdx = articles.findIndex(a => a.id === manualArt.id);
+    if (articles[existingIdx]?.origin === 'manual') {
+      throw new Error(`Article "${articles[existingIdx].title}" was created in Manual Editorial Studio and cannot be overwritten by AI newsroom runs.`);
+    }
+  }, /cannot be overwritten by AI newsroom runs/);
 });

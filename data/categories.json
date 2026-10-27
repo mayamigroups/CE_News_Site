@@ -6,7 +6,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.929Z"
+    "updatedAt": "2026-10-27T13:05:44.075Z"
   },
   {
     "id": "cat-bull-machines",
@@ -15,7 +15,7 @@
     "section": "bull-machines",
     "description": "Official announcements and product coverage related to Bull Machines.",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.955Z"
   },
   {
     "id": "cat-backhoe-loaders",
@@ -24,7 +24,7 @@
     "section": "backhoe-loaders",
     "description": "Center-pivot and sideshift backhoe loader launches and upgrades.",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-commercial-vehicles",
@@ -33,7 +33,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.873Z"
+    "updatedAt": "2026-10-27T13:05:44.009Z"
   },
   {
     "id": "cat-new-launches",
@@ -42,7 +42,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.920Z"
+    "updatedAt": "2026-10-27T13:05:44.063Z"
   },
   {
     "id": "cat-technology",
@@ -51,7 +51,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:46.005Z"
+    "updatedAt": "2026-10-27T13:05:44.180Z"
   },
   {
     "id": "cat-buying-guides",
@@ -60,7 +60,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.992Z"
+    "updatedAt": "2026-10-27T13:05:44.157Z"
   },
   {
     "id": "cat-market-updates",
@@ -69,7 +69,7 @@
     "section": "business",
     "description": "Financial results, plant investments and regional sales trends.",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-events-exhibitions",
@@ -78,7 +78,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.939Z"
+    "updatedAt": "2026-10-27T13:05:44.087Z"
   },
   {
     "id": "cat-reviews-comparisons",
@@ -87,7 +87,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.966Z"
+    "updatedAt": "2026-10-27T13:05:44.120Z"
   },
   {
     "id": "cat-industry-business",
@@ -96,7 +96,7 @@
     "section": "business",
     "description": "Corporate strategy, dealer networks and supply chain news.",
     "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-construction-equipment",
@@ -105,7 +105,7 @@
     "section": "construction-equipment",
     "description": "Earthmoving, lifting, roadbuilding and heavy construction machinery.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.955Z"
   },
   {
     "id": "cat-excavators",
@@ -114,7 +114,7 @@
     "section": "industry",
     "description": "",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.979Z"
+    "updatedAt": "2026-10-27T13:05:44.137Z"
   },
   {
     "id": "cat-wheel-loaders",
@@ -123,7 +123,7 @@
     "section": "wheel-loaders",
     "description": "Articulated and compact wheel loaders for quarries and civil works.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-bulldozers",
@@ -132,7 +132,7 @@
     "section": "bulldozers",
     "description": "Crawler dozers and grade-control earthmoving tractors.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-cranes",
@@ -141,7 +141,7 @@
     "section": "cranes",
     "description": "Mobile, crawler, rough-terrain, tower and pick-and-carry cranes.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-graders",
@@ -150,7 +150,7 @@
     "section": "graders",
     "description": "Motor graders for highway construction, haul roads and fine grading.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-telehandlers",
@@ -159,7 +159,7 @@
     "section": "telehandlers",
     "description": "Telescopic handlers for construction and agricultural material handling.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.823Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-roadbuilding",
@@ -168,7 +168,7 @@
     "section": "roadbuilding",
     "description": "Asphalt pavers, soil compactors, tandem rollers and cold planers.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-mining-equipment",
@@ -177,7 +177,7 @@
     "section": "mining-equipment",
     "description": "Rigid haul trucks, hydraulic mining shovels, drills and quarry machinery.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-compact-equipment",
@@ -186,7 +186,7 @@
     "section": "compact-equipment",
     "description": "Skid-steer loaders, compact track loaders and mini excavators.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-attachments",
@@ -195,7 +195,7 @@
     "section": "attachments",
     "description": "Hydraulic breakers, buckets, quick couplers, augers and tractor attachments.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-tractors",
@@ -204,7 +204,7 @@
     "section": "tractors",
     "description": "Utility, row-crop and heavy-duty tractors for agriculture and worksites.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-agricultural-machinery",
@@ -213,7 +213,7 @@
     "section": "agricultural-machinery",
     "description": "Harvesters, implements, radial loaders and farm mechanization.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-heavy-trucks",
@@ -222,7 +222,7 @@
     "section": "heavy-trucks",
     "description": "Multi-axle tippers, rigid haulers, tractor-trailers and vocational trucks.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-pickups",
@@ -231,7 +231,7 @@
     "section": "pickups",
     "description": "4x4 utility pickups, crew-cab site vehicles and light commercial fleets.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-vans",
@@ -240,7 +240,7 @@
     "section": "vans",
     "description": "Panel vans, service body vehicles and urban delivery fleets.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-buses",
@@ -249,7 +249,7 @@
     "section": "buses",
     "description": "Transit buses, staff coaches and electric passenger transport.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-electric-commercial-vehicles",
@@ -258,7 +258,7 @@
     "section": "electric-commercial-vehicles",
     "description": "Battery-electric, hydrogen fuel-cell and zero-emission trucks, vans and buses.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-business",
@@ -267,7 +267,7 @@
     "section": "business",
     "description": "Corporate strategy, plant investments, exports and market developments.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-projects",
@@ -276,7 +276,7 @@
     "section": "projects",
     "description": "Major highway, railway, port, mining and civil infrastructure deployments.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   },
   {
     "id": "cat-videos",
@@ -285,6 +285,6 @@
     "section": "videos",
     "description": "Walkaround machine briefings, worksite demonstrations and exhibition footage.",
     "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-10-25T16:11:45.824Z"
+    "updatedAt": "2026-10-27T13:05:43.956Z"
   }
 ]

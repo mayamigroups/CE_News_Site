@@ -1,7 +1,7 @@
 {
-  "siteName": "MACHINEWIRE",
+  "siteName": "Machine Report World",
   "tagline": "THE WORLD OF MACHINES. CONNECTED.",
-  "defaultMetaTitle": "MACHINEWIRE — Global Construction Equipment & Commercial Vehicle Intelligence",
+  "defaultMetaTitle": "Machine Report World — Global Construction Equipment & Commercial Vehicle Intelligence",
   "defaultMetaDescription": "Verified global news, machine specifications, OEM profiles, and commercial vehicle intelligence across construction, mining, and agriculture.",
   "canonicalBaseUrl": "http://localhost:3000",
   "editorialContactEmail": "editorial@machinewire.example",
