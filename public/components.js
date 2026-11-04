@@ -23,10 +23,11 @@
     'review': 'Spec Review'
   };
 
-  // All 26 required category desks + core navigation hubs
+  // All 30 canonical category desks & sub-categories (8 main desks + 22 sub-categories)
   const CATEGORY_DESKS = {
     'construction-equipment': {
       slug: 'construction-equipment',
+      parentSlug: null,
       title: 'Construction Equipment',
       group: 'Construction & Earthmoving',
       description: 'Backhoe loaders, excavators, wheel loaders, bulldozers, cranes, graders, telehandlers, roadbuilding and heavy civil machinery.',
@@ -34,97 +35,127 @@
     },
     'backhoe-loaders': {
       slug: 'backhoe-loaders',
+      parentSlug: 'construction-equipment',
       title: 'Backhoe Loaders',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Center-pivot and sideshift backhoe loader launches, specifications, hydraulic upgrades and buyer guides.',
       matcher: (a, all) => /backhoe/i.test(all) || a.category === 'Backhoe Loaders'
     },
     'excavators': {
       slug: 'excavators',
+      parentSlug: 'construction-equipment',
       title: 'Excavators',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Crawler, wheeled, midi and mini hydraulic excavators for earthmoving, trenching, quarry and demolition worksites.',
       matcher: (a, all) => /excavat/i.test(all) || a.category === 'Excavators'
     },
     'wheel-loaders': {
       slug: 'wheel-loaders',
+      parentSlug: 'construction-equipment',
       title: 'Wheel Loaders',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Articulated, compact and quarry wheel loaders, Z-bar kinematics, bucket payloads and driveline efficiency.',
       matcher: (a, all) => /wheel loader|loader/i.test(all) || a.category === 'Wheel Loaders'
     },
     'bulldozers': {
       slug: 'bulldozers',
+      parentSlug: 'construction-equipment',
       title: 'Bulldozers',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Crawler dozers, hydrostatic drivelines, 3D grade-control blades and heavy ripping tractors.',
       matcher: (a, all) => /bulldozer|dozer/i.test(all) || a.category === 'Bulldozers'
     },
     'cranes': {
       slug: 'cranes',
+      parentSlug: 'construction-equipment',
       title: 'Cranes',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'All-terrain, crawler, rough-terrain, tower and pick-and-carry cranes for heavy lifting and infrastructure.',
       matcher: (a, all) => /crane|lifting/i.test(all) || a.category === 'Cranes'
     },
     'graders': {
       slug: 'graders',
+      parentSlug: 'construction-equipment',
       title: 'Graders',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Motor graders, moldboard articulation, automated cross-slope control and haul-road maintenance.',
       matcher: (a, all) => /grader/i.test(all) || a.category === 'Graders'
     },
     'telehandlers': {
       slug: 'telehandlers',
+      parentSlug: 'construction-equipment',
       title: 'Telehandlers',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Rotating and fixed-boom telescopic handlers for construction sites, logistics yards and agriculture.',
       matcher: (a, all) => /telehandler|telescopic/i.test(all) || a.category === 'Telehandlers'
     },
     'roadbuilding': {
       slug: 'roadbuilding',
+      parentSlug: 'construction-equipment',
       title: 'Roadbuilding',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Asphalt pavers, soil and tandem vibratory compactors, cold planers, bitumen sprayers and highway machinery.',
       matcher: (a, all) => /roadbuilding|paver|compactor|roller|asphalt|highway/i.test(all) || a.category === 'Roadbuilding'
     },
     'mining-equipment': {
       slug: 'mining-equipment',
+      parentSlug: 'construction-equipment',
       title: 'Mining Equipment',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Rigid dump trucks, ultra-class hydraulic mining shovels, rotary blast-hole drills and quarry haulers.',
       matcher: (a, all) => /mining|quarry|haulroad|rigid dump/i.test(all) || a.category === 'Mining Equipment'
     },
     'compact-equipment': {
       slug: 'compact-equipment',
+      parentSlug: 'construction-equipment',
       title: 'Compact Equipment',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Skid-steer loaders, compact track loaders (CTLs), mini excavators and urban utility machinery.',
       matcher: (a, all) => /compact|skid-steer|mini excavat|ctl/i.test(all) || a.category === 'Compact Equipment'
     },
     'attachments': {
       slug: 'attachments',
+      parentSlug: 'construction-equipment',
       title: 'Attachments',
-      group: 'Construction & Earthmoving',
+      group: 'Construction Equipment',
       description: 'Hydraulic breakers, quick couplers, tiltrotators, augers, grapples and tractor-mounted loader/backhoe attachments.',
       matcher: (a, all) => /attachment|breaker|bucket|coupler|tiltrotator|auger/i.test(all) || a.category === 'Attachments'
     },
-    'tractors': {
-      slug: 'tractors',
-      title: 'Tractors',
-      group: 'Agriculture & Utility',
-      description: 'Utility, row-crop and heavy-duty 4WD tractors for agricultural mechanization and municipal haulage.',
-      matcher: (a, all) => /tractor/i.test(all) || a.category === 'Tractors'
+    'new-launches': {
+      slug: 'new-launches',
+      parentSlug: 'construction-equipment',
+      title: 'New Launches',
+      group: 'Construction Equipment',
+      description: 'New production machine unveilings, series upgrades, and regional homologation releases.',
+      matcher: (a, all) => /launch|unveil|new|debut/i.test(all) || a.category === 'New Launches'
     },
     'agricultural-machinery': {
       slug: 'agricultural-machinery',
+      parentSlug: null,
       title: 'Agricultural Machinery',
       group: 'Agriculture & Utility',
-      description: 'Combine harvesters, rotavators, balers, precision implements and radial agri-loader platforms.',
-      matcher: (a, all) => /agricultural|agri|harvester|implement|tractor/i.test(all) || a.category === 'Agricultural Machinery'
+      description: 'Utility tractors, combine harvesters, rotavators, balers, precision implements and radial agri-loader platforms.',
+      matcher: (a, all) => /agricultural|agri|harvester|implement|tractor/i.test(all) || ['Agricultural Machinery', 'Tractors'].includes(a.category)
+    },
+    'tractors': {
+      slug: 'tractors',
+      parentSlug: 'agricultural-machinery',
+      title: 'Tractors',
+      group: 'Agricultural Machinery',
+      description: 'Utility, row-crop and heavy-duty 4WD tractors for agricultural mechanization and municipal haulage.',
+      matcher: (a, all) => /tractor/i.test(all) || a.category === 'Tractors'
+    },
+    'commercial-vehicles': {
+      slug: 'commercial-vehicles',
+      parentSlug: null,
+      title: 'Commercial Vehicles',
+      group: 'Commercial Vehicles',
+      description: 'Heavy trucks, multi-axle tippers, prime movers, pickups, vans, buses and electric commercial vehicle fleets.',
+      matcher: (a, all) => /heavy truck|tipper|vocational|commercial vehicle|6x4|8x4|hauler|truck|pickup|\bvan\b|\bbus\b|coach/i.test(all) || ['Commercial Vehicles', 'Heavy Trucks', 'Pickups', 'Vans', 'Buses', 'Electric Commercial Vehicles'].includes(a.category)
     },
     'heavy-trucks': {
       slug: 'heavy-trucks',
+      parentSlug: 'commercial-vehicles',
       title: 'Heavy Trucks',
       group: 'Commercial Vehicles',
       description: 'Multi-axle 6x4 and 8x4 tippers, vocational chassis, prime movers, heavy haulers and fleet transport.',
@@ -132,6 +163,7 @@
     },
     'pickups': {
       slug: 'pickups',
+      parentSlug: 'commercial-vehicles',
       title: 'Pickups',
       group: 'Commercial Vehicles',
       description: '4x4 crew-cab pickups, utility service trucks and worksite support vehicles.',
@@ -139,6 +171,7 @@
     },
     'vans': {
       slug: 'vans',
+      parentSlug: 'commercial-vehicles',
       title: 'Vans',
       group: 'Commercial Vehicles',
       description: 'Commercial panel vans, mobile workshop conversions, chassis cabs and last-mile fleet vans.',
@@ -146,6 +179,7 @@
     },
     'buses': {
       slug: 'buses',
+      parentSlug: 'commercial-vehicles',
       title: 'Buses',
       group: 'Commercial Vehicles',
       description: 'City transit buses, intercity coaches, workforce transport and zero-emission passenger fleets.',
@@ -153,6 +187,7 @@
     },
     'electric-commercial-vehicles': {
       slug: 'electric-commercial-vehicles',
+      parentSlug: 'commercial-vehicles',
       title: 'Electric Commercial Vehicles',
       group: 'Commercial Vehicles',
       description: 'Battery-electric and hydrogen fuel-cell heavy trucks, electric tippers, e-vans and zero-emission buses.',
@@ -160,82 +195,87 @@
     },
     'technology': {
       slug: 'technology',
+      parentSlug: null,
       title: 'Technology',
       group: 'Editorial Desks',
       description: 'Load-sensing hydraulics, ISO 15143-3 telematics, Stage V / CEV-V powertrains, AI grade control and electrification.',
       matcher: (a, all) => /technology|hydraulic|telematics|electr|automation|powertrain|ai/i.test(all) || a.category === 'Technology'
     },
-    'business': {
-      slug: 'business',
-      title: 'Business',
+    'industry-news': {
+      slug: 'industry-news',
+      parentSlug: null,
+      title: 'Industry News',
       group: 'Editorial Desks',
-      description: 'OEM investments, plant capacity expansions, quarterly market updates, exports and dealer network growth.',
-      matcher: (a, all) => /industry|market|business|investment|export|infrastructure/i.test(all) || ['Industry News', 'Business', 'Market Updates', 'Industry & Business'].includes(a.category)
+      description: 'OEM investments, plant capacity expansions, quarterly market updates, infrastructure projects, exports and dealer network growth.',
+      matcher: (a, all) => /industry|market|business|investment|export|infrastructure|project/i.test(all) || ['Industry News', 'Business', 'Market Updates', 'Projects', 'Industry & Business'].includes(a.category)
     },
-    'reviews': {
-      slug: 'reviews',
-      title: 'Reviews',
-      group: 'Editorial Desks',
-      description: 'Specification-led equipment and truck evaluations, driveline analyses and side-by-side model comparisons.',
-      matcher: (a, all) => /comparison|review|specification|evaluat/i.test(all) || a.category === 'Reviews & Comparisons' || a.articleType === 'review'
-    },
-    'guides': {
-      slug: 'guides',
-      title: 'Guides',
-      group: 'Editorial Desks',
-      description: 'Practical equipment buying checklists, maintenance explainers and total cost of ownership (TCO) guides.',
-      matcher: (a, all) => /guide|maintenance|buyer|compare|checklist/i.test(all) || a.category === 'Buying Guides' || a.articleType === 'guide'
+    'market-updates': {
+      slug: 'market-updates',
+      parentSlug: 'industry-news',
+      title: 'Market Updates',
+      group: 'Industry News',
+      description: 'Quarterly sales volumes, infrastructure spending, dealer network expansions, and export trade corridors.',
+      matcher: (a, all) => /market|export|sales|quarterly|dealer|capacity/i.test(all) || ['Market Updates', 'Industry News'].includes(a.category)
     },
     'projects': {
       slug: 'projects',
+      parentSlug: 'industry-news',
       title: 'Projects',
-      group: 'Editorial Desks',
+      group: 'Industry News',
       description: 'Highway corridors, port expansions, metro rail tunneling, mining contracts and major civil fleet deployments.',
       matcher: (a, all) => /project|infrastructure|highway|corridor|contract|worksite|earthmoving/i.test(all) || a.category === 'Projects'
     },
-    'events': {
-      slug: 'events',
-      title: 'Events',
+    'reviews-comparisons': {
+      slug: 'reviews-comparisons',
+      parentSlug: null,
+      title: 'Reviews & Comparisons',
+      group: 'Editorial Desks',
+      description: 'Specification-led equipment and truck evaluations, driveline analyses, side-by-side model comparisons and buyer checklists.',
+      matcher: (a, all) => /comparison|review|specification|evaluat|guide|checklist/i.test(all) || ['Reviews & Comparisons', 'Buying Guides', 'Reviews', 'Guides'].includes(a.category) || ['review', 'guide'].includes(a.articleType)
+    },
+    'buying-guides': {
+      slug: 'buying-guides',
+      parentSlug: 'reviews-comparisons',
+      title: 'Buying Guides',
+      group: 'Reviews & Comparisons',
+      description: 'Practical equipment buying checklists, maintenance explainers and total cost of ownership (TCO) guides.',
+      matcher: (a, all) => /guide|maintenance|buyer|compare|checklist/i.test(all) || ['Buying Guides', 'Guides'].includes(a.category) || a.articleType === 'guide'
+    },
+    'events-exhibitions': {
+      slug: 'events-exhibitions',
+      parentSlug: null,
+      title: 'Events & Exhibitions',
       group: 'Editorial Desks',
       description: 'Global trade exhibitions including EXCON (Bengaluru), Bauma (Munich), CONEXPO-CON/AGG (Las Vegas) and IAA Transportation.',
-      matcher: (a, all) => /event|exhibition|excon|bauma|conexpo|iaa|show/i.test(all) || a.category === 'Events & Exhibitions'
+      matcher: (a, all) => /event|exhibition|excon|bauma|conexpo|iaa|show|video/i.test(all) || ['Events & Exhibitions', 'Events', 'Videos'].includes(a.category)
     },
     'videos': {
       slug: 'videos',
+      parentSlug: 'events-exhibitions',
       title: 'Videos',
-      group: 'Editorial Desks',
+      group: 'Events & Exhibitions',
       description: 'Walkaround machine briefings, live worksite demonstrations, operator cab reviews and trade show video dispatches.',
       matcher: (a, all) => /video|walkaround|demonstration|footage/i.test(all) || a.category === 'Videos'
     },
-    // Alias hubs for existing navigation compatibility
     'bull-machines': {
       slug: 'bull-machines',
+      parentSlug: null,
       title: 'Bull Machines',
-      group: 'OEM Hubs',
+      group: 'Brands',
       description: 'Official announcements, backhoe loader updates, attachment launches and verified reports related to Bull Machines.',
       matcher: (a) => /bull machines/i.test(a.manufacturer || '') || a.category === 'Bull Machines'
-    },
-    'brands': {
-      slug: 'brands',
-      title: 'Brands & Manufacturers',
-      group: 'OEM Hubs',
-      description: 'News, specifications and product updates from global construction equipment and commercial vehicle OEMs.',
-      matcher: (a) => Boolean(a.manufacturer)
-    },
-    'regions': {
-      slug: 'regions',
-      title: 'Global & Regional Desk',
-      group: 'OEM Hubs',
-      description: 'Equipment, agricultural machinery and commercial vehicle coverage across India, Asia-Pacific, Europe and North America.',
-      matcher: (a) => Boolean(a.country || a.region)
     }
   };
 
-  // Alias map so legacy slugs (`equipment`, `commercial-vehicles`, `industry`) resolve cleanly
+  // Alias map so legacy slugs (`business`, `industry-business`, `reviews`, `guides`, `events`, `equipment`, `industry`) resolve cleanly to canonical slugs
   const DESK_ALIASES = {
     'equipment': 'construction-equipment',
-    'commercial-vehicles': 'heavy-trucks',
-    'industry': 'business'
+    'industry': 'industry-news',
+    'business': 'industry-news',
+    'industry-business': 'industry-news',
+    'reviews': 'reviews-comparisons',
+    'guides': 'buying-guides',
+    'events': 'events-exhibitions'
   };
 
   function resolveDeskSlug(rawSlug) {
@@ -249,7 +289,7 @@
   }
 
   function categoryUrl(slug) {
-    return `/category/${encodeURIComponent(slug)}`;
+    return `/category/${encodeURIComponent(resolveDeskSlug(slug))}`;
   }
 
   function makeClientSlug(s) {
@@ -271,7 +311,7 @@
     return `/manufacturers/${encodeURIComponent(resolved)}`;
   }
 
-  function modelUrl(slugOrName, manufacturerName = '') {
+  function modelUrl(slugOrName) {
     const clean = makeClientSlug(slugOrName);
     if (!clean || ['full-lineup', 'multi-brand-comparison'].includes(clean)) return '/models';
     return `/models/${encodeURIComponent(clean)}`;
@@ -490,12 +530,16 @@
     const sizes = aspect === 'hero'
       ? '(max-width: 1024px) 100vw, 820px'
       : '(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 400px';
-    const loadingAttr = lazy ? 'loading="lazy" decoding="async"' : ' fetchpriority="high" decoding="async"';
+    const width = aspect === 'hero' ? 1200 : 640;
+    const height = aspect === 'hero' ? 675 : 360;
+    const loadingAttr = lazy ? 'loading="lazy" decoding="async"' : 'loading="eager" fetchpriority="high" decoding="async"';
     const creditBadge = showCreditBadge && credit
       ? `<span class="card-image-credit" title="Image credit: ${esc(credit)}">${esc(credit)}</span>`
       : '';
     return `<img
       src="${esc(safe)}"
+      width="${width}"
+      height="${height}"
       ${srcset ? `srcset="${srcset}" sizes="${sizes}"` : ''}
       alt="${esc(label)}"
       ${loadingAttr}
@@ -510,12 +554,13 @@
     const summaryText = a.summary || a.excerpt || '';
     const href = articleUrl(a.slug);
     const credit = a.imageCredit || (a.image ? 'Editorial / OEM Handout' : '');
+    const altText = a.mediaRights?.altText || `${a.title} — ${a.manufacturer || 'Machine Report World'}`;
 
     return `<article class="article-card">
       <a class="card-image" href="${href}" aria-label="${esc(a.title)}">
         ${renderEditorialImage({
           url: a.image,
-          alt: `${a.title} — ${a.manufacturer || 'Machine Report World'}`,
+          alt: altText,
           credit,
           aspect: 'card',
           lazy,
@@ -538,20 +583,29 @@
     </article>`;
   }
 
-  function renderPagination({ totalItems, pageSize, currentPage }) {
+  function renderPagination({ totalItems, pageSize, currentPage, baseUrl = '' }) {
     const totalPages = Math.ceil(totalItems / pageSize);
     if (totalPages <= 1) return '';
     const buttons = [];
+    const pageHref = p => {
+      if (!baseUrl) return `?page=${p}`;
+      const sep = baseUrl.includes('?') ? '&' : '?';
+      return p <= 1 ? baseUrl : `${baseUrl}${sep}page=${p}`;
+    };
     buttons.push(
-      `<button type="button" class="page-btn" data-page="${currentPage - 1}" ${currentPage <= 1 ? 'disabled' : ''} aria-label="Previous page">← Prev</button>`
+      currentPage <= 1
+        ? `<button type="button" class="page-btn" data-page="1" disabled aria-label="Previous page">← Prev</button>`
+        : `<a class="page-btn" href="${esc(pageHref(currentPage - 1))}" data-page="${currentPage - 1}" aria-label="Previous page">← Prev</a>`
     );
     for (let p = 1; p <= totalPages; p++) {
       buttons.push(
-        `<button type="button" class="page-btn ${p === currentPage ? 'active' : ''}" data-page="${p}" aria-current="${p === currentPage ? 'page' : 'false'}">${p}</button>`
+        `<a class="page-btn ${p === currentPage ? 'active' : ''}" href="${esc(pageHref(p))}" data-page="${p}" ${p === currentPage ? 'aria-current="page"' : ''}>${p}</a>`
       );
     }
     buttons.push(
-      `<button type="button" class="page-btn" data-page="${currentPage + 1}" ${currentPage >= totalPages ? 'disabled' : ''} aria-label="Next page">Next →</button>`
+      currentPage >= totalPages
+        ? `<button type="button" class="page-btn" data-page="${totalPages}" disabled aria-label="Next page">Next →</button>`
+        : `<a class="page-btn" href="${esc(pageHref(currentPage + 1))}" data-page="${currentPage + 1}" aria-label="Next page">Next →</a>`
     );
     return `<nav class="pagination" aria-label="Article pagination">${buttons.join('')}</nav>`;
   }
@@ -569,20 +623,18 @@
 
   /**
    * Pagination SEO Rules:
-   * - Updates canonical URL (`?page=N` when N > 1)
+   * - Canonical URL always points to page 1 (`cleanBase`) per Task 3
    * - Appends `— Page N` to document.title when N > 1
    * - Injects/updates `<link rel="prev">` and `<link rel="next">` in `<head>`
-   * - Updates browser URL bar via `history.replaceState` when navigating pages
    */
   function applyPaginationSeo({ currentPage, totalPages, baseUrl, baseTitle }) {
-    const cleanBase = baseUrl || `${location.origin}${location.pathname}`;
+    const cleanBase = (baseUrl || `${location.origin}${location.pathname}`).replace(/[?&]page=\d+/g, '');
     const pageNum = Math.max(1, Number(currentPage) || 1);
     const total = Math.max(1, Number(totalPages) || 1);
 
     const canonicalEl = document.getElementById('canonical-link');
-    const pageCanonical = pageNum > 1 ? `${cleanBase}?page=${pageNum}` : cleanBase;
     if (canonicalEl) {
-      canonicalEl.href = pageCanonical;
+      canonicalEl.href = cleanBase;
     }
 
     if (baseTitle) {
@@ -640,7 +692,7 @@
       if (!trimmed) return '';
       if (trimmed.startsWith('### ')) {
         const headingText = renderInlineFormatting(esc(trimmed.replace(/^###\s+/, '')));
-        return `<h2 class="article-subheading">${headingText}</h2>`;
+        return `<h3 class="article-subheading">${headingText}</h3>`;
       }
       if (trimmed.startsWith('## ')) {
         const headingText = renderInlineFormatting(esc(trimmed.replace(/^##\s+/, '')));
@@ -694,6 +746,7 @@
     esc,
     ARTICLE_TYPE_LABELS,
     CATEGORY_DESKS,
+    DESK_ALIASES,
     REGIONAL_HUBS,
     resolveDeskSlug,
     resolveRegionSlug,

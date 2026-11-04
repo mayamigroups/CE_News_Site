@@ -323,25 +323,25 @@ test('Static pages, design system assets, 13 homepage sections, 9 nav items, 7 f
   const homeHtml = await homeRes.text();
   assert.match(homeHtml, /THE WORLD OF MACHINES\. CONNECTED\./, 'Expected brand tagline in homepage');
 
-  // Verify all 9 required header navigation items
-  for (const navLabel of ['Home', 'Latest News', 'Equipment', 'Brands', 'Technology', 'Business', 'Reviews', 'Guides', 'Regions']) {
+  // Verify all 8 main desk labels + Regions + Subscribe in shared header navigation
+  for (const navLabel of ['Construction', 'Agriculture', 'Commercial Vehicles', 'Technology', 'Industry News', 'Reviews', 'Events', 'Brands', 'Regions', 'Subscribe']) {
     assert.ok(homeHtml.includes(`>${navLabel}</a>`), `Expected header navigation link "${navLabel}"`);
   }
 
-  // Verify all 13 homepage section containers exist
+  // Verify simplified homepage section containers exist
   for (const secId of [
-    'breaking-news',
     'featured-section',
+    'latest',
     'sec-construction',
     'sec-tractors',
     'sec-trucks',
-    'sec-brands',
     'sec-technology',
     'sec-business',
     'sec-reviews-guides',
-    'sec-regions',
     'sec-events',
-    'newsletter'
+    'sec-bull-machines',
+    'newsletter',
+    'sec-brands'
   ]) {
     assert.ok(homeHtml.includes(`id="${secId}"`), `Expected homepage section #${secId}`);
   }
@@ -2056,7 +2056,7 @@ test('Dual Editorial Studios Workflow: Manual Studio creation, AI Assist API, Tr
   const manualArtPayload = {
     title: 'Komatsu PC210LC-11 Excavator Verified Fleet Specification Test',
     summary: 'Komatsu introduces updated Tier 4 Final hydraulic excavator for infrastructure and aggregate fleets.',
-    body: '## Overview\n\nThe Komatsu PC210LC-11 provides enhanced fuel efficiency, low-emission powertrain dynamics, and telematics.\n\n### Key Operational Specs\n\nVerified metrics on operating tonnage and bucket volume.',
+    body: '## Overview\n\nThe Komatsu PC210LC-11 provides enhanced fuel efficiency, low-emission powertrain dynamics, and telematics for heavy earthmoving contractors and quarry operators across international markets.\n\n### Key Operational Specs\n\nVerified metrics on operating tonnage, closed-center load-sensing hydraulic flow, and bucket volume demonstrate consistent cycle times in high-density basalt and granite excavation.\n\n' + Array(35).fill('Verified engineering telemetry confirms closed-center load-sensing hydraulic efficiency, reinforced boom geometry, and ISO 15143-3 AEMP 2.0 fleet integration across multi-shift excavation deployments.').join(' '),
     category: 'Excavators',
     manufacturer: 'Komatsu',
     model: 'PC210LC-11',
@@ -2064,6 +2064,8 @@ test('Dual Editorial Studios Workflow: Manual Studio creation, AI Assist API, Tr
     country: 'Japan',
     region: 'Asia-Pacific',
     author: 'Editorial Desk',
+    sourceUrl: 'https://www.komatsu.com/en/products/excavators/mid-size-excavators/pc210lc-11/',
+    imageCredit: 'Komatsu America Press Kit',
     origin: 'manual',
     status: 'draft',
     specs: {
@@ -2147,4 +2149,241 @@ test('Dual Editorial Studios Workflow: Manual Studio creation, AI Assist API, Tr
       throw new Error(`Article "${articles[existingIdx].title}" was created in Manual Editorial Studio and cannot be overwritten by AI newsroom runs.`);
     }
   }, /cannot be overwritten by AI newsroom runs/);
+});
+
+
+test('Task 1 & Task 2: Shared Header/Footer (public/layout.js), 8 Main Desks, Category Cleanup, 301 Redirects, and Sitemap Canonical Categories', async () => {
+  const homeRes = await fetch(`${baseUrl}/`);
+  assert.equal(homeRes.status, 200);
+  const homeHtml = await homeRes.text();
+
+  // Shared header and footer containers + layout.js script + noscript fallback
+  assert.match(homeHtml, /id="site-header"/);
+  assert.match(homeHtml, /id="site-footer"/);
+  assert.match(homeHtml, /src="\/layout\.js/);
+  assert.match(homeHtml, /<noscript>[\s\S]*?\/category\/construction-equipment[\s\S]*?<\/noscript>/);
+  assert.ok(!homeHtml.includes('>Editorial Desk ↗</a>'), 'Public header must not show Editorial Desk admin link');
+  assert.match(homeHtml, /href="\/admin\.html">Admin<\/a>/, 'Footer must retain small Admin link');
+
+  // Verify layout.js defines the 8 main desks and sub-categories from parentSlug
+  const layoutJsRes = await fetch(`${baseUrl}/layout.js`);
+  assert.equal(layoutJsRes.status, 200);
+  const layoutJs = await layoutJsRes.text();
+  for (const deskSlug of ['construction-equipment', 'agricultural-machinery', 'commercial-vehicles', 'technology', 'industry-news', 'reviews-comparisons', 'events-exhibitions', 'bull-machines']) {
+    assert.ok(layoutJs.includes(deskSlug), `Expected layout.js to include desk ${deskSlug}`);
+  }
+
+  // Verify 301 redirects from merged/old category URLs to canonical category URLs
+  const redirectCases = [
+    ['/category/business', '/category/industry-news'],
+    ['/category/industry-business', '/category/industry-news'],
+    ['/category/reviews', '/category/reviews-comparisons'],
+    ['/category/guides', '/category/buying-guides'],
+    ['/category/events', '/category/events-exhibitions'],
+    ['/section/excavators', '/category/excavators']
+  ];
+  for (const [oldPath, expectedLocation] of redirectCases) {
+    const r = await fetch(`${baseUrl}${oldPath}`, { redirect: 'manual' });
+    assert.equal(r.status, 301, `Expected 301 redirect for ${oldPath}`);
+    assert.equal(r.headers.get('location'), expectedLocation, `Expected ${oldPath} to redirect to ${expectedLocation}`);
+  }
+
+  // Verify sitemap lists only final canonical category URLs and excludes merged duplicates
+  const sitemapRes = await fetch(`${baseUrl}/sitemap.xml`);
+  const sitemapXml = await sitemapRes.text();
+  assert.match(sitemapXml, /\/category\/industry-news<\/loc>/);
+  assert.match(sitemapXml, /\/category\/reviews-comparisons<\/loc>/);
+  assert.match(sitemapXml, /\/category\/buying-guides<\/loc>/);
+  assert.match(sitemapXml, /\/category\/events-exhibitions<\/loc>/);
+  assert.ok(!sitemapXml.includes('/category/business</loc>'), 'Sitemap must not list merged /category/business');
+  assert.ok(!sitemapXml.includes('/category/industry-business</loc>'), 'Sitemap must not list merged /category/industry-business');
+  assert.ok(!sitemapXml.includes('/category/reviews</loc>'), 'Sitemap must not list merged /category/reviews');
+  assert.ok(!sitemapXml.includes('/category/guides</loc>'), 'Sitemap must not list merged /category/guides');
+});
+
+test('Task 3: Desk and Sub-Category Pages (/category/<slug>) — Breadcrumb, Sub-Category Chips, Server-Rendered Filters (?brand=&country=&type=), Pagination, and Calm Empty State', async () => {
+  // 1. Main desk page
+  const deskRes = await fetch(`${baseUrl}/category/construction-equipment`);
+  assert.equal(deskRes.status, 200);
+  const deskHtml = await deskRes.text();
+  assert.match(deskHtml, /aria-label="Breadcrumb"/);
+  assert.match(deskHtml, /<h1[^>]*>Construction Equipment<\/h1>/);
+  assert.match(deskHtml, /href="\/category\/excavators"/, 'Desk page must show sub-category chips');
+  assert.match(deskHtml, /href="\/category\/backhoe-loaders"/);
+  assert.match(deskHtml, /id="desk-filter-links"[\s\S]*?<strong>Brand:<\/strong>/, 'Desk page must render plain-link filters generated from actual stories');
+
+  // 2. Sub-category page with breadcrumb (Home / Desk / Sub-category) and filter query param
+  const subFilterRes = await fetch(`${baseUrl}/category/excavators?country=India`);
+  assert.equal(subFilterRes.status, 200);
+  const subFilterHtml = await subFilterRes.text();
+  assert.match(subFilterHtml, /<a href="\/">Home<\/a>[\s\S]*?href="\/category\/construction-equipment">Construction Equipment<\/a>[\s\S]*?aria-current="page">Excavators<\/span>/);
+  assert.match(subFilterHtml, /Active filters:.*Country: India/);
+  assert.match(subFilterHtml, /href="\/category\/excavators">Clear<\/a>/, 'Filtered category page must show Clear link');
+  assert.match(subFilterHtml, /<link id="canonical-link" rel="canonical" href="[^"]*\/category\/excavators">/, 'Canonical must point to page 1 of the category');
+
+  // 3. Calm empty state when no stories match (no admin prompt)
+  const emptyCatRes = await fetch(`${baseUrl}/category/vans`);
+  assert.equal(emptyCatRes.status, 200);
+  const emptyCatHtml = await emptyCatRes.text();
+  assert.match(emptyCatHtml, /No stories match this selection right now\./);
+  assert.ok(!emptyCatHtml.toLowerCase().includes('publish in admin'), 'Empty desk must not show an admin prompt');
+  assert.match(emptyCatHtml, /href="\/category\/construction-equipment"/, 'Empty desk must link to other desks');
+});
+
+test('Task 4: Article Page Polish — Table of Contents (>800 words), Who This Matters To (audience), Author Card & /authors/<slug> Page, Brands Mentioned Strip, 3 Related Stories, and Honest Updated Date', async () => {
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: process.env.ADMIN_PASSWORD || 'Admin#2026!LocalSec' })
+  });
+  const { token } = await loginRes.json();
+  const authHeaders = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+
+  // Create an 850+ word article with H2/H3 headings, audience field, and OEM mentions
+  const longParagraph = 'Caterpillar and Komatsu continue to expand closed-center load-sensing hydraulic systems and battery-electric drivelines across heavy earthmoving fleets in India and Europe. ';
+  const bodyOver800Words = [
+    '## Hydraulic Architecture and Pump Control',
+    longParagraph.repeat(18),
+    '### Closed-Center Load-Sensing Efficiency',
+    longParagraph.repeat(18),
+    '## Fleet Telematics and Total Cost of Ownership',
+    longParagraph.repeat(18)
+  ].join('\n\n');
+
+  const createRes = await fetch(`${baseUrl}/api/admin/articles`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify({
+      title: 'Long-Form Hydraulic & Telematics Engineering Evaluation 2026',
+      slug: 'long-form-hydraulic-telematics-evaluation-2026',
+      summary: 'Deep technical evaluation of hydraulic efficiency and telematics across Caterpillar and Komatsu excavators.',
+      audience: 'Fleet managers, quarry contractors, equipment dealers',
+      body: bodyOver800Words,
+      category: 'Excavators',
+      articleType: 'analysis',
+      manufacturer: 'Caterpillar',
+      country: 'India',
+      region: 'India',
+      author: 'Editorial Desk',
+      sourceUrl: 'https://www.caterpillar.com/en/news/hydraulic-evaluation-2026.html',
+      image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+      imageCredit: 'Caterpillar Press Archive',
+      mediaRights: {
+        altText: 'Caterpillar crawler excavator operating on basalt bench',
+        credit: 'Caterpillar Press Archive',
+        verified: true
+      },
+      status: 'published'
+    })
+  });
+  assert.equal(createRes.status, 201);
+
+  // Fetch SSR article HTML
+  const ssrRes = await fetch(`${baseUrl}/news/long-form-hydraulic-telematics-evaluation-2026`);
+  assert.equal(ssrRes.status, 200);
+  const ssrHtml = await ssrRes.text();
+
+  // 1. Table of contents (>800 words) with anchor IDs
+  assert.match(ssrHtml, /class="article-toc"/, 'Expected Table of Contents for >800 word article');
+  assert.match(ssrHtml, /href="#sec-hydraulic-architecture-and-pump-control"/);
+  assert.match(ssrHtml, /id="sec-hydraulic-architecture-and-pump-control"/);
+
+  // 2. "Who this matters to" line
+  assert.match(ssrHtml, /Who this matters to:<\/strong>\s*Fleet managers, quarry contractors, equipment dealers/);
+
+  // 3. Honest Updated date: freshly created article has no post-publish edit, so "Updated" must NOT be shown
+  assert.ok(!ssrHtml.includes('class="byline-updated"'), 'Newly published article without post-publish edits must not show Updated date');
+
+  // 4. Brands mentioned strip linking to /manufacturers/<slug>
+  assert.match(ssrHtml, /class="brands-mentioned-strip"/);
+  assert.match(ssrHtml, /href="\/manufacturers\/caterpillar"/);
+  assert.match(ssrHtml, /href="\/manufacturers\/komatsu"/);
+
+  // 5. Author card at bottom linking to /authors/editorial-desk (and not inventing a bio when empty)
+  assert.match(ssrHtml, /class="author-bio-card"/);
+  assert.match(ssrHtml, /href="\/authors\/editorial-desk"/);
+  assert.ok(!ssrHtml.includes('class="author-bio-text"'), 'Must not invent a bio when author bio in data/authors.json is empty');
+
+  // 6. 3 related stories shown as small cards
+  assert.match(ssrHtml, /Related Industry Coverage/);
+  assert.match(ssrHtml, /id="article-related-grid"/);
+
+  // 7. Verify /authors/editorial-desk page works and lists the author's stories
+  const authorPageRes = await fetch(`${baseUrl}/authors/editorial-desk`);
+  assert.equal(authorPageRes.status, 200);
+  const authorPageHtml = await authorPageRes.text();
+  assert.match(authorPageHtml, /<h1[^>]*>Editorial Desk<\/h1>/);
+  assert.match(authorPageHtml, /Long-Form Hydraulic &amp; Telematics Engineering Evaluation 2026/);
+});
+
+test('Task 5, Task 6 & Task 7: Publishing Standards Gate, Managing Editor Override Audit Log, utm_source=mrw_newsletter, and Image/Accessibility Attributes', async () => {
+  const loginRes = await fetch(`${baseUrl}/api/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'editorial-admin', password: process.env.ADMIN_PASSWORD || 'Admin#2026!LocalSec' })
+  });
+  const { token } = await loginRes.json();
+  const authHeaders = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+
+  // 1. Block publishing a guide under 600 words or missing sourceUrl / imageCredit / altText
+  const blockedRes = await fetch(`${baseUrl}/api/admin/articles`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify({
+      title: 'Short Incomplete Buying Guide Test',
+      summary: 'Testing publishing standards gate.',
+      body: 'This guide body is far under 600 words.',
+      category: 'Buying Guides',
+      articleType: 'guide',
+      status: 'published'
+    })
+  });
+  assert.equal(blockedRes.status, 400, 'Must block publishing when standards are not met');
+  const blockedData = await blockedRes.json();
+  assert.ok(Array.isArray(blockedData.missingStandards), 'Must return clear missingStandards array');
+  assert.ok(blockedData.missingStandards.some(m => m.includes('requires at least 600 words')));
+  assert.ok(blockedData.missingStandards.some(m => m.includes('sourceUrl')));
+  assert.ok(blockedData.missingStandards.some(m => m.includes('imageCredit')));
+  assert.ok(blockedData.missingStandards.some(m => m.includes('altText')));
+
+  // 2. Allow managing_editor / super_admin to override with a written reason saved in the audit log
+  const overrideRes = await fetch(`${baseUrl}/api/admin/articles`, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify({
+      title: 'Urgent OEM Safety Recall Bulletin Override Test',
+      summary: 'Official OEM safety recall bulletin published with managing editor override.',
+      body: 'Official safety recall bulletin issued for immediate operator notification across active fleets.',
+      category: 'Industry News',
+      articleType: 'news',
+      sourceUrl: 'https://www.jcb.com/en-gb/news/safety-bulletin-2026',
+      imageCredit: 'JCB Official Press Office',
+      mediaRights: { altText: 'JCB backhoe loader safety inspection point', credit: 'JCB Official Press Office' },
+      status: 'published',
+      overridePublishStandards: true,
+      overrideReason: 'Urgent official OEM safety recall bulletin under 250 words approved by managing editor.'
+    })
+  });
+  assert.equal(overrideRes.status, 201, 'Must allow managing_editor / super_admin override with written reason');
+
+  const logsRes = await fetch(`${baseUrl}/api/admin/logs`, { headers: authHeaders });
+  const logsData = await logsRes.json();
+  const overrideLog = (logsData.auditLogs || []).find(l => l.action === 'article.publish_override' && l.details.includes('Urgent official OEM safety recall bulletin'));
+  assert.ok(overrideLog, 'Override reason must be saved in the audit log');
+
+  // 3. Verify newsletter template uses utm_source=mrw_newsletter
+  const nlTplRes = await fetch(`${baseUrl}/api/admin/distribution/template?edition=weekly`, { headers: authHeaders });
+  assert.equal(nlTplRes.status, 200);
+  const nlTpl = await nlTplRes.json();
+  assert.match(nlTpl.html, /utm_source=mrw_newsletter/);
+  assert.ok(!nlTpl.html.includes('utm_source=machinewire_newsletter'));
+
+  // 4. Verify Accessibility & Image attributes on SSR pages (one H1, skip-link, landmarks, width/height on images)
+  const catPageRes = await fetch(`${baseUrl}/category/construction-equipment`);
+  const catPageHtml = await catPageRes.text();
+  const h1Matches = catPageHtml.match(/<h1[\s>]/gi) || [];
+  assert.equal(h1Matches.length, 1, 'Expected exactly one H1 on category page');
+  assert.match(catPageHtml, /class="skip-link"/);
+  assert.match(catPageHtml, /<main[\s>]/);
+  assert.match(catPageHtml, /width="640"\s+height="360"/);
 });

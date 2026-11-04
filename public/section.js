@@ -13,19 +13,19 @@ const {
 
 const $ = (s, root = document) => root.querySelector(s);
 
-// Extract slug from clean path `/category/:slug` or query param `?section=:slug`
 const pathMatch = location.pathname.match(/^\/(?:category|section)\/([a-z0-9-_]+)\/?$/i);
 const params = new URLSearchParams(location.search);
 const rawSection = pathMatch ? pathMatch[1] : (params.get('section') || 'construction-equipment');
 const activeSlug = resolveDeskSlug(rawSection);
 const desk = CATEGORY_DESKS[activeSlug] || CATEGORY_DESKS['construction-equipment'];
+const parentSlug = desk.parentSlug || desk.slug;
+const parentDesk = CATEGORY_DESKS[parentSlug] || desk;
 
 const initialQuery = params.get('q') || '';
-const initialMfg = params.get('manufacturer') || '';
+const initialBrand = params.get('brand') || params.get('manufacturer') || '';
 const initialCountry = params.get('country') || '';
-const initialCat = params.get('category') || '';
+const initialType = params.get('type') || params.get('equipment') || '';
 
-// Update SEO Metadata, Canonical & JSON-LD
 const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
 const pageTitle = `${desk.title} News & Specifications | ${siteName}`;
 document.title = pageTitle;
@@ -39,90 +39,114 @@ const canon = $('#canonical-link');
 const canonicalHref = `${location.origin}${categoryUrl(desk.slug)}`;
 if (canon) canon.href = canonicalHref;
 
-$('#section-title').textContent = desk.title;
-$('#crumb-group').textContent = desk.group || 'Desks';
-$('#crumb').textContent = desk.title;
-$('#desk-badge').textContent = (desk.group || 'CATEGORY DESK').toUpperCase();
-$('#section-intro').textContent = desk.description;
-$('#year').textContent = new Date().getFullYear();
+if ($('#section-title')) $('#section-title').textContent = desk.title;
+if ($('#section-intro')) $('#section-intro').textContent = desk.description;
+if ($('#section-filter-form')) $('#section-filter-form').action = categoryUrl(desk.slug);
+
+// Breadcrumb: Home / Desk / Sub-category
+const crumbNav = $('.breadcrumbs');
+if (crumbNav) {
+  if (desk.parentSlug) {
+    crumbNav.innerHTML = `<a href="/">Home</a> <span>/</span> <a id="crumb-group" href="${categoryUrl(parentDesk.slug)}">${esc(parentDesk.title)}</a> <span>/</span> <span id="crumb" aria-current="page">${esc(desk.title)}</span>`;
+  } else {
+    crumbNav.innerHTML = `<a href="/">Home</a> <span>/</span> <span id="crumb-group">Desks</span> <span>/</span> <span id="crumb" aria-current="page">${esc(desk.title)}</span>`;
+  }
+}
 
 if (initialQuery && $('#q')) $('#q').value = initialQuery;
 
-// Render the 26-category pill bar
-const ALL_26_SLUGS = [
-  'construction-equipment', 'backhoe-loaders', 'excavators', 'wheel-loaders',
-  'bulldozers', 'cranes', 'graders', 'telehandlers', 'roadbuilding',
-  'mining-equipment', 'compact-equipment', 'attachments', 'tractors',
-  'agricultural-machinery', 'heavy-trucks', 'pickups', 'vans', 'buses',
-  'electric-commercial-vehicles', 'technology', 'business', 'reviews',
-  'guides', 'projects', 'events', 'videos'
+// Render chips linking to sub-categories of this desk
+const subDesks = Object.values(CATEGORY_DESKS).filter(c => c.parentSlug === parentSlug);
+const chipsList = [
+  { slug: parentDesk.slug, title: `All ${parentDesk.title}` },
+  ...subDesks.map(s => ({ slug: s.slug, title: s.title }))
 ];
-
 const pillsContainer = $('#category-pills');
 if (pillsContainer) {
-  pillsContainer.innerHTML = ALL_26_SLUGS.map(slug => {
-    const cfg = CATEGORY_DESKS[slug];
-    const isActive = slug === activeSlug;
-    return `<a class="filter ${isActive ? 'active' : ''}" href="${categoryUrl(slug)}" ${isActive ? 'aria-current="page"' : ''}>${esc(cfg.title)}</a>`;
+  pillsContainer.innerHTML = chipsList.map(ch => {
+    const isAct = ch.slug === activeSlug;
+    return `<a class="filter ${isAct ? 'active' : ''}" href="${categoryUrl(ch.slug)}" ${isAct ? 'aria-current="page"' : ''}>${esc(ch.title)}</a>`;
   }).join('');
 }
-
-document.querySelectorAll('#section-nav a[data-sec]').forEach(a => {
-  a.classList.toggle('active', a.dataset.sec === activeSlug);
-});
 
 let allPublished = [];
 let deskArticles = [];
 let currentPage = Math.max(1, Number(params.get('page')) || 1);
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 12;
 
 if (trackTelemetry) {
   trackTelemetry({ type: 'category', category: desk.slug });
 }
 
-function populateFilterDropdowns() {
-  const catSelect = $('#filter-category');
+function buildFilterUrl(overrides = {}) {
+  const nextParams = new URLSearchParams();
+  const brand = overrides.brand !== undefined ? overrides.brand : ($('#filter-manufacturer')?.value || '');
+  const country = overrides.country !== undefined ? overrides.country : ($('#filter-country')?.value || '');
+  const type = overrides.type !== undefined ? overrides.type : ($('#filter-type')?.value || '');
+  const q = overrides.q !== undefined ? overrides.q : ($('#q')?.value || '').trim();
+  if (brand) nextParams.set('brand', brand);
+  if (country) nextParams.set('country', country);
+  if (type) nextParams.set('type', type);
+  if (q) nextParams.set('q', q);
+  const qs = nextParams.toString();
+  return qs ? `${categoryUrl(desk.slug)}?${qs}` : categoryUrl(desk.slug);
+}
+
+function populateFiltersFromDeskStories() {
   const mfgSelect = $('#filter-manufacturer');
   const ctySelect = $('#filter-country');
+  const typeSelect = $('#filter-type');
+  const linksBox = $('#desk-filter-links');
 
-  const sourcePool = deskArticles.length ? deskArticles : allPublished;
+  const brands = [...new Set(deskArticles.map(a => a.manufacturer).filter(m => m && !['Various', 'All Manufacturers'].includes(m)))].sort();
+  const countries = [...new Set(deskArticles.map(a => a.country).filter(Boolean))].sort();
+  const types = [...new Set(deskArticles.map(a => a.equipmentType).filter(Boolean))].sort();
 
-  const categories = [...new Set(sourcePool.map(a => a.category).filter(Boolean))].sort();
-  const manufacturers = [...new Set(sourcePool.map(a => a.manufacturer).filter(Boolean))].sort();
-  const countries = [...new Set([
-    ...sourcePool.map(a => a.country).filter(Boolean),
-    ...sourcePool.map(a => a.region).filter(Boolean)
-  ])].sort();
-
-  if (catSelect) {
-    catSelect.innerHTML = '<option value="">All Categories</option>' +
-      categories.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
-    if (initialCat) catSelect.value = initialCat;
-  }
   if (mfgSelect) {
-    mfgSelect.innerHTML = '<option value="">All Manufacturers / OEMs</option>' +
-      manufacturers.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
-    if (initialMfg) mfgSelect.value = initialMfg;
+    mfgSelect.innerHTML = '<option value="">All Brands</option>' +
+      brands.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
+    if (initialBrand) mfgSelect.value = initialBrand;
   }
   if (ctySelect) {
-    ctySelect.innerHTML = '<option value="">All Countries &amp; Regions</option>' +
+    ctySelect.innerHTML = '<option value="">All Countries</option>' +
       countries.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
     if (initialCountry) ctySelect.value = initialCountry;
+  }
+  if (typeSelect) {
+    typeSelect.innerHTML = '<option value="">All Equipment Types</option>' +
+      types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+    if (initialType) typeSelect.value = initialType;
+  }
+
+  if (linksBox) {
+    const curBrand = mfgSelect?.value || initialBrand;
+    const curCountry = ctySelect?.value || initialCountry;
+    const curType = typeSelect?.value || initialType;
+    const rows = [];
+    if (brands.length) {
+      rows.push(`<div class="desk-filter-group"><strong>Brand:</strong> <a class="tag-chip ${!curBrand ? 'active' : ''}" href="${esc(buildFilterUrl({ brand: '' }))}">All</a> ${brands.map(b => `<a class="tag-chip ${curBrand.toLowerCase() === b.toLowerCase() ? 'active' : ''}" href="${esc(buildFilterUrl({ brand: b }))}">${esc(b)}</a>`).join(' ')}</div>`);
+    }
+    if (countries.length) {
+      rows.push(`<div class="desk-filter-group"><strong>Country:</strong> <a class="tag-chip ${!curCountry ? 'active' : ''}" href="${esc(buildFilterUrl({ country: '' }))}">All</a> ${countries.map(c => `<a class="tag-chip ${curCountry.toLowerCase() === c.toLowerCase() ? 'active' : ''}" href="${esc(buildFilterUrl({ country: c }))}">${esc(c)}</a>`).join(' ')}</div>`);
+    }
+    if (types.length) {
+      rows.push(`<div class="desk-filter-group"><strong>Equipment type:</strong> <a class="tag-chip ${!curType ? 'active' : ''}" href="${esc(buildFilterUrl({ type: '' }))}">All</a> ${types.map(t => `<a class="tag-chip ${curType.toLowerCase() === t.toLowerCase() ? 'active' : ''}" href="${esc(buildFilterUrl({ type: t }))}">${esc(t)}</a>`).join(' ')}</div>`);
+    }
+    linksBox.innerHTML = rows.join('');
   }
 }
 
 function render(resetPage = false) {
   if (resetPage) currentPage = 1;
   const q = ($('#q')?.value || '').trim().toLowerCase();
-  const selectedCat = $('#filter-category')?.value || '';
-  const selectedMfg = $('#filter-manufacturer')?.value || '';
+  const selectedBrand = $('#filter-manufacturer')?.value || '';
   const selectedCty = $('#filter-country')?.value || '';
-  const sortOrder = $('#sort-date')?.value || 'newest';
+  const selectedType = $('#filter-type')?.value || '';
 
-  let filtered = deskArticles.filter(a => {
-    if (selectedCat && a.category !== selectedCat) return false;
-    if (selectedMfg && (a.manufacturer || '').toLowerCase() !== selectedMfg.toLowerCase()) return false;
+  const filtered = deskArticles.filter(a => {
+    if (selectedBrand && (a.manufacturer || '').toLowerCase() !== selectedBrand.toLowerCase()) return false;
     if (selectedCty && (a.country || '').toLowerCase() !== selectedCty.toLowerCase() && (a.region || '').toLowerCase() !== selectedCty.toLowerCase()) return false;
+    if (selectedType && (a.equipmentType || '').toLowerCase() !== selectedType.toLowerCase()) return false;
     if (q) {
       const hay = [a.title, a.summary, a.excerpt, a.body, a.manufacturer, a.category, a.equipmentType, a.country, a.region, a.model, ...(a.tags || [])].join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
@@ -130,28 +154,21 @@ function render(resetPage = false) {
     return true;
   });
 
-  // Sort by date
-  filtered.sort((a, b) => {
-    if (sortOrder === 'oldest') {
-      return new Date(a.publishedAt || 0) - new Date(b.publishedAt || 0);
-    }
-    if (sortOrder === 'updated') {
-      return new Date(b.updatedAt || b.publishedAt || 0) - new Date(a.updatedAt || a.publishedAt || 0);
-    }
-    return new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0);
-  });
+  filtered.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
 
   const countEl = $('#section-count');
-  if (countEl) countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'REPORT' : 'REPORTS'}`;
+  if (countEl) countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'STORY' : 'STORIES'}`;
 
-  // Active filter summary bar
   const activeParts = [];
-  if (selectedCat) activeParts.push(`Category: ${selectedCat}`);
-  if (selectedMfg) activeParts.push(`OEM: ${selectedMfg}`);
-  if (selectedCty) activeParts.push(`Market: ${selectedCty}`);
+  if (selectedBrand) activeParts.push(`Brand: ${selectedBrand}`);
+  if (selectedCty) activeParts.push(`Country: ${selectedCty}`);
+  if (selectedType) activeParts.push(`Equipment type: ${selectedType}`);
   if (q) activeParts.push(`Search: "${q}"`);
+
   const activeBar = $('#section-active-filters');
   const activeSummary = $('#section-filter-summary');
+  const clearBtn = $('#reset-section-filters');
+  if (clearBtn) clearBtn.href = categoryUrl(desk.slug);
   if (activeBar && activeSummary) {
     if (activeParts.length) {
       activeSummary.textContent = `Active filters: ${activeParts.join(' · ')} (${filtered.length} matching)`;
@@ -164,7 +181,7 @@ function render(resetPage = false) {
   const start = (currentPage - 1) * PAGE_SIZE;
   const paged = filtered.slice(start, start + PAGE_SIZE);
 
-  $('#section-grid').innerHTML = paged.map(a => renderArticleCard(a, { lazy: true })).join('');
+  $('#section-grid').innerHTML = paged.map((a, idx) => renderArticleCard(a, { lazy: idx > 0 })).join('');
   $('#section-empty').hidden = filtered.length > 0;
 
   const pagEl = $('#section-pagination');
@@ -173,7 +190,8 @@ function render(resetPage = false) {
     pagEl.innerHTML = renderPagination({
       totalItems: filtered.length,
       pageSize: PAGE_SIZE,
-      currentPage
+      currentPage,
+      baseUrl: buildFilterUrl()
     });
   }
 
@@ -186,21 +204,8 @@ function render(resetPage = false) {
     });
   }
 
-  // Render Relevant Related Stories from the rest of the verified database
-  const shownIds = new Set(paged.map(x => x.id));
-  const relatedPool = allPublished.filter(x => !shownIds.has(x.id)).slice(0, 3);
-  const relSec = $('#related-desk-section');
-  const relGrid = $('#related-desk-grid');
-  if (relSec && relGrid) {
-    if (relatedPool.length) {
-      relGrid.innerHTML = relatedPool.map(a => renderArticleCard(a, { lazy: true })).join('');
-      relSec.hidden = false;
-    } else {
-      relSec.hidden = true;
-    }
-  }
+  populateFiltersFromDeskStories();
 
-  // CollectionPage + BreadcrumbList JSON-LD structured data
   setJsonLd('collection-jsonld', {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -211,12 +216,13 @@ function render(resetPage = false) {
       '@type': 'BreadcrumbList',
       'itemListElement': [
         { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${location.origin}/` },
-        { '@type': 'ListItem', 'position': 2, 'name': desk.title, 'item': canonicalHref }
+        ...(desk.parentSlug ? [{ '@type': 'ListItem', 'position': 2, 'name': parentDesk.title, 'item': `${location.origin}${categoryUrl(parentDesk.slug)}` }] : []),
+        { '@type': 'ListItem', 'position': desk.parentSlug ? 3 : 2, 'name': desk.title, 'item': canonicalHref }
       ]
     },
     'mainEntity': {
       '@type': 'ItemList',
-      'itemListElement': filtered.slice(0, 10).map((a, idx) => ({
+      'itemListElement': filtered.slice(0, 12).map((a, idx) => ({
         '@type': 'ListItem',
         'position': idx + 1,
         'url': `${location.origin}${articleUrl(a.slug)}`,
@@ -226,30 +232,31 @@ function render(resetPage = false) {
   });
 }
 
-$('#section-search')?.addEventListener('submit', e => {
+$('#section-filter-form')?.addEventListener('submit', e => {
   e.preventDefault();
   const qVal = ($('#q')?.value || '').trim();
   if (qVal && trackTelemetry) trackTelemetry({ type: 'search', query: qVal });
   render(true);
 });
 $('#q')?.addEventListener('input', () => render(true));
-$('#filter-category')?.addEventListener('change', () => render(true));
 $('#filter-manufacturer')?.addEventListener('change', () => render(true));
 $('#filter-country')?.addEventListener('change', () => render(true));
-$('#sort-date')?.addEventListener('change', () => render(true));
+$('#filter-type')?.addEventListener('change', () => render(true));
 
-$('#reset-section-filters')?.addEventListener('click', () => {
+$('#reset-section-filters')?.addEventListener('click', e => {
+  e.preventDefault();
   if ($('#q')) $('#q').value = '';
-  if ($('#filter-category')) $('#filter-category').value = '';
   if ($('#filter-manufacturer')) $('#filter-manufacturer').value = '';
   if ($('#filter-country')) $('#filter-country').value = '';
-  if ($('#sort-date')) $('#sort-date').value = 'newest';
+  if ($('#filter-type')) $('#filter-type').value = '';
+  history.replaceState(null, '', categoryUrl(desk.slug));
   render(true);
 });
 
 $('#section-pagination')?.addEventListener('click', e => {
   const btn = e.target.closest('[data-page]');
   if (!btn || btn.disabled) return;
+  e.preventDefault();
   currentPage = Number(btn.dataset.page) || 1;
   render(false);
   $('#section-main')?.scrollIntoView({ behavior: 'smooth' });
@@ -267,7 +274,7 @@ fetch('/api/articles')
       ].join(' ').toLowerCase();
       return desk.matcher(a, all);
     });
-    populateFilterDropdowns();
+    populateFiltersFromDeskStories();
     render(false);
   })
   .catch(() => {

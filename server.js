@@ -21,7 +21,7 @@ const workflow = require('./lib/workflow.js');
 const seoLib = require('./lib/seo.js');
 const distribution = require('./lib/distribution.js');
 const aiSeo = require('./lib/ai_seo.js');
-const { renderArticleSsrHtml } = require('./lib/ssr.js');
+const { renderArticleSsrHtml, renderCategorySsrHtml, renderAuthorSsrHtml } = require('./lib/ssr.js');
 const appConfig = require('./lib/config.js');
 
 function bootstrapDataDir(dataDir, exampleDir) {
@@ -252,6 +252,18 @@ const REGION_PATH_ALIASES = {
   'south-asia': 'india',
   'eu': 'europe',
   'uk': 'europe'
+};
+
+const OLD_CATEGORY_REDIRECTS = {
+  'business': '/category/industry-news',
+  'industry-business': '/category/industry-news',
+  'industry': '/category/industry-news',
+  'reviews': '/category/reviews-comparisons',
+  'guides': '/category/buying-guides',
+  'events': '/category/events-exhibitions',
+  'equipment': '/category/construction-equipment',
+  'brands': '/manufacturers',
+  'regions': '/india/'
 };
 
 function resolveRegionHubSlug(raw) {
@@ -541,6 +553,59 @@ async function handle(req, res) {
   // /models, /equipment-models, /models/:slug, /equipment/:slug -> model.html
   // /category/:slug or /section/:slug -> section.html
   // /news/:slug or /articles/:slug -> article.html
+  // 301 Redirects for merged / legacy category & section URLs
+  const oldSectionMatch = pathname.match(/^\/section\/([a-z0-9-_]+)\/?$/i);
+  if (oldSectionMatch) {
+    const rawSec = oldSectionMatch[1].toLowerCase();
+    const targetPath = OLD_CATEGORY_REDIRECTS[rawSec] || `/category/${rawSec}`;
+    res.writeHead(301, { Location: `${targetPath}${url.search || ''}`, ...SECURITY_HEADERS });
+    return res.end();
+  }
+  if (pathname === '/section.html' && url.searchParams.get('section')) {
+    const rawSec = String(url.searchParams.get('section') || '').toLowerCase().trim();
+    const targetPath = OLD_CATEGORY_REDIRECTS[rawSec] || `/category/${rawSec}`;
+    res.writeHead(301, { Location: targetPath, ...SECURITY_HEADERS });
+    return res.end();
+  }
+  const catRouteMatch = pathname.match(/^\/category\/([a-z0-9-_]+)\/?$/i);
+  if (catRouteMatch) {
+    const catSlug = catRouteMatch[1].toLowerCase();
+    if (OLD_CATEGORY_REDIRECTS[catSlug]) {
+      res.writeHead(301, { Location: `${OLD_CATEGORY_REDIRECTS[catSlug]}${url.search || ''}`, ...SECURITY_HEADERS });
+      return res.end();
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'section.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const allPublished = services.articles.getPublicArticles();
+    const categories = store.getCatalogSummary().categories || [];
+    const ssrCategoryHtml = renderCategorySsrHtml(templateHtml, {
+      slug: catSlug,
+      searchParams: url.searchParams,
+      articles: allPublished,
+      categories,
+      siteUrl: SITE_URL
+    });
+    return sendText(res, 200, ssrCategoryHtml, 'text/html; charset=utf-8');
+  }
+
+  const authorRouteMatch = pathname.match(/^\/authors\/([a-z0-9-_]+)\/?$/i);
+  if (authorRouteMatch) {
+    const authorSlug = authorRouteMatch[1].toLowerCase();
+    const author = services.catalog.getAuthorBySlug(authorSlug, services.articles.getPublicArticleView);
+    if (!author) {
+      return sendText(
+        res,
+        404,
+        renderErrorPageHtml(404, 'Author Not Found', 'The requested Machine Report World author or desk profile could not be found.', pathname),
+        'text/html; charset=utf-8'
+      );
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'author.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const ssrAuthorHtml = renderAuthorSsrHtml(templateHtml, { author, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrAuthorHtml, 'text/html; charset=utf-8');
+  }
+
   let resolvedRelative = pathname === '/' ? 'index.html' : pathname.slice(1);
   const topRegionSlug = resolveRegionHubSlug(pathname);
   const subRegionMatch = pathname.match(/^\/regions?\/([a-z0-9-_]+)\/?$/i);
@@ -550,8 +615,6 @@ async function handle(req, res) {
     resolvedRelative = 'manufacturer.html';
   } else if (/^\/(models|equipment-models)(\/[a-z0-9-_]+)?\/?$/i.test(pathname) || /^\/equipment\/[a-z0-9-_]+\/?$/i.test(pathname)) {
     resolvedRelative = 'model.html';
-  } else if (/^\/(category|section)\/[a-z0-9-_]+\/?$/i.test(pathname)) {
-    resolvedRelative = 'section.html';
   } else if (/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i.test(pathname)) {
     const articleMatch = pathname.match(/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i);
     const articleSlug = articleMatch ? articleMatch[2] : '';
@@ -564,7 +627,8 @@ async function handle(req, res) {
         'text/html; charset=utf-8'
       );
     }
-    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'article.html'), 'utf8');
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'article.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
     const ssrHtml = renderArticleSsrHtml(templateHtml, article, SITE_URL);
     return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
   }
@@ -657,7 +721,8 @@ function createAppServer() {
         err.message.startsWith('SEO ') ||
         err.message.startsWith('Explicit privacy') ||
         err.message.startsWith('Article not found') ||
-        err.message.startsWith('Only published articles');
+        err.message.startsWith('Only published articles') ||
+        err.message.startsWith('Publishing standards not met');
       if (!isClientErr) {
         console.error(err);
         try {

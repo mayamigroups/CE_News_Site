@@ -568,9 +568,15 @@
               <label for="excerpt">Summary / Excerpt *</label>
               <textarea id="excerpt" rows="2" maxlength="400" required placeholder="What happened and why does it matter?"></textarea>
 
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+              <label for="audience">Who this matters to (optional)</label>
+              <input id="audience" maxlength="240" placeholder="e.g. Fleet managers, quarry contractors, dealers">
+
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:8px;">
                 <label for="body" style="margin:0;">Article content *</label>
-                <span id="autosave-status" class="autosave-pill">Autosave ready</span>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span id="body-word-count" class="autosave-pill">0 words · 1 min read (min 250 for news / 600 for guides &amp; reviews)</span>
+                  <span id="autosave-status" class="autosave-pill">Autosave ready</span>
+                </div>
               </div>
               <div class="editor-toolbar" id="editor-formatting-toolbar">
                 <button type="button" data-format="h2">H2</button>
@@ -659,14 +665,12 @@
                     <option>Electric Commercial Vehicles</option>
                     <option>New Launches</option>
                     <option>Technology</option>
-                    <option>Business</option>
                     <option>Buying Guides</option>
                     <option>Market Updates</option>
                     <option>Projects</option>
                     <option>Events &amp; Exhibitions</option>
                     <option>Videos</option>
                     <option>Reviews &amp; Comparisons</option>
-                    <option>Industry &amp; Business</option>
                   </select>
                 </div>
                 <div>
@@ -775,6 +779,17 @@
 
               <div class="form-two">
                 <div>
+                  <label for="image-alt">Image alt text (required to publish)</label>
+                  <input id="image-alt" maxlength="250" placeholder="Descriptive alt text for the machine photograph">
+                </div>
+                <div>
+                  <label for="image-license">Image license type</label>
+                  <input id="image-license" value="OEM Press Kit / Editorial Fair Use">
+                </div>
+              </div>
+
+              <div class="form-two">
+                <div>
                   <label for="source-url">Primary source URL (Evidence)</label>
                   <input id="source-url" type="url" placeholder="https://manufacturer.com/news/…">
                 </div>
@@ -853,6 +868,20 @@
               <label class="checkbox-label">
                 <input type="checkbox" id="featured"> Feature this story on the homepage
               </label>
+
+              <div id="publish-standards-box" class="publish-standards-box" style="margin:14px 0;padding:12px 14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                  <strong style="font-size:13px;">📋 Publishing Standards Check</strong>
+                  <span id="publish-standards-badge" class="status-pill status-draft">Checking…</span>
+                </div>
+                <ul id="publish-standards-list" style="margin:8px 0 0;padding-left:20px;font-size:13px;line-height:1.6;"></ul>
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e2e8f0;">
+                  <label class="checkbox-label" style="margin:0 0 6px;">
+                    <input type="checkbox" id="override-publish-standards"> Override publishing standards (<code>managing_editor</code> / <code>super_admin</code> only — saved in audit log)
+                  </label>
+                  <input id="override-reason" maxlength="300" placeholder="Written reason for override (e.g. Official OEM breaking bulletin under 250 words)" style="width:100%;">
+                </div>
+              </div>
 
               <div class="form-actions">
                 <button class="button button-outline" type="button" id="save-draft">Save draft</button>

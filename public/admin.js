@@ -124,7 +124,11 @@ async function api(url, opts = {}) {
   }
   let data = {};
   try { data = await r.json(); } catch {}
-  if (!r.ok) throw new Error(data.error || 'Request failed (' + r.status + ' ' + r.statusText + ')');
+  if (!r.ok) {
+    const err = new Error(data.error || 'Request failed (' + r.status + ' ' + r.statusText + ')');
+    if (Array.isArray(data.missingStandards)) err.missingStandards = data.missingStandards;
+    throw err;
+  }
   return data;
 }
 
@@ -139,15 +143,73 @@ $$('.admin-tab').forEach(btn => {
   });
 });
 
+function countWordsClient(text = '') {
+  return String(text || '')
+    .replace(/[#>*_`~\-]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+function updateWordCountAndStandards() {
+  const bodyVal = $('#body')?.value || '';
+  const words = countWordsClient(bodyVal);
+  const readMin = Math.max(1, Math.ceil(words / 220));
+  const artType = ($('#article-type')?.value || 'news').toLowerCase();
+  const minWords = ['guide', 'review', 'analysis'].includes(artType) ? 600 : 250;
+
+  const wcEl = $('#body-word-count');
+  if (wcEl) {
+    wcEl.textContent = `${words} words · ${readMin} min read (min ${minWords} for ${artType})`;
+    wcEl.className = 'autosave-pill ' + (words >= minWords ? 'saved' : 'saving');
+  }
+
+  const listEl = $('#publish-standards-list');
+  const badgeEl = $('#publish-standards-badge');
+  if (!listEl || !badgeEl) return;
+
+  const missing = [];
+  if (words < minWords) {
+    missing.push(`Minimum word count not met for "${artType}": requires at least ${minWords} words (currently ${words} words).`);
+  }
+  const sourceUrl = ($('#source-url')?.value || '').trim();
+  if (!sourceUrl || !/^https?:\/\//i.test(sourceUrl)) {
+    missing.push('Missing primary source URL (sourceUrl).');
+  }
+  const imageCredit = ($('#image-credit')?.value || '').trim();
+  if (!imageCredit) {
+    missing.push('Missing image credit (imageCredit).');
+  }
+  const imageAlt = ($('#image-alt')?.value || '').trim();
+  if (!imageAlt) {
+    missing.push('Missing image alt text (altText).');
+  }
+
+  if (missing.length === 0) {
+    badgeEl.className = 'status-pill status-published';
+    badgeEl.textContent = '✓ Ready to Publish';
+    listEl.innerHTML = '<li style="color:#15803d;">All publishing standards met (word count, sourceUrl, imageCredit, and altText verified).</li>';
+  } else {
+    badgeEl.className = 'status-pill status-review';
+    badgeEl.textContent = `${missing.length} Missing to Publish`;
+    listEl.innerHTML = missing.map(m => `<li style="color:#b42318;">${esc(m)}</li>`).join('');
+  }
+}
+
 function resetForm() {
   $('#article-form').reset();
   $('#article-id').value = '';
   $('#author').value = 'Editorial Desk';
   $('#region').value = 'Global';
+  if ($('#audience')) $('#audience').value = '';
+  if ($('#image-alt')) $('#image-alt').value = '';
+  if ($('#override-publish-standards')) $('#override-publish-standards').checked = false;
+  if ($('#override-reason')) $('#override-reason').value = '';
   $('#editor-title').textContent = 'Create an article';
   $('#save-draft').textContent = 'Save draft';
   if ($('#revision-history-box')) $('#revision-history-box').hidden = true;
   if ($('#duplicate-warning-banner')) $('#duplicate-warning-banner').hidden = true;
+  try { updateWordCountAndStandards(); } catch {}
 }
 
 function parseSpecsInput(text) {
@@ -205,14 +267,18 @@ function formData(statusOverride) {
     specs: combinedSpecs,
     author: $('#author').value,
     tags: $('#tags').value.split(',').map(x => x.trim()).filter(Boolean),
+    audience: $('#audience')?.value?.trim() || '',
     image: $('#image').value,
     imageCredit: $('#image-credit').value,
+    imageAlt: $('#image-alt')?.value?.trim() || '',
     mediaRights: {
       licenseType: $('#image-license')?.value || 'OEM Press Kit / Editorial Fair Use',
-      credit: $('#image-credit')?.value || '',
-      altText: $('#image-alt')?.value || $('#title')?.value || '',
+      credit: $('#image-credit')?.value?.trim() || '',
+      altText: $('#image-alt')?.value?.trim() || '',
       verified: $('#image-rights-verified') ? $('#image-rights-verified').checked : true
     },
+    overridePublishStandards: Boolean($('#override-publish-standards')?.checked),
+    overrideReason: $('#override-reason')?.value?.trim() || '',
     origin: $('#article-id')?.value ? (articles.find(a => a.id === $('#article-id').value)?.origin || 'manual') : 'manual',
     sourceUrl: $('#source-url').value,
     seo: {
@@ -1242,7 +1308,10 @@ function loadArticleIntoEditor(articleId) {
     if (field) field.value = a[key] || '';
   }
   $('#excerpt').value = a.summary || a.excerpt || '';
-  if ($('#image-alt')) $('#image-alt').value = a.mediaRights?.altText || a.seo?.metaDescription || '';
+  if ($('#audience')) $('#audience').value = a.audience || '';
+  if ($('#image-alt')) $('#image-alt').value = a.mediaRights?.altText || a.imageAlt || '';
+  if ($('#override-publish-standards')) $('#override-publish-standards').checked = false;
+  if ($('#override-reason')) $('#override-reason').value = '';
   if ($('#image-license')) $('#image-license').value = a.mediaRights?.licenseType || 'OEM Press Kit / Editorial Fair Use';
   if ($('#image-rights-verified')) $('#image-rights-verified').checked = a.mediaRights ? a.mediaRights.verified !== false : true;
 
@@ -1292,6 +1361,7 @@ function loadArticleIntoEditor(articleId) {
     revBox.hidden = true;
   }
 
+  try { updateWordCountAndStandards(); } catch {}
   $('#article-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -2737,7 +2807,14 @@ function triggerDirty() {
     pill.textContent = 'Unsaved changes';
   }
 }
-$('#article-form')?.addEventListener('input', triggerDirty);
+$('#article-form')?.addEventListener('input', () => {
+  triggerDirty();
+  try { updateWordCountAndStandards(); } catch {}
+});
+$('#article-form')?.addEventListener('change', () => {
+  try { updateWordCountAndStandards(); } catch {}
+});
+try { updateWordCountAndStandards(); } catch {}
 
 setInterval(async () => {
   if (!isFormDirty) return;

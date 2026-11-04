@@ -13,7 +13,6 @@
     categoryUrl,
     regionUrl,
     manufacturerUrl,
-    modelUrl,
     resolveDeskSlug,
     resolveRegionSlug,
     renderArticleCard,
@@ -34,14 +33,6 @@
   function calculateReadingTime(text = '') {
     const words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
     return Math.max(1, Math.ceil(words / 220));
-  }
-
-  function hasMeaningfulUpdate(publishedAt, updatedAt) {
-    if (!publishedAt || !updatedAt) return false;
-    const pub = new Date(publishedAt).getTime();
-    const upd = new Date(updatedAt).getTime();
-    if (isNaN(pub) || isNaN(upd)) return false;
-    return (upd - pub) > (60 * 60 * 1000); // More than 1 hour difference
   }
 
   function formatSourceDomain(url = '') {
@@ -73,7 +64,6 @@
       const valNorm = String(v ?? '').trim().toLowerCase();
       if (!keyNorm || !valNorm) return false;
       if (['not disclosed', 'tbd', 'n/a', 'unknown', 'none', '-'].includes(valNorm)) return false;
-      // Filter out generic meta keys if they are not engineering specifications
       if (genericPlaceholders.has(keyNorm) && valNorm.length < 5) return false;
       return true;
     });
@@ -152,17 +142,29 @@
         </div>
       `;
 
-      // 2. Byline Details
-      const showUpdated = hasMeaningfulUpdate(article.publishedAt, article.updatedAt);
+      // 2. Byline Details & Honest Updated Date
+      const showUpdated = Boolean(article.hasRealUpdate);
       const readingMinutes = calculateReadingTime(article.body);
+      const authorProfile = article.authorProfile || {
+        name: article.author || 'Editorial Desk',
+        slug: String(article.author || 'editorial-desk').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'editorial-desk',
+        role: 'Editorial Desk',
+        bio: ''
+      };
+
       const bylineHtml = `
         <div class="article-byline">
-          <span>By <strong>${esc(article.author || 'Editorial Desk')}</strong></span>
+          <span>By <a href="/authors/${encodeURIComponent(authorProfile.slug)}" class="author-byline-link"><strong>${esc(authorProfile.name)}</strong></a></span>
           ${article.publishedAt ? `<span>•</span> <span>Published <time datetime="${esc(article.publishedAt)}">${formatDate ? formatDate(article.publishedAt, true) : new Date(article.publishedAt).toLocaleDateString()}</time></span>` : ''}
-          ${showUpdated ? `<span>•</span> <span class="byline-updated">Updated <time datetime="${esc(article.updatedAt)}">${formatDate ? formatDate(article.updatedAt, true) : new Date(article.updatedAt).toLocaleDateString()}</time></span>` : ''}
+          ${showUpdated && article.updatedAt ? `<span>•</span> <span class="byline-updated">Updated <time datetime="${esc(article.updatedAt)}">${formatDate ? formatDate(article.updatedAt, true) : new Date(article.updatedAt).toLocaleDateString()}</time></span>` : ''}
           <span>•</span> <span>${readingMinutes} min read</span>
         </div>
       `;
+
+      // 2b. "Who this matters to" line (shown only when filled)
+      const audienceHtml = article.audience && String(article.audience).trim()
+        ? `<p class="article-audience"><strong>Who this matters to:</strong> ${esc(article.audience)}</p>`
+        : '';
 
       // 3. Compact Share Controls
       const shareUrl = encodeURIComponent(canonicalHref);
@@ -196,17 +198,18 @@
         </div>
       `;
 
-      // 4. Hero Image Figure
+      // 4. Hero Image Figure (First image on page: width/height, eager, descriptive alt)
       const validImg = safeHttpUrl ? safeHttpUrl(article.image) : Boolean(article.image);
       const creditText = article.imageCredit || (validImg ? 'Editorial / OEM Archive' : '');
+      const heroAlt = article.mediaRights?.altText || `${article.title} — ${article.manufacturer || 'Machine Report World'}`;
       const heroImageHtml = validImg ? `
         <figure class="article-hero-figure">
-          <img class="article-hero-img" src="${esc(article.image)}" alt="${esc(article.title)} — ${esc(article.manufacturer || 'Machine Report World')}" loading="eager" fetchpriority="high">
+          <img class="article-hero-img" src="${esc(article.image)}" alt="${esc(heroAlt)}" width="1200" height="675" loading="eager" fetchpriority="high">
           ${creditText ? `<figcaption class="article-image-credit">Image credit: ${esc(creditText)}</figcaption>` : ''}
         </figure>
       ` : '';
 
-      // 5. Main Body Typography & Separation of Facts vs. Analysis
+      // 5. Main Body Typography, Table of Contents (>800 words) & Separation of Facts vs. Analysis
       const takeaways = Array.isArray(article.takeaways) ? article.takeaways : [];
       const takeawaysHtml = takeaways.length ? `
         <aside class="article-takeaways" aria-label="Key takeaways">
@@ -214,6 +217,8 @@
           <ul>${takeaways.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
         </aside>
       ` : '';
+
+      const tocHtml = article.tocHtml || '';
 
       const bodyFormatted = article.bodyHtml
         ? article.bodyHtml
@@ -296,20 +301,33 @@
         </section>
       ` : '';
 
-      // 9. Manufacturer Profile Callout
-      const mfgCalloutHtml = isRealMfg ? `
-        <div class="manufacturer-callout">
-          <div class="mfg-callout-info">
-            <h4>Explore ${esc(article.manufacturer)}</h4>
-            <p>View verified OEM profile, equipment models, dealer network updates, and regional machine lineups.</p>
+      // 9. Brands Mentioned Strip
+      const brandsMentioned = Array.isArray(article.brandsMentioned) ? article.brandsMentioned : [];
+      const brandsMentionedHtml = brandsMentioned.length > 0 ? `
+        <section class="brands-mentioned-strip" aria-label="Brands mentioned in this article">
+          <h3>Brands mentioned</h3>
+          <div class="brands-mentioned-chips">
+            ${brandsMentioned.map(b => `<a class="chip" href="${esc(b.url || `/manufacturers/${encodeURIComponent(b.slug)}`)}">${esc(b.name)}</a>`).join('')}
           </div>
-          <a class="button button-dark" href="${manufacturerUrl ? manufacturerUrl(article.manufacturer) : `/manufacturers/${encodeURIComponent(article.manufacturer)}`}">
-            View OEM Hub →
-          </a>
-        </div>
+        </section>
       ` : '';
 
-      // 10. Compact Newsletter Card
+      // 10. Author Card at the bottom (never invent bio if empty)
+      const authorCardHtml = `
+        <aside class="author-bio-card" aria-label="About the author">
+          <div class="author-bio-header">
+            <div>
+              <span class="eyebrow">AUTHOR</span>
+              <h3 class="author-bio-name"><a href="/authors/${encodeURIComponent(authorProfile.slug)}">${esc(authorProfile.name)}</a></h3>
+              ${authorProfile.role ? `<p class="author-bio-role">${esc(authorProfile.role)}</p>` : ''}
+            </div>
+            <a class="button button-outline" href="/authors/${encodeURIComponent(authorProfile.slug)}">All stories by ${esc(authorProfile.name)} →</a>
+          </div>
+          ${authorProfile.bio ? `<p class="author-bio-text">${esc(authorProfile.bio)}</p>` : ''}
+        </aside>
+      `;
+
+      // 11. Compact Newsletter Card
       const newsletterCardHtml = `
         <section class="article-newsletter-card" aria-label="Subscribe to Machine Report World briefing">
           <h3>The World of Machines. Connected.</h3>
@@ -342,6 +360,9 @@
             <!-- Summary / Deck -->
             <p class="article-deck">${esc(article.summary || article.excerpt)}</p>
 
+            <!-- Who this matters to -->
+            ${audienceHtml}
+
             <!-- Byline -->
             ${bylineHtml}
 
@@ -353,6 +374,7 @@
 
             <!-- Dominant Article Body -->
             ${takeawaysHtml}
+            ${tocHtml}
 
             <div class="article-body-content">
               ${confirmedFactsHtml}
@@ -369,8 +391,11 @@
             <!-- Sources -->
             ${sourcesHtml}
 
-            <!-- Manufacturer Profile Callout -->
-            ${mfgCalloutHtml}
+            <!-- Brands Mentioned Strip -->
+            ${brandsMentionedHtml}
+
+            <!-- Author Card -->
+            ${authorCardHtml}
 
             <!-- Compact Newsletter Invitation -->
             ${newsletterCardHtml}
@@ -467,7 +492,7 @@
           'image': article.image ? [article.image] : [],
           'datePublished': article.publishedAt || article.createdAt,
           'dateModified': article.updatedAt || article.publishedAt,
-          'author': [{ '@type': 'Person', 'name': article.author || 'Editorial Desk' }],
+          'author': [{ '@type': 'Person', 'name': authorProfile.name, 'url': `${location.origin}/authors/${authorProfile.slug}` }],
           'publisher': {
             '@type': 'NewsMediaOrganization',
             'name': 'Machine Report World',
@@ -502,25 +527,25 @@
         });
       }
 
-      // Populate up to 3 genuinely related articles
+      // Populate up to 3 genuinely related articles (prefer server-enriched relatedStories, fallback to /api/articles)
       try {
-        const allRes = await fetch('/api/articles');
-        if (allRes.ok) {
-          const list = (await allRes.json()).filter(x => x.slug !== article.slug);
-          
-          // Match same manufacturer first, then same category
-          const sameMfg = isRealMfg ? list.filter(x => x.manufacturer && x.manufacturer.toLowerCase() === article.manufacturer.toLowerCase()) : [];
-          const sameCat = list.filter(x => x.category && x.category.toLowerCase() === (article.category || '').toLowerCase() && !sameMfg.some(m => m.slug === x.slug));
-          
-          const relatedItems = [...sameMfg, ...sameCat].slice(0, 3);
-          
-          if (relatedItems.length > 0 && renderArticleCard) {
-            const relWrap = document.querySelector('#article-related-wrap');
-            const relGrid = document.querySelector('#article-related-grid');
-            if (relWrap && relGrid) {
-              relGrid.innerHTML = relatedItems.map(item => renderArticleCard(item, { lazy: true })).join('');
-              relWrap.hidden = false;
-            }
+        let relatedItems = Array.isArray(article.relatedStories) ? article.relatedStories.slice(0, 3) : [];
+        if (!relatedItems.length) {
+          const allRes = await fetch('/api/articles');
+          if (allRes.ok) {
+            const list = (await allRes.json()).filter(x => x.slug !== article.slug);
+            const sameMfg = isRealMfg ? list.filter(x => x.manufacturer && x.manufacturer.toLowerCase() === article.manufacturer.toLowerCase()) : [];
+            const sameCat = list.filter(x => x.category && x.category.toLowerCase() === (article.category || '').toLowerCase() && !sameMfg.some(m => m.slug === x.slug));
+            relatedItems = [...sameMfg, ...sameCat, ...list].filter((v, idx, arr) => arr.findIndex(t => t.slug === v.slug) === idx).slice(0, 3);
+          }
+        }
+
+        if (relatedItems.length > 0 && renderArticleCard) {
+          const relWrap = document.querySelector('#article-related-wrap');
+          const relGrid = document.querySelector('#article-related-grid');
+          if (relWrap && relGrid) {
+            relGrid.innerHTML = relatedItems.map(item => renderArticleCard(item, { lazy: true })).join('');
+            relWrap.hidden = false;
           }
         }
       } catch (err) {

@@ -10,55 +10,38 @@
   <link rel="alternate" type="application/rss+xml" title="Machine Report World RSS" href="/rss.xml">
   <link rel="stylesheet" href="/styles.css?v=1.1.0">
   <script src="/components.js?v=1.1.0" defer></script>
+  <script src="/layout.js?v=1.1.0" defer></script>
   <script src="/manufacturer.js?v=1.1.0" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to manufacturer directory</a>
 
-  <div class="topline">
-    <div class="wrap topline-inner">
-      <span id="today-date">GLOBAL OEM &amp; BRAND INTELLIGENCE</span>
-      <div class="topline-links">
-        <a href="/manufacturers">OEM Directory</a>
-        <a href="/models">Equipment Models</a>
-        <a href="/india/">Regional Desks</a>
-        <a href="/editorial-policy.html">Editorial Standards</a>
+  <div id="site-header">
+  <noscript>
+    <header class="site-header">
+      <div class="wrap header-main">
+        <a class="brand" href="/" aria-label="Machine Report World home">
+          <span class="brand-mark">MRW<span>+</span></span>
+          <span class="brand-words">MACHINE REPORT <span>WORLD</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+        </a>
       </div>
-    </div>
-  </div>
-
-  <header class="site-header">
-    <div class="wrap header-main">
-      <a class="brand" href="/" aria-label="Machine Report World home">
-        <span class="brand-mark">MRW<span>+</span></span>
-        <span class="brand-words">
-          MACHINE<span>WIRE</span>
-          <small>THE WORLD OF MACHINES. CONNECTED.</small>
-        </span>
-      </a>
-      <div class="header-ad" aria-label="Editorial scope">
-        GLOBAL OEM DIRECTORY • INDEPENDENT EDITORIAL COVERAGE
-      </div>
-      <div class="header-actions">
-        <a class="button button-amber header-subscribe-btn" href="/models">Equipment Models →</a>
-        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-      </div>
-    </div>
-
-    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-      <div class="wrap nav-inner">
-        <a href="/">Home</a>
-        <a href="/category/construction-equipment">Latest News</a>
-        <a href="/models">Equipment</a>
-        <a href="/manufacturers" class="active">Brands</a>
-        <a href="/category/technology">Technology</a>
-        <a href="/category/business">Business</a>
-        <a href="/category/reviews">Reviews</a>
-        <a href="/category/guides">Guides</a>
-        <a href="/india/">Regions</a>
-      </div>
-    </nav>
-  </header>
+      <nav class="nav-bar" aria-label="Primary navigation">
+        <div class="wrap nav-inner">
+          <a href="/category/construction-equipment">Construction</a>
+          <a href="/category/agricultural-machinery">Agriculture</a>
+          <a href="/category/commercial-vehicles">Commercial Vehicles</a>
+          <a href="/category/technology">Technology</a>
+          <a href="/category/industry-news">Industry News</a>
+          <a href="/category/reviews-comparisons">Reviews</a>
+          <a href="/category/events-exhibitions">Events</a>
+          <a href="/manufacturers">Brands</a>
+          <a href="/india/">Regions</a>
+          <a href="/#newsletter">Subscribe</a>
+        </div>
+      </nav>
+    </header>
+  </noscript>
+</div>
 
   <main id="main-content" class="wrap section-main">
     <nav id="mfg-breadcrumb" class="breadcrumb" aria-label="Breadcrumb">
@@ -185,34 +168,11 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap footer-grid">
-      <div>
-        <div class="brand footer-brand">
-          <span class="brand-mark">MRW<span>+</span></span>
-          <span class="brand-words">
-            MACHINE<span>WIRE</span>
-            <small>THE WORLD OF MACHINES. CONNECTED.</small>
-          </span>
-        </div>
-        <p class="footer-copy">Global reporting on construction equipment, backhoe loaders, excavators, agricultural tractors, and heavy commercial vehicles.</p>
-      </div>
-      <div>
-        <h3>OEM &amp; Model Directories</h3>
-        <div class="footer-links">
-          <a href="/manufacturers">All Manufacturers</a>
-          <a href="/manufacturers/bull-machines">BULL Machines</a>
-          <a href="/manufacturers/jcb">JCB</a>
-          <a href="/manufacturers/caterpillar">Caterpillar</a>
-          <a href="/manufacturers/komatsu">Komatsu</a>
-          <a href="/manufacturers/volvo-construction-equipment">Volvo CE</a>
-          <a href="/manufacturers/tata-motors">Tata Motors</a>
-          <a href="/models">Equipment Models</a>
-        </div>
-      </div>
-      <div>
-        <h3>Policies &amp; Standards</h3>
-        <div class="footer-links">
+  <div id="site-footer">
+  <noscript>
+    <footer class="site-footer">
+      <div class="wrap footer-top">
+        <nav class="footer-links" aria-label="Footer institutional links">
           <a href="/about.html">About</a>
           <a href="/contact.html">Contact</a>
           <a href="/editorial-policy.html">Editorial Policy</a>
@@ -220,13 +180,12 @@
           <a href="/privacy.html">Privacy</a>
           <a href="/terms.html">Terms</a>
           <a href="/advertise.html">Advertise</a>
-        </div>
+          <a href="/rss.xml">RSS</a>
+          <a href="/admin.html">Admin</a>
+        </nav>
       </div>
-    </div>
-    <div class="wrap footer-bottom">
-      <span>© 2026 Machine Report World. Independent Industry Journalism.</span>
-      <span>No OEM partnership claimed unless explicitly disclosed.</span>
-    </div>
-  </footer>
+    </footer>
+  </noscript>
+</div>
 </body>
 </html>

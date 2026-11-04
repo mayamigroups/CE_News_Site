@@ -3,11 +3,11 @@
     "id": "cat-industry-news",
     "name": "Industry News",
     "slug": "industry-news",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.560Z",
-    "parentSlug": ""
+    "section": "industry-news",
+    "description": "Infrastructure, manufacturing, corporate strategy, exports and market intelligence.",
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.917Z",
+    "updatedAt": "2026-11-04T17:17:54.917Z"
   },
   {
     "id": "cat-bull-machines",
@@ -15,99 +15,9 @@
     "slug": "bull-machines",
     "section": "bull-machines",
     "description": "Official announcements and product coverage related to Bull Machines.",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.427Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-backhoe-loaders",
-    "name": "Backhoe Loaders",
-    "slug": "backhoe-loaders",
-    "section": "backhoe-loaders",
-    "description": "Center-pivot and sideshift backhoe loader launches and upgrades.",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.427Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-commercial-vehicles",
-    "name": "Commercial Vehicles",
-    "slug": "commercial-vehicles",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.500Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-new-launches",
-    "name": "New Launches",
-    "slug": "new-launches",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.550Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-technology",
-    "name": "Technology",
-    "slug": "technology",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.648Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-buying-guides",
-    "name": "Buying Guides",
-    "slug": "buying-guides",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.634Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-market-updates",
-    "name": "Market Updates",
-    "slug": "market-updates",
-    "section": "business",
-    "description": "Financial results, plant investments and regional sales trends.",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-events-exhibitions",
-    "name": "Events & Exhibitions",
-    "slug": "events-exhibitions",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.571Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-reviews-comparisons",
-    "name": "Reviews & Comparisons",
-    "slug": "reviews-comparisons",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.606Z",
-    "parentSlug": ""
-  },
-  {
-    "id": "cat-industry-business",
-    "name": "Industry & Business",
-    "slug": "industry-business",
-    "section": "business",
-    "description": "Corporate strategy, dealer networks and supply chain news.",
-    "createdAt": "2026-10-23T18:41:37.028Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-construction-equipment",
@@ -115,119 +25,129 @@
     "slug": "construction-equipment",
     "section": "construction-equipment",
     "description": "Earthmoving, lifting, roadbuilding and heavy construction machinery.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.427Z",
-    "parentSlug": ""
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-backhoe-loaders",
+    "name": "Backhoe Loaders",
+    "slug": "backhoe-loaders",
+    "section": "construction-equipment",
+    "description": "Center-pivot and sideshift backhoe loader launches and upgrades.",
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-excavators",
     "name": "Excavators",
     "slug": "excavators",
-    "section": "industry",
-    "description": "",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.620Z",
-    "parentSlug": ""
+    "section": "construction-equipment",
+    "description": "Crawler, wheeled, midi and mini excavators across global markets.",
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-wheel-loaders",
     "name": "Wheel Loaders",
     "slug": "wheel-loaders",
-    "section": "wheel-loaders",
+    "section": "construction-equipment",
     "description": "Articulated and compact wheel loaders for quarries and civil works.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.427Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-bulldozers",
     "name": "Bulldozers",
     "slug": "bulldozers",
-    "section": "bulldozers",
+    "section": "construction-equipment",
     "description": "Crawler dozers and grade-control earthmoving tractors.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-cranes",
     "name": "Cranes",
     "slug": "cranes",
-    "section": "cranes",
+    "section": "construction-equipment",
     "description": "Mobile, crawler, rough-terrain, tower and pick-and-carry cranes.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-graders",
     "name": "Graders",
     "slug": "graders",
-    "section": "graders",
+    "section": "construction-equipment",
     "description": "Motor graders for highway construction, haul roads and fine grading.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-telehandlers",
     "name": "Telehandlers",
     "slug": "telehandlers",
-    "section": "telehandlers",
+    "section": "construction-equipment",
     "description": "Telescopic handlers for construction and agricultural material handling.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-roadbuilding",
     "name": "Roadbuilding",
     "slug": "roadbuilding",
-    "section": "roadbuilding",
+    "section": "construction-equipment",
     "description": "Asphalt pavers, soil compactors, tandem rollers and cold planers.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-mining-equipment",
     "name": "Mining Equipment",
     "slug": "mining-equipment",
-    "section": "mining-equipment",
+    "section": "construction-equipment",
     "description": "Rigid haul trucks, hydraulic mining shovels, drills and quarry machinery.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-compact-equipment",
     "name": "Compact Equipment",
     "slug": "compact-equipment",
-    "section": "compact-equipment",
+    "section": "construction-equipment",
     "description": "Skid-steer loaders, compact track loaders and mini excavators.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-attachments",
     "name": "Attachments",
     "slug": "attachments",
-    "section": "attachments",
+    "section": "construction-equipment",
     "description": "Hydraulic breakers, buckets, quick couplers, augers and tractor attachments.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
-    "id": "cat-tractors",
-    "name": "Tractors",
-    "slug": "tractors",
-    "section": "tractors",
-    "description": "Utility, row-crop and heavy-duty tractors for agriculture and worksites.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "id": "cat-new-launches",
+    "name": "New Launches",
+    "slug": "new-launches",
+    "section": "construction-equipment",
+    "description": "New construction machinery and commercial vehicle model releases.",
+    "parentSlug": "construction-equipment",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-agricultural-machinery",
@@ -235,88 +155,148 @@
     "slug": "agricultural-machinery",
     "section": "agricultural-machinery",
     "description": "Harvesters, implements, radial loaders and farm mechanization.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-tractors",
+    "name": "Tractors",
+    "slug": "tractors",
+    "section": "agricultural-machinery",
+    "description": "Utility, row-crop and heavy-duty tractors for agriculture and worksites.",
+    "parentSlug": "agricultural-machinery",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-commercial-vehicles",
+    "name": "Commercial Vehicles",
+    "slug": "commercial-vehicles",
+    "section": "commercial-vehicles",
+    "description": "Heavy tippers, vocational chassis, prime movers and fleet trucks.",
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-heavy-trucks",
     "name": "Heavy Trucks",
     "slug": "heavy-trucks",
-    "section": "heavy-trucks",
+    "section": "commercial-vehicles",
     "description": "Multi-axle tippers, rigid haulers, tractor-trailers and vocational trucks.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "commercial-vehicles",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-pickups",
     "name": "Pickups",
     "slug": "pickups",
-    "section": "pickups",
+    "section": "commercial-vehicles",
     "description": "4x4 utility pickups, crew-cab site vehicles and light commercial fleets.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "commercial-vehicles",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-vans",
     "name": "Vans",
     "slug": "vans",
-    "section": "vans",
+    "section": "commercial-vehicles",
     "description": "Panel vans, service body vehicles and urban delivery fleets.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "commercial-vehicles",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-buses",
     "name": "Buses",
     "slug": "buses",
-    "section": "buses",
+    "section": "commercial-vehicles",
     "description": "Transit buses, staff coaches and electric passenger transport.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "commercial-vehicles",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-electric-commercial-vehicles",
     "name": "Electric Commercial Vehicles",
     "slug": "electric-commercial-vehicles",
-    "section": "electric-commercial-vehicles",
+    "section": "commercial-vehicles",
     "description": "Battery-electric, hydrogen fuel-cell and zero-emission trucks, vans and buses.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "commercial-vehicles",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
-    "id": "cat-business",
-    "name": "Business",
-    "slug": "business",
-    "section": "business",
-    "description": "Corporate strategy, plant investments, exports and market developments.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "id": "cat-technology",
+    "name": "Technology",
+    "slug": "technology",
+    "section": "technology",
+    "description": "Hydraulics, telematics, Stage V/CEV-V engines, AI and electrification.",
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-reviews-comparisons",
+    "name": "Reviews & Comparisons",
+    "slug": "reviews-comparisons",
+    "section": "reviews-comparisons",
+    "description": "Specification-led machine and truck evaluations.",
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-buying-guides",
+    "name": "Buying Guides",
+    "slug": "buying-guides",
+    "section": "reviews-comparisons",
+    "description": "Specification checklists, maintenance explainers and TCO guides.",
+    "parentSlug": "reviews-comparisons",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-market-updates",
+    "name": "Market Updates",
+    "slug": "market-updates",
+    "section": "industry-news",
+    "description": "Financial results, plant investments and regional sales trends.",
+    "parentSlug": "industry-news",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-projects",
     "name": "Projects",
     "slug": "projects",
-    "section": "projects",
+    "section": "industry-news",
     "description": "Major highway, railway, port, mining and civil infrastructure deployments.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "industry-news",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
+  },
+  {
+    "id": "cat-events-exhibitions",
+    "name": "Events & Exhibitions",
+    "slug": "events-exhibitions",
+    "section": "events-exhibitions",
+    "description": "EXCON, Bauma, CONEXPO-CON/AGG and IAA Transportation coverage.",
+    "parentSlug": "",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   },
   {
     "id": "cat-videos",
     "name": "Videos",
     "slug": "videos",
-    "section": "videos",
+    "section": "events-exhibitions",
     "description": "Walkaround machine briefings, worksite demonstrations and exhibition footage.",
-    "createdAt": "2026-10-24T16:56:24.568Z",
-    "updatedAt": "2026-11-01T14:00:14.428Z",
-    "parentSlug": ""
+    "parentSlug": "events-exhibitions",
+    "createdAt": "2026-11-04T17:17:54.919Z",
+    "updatedAt": "2026-11-04T17:17:54.919Z"
   }
 ]

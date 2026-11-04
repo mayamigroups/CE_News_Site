@@ -14,53 +14,33 @@ let currentCategory = '';
 let currentQuery = '';
 let currentManufacturer = '';
 let currentCountry = '';
-let currentRegionTab = 'ALL';
 let currentPage = 1;
 const PAGE_SIZE = 6;
 
-function sectionEmptyMarkup(sectionLabel, deskParam = 'construction-equipment') {
-  const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
-  return `<div class="empty-state" style="grid-column: 1 / -1;">
-    <strong>No published reports in ${escapeHtml(sectionLabel)} yet.</strong>
-    <p class="muted" style="margin:6px 0 12px;">${escapeHtml(siteName)} only displays verified published stories from the database and never fabricates placeholder articles.</p>
-    <a class="button button-outline" href="${categoryUrl(deskParam)}">Open Desk ↗</a>
-  </div>`;
-}
+// Track stories shown across Featured and Desk blocks so each story is shown once across the desk blocks and not duplicated from Featured.
+const shownStoryIds = new Set();
 
-// Each story appears in at most one desk block on the homepage; empty desks are hidden from readers.
-const deskShownIds = new Set();
-
-function renderSectionGrid(selector, matcherFn, sectionLabel, deskParam, limit = 3) {
+function renderSectionGrid(selector, matcherFn, limit = 3) {
   const el = $(selector);
   if (!el) return;
-  const matched = allArticles.filter(a => matcherFn(a) && !deskShownIds.has(a.id)).slice(0, limit);
-  matched.forEach(a => deskShownIds.add(a.id));
+  const matched = allArticles.filter(a => matcherFn(a) && !shownStoryIds.has(a.id)).slice(0, limit);
+  matched.forEach(a => shownStoryIds.add(a.id));
   const wrapper = el.closest('section') || el.parentElement;
   if (!matched.length) {
     if (wrapper) wrapper.hidden = true;
+    el.innerHTML = '';
     return;
   }
   if (wrapper) wrapper.hidden = false;
   el.innerHTML = matched.map(a => renderArticleCard(a, { lazy: true })).join('');
 }
 
-function renderBreakingTicker() {
-  const tickerEl = $('#ticker-text');
-  if (!tickerEl) return;
-  if (!allArticles.length) {
-    tickerEl.textContent = 'Global construction equipment, agricultural machinery and commercial vehicle intelligence desk.';
-    return;
-  }
-  const latestItems = allArticles.slice(0, 4).map(a => `${a.category.toUpperCase()}: ${a.title} (${dateFormat(a.publishedAt)})`);
-  tickerEl.innerHTML = latestItems
-    .map((text, idx) => `<a href="${articleUrl(allArticles[idx].slug)}">${escapeHtml(text)}</a>`)
-    .join(' &nbsp;•&nbsp; ');
-}
-
 function topStories() {
+  const topEl = $('#top-stories');
+  if (!topEl) return;
   const featured = allArticles.find(x => x.featured) || allArticles[0];
   const list = allArticles.filter(a => !featured || a.id !== featured.id).slice(0, 4);
-  $('#top-stories').innerHTML = list.length
+  topEl.innerHTML = list.length
     ? list.map((a, i) => `<a class="top-story" href="${articleUrl(a.slug)}">
         <span class="top-story-num">0${i + 1}</span>
         <span>
@@ -78,7 +58,7 @@ function featuredStory() {
   if (!a) {
     const featSec = $('#featured-section');
     if (featSec) featSec.hidden = true;
-    return;
+    return null;
   }
   const featSec = $('#featured-section');
   if (featSec) featSec.hidden = false;
@@ -87,7 +67,7 @@ function featuredStory() {
   $('#featured-story').innerHTML = `<a class="hero-image" href="${href}" aria-label="${escapeHtml(a.title)}">
       ${renderEditorialImage({
         url: a.image,
-        alt: `${a.title} — ${a.manufacturer || (window.MWComponents?.SITE_NAME || 'Machine Report World')}`,
+        alt: a.mediaRights?.altText || `${a.title} — ${a.manufacturer || (window.MWComponents?.SITE_NAME || 'Machine Report World')}`,
         credit: a.imageCredit || '',
         aspect: 'hero',
         lazy: false,
@@ -102,35 +82,7 @@ function featuredStory() {
       </div>
       <a class="hero-cta" href="${href}">Read full intelligence report <span aria-hidden="true">↗</span></a>
     </div>`;
-}
-
-function renderRegionalHighlights() {
-  const grid = $('#grid-regions');
-  if (!grid) return;
-  let localRows = [...allArticles];
-  let intlRows = [];
-  if (currentRegionTab && currentRegionTab !== 'ALL') {
-    const target = currentRegionTab.toLowerCase();
-    localRows = allArticles.filter(a =>
-      (a.region || '').toLowerCase().includes(target) ||
-      (a.country || '').toLowerCase().includes(target) ||
-      (target === 'india' && /india|asia-pacific|bull machines|excon/i.test(`${a.country} ${a.region} ${a.manufacturer}`)) ||
-      (target === 'north america' && /united states|north america|conexpo/i.test(`${a.country} ${a.region} ${a.body}`)) ||
-      (target === 'europe' && /europe|bauma|iaa|stage v/i.test(`${a.country} ${a.region} ${a.body}`))
-    );
-    const localIds = new Set(localRows.map(x => x.id));
-    intlRows = allArticles.filter(a => !localIds.has(a.id) && (a.country === 'Global' || a.region === 'Global'));
-  }
-  const combined = [...localRows, ...intlRows].slice(0, 3);
-  const regSection = $('#sec-regions');
-  if (!allArticles.length) {
-    if (regSection) regSection.hidden = true;
-    return;
-  }
-  if (regSection) regSection.hidden = false;
-  grid.innerHTML = combined.length
-    ? combined.map(a => renderArticleCard(a, { lazy: true })).join('')
-    : sectionEmptyMarkup(`Region: ${currentRegionTab}`, 'regions');
+  return a;
 }
 
 function renderAllHomepageSections() {
@@ -139,29 +91,26 @@ function renderAllHomepageSections() {
     emptyDbBanner.hidden = allArticles.length > 0;
   }
 
-  // 1. Breaking News Ticker
-  renderBreakingTicker();
+  shownStoryIds.clear();
 
-  // 2. Featured Story + Top Stories
-  featuredStory();
+  // 1. Featured Story + Live Wire
+  const feat = featuredStory();
+  if (feat) shownStoryIds.add(feat.id);
   topStories();
 
-  // 3. Desk blocks. Specific desks claim their stories first so each story shows once, under its best desk.
+  // 3. One block per main desk (only desks with at least 1 story, each story shown once across the page)
   const text = a => [a.title, a.summary, a.category, a.equipmentType, ...(a.tags || [])].join(' ');
-  deskShownIds.clear();
   const desks = [
-    ['#grid-events', a => a.category === 'Events & Exhibitions' || /\bevents?\b|exhibition|excon|bauma|conexpo|\biaa\b|trade show/i.test(text(a)), 'Videos, Events & Exhibitions', 'events'],
-    ['#grid-reviews-guides', a => ['review', 'guide'].includes(a.articleType) || ['Buying Guides', 'Reviews & Comparisons'].includes(a.category), 'Reviews, Comparisons & Buying Guides', 'reviews'],
-    ['#grid-technology', a => a.category === 'Technology' || /technology|telematics|electrification|automation|powertrain|emission/i.test(text(a)), 'Technology, AI & Electrification', 'technology'],
-    ['#grid-business', a => ['Industry News', 'Market Updates', 'Industry & Business', 'Business'].includes(a.category) || /investment|export|market|business/i.test(text(a)), 'Industry Business & Market Developments', 'business'],
-    ['#grid-trucks', a => /commercial vehicle|truck|tipper|vocational|hauler|pickup/i.test(text(a)), 'Trucks & Commercial Vehicles', 'heavy-trucks'],
-    ['#grid-tractors', a => /tractor|agri|implement/i.test(text(a)), 'Tractors & Agricultural Machinery', 'tractors'],
-    ['#grid-construction', a => /backhoe|excavat|loader|crane|bulldozer|earthmoving|construction/i.test(text(a)), 'Construction Equipment', 'construction-equipment']
+    ['#grid-bull-machines', a => a.category === 'Bull Machines' || /bull machines/i.test(a.manufacturer || '')],
+    ['#grid-events', a => a.category === 'Events & Exhibitions' || /\bevents?\b|exhibition|excon|bauma|conexpo|\biaa\b|trade show/i.test(text(a))],
+    ['#grid-reviews-guides', a => ['review', 'guide'].includes(a.articleType) || ['Buying Guides', 'Reviews & Comparisons'].includes(a.category)],
+    ['#grid-technology', a => a.category === 'Technology' || /technology|telematics|electrification|automation|powertrain|emission/i.test(text(a))],
+    ['#grid-business', a => ['Industry News', 'Market Updates', 'Projects'].includes(a.category) || /investment|export|market|business/i.test(text(a))],
+    ['#grid-trucks', a => ['Commercial Vehicles', 'Heavy Trucks', 'Pickups', 'Vans', 'Buses', 'Electric Commercial Vehicles'].includes(a.category) || /commercial vehicle|truck|tipper|vocational|hauler|pickup/i.test(text(a))],
+    ['#grid-tractors', a => ['Agricultural Machinery', 'Tractors'].includes(a.category) || /tractor|agri|implement/i.test(text(a))],
+    ['#grid-construction', a => ['Construction Equipment', 'Backhoe Loaders', 'Excavators', 'Wheel Loaders', 'Bulldozers', 'Cranes', 'Graders', 'Telehandlers', 'Roadbuilding', 'Mining Equipment', 'Compact Equipment', 'Attachments'].includes(a.category) || /backhoe|excavat|loader|crane|bulldozer|earthmoving|construction/i.test(text(a))]
   ];
-  desks.forEach(([selector, matcher, label, deskParam]) => renderSectionGrid(selector, matcher, label, deskParam));
-
-  // 4. Regional News Highlights
-  renderRegionalHighlights();
+  desks.forEach(([selector, matcher]) => renderSectionGrid(selector, matcher, 3));
 }
 
 function updateActiveFilterBar(count) {
@@ -187,15 +136,21 @@ function updateActiveFilterBar(count) {
 
 function applyFilters(resetPage = true) {
   if (resetPage) currentPage = 1;
-  let rows = [...allArticles];
+  const hasActiveFilter = Boolean(currentCategory || currentCountry || currentQuery || currentManufacturer);
+  const feat = allArticles.find(x => x.featured) || allArticles[0];
+  let rows = hasActiveFilter ? [...allArticles] : allArticles.filter(a => !feat || a.id !== feat.id);
+  if (!rows.length && allArticles.length && !hasActiveFilter) {
+    rows = [...allArticles];
+  }
+
   if (currentCategory) {
     rows = rows.filter(a =>
       a.category === currentCategory ||
       (currentCategory === 'Bull Machines' && /bull machines/i.test(a.manufacturer || '')) ||
-      (currentCategory === 'Backhoe Loaders' && /backhoe/i.test([a.title, a.summary, a.excerpt, a.equipmentType, ...(a.tags || [])].join(' '))) ||
+      (currentCategory === 'Construction Equipment' && /backhoe|excavat|loader|crane|bulldozer|earthmoving|construction/i.test([a.category, a.equipmentType, a.title].join(' '))) ||
+      (currentCategory === 'Agricultural Machinery' && /tractor|agri/i.test([a.category, a.equipmentType, a.title].join(' '))) ||
       (currentCategory === 'Commercial Vehicles' && /commercial vehicle|truck|tipper|pickup|hauler/i.test([a.category, a.equipmentType, a.title, ...(a.tags || [])].join(' '))) ||
-      (currentCategory === 'Reviews & Comparisons' && (a.category === 'Reviews & Comparisons' || a.articleType === 'review')) ||
-      (currentCategory === 'Buying Guides' && (a.category === 'Buying Guides' || a.articleType === 'guide'))
+      (currentCategory === 'Reviews & Comparisons' && (['Reviews & Comparisons', 'Buying Guides'].includes(a.category) || ['review', 'guide'].includes(a.articleType)))
     );
   }
   if (currentCountry) {
@@ -258,14 +213,6 @@ $('#filters')?.addEventListener('click', e => {
   applyFilters(true);
 });
 
-$('#region-tabs')?.addEventListener('click', e => {
-  const b = e.target.closest('[data-region-tab]');
-  if (!b) return;
-  currentRegionTab = b.dataset.regionTab;
-  $('#region-tabs').querySelectorAll('.filter').forEach(x => x.classList.toggle('active', x === b));
-  renderRegionalHighlights();
-});
-
 $('#country-filter')?.addEventListener('change', e => {
   currentCountry = e.target.value;
   applyFilters(true);
@@ -285,16 +232,24 @@ $('#search-form')?.addEventListener('submit', e => {
   triggerSearchQuery($('#search-input').value);
 });
 
-$('#header-search-form')?.addEventListener('submit', e => {
-  e.preventDefault();
-  triggerSearchQuery($('#header-search-input').value);
-});
+document.addEventListener('DOMContentLoaded', () => {
+  const urlQ = new URLSearchParams(location.search).get('q');
+  if (urlQ) {
+    currentQuery = urlQ.trim();
+    if ($('#search-input')) $('#search-input').value = currentQuery;
+  }
 
-$('#mobile-search-form')?.addEventListener('submit', e => {
-  e.preventDefault();
-  $('#nav-inner')?.classList.remove('nav-open');
-  $('#menu-toggle')?.setAttribute('aria-expanded', 'false');
-  triggerSearchQuery($('#mobile-search-input').value);
+  $('#header-search-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    triggerSearchQuery($('#header-search-input').value);
+  });
+
+  $('#mobile-search-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    $('#nav-inner')?.classList.remove('nav-open');
+    $('#menu-toggle')?.setAttribute('aria-expanded', 'false');
+    triggerSearchQuery($('#mobile-search-input').value);
+  });
 });
 
 $('#pagination-root')?.addEventListener('click', e => {
@@ -316,32 +271,6 @@ $('#clear-filters')?.addEventListener('click', () => {
   if ($('#country-filter')) $('#country-filter').value = '';
   $('#filters')?.querySelectorAll('.filter').forEach((x, idx) => x.classList.toggle('active', idx === 0));
   applyFilters(true);
-});
-
-document.querySelectorAll('[data-manufacturer]').forEach(b => b.addEventListener('click', () => {
-  currentManufacturer = b.dataset.manufacturer;
-  currentCategory = '';
-  currentQuery = '';
-  if ($('#search-input')) $('#search-input').value = '';
-  $('#filters')?.querySelectorAll('.filter').forEach((x, idx) => x.classList.toggle('active', idx === 0));
-  applyFilters(true);
-  $('#latest').scrollIntoView({ behavior: 'smooth' });
-}));
-
-document.querySelectorAll('[data-search-brand]').forEach(b => b.addEventListener('click', () => {
-  currentManufacturer = b.dataset.searchBrand;
-  currentCategory = '';
-  applyFilters(true);
-}));
-
-document.querySelectorAll('[data-search-query]').forEach(b => b.addEventListener('click', () => {
-  triggerSearchQuery(b.dataset.searchQuery);
-}));
-
-$('#menu-toggle')?.addEventListener('click', () => {
-  const nav = $('#nav-inner');
-  const open = nav.classList.toggle('nav-open');
-  $('#menu-toggle').setAttribute('aria-expanded', String(open));
 });
 
 // Check newsletter provider status on load so visitors see whether an external email provider is connected
@@ -377,7 +306,7 @@ $('#newsletter-form')?.addEventListener('submit', async e => {
     const linksBox = $('#newsletter-links-preview');
     if (linksBox && data.verificationUrl && data.unsubscribeUrl) {
       linksBox.hidden = false;
-      linksBox.innerHTML = `<strong>Verification &amp; Compliance Links:</strong> <a href="${esc(data.verificationUrl)}" style="color:#F5A623;text-decoration:underline;">Verify Email Now ✓</a> &nbsp;·&nbsp; <a href="${esc(data.unsubscribeUrl)}" style="color:#DCE2E8;text-decoration:underline;">One-Click Unsubscribe</a>`;
+      linksBox.innerHTML = `<strong>Verification &amp; Compliance Links:</strong> <a href="${escapeHtml(data.verificationUrl)}" style="color:#F5A623;text-decoration:underline;">Verify Email Now ✓</a> &nbsp;·&nbsp; <a href="${escapeHtml(data.unsubscribeUrl)}" style="color:#DCE2E8;text-decoration:underline;">One-Click Unsubscribe</a>`;
     }
     $('#newsletter-email').value = '';
   } catch (err) {
@@ -385,9 +314,6 @@ $('#newsletter-form')?.addEventListener('submit', async e => {
   }
 });
 
-const todayEl = $('#today-label');
-if (todayEl) {
-  todayEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
-}
-$('#year').textContent = new Date().getFullYear();
+const yearEl = $('#year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 loadArticles();

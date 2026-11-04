@@ -45,12 +45,12 @@ if (canon) canon.href = canonicalHref;
 
 $('#region-title').textContent = hub.title;
 $('#crumb').textContent = hub.title;
-$('#region-topline-badge').textContent = `${hub.shortName.toUpperCase()} DESK`;
+if ($('#region-topline-badge')) $('#region-topline-badge').textContent = `${hub.shortName.toUpperCase()} DESK`;
 $('#region-eyebrow').textContent = `${hub.shortName.toUpperCase()} MARKET & REGULATORY DOSSIER`;
 $('#region-description').textContent = hub.description;
 $('#local-section-heading').textContent = `${hub.shortName.toUpperCase()} LOCAL & REGIONAL COVERAGE`;
 $('#intl-region-name').textContent = hub.title;
-$('#year').textContent = new Date().getFullYear();
+if ($('#year')) $('#year').textContent = new Date().getFullYear();
 
 // Render verified local market context (Terminology, Units, Currencies, Regulations, Trade Shows)
 const contextGrid = $('#region-context-grid');
