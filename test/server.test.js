@@ -6,7 +6,7 @@ const os = require('node:os');
 
 // Isolate data directory and admin credentials before requiring server.js
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'machinewire-test-'));
-const seedData = fs.readFileSync(path.join(__dirname, '..', 'data', 'articles.json'), 'utf8');
+const seedData = fs.readFileSync(path.join(__dirname, 'fixtures', 'articles.seed.json'), 'utf8');
 fs.writeFileSync(path.join(tmpDir, 'articles.json'), seedData);
 fs.writeFileSync(path.join(tmpDir, 'newsletter.json'), '[]');
 fs.writeFileSync(path.join(tmpDir, 'submissions.json'), '[]');
@@ -39,7 +39,22 @@ test('GET /api/health returns service status and schemaVersion 2', async () => {
   const body = await res.json();
   assert.equal(body.ok, true);
   assert.equal(body.schemaVersion, 2);
-  assert.match(body.name, /Machine Report World|MachineWire/);
+  assert.match(body.name, /^Machine Report World/);
+
+  const hzRes = await fetch(`${baseUrl}/healthz`);
+  assert.equal(hzRes.status, 200);
+  const hz = await hzRes.json();
+  assert.equal(hz.ok, true);
+  assert.equal(typeof hz.uptime, 'number');
+  assert.equal(typeof hz.version, 'string');
+  assert.deepEqual(Object.keys(hz).sort(), ['ok', 'uptime', 'version']);
+
+  const appConfig = require('../lib/config.js');
+  assert.ok(appConfig.validateProductionSiteUrl('').length > 0);
+  assert.ok(appConfig.validateProductionSiteUrl('http://localhost:3000').length > 0);
+  assert.ok(appConfig.validateProductionSiteUrl('https://127.0.0.1:3000').length > 0);
+  assert.ok(appConfig.validateProductionSiteUrl('http://machinereportworld.com').length > 0);
+  assert.equal(appConfig.validateProductionSiteUrl('https://machinereportworld.com').length, 0);
 });
 
 test('Migration initializes all 12 entity collections and normalizes existing articles', async () => {
@@ -111,10 +126,10 @@ test('GET /api/articles supports category, manufacturer, country, region, model 
 });
 
 test('GET /api/articles/:slug returns single published article and 404 for draft/review', async () => {
-  const okRes = await fetch(`${baseUrl}/api/articles/welcome-to-the-magazine`);
+  const okRes = await fetch(`${baseUrl}/api/articles/fixture-bull-machines-hd76-india-field-trial`);
   assert.equal(okRes.status, 200);
   const article = await okRes.json();
-  assert.equal(article.slug, 'welcome-to-the-magazine');
+  assert.equal(article.slug, 'fixture-bull-machines-hd76-india-field-trial');
   assert.ok(article.imageCredit);
 
   const draftRes = await fetch(`${baseUrl}/api/articles/upcoming-construction-equipment-launches-draft`);
@@ -383,7 +398,7 @@ test('Static pages, design system assets, 13 homepage sections, 9 nav items, 7 f
   const sitemapXml = await sitemapRes.text();
   assert.match(sitemapXml, /\/category\/construction-equipment/);
   assert.match(sitemapXml, /\/category\/electric-commercial-vehicles/);
-  assert.match(sitemapXml, /\/news\/welcome-to-the-magazine/);
+  assert.match(sitemapXml, /\/news\/fixture-bull-machines-hd76-india-field-trial/);
   assert.match(sitemapXml, /\/india\//);
   assert.match(sitemapXml, /\/north-america\//);
   assert.match(sitemapXml, /\/europe\//);
@@ -579,7 +594,7 @@ test('Upgraded Admin Dashboard: scrypt password hashing, role-based permissions,
     headers: { 'Content-Type': 'application/json', Cookie: superCookie },
     body: JSON.stringify({
       username: 'junior-writer',
-      email: 'writer@machinewire.local',
+      email: 'writer@yourdomain.com',
       role: 'author',
       password: 'writer-secret-pass-99'
     })
@@ -689,14 +704,14 @@ test('Upgraded Admin Dashboard: scrypt password hashing, role-based permissions,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', Cookie: superCookie },
     body: JSON.stringify({
-      siteName: 'MACHINEWIRE',
+      siteName: 'Machine Report World',
       tagline: 'THE WORLD OF MACHINES. CONNECTED.',
-      defaultMetaTitle: 'MACHINEWIRE — Global Equipment & Vehicle News'
+      defaultMetaTitle: 'Machine Report World — Global Equipment & Vehicle News'
     })
   });
   assert.equal(updateSetRes.status, 200);
   const updatedSettings = await updateSetRes.json();
-  assert.equal(updatedSettings.defaultMetaTitle, 'MACHINEWIRE — Global Equipment & Vehicle News');
+  assert.equal(updatedSettings.defaultMetaTitle, 'Machine Report World — Global Equipment & Vehicle News');
 });
 
 test('News Collection Engine: canonical URL normalization, fingerprinting, sample test mode, live approved RSS feed check, deduplication, and draft promotion separation', async () => {
@@ -1373,7 +1388,7 @@ test('Organic Traffic & SEO Architecture: evergreen cornerstone content (compari
   assert.ok(seoAdminData.prioritization.totals.shareClicks >= 1);
   assert.ok(seoAdminData.prioritization.totals.sourceLinkClicks >= 1);
   assert.ok(seoAdminData.prioritization.topSearchQueries.some((q) => q.key === 'sideshift backhoe'));
-  assert.ok(seoAdminData.prioritization.prioritizedArticles.length >= 9);
+  assert.ok(seoAdminData.prioritization.prioritizedArticles.length >= 7);
   assert.match(seoAdminData.prioritization.disclaimer, /never promises search engine rankings or specific traffic numbers/i);
 });
 
@@ -1429,7 +1444,8 @@ test('Newsletter & Content-Distribution System: 7 topic interests, consent colle
   assert.ok(subData.unsubscribeUrl.includes('/api/newsletter/unsubscribe?token='));
 
   // 4. Verify email via verification link
-  const verifyRes = await fetch(`${subData.verificationUrl}&format=json`);
+  const verifyPath = new URL(subData.verificationUrl).pathname + new URL(subData.verificationUrl).search;
+  const verifyRes = await fetch(`${baseUrl}${verifyPath}&format=json`);
   assert.equal(verifyRes.status, 200);
   const verifyData = await verifyRes.json();
   assert.equal(verifyData.ok, true);
@@ -1437,14 +1453,15 @@ test('Newsletter & Content-Distribution System: 7 topic interests, consent colle
   assert.equal(verifyData.email, 'director.fleet@example.com');
 
   // 5. Unsubscribe via one-click unsubscribe link
-  const unsubRes = await fetch(`${subData.unsubscribeUrl}&format=json`);
+  const unsubPath = new URL(subData.unsubscribeUrl).pathname + new URL(subData.unsubscribeUrl).search;
+  const unsubRes = await fetch(`${baseUrl}${unsubPath}&format=json`);
   assert.equal(unsubRes.status, 200);
   const unsubData = await unsubRes.json();
   assert.equal(unsubData.ok, true);
   assert.equal(unsubData.status, 'unsubscribed');
 
   // 6. Verify shareable UTM & social intent links on article detail API
-  const artRes = await fetch(`${baseUrl}/api/articles/welcome-to-the-magazine`);
+  const artRes = await fetch(`${baseUrl}/api/articles/fixture-bull-machines-hd76-india-field-trial`);
   assert.equal(artRes.status, 200);
   const artData = await artRes.json();
   assert.ok(artData.shareLinks);
@@ -1507,7 +1524,7 @@ test('Newsletter & Content-Distribution System: 7 topic interests, consent colle
   const unconnSocialRes = await fetch(`${baseUrl}/api/admin/distribution/social`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Cookie: cookie },
-    body: JSON.stringify({ articleId: 'welcome-to-the-magazine', channel: 'linkedin' })
+    body: JSON.stringify({ articleId: 'fixture-bull-machines-hd76-india-field-trial', channel: 'linkedin' })
   });
   assert.equal(unconnSocialRes.status, 200);
   const unconnSocialData = await unconnSocialRes.json();
@@ -1545,7 +1562,7 @@ test('Newsletter & Content-Distribution System: 7 topic interests, consent colle
     const socSend1 = await fetch(`${baseUrl}/api/admin/distribution/social`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Cookie: cookie },
-      body: JSON.stringify({ articleId: 'welcome-to-the-magazine', channel: 'linkedin' })
+      body: JSON.stringify({ articleId: 'fixture-bull-machines-hd76-india-field-trial', channel: 'linkedin' })
     });
     assert.equal(socSend1.status, 200);
     const socData1 = await socSend1.json();
@@ -1555,7 +1572,7 @@ test('Newsletter & Content-Distribution System: 7 topic interests, consent colle
     const socSend2 = await fetch(`${baseUrl}/api/admin/distribution/social`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Cookie: cookie },
-      body: JSON.stringify({ articleId: 'welcome-to-the-magazine', channel: 'linkedin' })
+      body: JSON.stringify({ articleId: 'fixture-bull-machines-hd76-india-field-trial', channel: 'linkedin' })
     });
     assert.equal(socSend2.status, 409, 'Expected 409 when duplicate social post is prevented');
     const socData2 = await socSend2.json();
@@ -1594,8 +1611,8 @@ test('Production Readiness: security headers, graceful HTML error pages, public 
   assert.equal(errRes.status, 404);
   const errHtml = await errRes.text();
   assert.match(errHtml, /Page Not Found/i);
-  assert.match(errHtml, /Machine Report World|MACHINE REPORT WORLD|MACHINEWIRE/i);
-  assert.match(errHtml, /Return to (Machine Report World|MachineWire) Homepage/i);
+  assert.match(errHtml, /Machine Report World/i);
+  assert.match(errHtml, /Return to Machine Report World Homepage/i);
 
   // 3. Verify public rate limiting on newsletter and tips submissions
   let rateLimited = false;

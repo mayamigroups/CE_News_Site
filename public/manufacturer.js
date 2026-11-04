@@ -221,7 +221,7 @@
     setJsonLd('mfg-jsonld', {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: 'Global Construction Equipment & Commercial Vehicle Manufacturers | MACHINEWIRE',
+      name: `Global Construction Equipment & Commercial Vehicle Manufacturers | ${window.MWComponents?.SITE_NAME || 'Machine Report World'}`,
       description: 'Independent directory of global construction machinery, agricultural tractor, and commercial vehicle manufacturers.',
       url: `${window.location.origin}/manufacturers`
     });
@@ -244,7 +244,8 @@
     }
 
     const mfg = await res.json();
-    document.title = `${mfg.name} — Manufacturer Profile, Models & News | MACHINEWIRE`;
+    const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
+    document.title = `${mfg.name} — Manufacturer Profile, Models & News | ${siteName}`;
     const metaDesc = $('meta-description');
     if (metaDesc) metaDesc.setAttribute('content', mfg.overview || mfg.focus);
     const canon = $('canonical-link');
@@ -336,7 +337,7 @@
     } else {
       newsGrid.innerHTML = `
         <div class="empty-state" style="grid-column: 1 / -1;">
-          <p><strong>No dedicated news articles filed for ${esc(mfg.name)} yet.</strong> MachineWire never generates fabricated stories or unverified launch dates. <a href="/contact.html">Submit an official press release or tip →</a></p>
+          <p><strong>No dedicated news articles filed for ${esc(mfg.name)} yet.</strong> ${esc(siteName)} never generates fabricated stories or unverified launch dates. <a href="/contact.html">Submit an official press release or tip →</a></p>
         </div>
       `;
     }
@@ -344,7 +345,7 @@
     setJsonLd('mfg-jsonld', {
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
-      name: `${mfg.name} Manufacturer Profile | MACHINEWIRE`,
+      name: `${mfg.name} Manufacturer Profile | ${siteName}`,
       description: mfg.overview || mfg.focus,
       url: `${window.location.origin}/manufacturers/${mfg.slug}`,
       mainEntity: {

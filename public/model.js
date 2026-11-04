@@ -195,7 +195,7 @@
     setJsonLd('model-jsonld', {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: 'Equipment & Commercial Vehicle Model Directory | MACHINEWIRE',
+      name: `Equipment & Commercial Vehicle Model Directory | ${window.MWComponents?.SITE_NAME || 'Machine Report World'}`,
       description: 'Searchable specification and application directory of global construction equipment and commercial vehicle models.',
       url: `${window.location.origin}/models`
     });
@@ -210,7 +210,7 @@
       $('model-detail-view').innerHTML = `
         <div class="empty-state">
           <h2>Equipment model page not found</h2>
-          <p>We do not yet have a verified equipment record matching <code>${esc(slug)}</code>. MachineWire never fabricates unverified model pages.</p>
+          <p>We do not yet have a verified equipment record matching <code>${esc(slug)}</code>. ${esc(window.MWComponents?.SITE_NAME || 'Machine Report World')} never fabricates unverified model pages.</p>
           <p><a class="button button-dark" href="/models">← Return to Equipment Model Directory</a></p>
         </div>
       `;
@@ -218,7 +218,8 @@
     }
 
     const em = await res.json();
-    document.title = `${em.manufacturer} ${em.name} — Specifications, Applications & Competing Models | MACHINEWIRE`;
+    const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
+    document.title = `${em.manufacturer} ${em.name} — Specifications, Applications & Competing Models | ${siteName}`;
     const metaDesc = $('meta-description');
     if (metaDesc) metaDesc.setAttribute('content', em.summary || `${em.manufacturer} ${em.name} specifications and applications.`);
     const canon = $('canonical-link');

@@ -26,7 +26,8 @@ const initialCountry = params.get('country') || '';
 const initialCat = params.get('category') || '';
 
 // Update SEO Metadata, Canonical & JSON-LD
-const pageTitle = `${desk.title} News & Specifications | MACHINEWIRE`;
+const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
+const pageTitle = `${desk.title} News & Specifications | ${siteName}`;
 document.title = pageTitle;
 const metaDesc = $('meta[name="description"]');
 if (metaDesc) metaDesc.content = `${desk.title} — ${desk.description}`;

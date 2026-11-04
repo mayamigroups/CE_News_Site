@@ -6,7 +6,7 @@ const os = require('node:os');
 
 // Set up clean isolated test directory
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mrw-modular-arch-'));
-const seedData = fs.readFileSync(path.join(__dirname, '..', 'data', 'articles.json'), 'utf8');
+const seedData = fs.readFileSync(path.join(__dirname, 'fixtures', 'articles.seed.json'), 'utf8');
 fs.writeFileSync(path.join(tmpDir, 'articles.json'), seedData);
 
 const { createDataStore } = require('../lib/store.js');
@@ -67,7 +67,7 @@ test('Service Layer: ArticleService and CatalogService business logic functions 
 
   // 2. Article service duplicate detection
   assert.ok(services.articles, 'Article service should be initialized');
-  const dupCheck = services.articles.checkDuplicate({ title: 'Welcome to your construction equipment news desk' });
+  const dupCheck = services.articles.checkDuplicate({ title: 'TEST FIXTURE: Bull Machines HD76 Backhoe Loader Field Trial in India' });
   assert.equal(dupCheck.hasDuplicates, true);
 
   // 3. Seo service
@@ -79,4 +79,8 @@ test('Service Layer: ArticleService and CatalogService business logic functions 
   assert.ok(services.distribution, 'Distribution service should be initialized');
   const distCfg = services.distribution.getNewsletterConfig();
   assert.equal(typeof distCfg.count, 'number');
+});
+
+test.after(() => {
+  fs.rmSync(tmpDir, { recursive: true, force: true });
 });

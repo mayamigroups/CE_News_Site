@@ -111,7 +111,7 @@
         body: JSON.stringify({ type: 'article', slug: article.slug })
       }).catch(() => {});
 
-      const seoTitle = article.seo?.metaTitle || article.title;
+      const seoTitle = String(article.seo?.metaTitle || article.title).replace(/\s*\|\s*(MACHINEWIRE|Machine Report World)\s*$/i, '');
       const seoDesc = article.seo?.metaDescription || article.summary || article.excerpt;
       const canonicalHref = article.seo?.canonicalUrl || `${location.origin}${articleUrl ? articleUrl(article.slug) : `/news/${article.slug}`}`;
 
@@ -207,7 +207,17 @@
       ` : '';
 
       // 5. Main Body Typography & Separation of Facts vs. Analysis
-      const bodyFormatted = renderFormattedBody
+      const takeaways = Array.isArray(article.takeaways) ? article.takeaways : [];
+      const takeawaysHtml = takeaways.length ? `
+        <aside class="article-takeaways" aria-label="Key takeaways">
+          <h2>Key takeaways</h2>
+          <ul>${takeaways.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        </aside>
+      ` : '';
+
+      const bodyFormatted = article.bodyHtml
+        ? article.bodyHtml
+        : renderFormattedBody
         ? renderFormattedBody(article.body)
         : esc(article.body).split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 
@@ -342,6 +352,8 @@
             ${heroImageHtml}
 
             <!-- Dominant Article Body -->
+            ${takeawaysHtml}
+
             <div class="article-body-content">
               ${confirmedFactsHtml}
               ${bodyFormatted}

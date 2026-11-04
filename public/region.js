@@ -30,7 +30,8 @@ const hub = REGIONAL_HUBS[activeSlug] || REGIONAL_HUBS['india'];
 
 // Canonical URL prevents duplicate indexing across aliases (e.g., /united-states/ -> /north-america/)
 const canonicalHref = `${location.origin}${regionUrl(hub.slug)}`;
-const pageTitle = `${hub.title} Construction Equipment & Commercial Vehicle News | MACHINEWIRE`;
+const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
+const pageTitle = `${hub.title} Construction Equipment & Commercial Vehicle News | ${siteName}`;
 document.title = pageTitle;
 
 const metaDesc = $('meta[name="description"]');

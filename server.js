@@ -21,6 +21,22 @@ const workflow = require('./lib/workflow.js');
 const seoLib = require('./lib/seo.js');
 const distribution = require('./lib/distribution.js');
 const aiSeo = require('./lib/ai_seo.js');
+const { renderArticleSsrHtml } = require('./lib/ssr.js');
+const appConfig = require('./lib/config.js');
+
+function bootstrapDataDir(dataDir, exampleDir) {
+  try {
+    if (!fs.existsSync(exampleDir)) return;
+    fs.mkdirSync(dataDir, { recursive: true });
+    for (const name of fs.readdirSync(exampleDir)) {
+      if (!name.endsWith('.json')) continue;
+      const target = path.join(dataDir, name);
+      if (!fs.existsSync(target)) fs.copyFileSync(path.join(exampleDir, name), target);
+    }
+  } catch (err) {
+    console.warn('Data bootstrap note:', err.message);
+  }
+}
 
 const { createRepositories } = require('./lib/repositories');
 const { createServices } = require('./lib/services');
@@ -30,9 +46,29 @@ const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, 'public');
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, 'data');
 const PORT = Number(process.env.PORT || 3000);
-const SITE_URL = (process.env.SITE_URL || `http://localhost:${PORT}`).replace(/\/$/, '');
+const PKG_VERSION = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).version || '0.0.0'; } catch { return '0.0.0'; }
+})();
+
+// SITE_URL: required and validated in production; defaults to http://localhost:3000 in development.
+if (appConfig.isProduction()) {
+  const siteUrlProblems = appConfig.validateProductionSiteUrl(process.env.SITE_URL);
+  if (siteUrlProblems.length) {
+    console.error([
+      'FATAL: Refusing to start in production because SITE_URL is not configured correctly.',
+      ...siteUrlProblems.map(p => `  - ${p}`),
+      '  Set SITE_URL to your public https origin, e.g. SITE_URL=https://www.yourdomain.com (see SETUP.md).'
+    ].join('\n'));
+    process.exit(1);
+  }
+}
+const SITE_URL = appConfig.getSiteUrl();
+process.env.SITE_URL = SITE_URL; // every lib module reads the same resolved value
 const SESSION_SECRET = process.env.SESSION_SECRET || '';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+
+// First start: copy any missing starter files from data.example/ into the data directory.
+bootstrapDataDir(DATA_DIR, path.join(ROOT, 'data.example'));
 
 const store = createDataStore(DATA_DIR);
 store.migrate();
@@ -302,14 +338,14 @@ function renderErrorPageHtml(status, title, message, requestedPath = '') {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${status} ${escapeXml(title)} | Machine Report World</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=${PKG_VERSION}">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap masthead">
       <a class="brand" href="/">
-        <span class="brand-mark">MW<span>+</span></span>
-        <span class="brand-words">MACHINE<span>WIRE</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
+        <span class="brand-mark">MRW<span>+</span></span>
+        <span class="brand-words">MACHINE REPORT <span>WORLD</span><small>THE WORLD OF MACHINES. CONNECTED.</small></span>
       </a>
       <div class="masthead-actions">
         <a class="button button-dark" href="/">Homepage</a>
@@ -490,7 +526,8 @@ async function handle(req, res) {
     checkRateLimit: checkPublicPostRateLimit,
     adminPassword: ADMIN_PASSWORD,
     sessionSecret: SESSION_SECRET,
-    siteUrl: SITE_URL
+    siteUrl: SITE_URL,
+    pkgVersion: PKG_VERSION
   };
 
   // Dispatch modular routes
@@ -515,8 +552,21 @@ async function handle(req, res) {
     resolvedRelative = 'model.html';
   } else if (/^\/(category|section)\/[a-z0-9-_]+\/?$/i.test(pathname)) {
     resolvedRelative = 'section.html';
-  } else if (/^\/(news|articles)\/[a-z0-9-_]+\/?$/i.test(pathname)) {
-    resolvedRelative = 'article.html';
+  } else if (/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i.test(pathname)) {
+    const articleMatch = pathname.match(/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i);
+    const articleSlug = articleMatch ? articleMatch[2] : '';
+    const article = services.articles.getPublicArticleBySlug(articleSlug);
+    if (!article) {
+      return sendText(
+        res,
+        404,
+        renderErrorPageHtml(404, 'Article Not Found', 'The requested Machine Report World article could not be found or is not yet published.', pathname),
+        'text/html; charset=utf-8'
+      );
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'article.html'), 'utf8');
+    const ssrHtml = renderArticleSsrHtml(templateHtml, article, SITE_URL);
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
   }
 
   let filePath = path.join(PUBLIC, resolvedRelative);
@@ -542,6 +592,18 @@ async function handle(req, res) {
       });
       return res.end();
     }
+    if (ext === '.html' && !isAdminAsset) {
+      const html = fs.readFileSync(filePath, 'utf8')
+        .replace(/__SITE_URL__/g, SITE_URL)
+        .replace(/(<link[^>]+rel="canonical"[^>]+href=")(\/[^"]*"[^>]*>)/i, `$1${SITE_URL}$2`);
+      res.writeHead(200, {
+        'Content-Type': MIME[ext],
+        'Cache-Control': cacheHeader,
+        'ETag': etag,
+        ...SECURITY_HEADERS
+      });
+      return res.end(html);
+    }
     res.writeHead(200, {
       'Content-Type': MIME[ext] || 'application/octet-stream',
       'Cache-Control': cacheHeader,
@@ -565,6 +627,17 @@ async function handle(req, res) {
 
 function createAppServer() {
   return http.createServer((req, res) => {
+    const startMs = Date.now();
+    res.on('finish', () => {
+      let reqPath = req.url || '/';
+      try { reqPath = new URL(req.url || '/', SITE_URL).pathname; } catch {}
+      process.stdout.write(JSON.stringify({
+        method: req.method || 'GET',
+        path: reqPath,
+        status: res.statusCode,
+        ms: Date.now() - startMs
+      }) + '\n');
+    });
     handle(req, res).catch(err => {
       const isClientErr =
         err.message === 'Invalid JSON body' ||

@@ -11,6 +11,8 @@ const { createDataStore } = require('../lib/store.js');
 test('Multi-Brand News Source Pipeline & Five-Brand Pilot Verification', async (t) => {
   const tmpDir = path.join(__dirname, 'tmp_source_test_' + Date.now());
   fs.mkdirSync(tmpDir, { recursive: true });
+  fs.copyFileSync(path.join(__dirname, 'fixtures', 'articles.seed.json'), path.join(tmpDir, 'articles.json'));
+  fs.copyFileSync(path.join(__dirname, 'fixtures', 'collected_items.seed.json'), path.join(tmpDir, 'collected_items.json'));
 
   const store = createDataStore(tmpDir);
   store.migrate();
@@ -356,7 +358,7 @@ test('Multi-Brand News Source Pipeline & Five-Brand Pilot Verification', async (
 
   // 14. News Inbox record validation
   await t.test('14. News Inbox records adhere to complete 21-field structure', () => {
-    const items = store.readJson(path.join(__dirname, '../data/collected_items.json'), []);
+    const items = store.readJson(store.files.collectedItems, []);
     assert.ok(items.length >= 5, 'Must have at least 5 pilot items in collected_items.json');
 
     for (const item of items) {
@@ -374,17 +376,17 @@ test('Multi-Brand News Source Pipeline & Five-Brand Pilot Verification', async (
 
   // 15. Verification that no article is automatically created or published
   await t.test('15. Collection never creates or publishes articles automatically', () => {
-    const articles = store.readJson(path.join(__dirname, '../data/articles.json'), []);
+    const articles = store.readJson(store.files.articles, []);
     const initialCount = articles.length;
 
     // Check collected items: every item must have promotedArticleId: null
-    const collected = store.readJson(path.join(__dirname, '../data/collected_items.json'), []);
+    const collected = store.readJson(store.files.collectedItems, []);
     for (const c of collected) {
       assert.equal(c.promotedArticleId, null, `Collected item "${c.headline}" must not be automatically promoted to an article`);
     }
 
     // Verify no new articles appeared
-    const afterArticles = store.readJson(path.join(__dirname, '../data/articles.json'), []);
+    const afterArticles = store.readJson(store.files.articles, []);
     assert.equal(afterArticles.length, initialCount, 'Article count must not change during news collection');
   });
 });

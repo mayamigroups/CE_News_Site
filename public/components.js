@@ -3,6 +3,8 @@
  * Brand: Machine Report World | Tagline: THE WORLD OF MACHINES. CONNECTED.
  */
 (function (global) {
+  const SITE_NAME = 'Machine Report World';
+  const SITE_SHORT_NAME = 'MRW';
   const esc = (s = '') =>
     String(s).replace(/[&<>"']/g, c => ({
       '&': '&amp;',
@@ -671,6 +673,8 @@
       .then(r => (r.ok ? r.json() : null))
       .then(cfg => {
         if (!cfg) return;
+        if (cfg.siteName) global.MWComponents.SITE_NAME = cfg.siteName;
+        if (cfg.siteShortName) global.MWComponents.SITE_SHORT_NAME = cfg.siteShortName;
         if (cfg.googleSearchConsole?.enabled && cfg.googleSearchConsole?.verificationCode) {
           let meta = document.querySelector('meta[name="google-site-verification"]');
           if (!meta) {
@@ -685,6 +689,8 @@
   }
 
   global.MWComponents = {
+    SITE_NAME,
+    SITE_SHORT_NAME,
     esc,
     ARTICLE_TYPE_LABELS,
     CATEGORY_DESKS,

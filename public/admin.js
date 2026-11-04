@@ -107,7 +107,7 @@ function clearAlert() {
 
 async function api(url, opts = {}) {
   if (window.location.protocol === 'file:') {
-    throw new Error('You are viewing admin.html via file:///. Please navigate to http://localhost:3000/admin.html in your browser.');
+    throw new Error('You are viewing admin.html via file:///. Please open /admin.html via the running web server in your browser.');
   }
   const token = sessionStorage.getItem('bm_token');
   const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
@@ -705,7 +705,7 @@ function renderJobsAndLogs() {
 
 function renderSettingsForm() {
   if (!siteSettings || !$('#set-site-name')) return;
-  $('#set-site-name').value = siteSettings.siteName || 'MACHINEWIRE';
+  $('#set-site-name').value = siteSettings.siteName || 'Machine Report World';
   $('#set-tagline').value = siteSettings.tagline || 'THE WORLD OF MACHINES. CONNECTED.';
   $('#set-meta-title').value = siteSettings.defaultMetaTitle || '';
   $('#set-meta-desc').value = siteSettings.defaultMetaDescription || '';
@@ -986,6 +986,14 @@ function renderAiOperationsPanel() {
             <strong>${esc(iss.check)}</strong>
             <small style="display:block;margin-top:2px;">${esc(iss.details)}</small>
             <small style="display:block;color:var(--text-light,#666);margin-top:4px;">Action: ${esc(iss.recommendedFix)}</small>
+            ${Array.isArray(iss.affectedUrls) && iss.affectedUrls.length ? `
+              <div style="margin-top:6px;padding:6px;background:#f8f9fa;border-radius:4px;font-size:11px;color:#475467;">
+                <strong>Affected URLs (${iss.affectedUrls.length}):</strong>
+                <ul style="margin:2px 0 0 14px;padding:0;">
+                  ${iss.affectedUrls.map(u => `<li><a href="${esc(u)}" target="_blank" style="color:#026aa7;">${esc(u)}</a></li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
           </div>
         </div>
       `).join('')
@@ -1178,6 +1186,32 @@ function renderAuxPanels() {
   }
 }
 
+
+function updateSerpLivePreview() {
+  const title = $('#seo-title')?.value || $('#title')?.value || 'Article Headline';
+  const desc = $('#seo-description')?.value || $('#excerpt')?.value || 'Authoritative news reporting, verified technical specifications, powertrain details, and market intelligence for global commercial equipment and vehicles.';
+  const slug = $('#slug')?.value || 'example-slug';
+  const intent = $('#seo-search-intent')?.value || 'informational';
+
+  const previewTitle = $('#serp-preview-title');
+  const previewDesc = $('#serp-preview-desc');
+  const previewSlug = $('#serp-preview-slug');
+  const previewBadge = $('#serp-preview-intent-badge');
+
+  if (previewTitle) previewTitle.textContent = title + (title.includes('MACHINE REPORT WORLD') ? '' : ' | MACHINE REPORT WORLD');
+  if (previewDesc) previewDesc.textContent = desc.slice(0, 160) + (desc.length > 160 ? '…' : '');
+  if (previewSlug) previewSlug.textContent = slug;
+  if (previewBadge) {
+    const labels = {
+      informational: 'Intent: Informational & Regulations',
+      commercial: 'Intent: Commercial & Spec Comparison',
+      investigational: 'Intent: OEM Market Analysis',
+      transactional: 'Intent: Procurement / Tender Specs'
+    };
+    previewBadge.textContent = labels[intent] || 'Intent: Informational';
+  }
+}
+
 function loadArticleIntoEditor(articleId) {
   const a = articles.find(x => x.id === articleId);
   if (!a) return;
@@ -1236,6 +1270,9 @@ function loadArticleIntoEditor(articleId) {
   $('#seo-description').value = a.seo?.metaDescription || '';
   $('#seo-canonical').value = a.seo?.canonicalUrl || '';
   $('#seo-keywords').value = (a.seo?.keywords || []).join(', ');
+  if ($('#seo-primary-topic')) $('#seo-primary-topic').value = a.seo?.primaryTopic || a.category || '';
+  if ($('#seo-search-intent')) $('#seo-search-intent').value = a.seo?.searchIntent || 'informational';
+  try { updateSerpLivePreview(); } catch {}
   $('#revision-note').value = '';
   $('#scheduled-at').value = a.scheduledAt ? new Date(a.scheduledAt).toISOString().slice(0, 16) : '';
   $('#featured').checked = !!a.featured;

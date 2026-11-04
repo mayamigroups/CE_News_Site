@@ -1,0 +1,326 @@
+[
+  {
+    "id": "fixture-bull-machines-hd76-india-field-trial",
+    "title": "TEST FIXTURE: Bull Machines HD76 Backhoe Loader Field Trial in India",
+    "slug": "fixture-bull-machines-hd76-india-field-trial",
+    "summary": "Synthetic test fixture story covering a Bull Machines backhoe loader field evaluation in India for automated test verification.",
+    "excerpt": "Synthetic test fixture story covering a Bull Machines backhoe loader field evaluation in India.",
+    "body": "### Synthetic Test Fixture: India Backhoe Evaluation\n\nThis clearly fake test fixture verifies [Backhoe Loaders](/category/backhoe-loaders) and [India](/india/) regional filtering for the [BULL Machines HD76 Backhoe Loader](/models/bull-machines-hd76-backhoe-loader).\n\n- **Test Spec A:** Synthetic hydraulic flow verification\n- **Test Spec B:** Synthetic CEV Stage V compliance check",
+    "category": "Industry News",
+    "manufacturer": "Bull Machines",
+    "equipmentType": "Backhoe loader",
+    "model": "HD76",
+    "powerType": "Diesel CEV Stage V",
+    "country": "India",
+    "region": "Asia-Pacific",
+    "articleType": "news",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / OEM Handout",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/"
+    ],
+    "tags": [
+      "Backhoe Loaders",
+      "Bull Machines",
+      "India",
+      "Test Fixture"
+    ],
+    "specs": {
+      "Operating Weight": "7,650 kg (fixture)",
+      "Region": "India (fixture)"
+    },
+    "featured": true,
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-18T10:00:00.000Z",
+    "createdAt": "2026-10-18T10:00:00.000Z"
+  },
+  {
+    "id": "20-tonne-crawler-excavator-class-comparison",
+    "title": "TEST FIXTURE: 20-Tonne Class Hydraulic Crawler Excavators Comparison",
+    "slug": "20-tonne-crawler-excavator-comparison-hydraulics-undercarriage-telematics",
+    "summary": "Synthetic test fixture comparing 20-to-22-tonne class crawler excavators across Caterpillar, Komatsu, Volvo CE, SANY and HD Hyundai.",
+    "excerpt": "Synthetic test fixture comparing 20-to-22-tonne class crawler excavators.",
+    "body": "### Synthetic Test Fixture: 20-Tonne Excavator Comparison\n\nComparing [Excavators](/category/excavators) across [Cat 320 Hydraulic Excavator](/models/caterpillar-320-hydraulic-excavator) and [Komatsu PC210-10M0 Hydraulic Excavator](/models/komatsu-pc210-10m0-hydraulic-excavator) in [China](/china/) and [India](/india/).",
+    "category": "Excavators",
+    "manufacturer": "Various",
+    "equipmentType": "Hydraulic excavator",
+    "model": "Cat 320, Komatsu PC210, Volvo EC210, SANY SY215C, HD Hyundai HX220L",
+    "powerType": "Diesel Stage V",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "review",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Excavator Comparison",
+    "sourceUrl": "https://www.caterpillar.com/",
+    "sourceUrls": [
+      "https://www.caterpillar.com/",
+      "https://www.komatsu.com/"
+    ],
+    "tags": [
+      "Excavators",
+      "Comparison",
+      "Caterpillar",
+      "Komatsu"
+    ],
+    "specs": {
+      "Equipment Class": "20-22 Tonne Crawler Excavators (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-17T11:00:00.000Z",
+    "createdAt": "2026-10-17T11:00:00.000Z"
+  },
+  {
+    "id": "preventive-maintenance-guide-hydraulics-dpf-undercarriage",
+    "title": "TEST FIXTURE: Preventive Maintenance Guide for Off-Highway Hydraulics & Undercarriage",
+    "slug": "preventive-maintenance-guide-off-highway-hydraulics-dpf-scr-undercarriage",
+    "summary": "Synthetic test fixture maintenance guide covering ISO 4406 hydraulic cleanliness, Stage V DPF-SCR care and track tensioning.",
+    "excerpt": "Synthetic test fixture maintenance guide covering ISO 4406 hydraulic cleanliness.",
+    "body": "### Synthetic Test Fixture: Preventive Maintenance Guide\n\nMaintenance guide for [Construction Equipment](/category/construction-equipment), [Backhoe Loaders](/category/backhoe-loaders) and [Heavy Trucks](/category/heavy-trucks) across [Europe](/europe/) and [North America](/north-america/).",
+    "category": "Buying Guides",
+    "manufacturer": "All Manufacturers",
+    "equipmentType": "Earthmoving & Commercial Fleets",
+    "model": "Fleet Maintenance Protocol",
+    "powerType": "Diesel Stage V",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "guide",
+    "author": "Technology & Powertrains Desk",
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Maintenance Guide",
+    "sourceUrl": "https://www.iso.org/standard/70917.html",
+    "sourceUrls": [
+      "https://www.iso.org/standard/70917.html"
+    ],
+    "tags": [
+      "Maintenance Guide",
+      "Hydraulics",
+      "DPF & SCR",
+      "Buying Guides"
+    ],
+    "specs": {
+      "Cleanliness Standard": "ISO 4406 (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-16T10:00:00.000Z",
+    "createdAt": "2026-10-16T10:00:00.000Z"
+  },
+  {
+    "id": "off-highway-emissions-explainer-stage-v-tier-4-cev-v",
+    "title": "TEST FIXTURE: Off-Highway Emissions Explainer (EU Stage V, EPA Tier 4 & India CEV Stage V)",
+    "slug": "off-highway-emissions-explainer-eu-stage-v-epa-tier-4-india-cev-stage-v",
+    "summary": "Synthetic test fixture technical explainer comparing off-highway diesel emissions standards and electric drivelines.",
+    "excerpt": "Synthetic test fixture technical explainer comparing off-highway diesel emissions standards.",
+    "body": "### Synthetic Test Fixture: Emissions & Powertrain Explainer\n\nTechnical analysis of [Technology](/category/technology) and [Electric Commercial Vehicles](/category/electric-commercial-vehicles) across [India](/india/), [Europe](/europe/) and [North America](/north-america/).",
+    "category": "Technology",
+    "manufacturer": "Various",
+    "equipmentType": "Off-Highway Powertrains",
+    "model": "Stage V / Tier 4 Final / CEV Stage V",
+    "powerType": "Diesel & Battery-Electric",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "analysis",
+    "author": "Technology & Powertrains Desk",
+    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Powertrain Explainer",
+    "sourceUrl": "https://www.epa.gov/regulations-emissions-vehicles-and-engines",
+    "sourceUrls": [
+      "https://www.epa.gov/regulations-emissions-vehicles-and-engines"
+    ],
+    "tags": [
+      "Technology",
+      "Emissions",
+      "Stage V",
+      "CEV Stage V"
+    ],
+    "specs": {
+      "Regulatory Scope": "EU Stage V / EPA Tier 4 Final / CEV Stage V (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-15T09:00:00.000Z",
+    "createdAt": "2026-10-15T09:00:00.000Z"
+  },
+  {
+    "id": "fixture-event-trade-show-5",
+    "title": "TEST FIXTURE: Global Construction Machinery & Commercial Vehicle Trade Show Calendar",
+    "slug": "fixture-global-construction-machinery-trade-show-calendar",
+    "summary": "Synthetic test fixture covering EXCON, Bauma, CONEXPO-CON/AGG and IAA Transportation trade exhibitions.",
+    "excerpt": "Synthetic test fixture covering global construction equipment exhibitions.",
+    "body": "### Synthetic Test Fixture: Trade Show Calendar\n\nExhibition preview for [Events](/category/events) and [Construction Equipment](/category/construction-equipment) in [India](/india/) and [Europe](/europe/).",
+    "category": "Events & Exhibitions",
+    "manufacturer": "All Manufacturers",
+    "equipmentType": "Construction & Commercial Vehicles",
+    "model": "Exhibition Lineups",
+    "powerType": "Diesel & Electric",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "news",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1541888946425-d09bb18086f6?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Trade Exhibition",
+    "sourceUrl": "https://bauma.de/en/",
+    "sourceUrls": [
+      "https://bauma.de/en/"
+    ],
+    "tags": [
+      "Events",
+      "EXCON",
+      "Bauma",
+      "CONEXPO"
+    ],
+    "specs": {
+      "Events Covered": "EXCON, Bauma, CONEXPO (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-14T08:00:00.000Z",
+    "createdAt": "2026-10-14T08:00:00.000Z"
+  },
+  {
+    "id": "backhoe-loader-center-pivot-vs-sideshift-comparison",
+    "title": "TEST FIXTURE: Center-Pivot vs. Sideshift Backhoe Loaders Worksite Comparison",
+    "slug": "center-pivot-vs-sideshift-backhoe-loaders-kinematics-worksite-comparison",
+    "summary": "Synthetic test fixture comparing center-pivot and sideshift backhoe loader carriage architectures.",
+    "excerpt": "Synthetic test fixture comparing center-pivot and sideshift backhoe loaders.",
+    "body": "### Synthetic Test Fixture: Center-Pivot vs Sideshift\n\nEngineering comparison of [Backhoe Loaders](/category/backhoe-loaders) including [BULL Machines HD76 Backhoe Loader](/models/bull-machines-hd76-backhoe-loader) and [JCB 3DX Backhoe Loader](/models/jcb-3dx-backhoe-loader) in [India](/india/) and [North America](/north-america/).",
+    "category": "Reviews & Comparisons",
+    "manufacturer": "Various",
+    "equipmentType": "Backhoe loader",
+    "model": "HD76, 3DX, 580SV & 310 P-Tier",
+    "powerType": "Diesel Stage V",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "review",
+    "author": "Technology & Powertrains Desk",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Backhoe Comparison",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/",
+      "https://www.jcb.com/"
+    ],
+    "tags": [
+      "Backhoe Loaders",
+      "Comparison",
+      "BULL Machines",
+      "JCB"
+    ],
+    "specs": {
+      "Comparison Scope": "Center-Pivot vs. Sideshift (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-13T09:30:00.000Z",
+    "createdAt": "2026-10-13T09:30:00.000Z"
+  },
+  {
+    "id": "fixture-commercial-vehicles-tipper-7",
+    "title": "TEST FIXTURE: Evaluating Multi-Axle Heavy Tipper Truck Specifications for Site Earthmoving",
+    "slug": "fixture-evaluating-heavy-tipper-truck-specifications",
+    "summary": "Synthetic test fixture covering 8x4 and 6x4 vocational tipper truck GVW, axle ratios and retarder braking.",
+    "excerpt": "Synthetic test fixture covering heavy tipper truck specifications.",
+    "body": "### Synthetic Test Fixture: Heavy Tipper Specifications\n\nVocational analysis for [Heavy Trucks](/category/heavy-trucks) and [Mining Equipment](/category/mining-equipment) referencing [Tata Prima 2830.K Tipper](/models/tata-prima-2830-k-tipper) and [Volvo FMX 6x4 Heavy Tipper](/models/volvo-fmx-6x4-heavy-tipper).",
+    "category": "Commercial Vehicles",
+    "manufacturer": "Various",
+    "equipmentType": "Heavy tipper truck",
+    "model": "Prima 2830.K & FMX 6x4",
+    "powerType": "Diesel BS-VI / Euro 6",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "analysis",
+    "author": "Commercial Vehicles Desk",
+    "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit / Commercial Vehicles Desk",
+    "sourceUrl": "https://www.tatamotors.com/",
+    "sourceUrls": [
+      "https://www.tatamotors.com/",
+      "https://www.volvotrucks.com/"
+    ],
+    "tags": [
+      "Commercial Vehicles",
+      "Heavy Trucks",
+      "Tippers",
+      "Test Fixture"
+    ],
+    "specs": {
+      "Axle Config": "6x4 & 8x4 Rigid Tippers (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-12T08:00:00.000Z",
+    "createdAt": "2026-10-12T08:00:00.000Z"
+  },
+  {
+    "id": "fixture-draft-8",
+    "title": "TEST FIXTURE: Upcoming Construction Equipment Launches (Unpublished Draft)",
+    "slug": "upcoming-construction-equipment-launches-draft",
+    "summary": "Synthetic unpublished draft fixture used to test 404 behavior on public article endpoints.",
+    "excerpt": "Synthetic unpublished draft fixture.",
+    "body": "Unpublished draft body for automated test verification.",
+    "category": "Construction Equipment",
+    "manufacturer": "Various",
+    "equipmentType": "Excavator",
+    "model": "TBD",
+    "powerType": "Diesel",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "news",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit",
+    "sourceUrl": "https://www.oemoffhighway.com/",
+    "sourceUrls": [
+      "https://www.oemoffhighway.com/"
+    ],
+    "tags": [
+      "Draft",
+      "Test Fixture"
+    ],
+    "specs": {},
+    "status": "draft",
+    "pipelineStage": "DRAFT",
+    "publishedAt": null,
+    "createdAt": "2026-10-11T08:00:00.000Z"
+  },
+  {
+    "id": "fixture-review-9",
+    "title": "TEST FIXTURE: Bull Machines Next-Gen Backhoe Loader Queued in Editorial Review",
+    "slug": "fixture-bull-machines-queued-editorial-review",
+    "summary": "Synthetic review-stage fixture used to test editorial queue and approval gates.",
+    "excerpt": "Synthetic review-stage fixture.",
+    "body": "Queued review article body for automated test verification.",
+    "category": "Backhoe Loaders",
+    "manufacturer": "Bull Machines",
+    "equipmentType": "Backhoe loader",
+    "model": "HD96",
+    "powerType": "Diesel CEV Stage V",
+    "country": "India",
+    "region": "Asia-Pacific",
+    "articleType": "company-announcement",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Test Fixture Credit",
+    "sourceUrl": "https://bullmachines.com/",
+    "sourceUrls": [
+      "https://bullmachines.com/"
+    ],
+    "tags": [
+      "Bull Machines",
+      "Review Queue",
+      "Test Fixture"
+    ],
+    "specs": {
+      "Model": "HD96 (fixture)"
+    },
+    "status": "review",
+    "pipelineStage": "IN_REVIEW",
+    "publishedAt": null,
+    "createdAt": "2026-10-10T08:00:00.000Z"
+  }
+]

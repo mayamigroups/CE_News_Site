@@ -19,28 +19,36 @@ let currentPage = 1;
 const PAGE_SIZE = 6;
 
 function sectionEmptyMarkup(sectionLabel, deskParam = 'construction-equipment') {
+  const siteName = window.MWComponents?.SITE_NAME || 'Machine Report World';
   return `<div class="empty-state" style="grid-column: 1 / -1;">
     <strong>No published reports in ${escapeHtml(sectionLabel)} yet.</strong>
-    <p class="muted" style="margin:6px 0 12px;">MACHINEWIRE only displays verified published stories from the database and never fabricates placeholder articles.</p>
-    <a class="button button-outline" href="/admin.html">Publish verified report in Admin →</a>
-    <a class="button button-outline" href="${categoryUrl(deskParam)}" style="margin-left:8px;">Open Desk ↗</a>
+    <p class="muted" style="margin:6px 0 12px;">${escapeHtml(siteName)} only displays verified published stories from the database and never fabricates placeholder articles.</p>
+    <a class="button button-outline" href="${categoryUrl(deskParam)}">Open Desk ↗</a>
   </div>`;
 }
+
+// Each story appears in at most one desk block on the homepage; empty desks are hidden from readers.
+const deskShownIds = new Set();
 
 function renderSectionGrid(selector, matcherFn, sectionLabel, deskParam, limit = 3) {
   const el = $(selector);
   if (!el) return;
-  const matched = allArticles.filter(matcherFn).slice(0, limit);
-  el.innerHTML = matched.length
-    ? matched.map(a => renderArticleCard(a, { lazy: true })).join('')
-    : sectionEmptyMarkup(sectionLabel, deskParam);
+  const matched = allArticles.filter(a => matcherFn(a) && !deskShownIds.has(a.id)).slice(0, limit);
+  matched.forEach(a => deskShownIds.add(a.id));
+  const wrapper = el.closest('section') || el.parentElement;
+  if (!matched.length) {
+    if (wrapper) wrapper.hidden = true;
+    return;
+  }
+  if (wrapper) wrapper.hidden = false;
+  el.innerHTML = matched.map(a => renderArticleCard(a, { lazy: true })).join('');
 }
 
 function renderBreakingTicker() {
   const tickerEl = $('#ticker-text');
   if (!tickerEl) return;
   if (!allArticles.length) {
-    tickerEl.textContent = 'No published stories currently in the database. Publish verified coverage via the Editorial Admin workspace.';
+    tickerEl.textContent = 'Global construction equipment, agricultural machinery and commercial vehicle intelligence desk.';
     return;
   }
   const latestItems = allArticles.slice(0, 4).map(a => `${a.category.toUpperCase()}: ${a.title} (${dateFormat(a.publishedAt)})`);
@@ -68,22 +76,18 @@ function topStories() {
 function featuredStory() {
   const a = allArticles.find(x => x.featured) || allArticles[0];
   if (!a) {
-    $('#featured-story').innerHTML = `<div class="hero-content">
-      <div>
-        <span class="eyebrow">AWAITING PUBLISHED COVERAGE</span>
-        <h1>THE WORLD OF MACHINES. CONNECTED.</h1>
-        <p>No published stories are currently in the content database. Sign in to the Editorial Admin panel to review and publish verified reports.</p>
-      </div>
-      <a class="hero-cta" href="/admin.html">Open Editorial Admin <span aria-hidden="true">↗</span></a>
-    </div>`;
+    const featSec = $('#featured-section');
+    if (featSec) featSec.hidden = true;
     return;
   }
+  const featSec = $('#featured-section');
+  if (featSec) featSec.hidden = false;
   const href = articleUrl(a.slug);
   const summaryText = a.summary || a.excerpt || '';
   $('#featured-story').innerHTML = `<a class="hero-image" href="${href}" aria-label="${escapeHtml(a.title)}">
       ${renderEditorialImage({
         url: a.image,
-        alt: `${a.title} — ${a.manufacturer || 'MACHINEWIRE'}`,
+        alt: `${a.title} — ${a.manufacturer || (window.MWComponents?.SITE_NAME || 'Machine Report World')}`,
         credit: a.imageCredit || '',
         aspect: 'hero',
         lazy: false,
@@ -118,6 +122,12 @@ function renderRegionalHighlights() {
     intlRows = allArticles.filter(a => !localIds.has(a.id) && (a.country === 'Global' || a.region === 'Global'));
   }
   const combined = [...localRows, ...intlRows].slice(0, 3);
+  const regSection = $('#sec-regions');
+  if (!allArticles.length) {
+    if (regSection) regSection.hidden = true;
+    return;
+  }
+  if (regSection) regSection.hidden = false;
   grid.innerHTML = combined.length
     ? combined.map(a => renderArticleCard(a, { lazy: true })).join('')
     : sectionEmptyMarkup(`Region: ${currentRegionTab}`, 'regions');
@@ -136,64 +146,22 @@ function renderAllHomepageSections() {
   featuredStory();
   topStories();
 
-  // 3. Construction Equipment
-  renderSectionGrid(
-    '#grid-construction',
-    a => /backhoe|excavat|loader|crane|bulldozer|earthmoving|construction/i.test([a.title, a.summary, a.category, a.equipmentType, ...(a.tags || [])].join(' ')),
-    'Construction Equipment',
-    'construction-equipment'
-  );
+  // 3. Desk blocks. Specific desks claim their stories first so each story shows once, under its best desk.
+  const text = a => [a.title, a.summary, a.category, a.equipmentType, ...(a.tags || [])].join(' ');
+  deskShownIds.clear();
+  const desks = [
+    ['#grid-events', a => a.category === 'Events & Exhibitions' || /\bevents?\b|exhibition|excon|bauma|conexpo|\biaa\b|trade show/i.test(text(a)), 'Videos, Events & Exhibitions', 'events'],
+    ['#grid-reviews-guides', a => ['review', 'guide'].includes(a.articleType) || ['Buying Guides', 'Reviews & Comparisons'].includes(a.category), 'Reviews, Comparisons & Buying Guides', 'reviews'],
+    ['#grid-technology', a => a.category === 'Technology' || /technology|telematics|electrification|automation|powertrain|emission/i.test(text(a)), 'Technology, AI & Electrification', 'technology'],
+    ['#grid-business', a => ['Industry News', 'Market Updates', 'Industry & Business', 'Business'].includes(a.category) || /investment|export|market|business/i.test(text(a)), 'Industry Business & Market Developments', 'business'],
+    ['#grid-trucks', a => /commercial vehicle|truck|tipper|vocational|hauler|pickup/i.test(text(a)), 'Trucks & Commercial Vehicles', 'heavy-trucks'],
+    ['#grid-tractors', a => /tractor|agri|implement/i.test(text(a)), 'Tractors & Agricultural Machinery', 'tractors'],
+    ['#grid-construction', a => /backhoe|excavat|loader|crane|bulldozer|earthmoving|construction/i.test(text(a)), 'Construction Equipment', 'construction-equipment']
+  ];
+  desks.forEach(([selector, matcher, label, deskParam]) => renderSectionGrid(selector, matcher, label, deskParam));
 
-  // 4. Tractors & Agricultural Machinery
-  renderSectionGrid(
-    '#grid-tractors',
-    a => /tractor|agri|implement|backhoe|attachment|loader/i.test([a.title, a.summary, a.category, a.equipmentType, ...(a.tags || [])].join(' ')),
-    'Tractors & Agricultural Machinery',
-    'tractors'
-  );
-
-  // 5. Trucks & Commercial Vehicles
-  renderSectionGrid(
-    '#grid-trucks',
-    a => /commercial vehicle|truck|tipper|vocational|hauler|pickup|fleet/i.test([a.title, a.summary, a.category, a.equipmentType, ...(a.tags || [])].join(' ')),
-    'Trucks & Commercial Vehicles',
-    'heavy-trucks'
-  );
-
-  // 7. Technology, AI, Electrification & Automation
-  renderSectionGrid(
-    '#grid-technology',
-    a => a.category === 'Technology' || /technology|hydraulic|telematics|electr|automation|powertrain|ai/i.test([a.title, a.summary, a.body, ...(a.tags || [])].join(' ')),
-    'Technology, AI & Electrification',
-    'technology'
-  );
-
-  // 8. Industry Business, Investments, Exports & Market Developments
-  renderSectionGrid(
-    '#grid-business',
-    a => a.category === 'Industry News' || a.category === 'Market Updates' || /industry|market|investment|export|infrastructure|business|fleet/i.test([a.title, a.summary, a.category, ...(a.tags || [])].join(' ')),
-    'Industry Business & Market Developments',
-    'business'
-  );
-
-  // 9. Reviews, Comparisons & Buying Guides
-  renderSectionGrid(
-    '#grid-reviews-guides',
-    a => ['review', 'guide'].includes(a.articleType) || ['Buying Guides', 'Reviews & Comparisons'].includes(a.category) || /compare|guide|review|specification/i.test([a.title, a.summary, ...(a.tags || [])].join(' ')),
-    'Reviews, Comparisons & Buying Guides',
-    'reviews'
-  );
-
-  // 10. Regional News Highlights
+  // 4. Regional News Highlights
   renderRegionalHighlights();
-
-  // 11. Videos, Events & Exhibitions
-  renderSectionGrid(
-    '#grid-events',
-    a => a.category === 'Events & Exhibitions' || /event|exhibition|excon|bauma|conexpo|iaa|show/i.test([a.title, a.summary, a.body, ...(a.tags || [])].join(' ')),
-    'Videos, Events & Exhibitions',
-    'events'
-  );
 }
 
 function updateActiveFilterBar(count) {
