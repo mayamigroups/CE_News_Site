@@ -393,16 +393,26 @@ test('Static pages, design system assets, 13 homepage sections, 9 nav items, 7 f
     assert.equal(cleanArtRes.status, 200, `Expected 200 OK for clean article URL /news/${art.slug}`);
   }
 
-  // Verify sitemap.xml contains clean /category/, /news/, and regional hub URLs
+  // Verify sitemap index and child sitemaps contain clean /category/, /news/, and regional hub URLs
   const sitemapRes = await fetch(`${baseUrl}/sitemap.xml`);
   const sitemapXml = await sitemapRes.text();
-  assert.match(sitemapXml, /\/category\/construction-equipment/);
-  assert.match(sitemapXml, /\/category\/electric-commercial-vehicles/);
-  assert.match(sitemapXml, /\/news\/fixture-bull-machines-hd76-india-field-trial/);
-  assert.match(sitemapXml, /\/india\//);
-  assert.match(sitemapXml, /\/north-america\//);
-  assert.match(sitemapXml, /\/europe\//);
-  assert.match(sitemapXml, /\/china\//);
+  assert.match(sitemapXml, /<sitemapindex/);
+  assert.match(sitemapXml, /\/sitemap-categories\.xml/);
+  assert.match(sitemapXml, /\/sitemap-articles\.xml/);
+  assert.match(sitemapXml, /\/sitemap-regions\.xml/);
+
+  const catSitemap = await (await fetch(`${baseUrl}/sitemap-categories.xml`)).text();
+  assert.match(catSitemap, /\/category\/construction-equipment/);
+  assert.match(catSitemap, /\/category\/electric-commercial-vehicles/);
+
+  const artSitemap = await (await fetch(`${baseUrl}/sitemap-articles.xml`)).text();
+  assert.match(artSitemap, /\/news\/fixture-bull-machines-hd76-india-field-trial/);
+
+  const regSitemap = await (await fetch(`${baseUrl}/sitemap-regions.xml`)).text();
+  assert.match(regSitemap, /\/india\//);
+  assert.match(regSitemap, /\/north-america\//);
+  assert.match(regSitemap, /\/europe\//);
+  assert.match(regSitemap, /\/china\//);
 });
 
 test('Global regional news system: routes (/india/, /north-america/, /europe/, /china/, etc.), prioritization API, verified market dossiers, and analytics tracking', async () => {
@@ -1303,8 +1313,8 @@ test('Organic Traffic & SEO Architecture: evergreen cornerstone content (compari
     assert.ok(Array.isArray(art.internalLinks.hubLinks) && art.internalLinks.hubLinks.length >= 4, 'Expected category, technology, reviews, guides, and regional hub links');
   }
 
-  // 2. Verify /sitemap.xml includes the evergreen cornerstone articles and /robots.txt disallows /admin.html while pointing to sitemap.xml
-  const sitemapXml = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
+  // 2. Verify /sitemap-articles.xml includes the evergreen cornerstone articles and /robots.txt disallows /admin.html while pointing to sitemap.xml
+  const sitemapXml = await (await fetch(`${baseUrl}/sitemap-articles.xml`)).text();
   for (const slug of cornerstoneSlugs) {
     assert.match(sitemapXml, new RegExp(`/news/${slug}`));
   }
@@ -2188,8 +2198,8 @@ test('Task 1 & Task 2: Shared Header/Footer (public/layout.js), 8 Main Desks, Ca
     assert.equal(r.headers.get('location'), expectedLocation, `Expected ${oldPath} to redirect to ${expectedLocation}`);
   }
 
-  // Verify sitemap lists only final canonical category URLs and excludes merged duplicates
-  const sitemapRes = await fetch(`${baseUrl}/sitemap.xml`);
+  // Verify sitemap-categories.xml lists only final canonical category URLs and excludes merged duplicates
+  const sitemapRes = await fetch(`${baseUrl}/sitemap-categories.xml`);
   const sitemapXml = await sitemapRes.text();
   assert.match(sitemapXml, /\/category\/industry-news<\/loc>/);
   assert.match(sitemapXml, /\/category\/reviews-comparisons<\/loc>/);
@@ -2386,4 +2396,147 @@ test('Task 5, Task 6 & Task 7: Publishing Standards Gate, Managing Editor Overri
   assert.match(catPageHtml, /class="skip-link"/);
   assert.match(catPageHtml, /<main[\s>]/);
   assert.match(catPageHtml, /width="640"\s+height="360"/);
+});
+
+test('Review Issue 1: Header dropdowns stylesheet hiding rules and default closed state', async () => {
+  const cssPath = path.join(__dirname, '..', 'public', 'styles.css');
+  const css = fs.readFileSync(cssPath, 'utf8');
+
+  // Verify hiding rule for .nav-dropdown
+  assert.match(css, /\.nav-item\.has-dropdown\s*>\s*\.nav-dropdown\s*\{[^}]*display:\s*none;/);
+
+  // Verify dead .nav-item-group rules are removed
+  assert.ok(!css.includes('.nav-item-group:hover'), 'Dead .nav-item-group rules must be removed');
+  assert.ok(!css.includes('.nav-item-group.dropdown-open'), 'Dead .nav-item-group rules must be removed');
+
+  // Verify desktop display rules
+  assert.match(css, /\.nav-item\.has-dropdown\.open\s*>\s*\.nav-dropdown/);
+  assert.match(css, /\.nav-item\.has-dropdown:hover\s*>\s*\.nav-dropdown/);
+  assert.match(css, /\.nav-item\.has-dropdown:focus-within\s*>\s*\.nav-dropdown/);
+
+  // Verify mobile rules (max-width: 900px)
+  assert.match(css, /@media\s*\(max-width:\s*900px\)[\s\S]*?\.nav-item\.has-dropdown\s*>\s*\.nav-dropdown\s*\{[^}]*display:\s*none;/);
+  assert.match(css, /@media\s*\(max-width:\s*900px\)[\s\S]*?\.nav-item\.has-dropdown\.open\s*>\s*\.nav-dropdown\s*\{[^}]*display:\s*flex;/);
+
+  // Verify public HTML pages have dropdown toggles with aria-expanded="false" and no .open class by default
+  const homeRes = await fetch(`${baseUrl}/`);
+  assert.equal(homeRes.status, 200);
+  const homeHtml = await homeRes.text();
+  assert.ok(!homeHtml.includes('class="nav-item has-dropdown open"'), 'Dropdowns must not have open class by default');
+});
+
+test('Review Issue 2: Brand filter matches multi-brand articles and builds comprehensive brand option lists', async () => {
+  // 1. Fetch category desk page with brand=Komatsu
+  const res = await fetch(`${baseUrl}/category/excavators?brand=Komatsu`);
+  assert.equal(res.status, 200);
+  const html = await res.text();
+
+  // Multi-brand fixture article covers Komatsu
+  assert.match(html, /20-Tonne Class Hydraulic Crawler Excavators Comparison/, 'Excavator page filtered by brand=Komatsu must match multi-brand article');
+  assert.match(html, /Active filters:.*Brand: Komatsu/);
+
+  // 2. Brand list on the page must include both Caterpillar and Komatsu
+  assert.match(html, /<option value="Komatsu"/, 'Brand select must list Komatsu');
+  assert.match(html, /<option value="Caterpillar"/, 'Brand select must list Caterpillar');
+  assert.match(html, /href="\/category\/excavators\?brand=Komatsu"/, 'Desk filter chips must offer Komatsu');
+
+  // 3. API filter /api/articles?manufacturer=Komatsu must match the multi-brand article
+  const apiRes = await fetch(`${baseUrl}/api/articles?manufacturer=Komatsu`);
+  assert.equal(apiRes.status, 200);
+  const apiList = await apiRes.json();
+  const multiBrand = apiList.find(a => a.slug === '20-tonne-crawler-excavator-comparison-hydraulics-undercarriage-telematics');
+  assert.ok(multiBrand, 'Multi-brand excavator story covering Komatsu must be returned by ?manufacturer=Komatsu');
+});
+
+test('Review Issue 3: Table of contents renders for fixture article >800 words with working anchor links and does not render for short articles', async () => {
+  // 1. Longform fixture article (>800 words) from test/fixtures/articles.seed.json
+  const longRes = await fetch(`${baseUrl}/news/fixture-longform-technical-analysis-hydraulic-excavator-architecture`);
+  assert.equal(longRes.status, 200);
+  const longHtml = await longRes.text();
+
+  // Must render table of contents
+  assert.match(longHtml, /<nav class="article-toc" aria-label="Table of contents">/);
+  assert.match(longHtml, /<h2>Contents<\/h2>/);
+
+  // Must have working anchor links to H2 and H3 heading IDs
+  assert.match(longHtml, /href="#sec-primary-hydraulic-architecture"/);
+  assert.match(longHtml, /<h2 id="sec-primary-hydraulic-architecture" class="article-subheading">/);
+
+  assert.match(longHtml, /href="#sec-closed-center-load-sensing-dynamics"/);
+  assert.match(longHtml, /<h3 id="sec-closed-center-load-sensing-dynamics" class="article-subheading article-subheading-h3">/);
+
+  assert.match(longHtml, /href="#sec-undercarriage-wear-analysis-and-track-management"/);
+  assert.match(longHtml, /<h2 id="sec-undercarriage-wear-analysis-and-track-management" class="article-subheading">/);
+
+  assert.match(longHtml, /href="#sec-track-tensioning-protocols-and-wear-limits"/);
+  assert.match(longHtml, /<h3 id="sec-track-tensioning-protocols-and-wear-limits" class="article-subheading article-subheading-h3">/);
+
+  assert.match(longHtml, /href="#sec-telematics-and-fleet-lifecycle-optimization"/);
+  assert.match(longHtml, /<h2 id="sec-telematics-and-fleet-lifecycle-optimization" class="article-subheading">/);
+
+  // 2. Short article (44 words) must NOT render table of contents
+  const shortRes = await fetch(`${baseUrl}/news/fixture-bull-machines-hd76-india-field-trial`);
+  assert.equal(shortRes.status, 200);
+  const shortHtml = await shortRes.text();
+  assert.ok(!shortHtml.includes('class="article-toc"'), 'Short article must not render table of contents');
+});
+
+test('Task 1: Sitemap Index (/sitemap.xml) and all 7 child sitemaps with honest lastmod and Google News schema', async () => {
+  // 1. /sitemap.xml is a sitemap index pointing to all 7 child sitemaps
+  const indexRes = await fetch(`${baseUrl}/sitemap.xml`);
+  assert.equal(indexRes.status, 200);
+  assert.equal(indexRes.headers.get('content-type'), 'application/xml; charset=utf-8');
+  const indexXml = await indexRes.text();
+  assert.match(indexXml, /<sitemapindex xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
+  assert.match(indexXml, /\/sitemap-news\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-articles\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-categories\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-brands\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-models\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-regions\.xml<\/loc>/);
+  assert.match(indexXml, /\/sitemap-pages\.xml<\/loc>/);
+
+  // 2. /sitemap-news.xml returns valid <urlset> with news namespace
+  const newsRes = await fetch(`${baseUrl}/sitemap-news.xml`);
+  assert.equal(newsRes.status, 200);
+  const newsXml = await newsRes.text();
+  assert.match(newsXml, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
+  assert.match(newsXml, /xmlns:news="http:\/\/www\.google\.com\/schemas\/sitemap-news\/0\.9"/);
+
+  // 3. /sitemap-articles.xml has real <lastmod> (YYYY-MM-DD)
+  const artRes = await fetch(`${baseUrl}/sitemap-articles.xml`);
+  assert.equal(artRes.status, 200);
+  const artXml = await artRes.text();
+  assert.match(artXml, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/);
+  assert.ok(!artXml.includes('today'), 'lastmod must never be literal string today');
+
+  // 4. /sitemap-categories.xml, brands, models, regions, pages
+  const catRes = await fetch(`${baseUrl}/sitemap-categories.xml`);
+  assert.equal(catRes.status, 200);
+  assert.match(await catRes.text(), /\/category\/construction-equipment<\/loc>/);
+
+  const brandRes = await fetch(`${baseUrl}/sitemap-brands.xml`);
+  assert.equal(brandRes.status, 200);
+  assert.match(await brandRes.text(), /\/manufacturers\/caterpillar<\/loc>/);
+
+  const modelRes = await fetch(`${baseUrl}/sitemap-models.xml`);
+  assert.equal(modelRes.status, 200);
+  assert.match(await modelRes.text(), /\/models\/caterpillar-320-hydraulic-excavator<\/loc>/);
+
+  const regRes = await fetch(`${baseUrl}/sitemap-regions.xml`);
+  assert.equal(regRes.status, 200);
+  assert.match(await regRes.text(), /\/india\/<\/loc>/);
+
+  const pagesRes = await fetch(`${baseUrl}/sitemap-pages.xml`);
+  assert.equal(pagesRes.status, 200);
+  const pagesXml = await pagesRes.text();
+  assert.match(pagesXml, /\/about\.html<\/loc>/);
+  assert.match(pagesXml, /\/data<\/loc>/);
+  assert.match(pagesXml, /\/press<\/loc>/);
+
+  // 5. robots.txt points to sitemap index
+  const robotsRes = await fetch(`${baseUrl}/robots.txt`);
+  assert.equal(robotsRes.status, 200);
+  const robots = await robotsRes.text();
+  assert.match(robots, /Sitemap: .*\/sitemap\.xml/);
 });

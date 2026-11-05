@@ -322,5 +322,50 @@
     "pipelineStage": "IN_REVIEW",
     "publishedAt": null,
     "createdAt": "2026-10-10T08:00:00.000Z"
+  },
+  {
+    "id": "fixture-longform-deep-dive-toc",
+    "title": "TEST FIXTURE: Longform Technical Analysis of Hydraulic Excavator Architecture",
+    "slug": "fixture-longform-technical-analysis-hydraulic-excavator-architecture",
+    "summary": "Synthetic test fixture exceeding 800 words with multiple H2 and H3 headings for verifying server-side table of contents generation and anchor links.",
+    "excerpt": "Synthetic longform analysis for verifying table of contents rendering.",
+    "audience": "Fleet operations directors, equipment engineers, jobsite mechanics",
+    "body": "## Primary Hydraulic Architecture\n\nSynthetic test fixture paragraph discussing variable displacement axial piston pumps, load sensing spools, and main control valve architecture across modern earthmoving excavators. In heavy quarry extraction and infrastructure operations, hydraulic fluid dynamics dictate overall cycle times and fuel burn. Modern closed-center load sensing systems regulate hydraulic flow based on operator demand rather than engine RPM, reducing parasitic energy losses across all hydraulic circuits. Synthetic test fixture paragraph examining high-pressure circuit protection and electro-hydraulic proportional pilot controllers. Pressure relief valves protect the swing circuit, boom cylinders, and arm actuators from peak hydraulic shock loads during rapid cycle reversal. Proportional solenoid valves convert operator joystick commands into micro-metered pilot pressures, providing precise bucket curl and smooth grade management. \n\n### Closed-Center Load Sensing Dynamics\n\nSynthetic test fixture paragraph analyzing closed-center load sensing dynamics and pressure margin calibration. The margin pressure represents the differential between load pressure feedback and pump discharge pressure. Maintaining a steady margin pressure ensures consistent boom raise and arm crowd velocities regardless of varying soil resistance or concurrent multi-function operation. Synthetic test fixture paragraph discussing variable displacement axial piston pumps, load sensing spools, and main control valve architecture across modern earthmoving excavators. In heavy quarry extraction and infrastructure operations, hydraulic fluid dynamics dictate overall cycle times and fuel burn. Modern closed-center load sensing systems regulate hydraulic flow based on operator demand rather than engine RPM, reducing parasitic energy losses across all hydraulic circuits. Synthetic test fixture paragraph examining high-pressure circuit protection and electro-hydraulic proportional pilot controllers. Pressure relief valves protect the swing circuit, boom cylinders, and arm actuators from peak hydraulic shock loads during rapid cycle reversal. Proportional solenoid valves convert operator joystick commands into micro-metered pilot pressures, providing precise bucket curl and smooth grade management. \n\n## Undercarriage Wear Analysis and Track Management\n\nSynthetic test fixture paragraph detailing undercarriage component wear patterns, link pitch expansion, and track roller maintenance. Crawler excavator undercarriages account for a significant percentage of lifetime operating costs in abrasive basalt and granite quarries. Proper track tensioning prevents premature bushing galling and minimizes sprocket tooth scalloping under severe reverse travel. Synthetic test fixture paragraph specifying track tensioning procedures and sag measurement standards. Overly tight track chains drastically accelerate bushing wear, overheat carrier roller bearings, and impose parasitic friction loads on final drive planetary gear sets. Operators must measure track sag between the idler and front carrier roller while the machine is elevated on its work attachment. Synthetic test fixture paragraph examining high-pressure circuit protection and electro-hydraulic proportional pilot controllers. Pressure relief valves protect the swing circuit, boom cylinders, and arm actuators from peak hydraulic shock loads during rapid cycle reversal. Proportional solenoid valves convert operator joystick commands into micro-metered pilot pressures, providing precise bucket curl and smooth grade management. \n\n### Track Tensioning Protocols and Wear Limits\n\nSynthetic test fixture paragraph specifying track tensioning procedures and sag measurement standards. Overly tight track chains drastically accelerate bushing wear, overheat carrier roller bearings, and impose parasitic friction loads on final drive planetary gear sets. Operators must measure track sag between the idler and front carrier roller while the machine is elevated on its work attachment. Synthetic test fixture paragraph detailing undercarriage component wear patterns, link pitch expansion, and track roller maintenance. Crawler excavator undercarriages account for a significant percentage of lifetime operating costs in abrasive basalt and granite quarries. Proper track tensioning prevents premature bushing galling and minimizes sprocket tooth scalloping under severe reverse travel. Synthetic test fixture paragraph analyzing closed-center load sensing dynamics and pressure margin calibration. The margin pressure represents the differential between load pressure feedback and pump discharge pressure. Maintaining a steady margin pressure ensures consistent boom raise and arm crowd velocities regardless of varying soil resistance or concurrent multi-function operation. \n\n## Telematics and Fleet Lifecycle Optimization\n\nSynthetic test fixture paragraph discussing CAN-bus data integration, telematics gateways, and real-time remote diagnostics. Modern excavator fleets utilize satellite and cellular telemetry modems to transmit hydraulic temperature, pump pressure spikes, engine load factors, and idle time metrics to central fleet management platforms. Machine health algorithms flag early indications of hydraulic cavitation or cooling circuit restriction before catastrophic failure occurs. Synthetic test fixture paragraph evaluating total cost of ownership models and scheduled preventive maintenance intervals. Integrating oil sampling data with telematics hour meter readings allows fleet managers to transition from rigid calendar-based servicing to condition-based fluid and filter replacement. Fuel efficiency metrics benchmark operator techniques, pinpointing excessive idling or inefficient bucket fill angles that consume surplus diesel fuel without increasing worksite earthmoving productivity. Synthetic test fixture paragraph reviewing digital grade control sensors, inertial measurement units, and GNSS positioning receivers mounted on the excavator boom and arm. Real-time elevation offsets guide operators to target trench depth and slope without manual grade stakes or surveying personnel inside hazardous excavation zones. Synthetic test fixture paragraph discussing variable displacement axial piston pumps, load sensing spools, and main control valve architecture across modern earthmoving excavators. In heavy quarry extraction and infrastructure operations, hydraulic fluid dynamics dictate overall cycle times and fuel burn. Modern closed-center load sensing systems regulate hydraulic flow based on operator demand rather than engine RPM, reducing parasitic energy losses across all hydraulic circuits. ",
+    "category": "Excavators",
+    "manufacturer": "Various",
+    "equipmentType": "Hydraulic excavator",
+    "model": "Cat 320, Komatsu PC210",
+    "powerType": "Diesel",
+    "country": "Global",
+    "region": "Global",
+    "articleType": "analysis",
+    "author": "Editorial Desk",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    "imageCredit": "Synthetic Test Fixture Credit",
+    "mediaRights": {
+      "altText": "Synthetic excavator testing on rock bench",
+      "credit": "Synthetic Test Fixture Credit",
+      "verified": true
+    },
+    "sourceUrl": "https://example.com/test-fixture-deep-dive",
+    "sourceUrls": [
+      "https://example.com/test-fixture-deep-dive"
+    ],
+    "tags": [
+      "Excavators",
+      "Hydraulics",
+      "Comparison",
+      "Test Fixture",
+      "Caterpillar",
+      "Komatsu"
+    ],
+    "specs": {
+      "Operating Weight": "21,500 kg (fixture)",
+      "Hydraulic Flow": "428 L/min (fixture)"
+    },
+    "status": "published",
+    "pipelineStage": "PUBLISHED",
+    "publishedAt": "2026-10-19T09:00:00.000Z",
+    "createdAt": "2026-10-19T09:00:00.000Z"
   }
 ]

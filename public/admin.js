@@ -140,6 +140,8 @@ $$('.admin-tab').forEach(btn => {
     $$('.admin-tab-pane').forEach(pane => {
       pane.hidden = pane.id !== targetId;
     });
+    if (targetId === 'tab-gsc') renderSearchPerformanceScreen();
+    if (targetId === 'tab-backlinks') renderBacklinksScreen();
   });
 });
 
@@ -209,6 +211,10 @@ function resetForm() {
   $('#save-draft').textContent = 'Save draft';
   if ($('#revision-history-box')) $('#revision-history-box').hidden = true;
   if ($('#duplicate-warning-banner')) $('#duplicate-warning-banner').hidden = true;
+  const faqContainer = $('#faq-rows-container');
+  if (faqContainer) faqContainer.innerHTML = '';
+  const pingBtn = $('#ping-indexnow-btn');
+  if (pingBtn) pingBtn.style.display = 'none';
   try { updateWordCountAndStandards(); } catch {}
 }
 
@@ -241,6 +247,21 @@ function collectSpecsFromBuilder() {
   return specs;
 }
 
+function collectFaqFromBuilder() {
+  const container = $('#faq-rows-container');
+  if (!container) return [];
+  const rows = container.querySelectorAll('.faq-row');
+  const items = [];
+  rows.forEach(row => {
+    const q = row.querySelector('.faq-q-input')?.value?.trim();
+    const a = row.querySelector('.faq-a-input')?.value?.trim();
+    if (q && a) {
+      items.push({ question: q, answer: a });
+    }
+  });
+  return items;
+}
+
 function formData(statusOverride) {
   const chosenStatus = statusOverride || $('#status').value;
   const summaryVal = $('#excerpt').value;
@@ -265,6 +286,7 @@ function formData(statusOverride) {
     scheduledAt: $('#scheduled-at').value ? new Date($('#scheduled-at').value).toISOString() : '',
     sourceUrls: $('#source-urls').value.split(/\r?\n/).map(x => x.trim()).filter(Boolean),
     specs: combinedSpecs,
+    faq: collectFaqFromBuilder(),
     author: $('#author').value,
     tags: $('#tags').value.split(',').map(x => x.trim()).filter(Boolean),
     audience: $('#audience')?.value?.trim() || '',
@@ -1331,6 +1353,20 @@ function loadArticleIntoEditor(articleId) {
       addSpecRow('Emission Standard', '');
     }
   }
+
+  const faqContainer = $('#faq-rows-container');
+  if (faqContainer) {
+    faqContainer.innerHTML = '';
+    const faqs = Array.isArray(a.faq) ? a.faq : [];
+    if (faqs.length) {
+      faqs.forEach(f => addFaqRow(f.question, f.answer));
+    }
+  }
+
+  const pingBtn = $('#ping-indexnow-btn');
+  if (pingBtn) {
+    pingBtn.style.display = a.status === 'published' ? 'inline-block' : 'none';
+  }
   $('#tags').value = (a.tags || []).join(', ');
   $('#source-url').value = a.sourceUrl || '';
   $('#source-urls').value = (a.sourceUrls || []).join('\n');
@@ -1881,6 +1917,8 @@ async function refresh() {
   renderSettingsForm();
   renderAiOperationsPanel();
   renderDailyWorkflows();
+  renderSearchPerformanceScreen();
+  renderBacklinksScreen();
 }
 
 async function showDashboard(fromLogin = false) {
@@ -3333,5 +3371,360 @@ document.addEventListener('click', async e => {
   const anyEdit = e.target.closest('[data-edit]');
   if (anyEdit && !e.target.closest('#admin-story-list')) {
     loadArticleIntoEditor(anyEdit.dataset.edit);
+  }
+});
+
+// ===================================================================
+// ARTICLE FAQ BUILDER & INDEXNOW MANUAL PING
+// ===================================================================
+function addFaqRow(q = '', a = '') {
+  const container = $('#faq-rows-container');
+  if (!container) return;
+  const row = document.createElement('div');
+  row.className = 'faq-row';
+  row.style.cssText = 'display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:8px;background:#fff;';
+  row.innerHTML = `
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="text" class="faq-q-input" placeholder="Question (e.g. What is the operating weight?)" value="${esc(q)}" style="flex:1;padding:4px 8px;font-size:13px;border:1px solid #cbd5e1;border-radius:4px;">
+      <button type="button" class="faq-del-btn button button-ghost" style="padding:2px 8px;color:#dc2626;font-size:12px;">✕</button>
+    </div>
+    <textarea class="faq-a-input" placeholder="Answer..." rows="2" style="width:100%;padding:4px 8px;font-size:13px;border:1px solid #cbd5e1;border-radius:4px;resize:vertical;">${esc(a)}</textarea>
+  `;
+  row.querySelector('.faq-del-btn').addEventListener('click', () => {
+    row.remove();
+    triggerDirty();
+  });
+  row.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', triggerDirty));
+  container.appendChild(row);
+}
+
+$('#add-faq-row-btn')?.addEventListener('click', () => {
+  addFaqRow();
+  triggerDirty();
+});
+
+$('#ping-indexnow-btn')?.addEventListener('click', async () => {
+  const id = $('#article-id')?.value;
+  if (!id) return;
+  const btn = $('#ping-indexnow-btn');
+  btn.disabled = true;
+  btn.textContent = '🚀 Pinging...';
+  try {
+    const res = await api(`/api/admin/articles/${encodeURIComponent(id)}/ping-indexnow`, { method: 'POST' });
+    alertMsg(`IndexNow ping submitted. URLs pinged: ${res.urls?.length || 1}`, 'success');
+  } catch (err) {
+    alertMsg('IndexNow ping error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Ping Search Engines';
+  }
+});
+
+// ===================================================================
+// SEARCH PERFORMANCE (GOOGLE SEARCH CONSOLE)
+// ===================================================================
+let gscDataCache = null;
+
+async function renderSearchPerformanceScreen() {
+  const pill = $('#gsc-connection-pill');
+  const statusBox = $('#gsc-status-box');
+  const metricsContainer = $('#gsc-metrics-container');
+  if (!pill || !statusBox || !metricsContainer) return;
+
+  try {
+    const data = await api('/api/admin/gsc/performance');
+    gscDataCache = data;
+
+    if (!data.connected) {
+      pill.className = 'status-pill status-draft';
+      pill.textContent = data.statusLabel || 'Not Connected';
+      statusBox.innerHTML = `
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:24px;">🔒</div>
+          <div>
+            <h4 style="margin:0 0 6px;color:#0f172a;font-size:15px;">Search Console Not Connected (Honest Telemetry State)</h4>
+            <p style="margin:0 0 8px;font-size:13px;color:#475569;line-height:1.5;">${esc(data.message || 'Credentials not configured.')}</p>
+            <p style="margin:0;font-size:12px;color:#64748b;">Machine Report World never invents fake rankings, clicks, or impressions. To display real telemetry, add your Google service account credentials (<code>GSC_CLIENT_EMAIL</code>, <code>GSC_PRIVATE_KEY</code>, <code>GSC_PROPERTY_URL</code>) in your environment configuration.</p>
+          </div>
+        </div>
+      `;
+      metricsContainer.style.display = 'none';
+      return;
+    }
+
+    pill.className = 'status-pill status-published';
+    pill.textContent = `Connected (${esc(data.propertyUrl || 'GSC')})`;
+    statusBox.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div>
+          <strong>Property:</strong> <code>${esc(data.propertyUrl)}</code> &nbsp;|&nbsp;
+          <strong>Last Synced:</strong> ${data.lastSyncAt ? new Date(data.lastSyncAt).toLocaleString() : 'Never'} &nbsp;|&nbsp;
+          <strong>Telemetry Period:</strong> 90 Days
+        </div>
+      </div>
+    `;
+    metricsContainer.style.display = 'block';
+
+    // 1. Striking Distance
+    const strikingBody = $('#gsc-striking-body');
+    if (strikingBody) {
+      if (!data.strikingDistance?.length) {
+        strikingBody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;padding:12px;">No striking-distance queries found currently.</td></tr>';
+      } else {
+        strikingBody.innerHTML = data.strikingDistance.slice(0, 10).map(q => `
+          <tr>
+            <td><strong>${esc(q.query)}</strong></td>
+            <td><span class="status-pill status-draft">${Number(q.position).toFixed(1)}</span></td>
+            <td>${Number(q.impressions).toLocaleString()}</td>
+            <td><span class="muted" style="font-size:11px;">Sharpen H2/title</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 2. High Impression Low CTR
+    const lowCtrBody = $('#gsc-lowctr-body');
+    if (lowCtrBody) {
+      if (!data.highImpressionLowCtr?.length) {
+        lowCtrBody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;padding:12px;">No low-CTR queries detected.</td></tr>';
+      } else {
+        lowCtrBody.innerHTML = data.highImpressionLowCtr.slice(0, 10).map(q => `
+          <tr>
+            <td><strong>${esc(q.query)}</strong></td>
+            <td>${Number(q.impressions).toLocaleString()}</td>
+            <td><span class="status-pill status-rejected">${(Number(q.ctr) * 100).toFixed(1)}%</span></td>
+            <td><span class="muted" style="font-size:11px;">Update meta desc</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 3. Top Queries
+    const topQBody = $('#gsc-top-queries-body');
+    if (topQBody) {
+      if (!data.topQueries?.length) {
+        topQBody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center;padding:12px;">No query data recorded.</td></tr>';
+      } else {
+        topQBody.innerHTML = data.topQueries.slice(0, 10).map(q => `
+          <tr>
+            <td><strong>${esc(q.query)}</strong></td>
+            <td>${Number(q.clicks).toLocaleString()}</td>
+            <td>${Number(q.impressions).toLocaleString()}</td>
+            <td>${(Number(q.ctr) * 100).toFixed(1)}%</td>
+            <td>${Number(q.position).toFixed(1)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 4. Top Pages
+    const topPBody = $('#gsc-top-pages-body');
+    if (topPBody) {
+      if (!data.topPages?.length) {
+        topPBody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center;padding:12px;">No page data recorded.</td></tr>';
+      } else {
+        topPBody.innerHTML = data.topPages.slice(0, 10).map(p => `
+          <tr>
+            <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.page)}</a></td>
+            <td>${Number(p.clicks).toLocaleString()}</td>
+            <td>${Number(p.impressions).toLocaleString()}</td>
+            <td>${(Number(p.ctr) * 100).toFixed(1)}%</td>
+            <td>${Number(p.position).toFixed(1)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 5. Zero Impression Pages
+    const zeroBody = $('#gsc-zero-impr-body');
+    if (zeroBody) {
+      if (!data.zeroImpressionPages?.length) {
+        zeroBody.innerHTML = '<tr><td colspan="3" class="muted" style="text-align:center;padding:12px;">All published articles currently have search impressions recorded.</td></tr>';
+      } else {
+        zeroBody.innerHTML = data.zeroImpressionPages.slice(0, 10).map(p => `
+          <tr>
+            <td><strong>${esc(p.title)}</strong></td>
+            <td><a href="/news/${esc(p.slug)}" target="_blank">/news/${esc(p.slug)}</a></td>
+            <td>${p.publishedAt ? new Date(p.publishedAt).toLocaleDateString() : 'N/A'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  } catch (err) {
+    statusBox.innerHTML = `<div style="color:#b91c1c;">Error loading search performance data: ${esc(err.message)}</div>`;
+  }
+}
+
+$('#gsc-sync-btn')?.addEventListener('click', async () => {
+  const btn = $('#gsc-sync-btn');
+  btn.disabled = true;
+  btn.textContent = '🔄 Syncing...';
+  try {
+    const res = await api('/api/admin/gsc/sync', { method: 'POST' });
+    alertMsg(res.message || 'Search Console telemetry sync completed.', res.authenticated ? 'success' : 'info');
+    await renderSearchPerformanceScreen();
+  } catch (err) {
+    alertMsg('GSC Sync error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔄 Sync Search Console';
+  }
+});
+
+// ===================================================================
+// BACKLINKS REGISTRY
+// ===================================================================
+let backlinksDataCache = [];
+
+async function renderBacklinksScreen() {
+  try {
+    const res = await api('/api/admin/backlinks');
+    backlinksDataCache = res.backlinks || [];
+    const summary = res.summary || {};
+
+    if ($('#bl-total-count')) $('#bl-total-count').textContent = summary.totalLinks || 0;
+    if ($('#bl-active-count')) $('#bl-active-count').textContent = summary.activeLinks || 0;
+    if ($('#bl-lost-count')) $('#bl-lost-count').textContent = summary.lostLinks || 0;
+    if ($('#bl-domains-count')) $('#bl-domains-count').textContent = summary.domainCount || 0;
+
+    const tbody = $('#backlinks-body');
+    if (!tbody) return;
+
+    if (!backlinksDataCache.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="muted" style="text-align:center;padding:24px;">No backlinks recorded yet. Use &quot;➕ Log New Backlink&quot; to record earned citations.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = backlinksDataCache.map(b => {
+      const statusPillClass = b.status === 'active' ? 'status-published' : (b.status === 'lost' ? 'status-rejected' : 'status-review');
+      return `
+        <tr>
+          <td>
+            <div style="font-weight:600;color:#0f172a;">${esc(b.domain || 'unknown')}</div>
+            <a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#2563eb;word-break:break-all;">${esc(b.url)}</a>
+            ${b.notes ? `<div class="muted" style="font-size:11px;margin-top:2px;">${esc(b.notes)}</div>` : ''}
+          </td>
+          <td><a href="${esc(b.targetUrl)}" target="_blank" style="font-size:12px;">${esc(b.targetUrl)}</a></td>
+          <td>${esc(b.anchorText || '—')}</td>
+          <td><span class="status-pill ${b.doFollow ? 'status-published' : 'status-draft'}">${b.doFollow ? 'DoFollow' : 'NoFollow'}</span></td>
+          <td><span class="status-pill ${statusPillClass}">${esc(b.status || 'active')}</span></td>
+          <td>
+            <div style="display:flex;gap:4px;">
+              <button type="button" class="button button-ghost" data-bl-edit="${esc(b.id)}" style="padding:2px 6px;font-size:12px;">Edit</button>
+              <button type="button" class="button button-ghost" data-bl-delete="${esc(b.id)}" style="padding:2px 6px;font-size:12px;color:#dc2626;">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  } catch (err) {
+    console.error('Failed to load backlinks:', err);
+  }
+}
+
+$('#bl-add-btn')?.addEventListener('click', () => {
+  const card = $('#bl-form-card');
+  if (!card) return;
+  card.style.display = 'block';
+  $('#bl-form-title').textContent = '➕ Record Earned Backlink';
+  $('#bl-edit-id').value = '';
+  $('#bl-form').reset();
+  $('#bl-url').focus();
+});
+
+$('#bl-form-close')?.addEventListener('click', () => {
+  const card = $('#bl-form-card');
+  if (card) card.style.display = 'none';
+});
+
+$('#bl-form')?.addEventListener('submit', async e => {
+  e.preventDefault();
+  const editId = $('#bl-edit-id').value;
+  const payload = {
+    url: $('#bl-url').value.trim(),
+    targetUrl: $('#bl-target').value.trim(),
+    anchorText: $('#bl-anchor').value.trim(),
+    status: $('#bl-status').value,
+    doFollow: $('#bl-dofollow').value === 'true',
+    notes: $('#bl-notes').value.trim()
+  };
+
+  try {
+    if (editId) {
+      await api(`/api/admin/backlinks/${encodeURIComponent(editId)}`, {
+        method: 'PATCH',
+        body: JSON.stringify(payload)
+      });
+      alertMsg('Backlink updated successfully.', 'success');
+    } else {
+      await api('/api/admin/backlinks', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      alertMsg('Backlink logged successfully.', 'success');
+    }
+    $('#bl-form-card').style.display = 'none';
+    $('#bl-form').reset();
+    await renderBacklinksScreen();
+  } catch (err) {
+    alertMsg('Backlink error: ' + err.message);
+  }
+});
+
+$('#bl-import-btn')?.addEventListener('click', () => {
+  $('#bl-import-file')?.click();
+});
+
+$('#bl-import-file')?.addEventListener('change', async e => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const res = await api('/api/admin/backlinks/import', {
+      method: 'POST',
+      body: JSON.stringify({ csv: text })
+    });
+    alertMsg(`Import completed: ${res.imported} links imported.`, 'success');
+    await renderBacklinksScreen();
+  } catch (err) {
+    alertMsg('Backlink import error: ' + err.message);
+  } finally {
+    e.target.value = '';
+  }
+});
+
+$('#backlinks-body')?.addEventListener('click', async e => {
+  const editBtn = e.target.closest('[data-bl-edit]');
+  const delBtn = e.target.closest('[data-bl-delete]');
+
+  if (editBtn) {
+    const id = editBtn.dataset.blEdit;
+    const item = backlinksDataCache.find(x => x.id === id);
+    if (!item) return;
+    $('#bl-form-card').style.display = 'block';
+    $('#bl-form-title').textContent = '✏️ Edit Earned Backlink';
+    $('#bl-edit-id').value = item.id;
+    $('#bl-url').value = item.url || '';
+    $('#bl-target').value = item.targetUrl || '';
+    $('#bl-anchor').value = item.anchorText || '';
+    $('#bl-status').value = item.status || 'active';
+    $('#bl-dofollow').value = item.doFollow ? 'true' : 'false';
+    $('#bl-notes').value = item.notes || '';
+    $('#bl-url').focus();
+    return;
+  }
+
+  if (delBtn) {
+    const id = delBtn.dataset.blDelete;
+    const item = backlinksDataCache.find(x => x.id === id);
+    if (!item) return;
+    if (!confirm(`Delete backlink from "${item.domain || item.url}"?`)) return;
+    try {
+      await api(`/api/admin/backlinks/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      alertMsg('Backlink deleted.', 'info');
+      await renderBacklinksScreen();
+    } catch (err) {
+      alertMsg('Failed to delete backlink: ' + err.message);
+    }
   }
 });

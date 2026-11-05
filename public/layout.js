@@ -207,6 +207,8 @@
     const policyLinks = [
       { href: '/about.html', label: 'About' },
       { href: '/contact.html', label: 'Contact' },
+      { href: '/data', label: 'Data Directory' },
+      { href: '/press', label: 'Press & Media' },
       { href: '/editorial-policy.html', label: 'Editorial Policy' },
       { href: '/corrections.html', label: 'Corrections Policy' },
       { href: '/privacy.html', label: 'Privacy' },
@@ -264,9 +266,14 @@
       const btn = item.querySelector('.nav-dropdown-toggle');
       if (!btn) return;
 
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('esc-closed');
+      });
+
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+        item.classList.remove('esc-closed');
         const willOpen = !item.classList.contains('open');
         closeAllDropdowns(item);
         item.classList.toggle('open', willOpen);
@@ -276,9 +283,11 @@
       item.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           item.classList.remove('open');
+          item.classList.add('esc-closed');
           btn.setAttribute('aria-expanded', 'false');
-          btn.focus();
+          btn.blur();
         } else if (e.key === 'ArrowDown') {
+          item.classList.remove('esc-closed');
           const firstLink = item.querySelector('.nav-dropdown a');
           if (firstLink) {
             e.preventDefault();
@@ -293,6 +302,7 @@
         setTimeout(() => {
           if (!item.contains(document.activeElement)) {
             item.classList.remove('open');
+            item.classList.remove('esc-closed');
             btn.setAttribute('aria-expanded', 'false');
           }
         }, 10);

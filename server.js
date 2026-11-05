@@ -21,7 +21,16 @@ const workflow = require('./lib/workflow.js');
 const seoLib = require('./lib/seo.js');
 const distribution = require('./lib/distribution.js');
 const aiSeo = require('./lib/ai_seo.js');
-const { renderArticleSsrHtml, renderCategorySsrHtml, renderAuthorSsrHtml } = require('./lib/ssr.js');
+const {
+  renderArticleSsrHtml,
+  renderCategorySsrHtml,
+  renderAuthorSsrHtml,
+  renderHomeSsrHtml,
+  renderBrandSsrHtml,
+  renderModelSsrHtml,
+  renderRegionSsrHtml,
+  renderCompareSsrHtml
+} = require('./lib/ssr.js');
 const appConfig = require('./lib/config.js');
 
 function bootstrapDataDir(dataDir, exampleDir) {
@@ -514,6 +523,16 @@ async function handle(req, res) {
   const session = getAdminSession(req);
   const ip = req.socket?.remoteAddress || 'local';
 
+  const isAdminOrApi = pathname.startsWith('/api/') || pathname.toLowerCase().includes('admin');
+  const routeSend = (targetRes, status, data, headers = {}) => {
+    const finalHeaders = isAdminOrApi ? { 'X-Robots-Tag': 'noindex, nofollow', ...headers } : headers;
+    return send(targetRes, status, data, finalHeaders);
+  };
+  const routeSendText = (targetRes, status, text, type = 'text/plain; charset=utf-8', headers = {}) => {
+    const finalHeaders = isAdminOrApi ? { 'X-Robots-Tag': 'noindex, nofollow', ...headers } : headers;
+    return sendText(targetRes, status, text, type, finalHeaders);
+  };
+
   // Build routing context
   const ctx = {
     req,
@@ -526,8 +545,8 @@ async function handle(req, res) {
     services,
     repositories,
     store,
-    send,
-    sendText,
+    send: routeSend,
+    sendText: routeSendText,
     readBody,
     hasMinRole,
     sessions,
@@ -545,6 +564,124 @@ async function handle(req, res) {
   // Dispatch modular routes
   const handled = await dispatchRoute(ctx);
   if (handled) return;
+
+  // Static / SSR page handlers with metadata & structured data
+
+  // 1. Home page SSR
+  if (pathname === '/' || pathname === '/index.html') {
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'index.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const allPublished = services.articles.getPublicArticles();
+    const ssrHtml = renderHomeSsrHtml(templateHtml, { siteUrl: SITE_URL, store, articles: allPublished });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
+
+  // 2. Open Data & Press static pages
+  if (pathname === '/data' || pathname === '/data.html') {
+    const html = fs.readFileSync(path.join(PUBLIC, 'data.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL)
+      .replace(/(<link[^>]+rel="canonical"[^>]+href=")(\/[^"]*"[^>]*>)/i, `$1${SITE_URL}$2`);
+    return sendText(res, 200, html, 'text/html; charset=utf-8');
+  }
+  if (pathname === '/press' || pathname === '/press.html') {
+    const html = fs.readFileSync(path.join(PUBLIC, 'press.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL)
+      .replace(/(<link[^>]+rel="canonical"[^>]+href=")(\/[^"]*"[^>]*>)/i, `$1${SITE_URL}$2`);
+    return sendText(res, 200, html, 'text/html; charset=utf-8');
+  }
+
+  // 3. Model comparison page: /compare/<model-a>-vs-<model-b>
+  const compareMatch = pathname.match(/^\/compare\/([a-z0-9-_]+)-vs-([a-z0-9-_]+)\/?$/i);
+  if (compareMatch) {
+    const slugA = compareMatch[1].toLowerCase();
+    const slugB = compareMatch[2].toLowerCase();
+    const modelA = services.catalog.getModelBySlug(slugA);
+    const modelB = services.catalog.getModelBySlug(slugB);
+    if (!modelA || !modelB) {
+      return sendText(
+        res,
+        404,
+        renderErrorPageHtml(404, 'Comparison Models Not Found', 'One or both equipment models for this comparison could not be found.', pathname),
+        'text/html; charset=utf-8'
+      );
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'section.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const ssrHtml = renderCompareSsrHtml(templateHtml, { modelA, modelB, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
+
+  // 4. Regional Hubs: /india/, /north-america/, etc.
+  const topRegionSlug = resolveRegionHubSlug(pathname);
+  const subRegionMatch = pathname.match(/^\/regions?\/([a-z0-9-_]+)\/?$/i);
+  const activeRegionSlug = topRegionSlug || (subRegionMatch && resolveRegionHubSlug(subRegionMatch[1]));
+  if (activeRegionSlug) {
+    const hub = CANONICAL_REGIONAL_HUBS.find(h => h.slug === activeRegionSlug);
+    if (hub) {
+      const templateHtml = fs.readFileSync(path.join(PUBLIC, 'region.html'), 'utf8')
+        .replace(/__SITE_URL__/g, SITE_URL);
+      const allPublished = services.articles.getPublicArticles();
+      const regionalArticles = allPublished.filter(a =>
+        hub.countries.some(c => (a.country || '').toLowerCase() === c.toLowerCase()) ||
+        hub.regions.some(r => (a.region || '').toLowerCase() === r.toLowerCase())
+      );
+      const ssrHtml = renderRegionSsrHtml(templateHtml, { hub, articles: regionalArticles, siteUrl: SITE_URL });
+      return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+    }
+  }
+
+  // 5. Manufacturers / Brands: /manufacturers, /brands, /manufacturers/:slug
+  const mfgSingleMatch = pathname.match(/^\/(?:manufacturers|brands)\/([a-z0-9-_]+)\/?$/i);
+  if (mfgSingleMatch) {
+    const mfgSlug = mfgSingleMatch[1].toLowerCase();
+    const manufacturer = services.catalog.getManufacturerBySlug(mfgSlug);
+    if (!manufacturer) {
+      return sendText(
+        res,
+        404,
+        renderErrorPageHtml(404, 'Manufacturer Not Found', 'The requested equipment manufacturer profile could not be found.', pathname),
+        'text/html; charset=utf-8'
+      );
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'manufacturer.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const ssrHtml = renderBrandSsrHtml(templateHtml, { manufacturer, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
+  if (['/manufacturers', '/manufacturers/', '/brands', '/brands/'].includes(pathname)) {
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'manufacturer.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const allMfgs = store.getCatalogSummary().manufacturers || [];
+    const ssrHtml = renderBrandSsrHtml(templateHtml, { allManufacturers: allMfgs, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
+
+  // 6. Models: /models, /models/:slug, /equipment-models
+  const modelSingleMatch = pathname.match(/^\/(?:models|equipment-models|equipment)\/([a-z0-9-_]+)\/?$/i);
+  if (modelSingleMatch) {
+    const modelSlug = modelSingleMatch[1].toLowerCase();
+    const model = services.catalog.getModelBySlug(modelSlug);
+    if (!model) {
+      return sendText(
+        res,
+        404,
+        renderErrorPageHtml(404, 'Equipment Model Not Found', 'The requested equipment model specification could not be found.', pathname),
+        'text/html; charset=utf-8'
+      );
+    }
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'model.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const allModels = store.getCatalogSummary().equipmentModels || [];
+    const ssrHtml = renderModelSsrHtml(templateHtml, { model, allModels, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
+  if (['/models', '/models/', '/equipment-models', '/equipment-models/'].includes(pathname)) {
+    const templateHtml = fs.readFileSync(path.join(PUBLIC, 'model.html'), 'utf8')
+      .replace(/__SITE_URL__/g, SITE_URL);
+    const allModels = store.getCatalogSummary().equipmentModels || [];
+    const ssrHtml = renderModelSsrHtml(templateHtml, { allModels, siteUrl: SITE_URL });
+    return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
+  }
 
   // Clean SEO-friendly route rewrites:
   // Top-level regional hubs: /india/, /north-america/, /europe/, /china/, etc. -> region.html
@@ -606,16 +743,7 @@ async function handle(req, res) {
     return sendText(res, 200, ssrAuthorHtml, 'text/html; charset=utf-8');
   }
 
-  let resolvedRelative = pathname === '/' ? 'index.html' : pathname.slice(1);
-  const topRegionSlug = resolveRegionHubSlug(pathname);
-  const subRegionMatch = pathname.match(/^\/regions?\/([a-z0-9-_]+)\/?$/i);
-  if (topRegionSlug || (subRegionMatch && resolveRegionHubSlug(subRegionMatch[1]))) {
-    resolvedRelative = 'region.html';
-  } else if (/^\/(manufacturers|brands)(\/[a-z0-9-_]+)?\/?$/i.test(pathname)) {
-    resolvedRelative = 'manufacturer.html';
-  } else if (/^\/(models|equipment-models)(\/[a-z0-9-_]+)?\/?$/i.test(pathname) || /^\/equipment\/[a-z0-9-_]+\/?$/i.test(pathname)) {
-    resolvedRelative = 'model.html';
-  } else if (/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i.test(pathname)) {
+  if (/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i.test(pathname)) {
     const articleMatch = pathname.match(/^\/(news|articles)\/([a-z0-9-_]+)\/?$/i);
     const articleSlug = articleMatch ? articleMatch[2] : '';
     const article = services.articles.getPublicArticleBySlug(articleSlug);
@@ -633,6 +761,7 @@ async function handle(req, res) {
     return sendText(res, 200, ssrHtml, 'text/html; charset=utf-8');
   }
 
+  const resolvedRelative = pathname === '/' ? 'index.html' : pathname.slice(1);
   let filePath = path.join(PUBLIC, resolvedRelative);
   if (!filePath.startsWith(PUBLIC + path.sep) && filePath !== path.join(PUBLIC, 'index.html')) {
     return sendText(res, 403, 'Forbidden');
@@ -668,11 +797,13 @@ async function handle(req, res) {
       });
       return res.end(html);
     }
+    const extraAdminHeaders = isAdminAsset ? { 'X-Robots-Tag': 'noindex, nofollow' } : {};
     res.writeHead(200, {
       'Content-Type': MIME[ext] || 'application/octet-stream',
       'Cache-Control': cacheHeader,
       'ETag': etag,
-      ...SECURITY_HEADERS
+      ...SECURITY_HEADERS,
+      ...extraAdminHeaders
     });
     fs.createReadStream(filePath).pipe(res);
   } catch {

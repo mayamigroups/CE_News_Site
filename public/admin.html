@@ -203,6 +203,8 @@
         <button type="button" class="admin-tab" data-tab="tab-scheduled">⏰ 3. Scheduled</button>
         <button type="button" class="admin-tab" data-tab="tab-published">🌐 4. Published</button>
         <button type="button" class="admin-tab" data-tab="tab-automation">📡 5. Sources &amp; Automation</button>
+        <button type="button" class="admin-tab" data-tab="tab-gsc">🔍 Search Performance</button>
+        <button type="button" class="admin-tab" data-tab="tab-backlinks">🔗 Backlinks</button>
         <button type="button" class="admin-tab" data-tab="tab-articles" style="margin-left:auto;background:#2d3748;color:#fff;">✍️ Manual Editor</button>
         <button type="button" class="admin-tab" data-tab="tab-advanced" style="background:#1e293b;color:#f8fafc;">⚙️ Advanced Tools ▾</button>
       </nav>
@@ -539,6 +541,202 @@
       </section>
 
       <!-- ===================================================================
+           SCREEN: SEARCH PERFORMANCE (Google Search Console)
+           =================================================================== -->
+      <section id="tab-gsc" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">🔍 Search Performance &amp; Google Search Console</h2>
+              <p class="muted" style="margin:4px 0 0;">Measured Google Search performance metrics, striking-distance keyword opportunities, and indexation telemetry.</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span id="gsc-connection-pill" class="status-pill status-draft">Checking...</span>
+              <button id="gsc-sync-btn" type="button" class="button button-dark">🔄 Sync Search Console</button>
+            </div>
+          </div>
+
+          <div id="gsc-status-box" style="margin:16px 0;padding:16px;border-radius:8px;background:#f8fafc;border:1px solid #cbd5e1;"></div>
+
+          <div id="gsc-metrics-container" style="display:none;">
+            <!-- Opportunities Grid -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin:20px 0;">
+              <!-- Striking Distance -->
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;color:#0f172a;">🎯 Striking-Distance Keywords (Position 8–20)</h3>
+                <p class="muted" style="font-size:12px;margin:0 0 12px;">High impressions with ranking on page 2; minor content sharpening can move these to page 1.</p>
+                <div class="workflow-table-wrap">
+                  <table class="workflow-table" id="gsc-striking-table">
+                    <thead>
+                      <tr>
+                        <th>Query</th>
+                        <th>Pos</th>
+                        <th>Impr</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gsc-striking-body"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- High Impression Low CTR -->
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;color:#0f172a;">⚡ High Impressions, Low CTR (&lt; 2%)</h3>
+                <p class="muted" style="font-size:12px;margin:0 0 12px;">Users see these in search results but do not click. Meta description or headline needs sharpening.</p>
+                <div class="workflow-table-wrap">
+                  <table class="workflow-table" id="gsc-lowctr-table">
+                    <thead>
+                      <tr>
+                        <th>Query</th>
+                        <th>Impr</th>
+                        <th>CTR</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gsc-lowctr-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Queries & Top Pages -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin:20px 0;">
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;">Top 10 Search Queries</h3>
+                <div class="workflow-table-wrap">
+                  <table class="workflow-table" id="gsc-top-queries-table">
+                    <thead>
+                      <tr><th>Query</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+                    </thead>
+                    <tbody id="gsc-top-queries-body"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                <h3 style="margin:0 0 8px;font-size:15px;">Top 10 Landing Pages</h3>
+                <div class="workflow-table-wrap">
+                  <table class="workflow-table" id="gsc-top-pages-table">
+                    <thead>
+                      <tr><th>Page URL</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+                    </thead>
+                    <tbody id="gsc-top-pages-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Zero Impression Pages -->
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-top:16px;">
+              <h3 style="margin:0 0 8px;font-size:15px;color:#b91c1c;">⚠️ Pages with Zero Impressions (Past 14 Days)</h3>
+              <p class="muted" style="font-size:12px;margin:0 0 12px;">Published articles receiving zero search visibility; check indexing status, sitemap presence, and canonical tags.</p>
+              <div class="workflow-table-wrap">
+                <table class="workflow-table" id="gsc-zero-impr-table">
+                  <thead>
+                    <tr><th>Title</th><th>URL</th><th>Published</th></tr>
+                  </thead>
+                  <tbody id="gsc-zero-impr-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN: BACKLINK LOG
+           =================================================================== -->
+      <section id="tab-backlinks" class="admin-tab-pane" hidden>
+        <div class="admin-panel">
+          <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h2 style="margin:0;">🔗 Earned Backlink Registry</h2>
+              <p class="muted" style="margin:4px 0 0;">Manual log of external citations, trade references, and editorial backlinks earned by Machine Report World.</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button id="bl-add-btn" type="button" class="button button-outline">➕ Log New Backlink</button>
+              <a id="bl-export-csv" class="button button-outline" href="/api/admin/backlinks/export.csv" download>Export CSV</a>
+              <button id="bl-import-btn" type="button" class="button button-dark">Import CSV</button>
+            </div>
+          </div>
+
+          <!-- Domain Summary Strip -->
+          <div id="bl-summary-strip" style="display:flex;gap:16px;flex-wrap:wrap;margin:16px 0;padding:12px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+            <div><strong>Total Links:</strong> <span id="bl-total-count">0</span></div>
+            <div><strong>Active Links:</strong> <span id="bl-active-count" style="color:#16a34a;">0</span></div>
+            <div><strong>Lost Links:</strong> <span id="bl-lost-count" style="color:#dc2626;">0</span></div>
+            <div><strong>Unique Domains:</strong> <span id="bl-domains-count">0</span></div>
+          </div>
+
+          <!-- Add / Edit Backlink Form (collapsed by default) -->
+          <div id="bl-form-card" style="display:none;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h3 id="bl-form-title" style="margin:0;font-size:15px;">➕ Record Earned Backlink</h3>
+              <button type="button" id="bl-form-close" class="button button-ghost" style="padding:2px 8px;font-size:12px;">✕ Cancel</button>
+            </div>
+            <form id="bl-form" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
+              <input type="hidden" id="bl-edit-id">
+              <div>
+                <label for="bl-url" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Referring Source URL *</label>
+                <input id="bl-url" type="url" required placeholder="https://example.com/article" style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+              </div>
+              <div>
+                <label for="bl-target" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Target URL on MRW *</label>
+                <input id="bl-target" type="text" required placeholder="/news/... or https://..." style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+              </div>
+              <div>
+                <label for="bl-anchor" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Anchor Text</label>
+                <input id="bl-anchor" type="text" placeholder="e.g. 20-tonne excavator comparison" style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+              </div>
+              <div>
+                <label for="bl-status" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Link Status</label>
+                <select id="bl-status" style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                  <option value="active">Active (Verified Live)</option>
+                  <option value="unverified">Unverified</option>
+                  <option value="lost">Lost (Removed or 404)</option>
+                </select>
+              </div>
+              <div>
+                <label for="bl-dofollow" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Rel Attribute</label>
+                <select id="bl-dofollow" style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                  <option value="true">DoFollow</option>
+                  <option value="false">NoFollow / UGC</option>
+                </select>
+              </div>
+              <div style="grid-column:1/-1;">
+                <label for="bl-notes" style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Notes / Context</label>
+                <input id="bl-notes" type="text" placeholder="e.g. Cited in OEM press roundup" style="width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+              </div>
+              <div style="grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end;">
+                <button type="submit" class="button button-dark" style="padding:6px 16px;">Save Backlink</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Hidden CSV file input for Import -->
+          <input type="file" id="bl-import-file" accept=".csv,text/csv" style="display:none;">
+
+          <!-- Backlink Table -->
+          <div class="workflow-table-wrap" style="margin-top:16px;">
+            <table class="workflow-table" id="backlinks-table">
+              <thead>
+                <tr>
+                  <th>Referring Source Domain &amp; URL</th>
+                  <th>Target Page</th>
+                  <th>Anchor Text</th>
+                  <th>Rel</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="backlinks-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
            SCREEN 1: ARTICLES & AUTHORS
            =================================================================== -->
       <section id="tab-articles" class="admin-tab-pane" hidden>
@@ -635,6 +833,16 @@
                   </div>
                 </div>
                 <textarea id="specs-input" rows="2" style="display:none;"></textarea>
+              </div>
+
+              <!-- Article FAQ Builder (Structured Data) -->
+              <div class="spec-builder-box" id="faq-builder-box" style="margin-top:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <strong>❓ Frequently Asked Questions (FAQ Schema)</strong>
+                  <button type="button" class="button button-outline" id="add-faq-row-btn" style="padding:2px 8px;font-size:12px;">+ Add Question &amp; Answer</button>
+                </div>
+                <p class="muted" style="font-size:12px;margin:4px 0 8px;">FAQPage structured data is emitted automatically when 2 or more real Q&amp;A items are provided.</p>
+                <div class="faq-rows-container" id="faq-rows-container"></div>
               </div>
 
               <div class="form-two">
@@ -887,6 +1095,7 @@
                 <button class="button button-outline" type="button" id="save-draft">Save draft</button>
                 <button class="button button-outline" type="button" id="submit-review-btn">Send to Review</button>
                 <button class="button button-dark" type="submit">Save article →</button>
+                <button class="button button-outline" type="button" id="ping-indexnow-btn" style="display:none;background:#f0fdf4;border-color:#86efac;color:#166534;">🚀 Ping Search Engines</button>
               </div>
 
               <div id="revision-history-box" class="revision-history-box" hidden>

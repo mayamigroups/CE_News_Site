@@ -92,13 +92,79 @@ function buildFilterUrl(overrides = {}) {
   return qs ? `${categoryUrl(desk.slug)}?${qs}` : categoryUrl(desk.slug);
 }
 
+const KNOWN_BRANDS = [
+  { name: 'Caterpillar', slug: 'caterpillar', aliases: ['Caterpillar', 'Cat'] },
+  { name: 'Komatsu', slug: 'komatsu', aliases: ['Komatsu'] },
+  { name: 'JCB', slug: 'jcb', aliases: ['JCB'] },
+  { name: 'Volvo CE', slug: 'volvo-construction-equipment', aliases: ['Volvo Construction Equipment', 'Volvo CE', 'Volvo'] },
+  { name: 'BULL Machines', slug: 'bull-machines', aliases: ['BULL Machines', 'Bull Machines', 'Bull'] },
+  { name: 'CASE', slug: 'case', aliases: ['CASE', 'Case Construction', 'Case CE'] },
+  { name: 'Tata Motors', slug: 'tata-motors', aliases: ['Tata Motors', 'Tata'] },
+  { name: 'Mahindra', slug: 'mahindra', aliases: ['Mahindra'] },
+  { name: 'SANY', slug: 'sany', aliases: ['SANY'] },
+  { name: 'XCMG', slug: 'xcmg', aliases: ['XCMG'] },
+  { name: 'HD Hyundai', slug: 'hd-hyundai', aliases: ['HD Hyundai', 'Hyundai Construction Equipment', 'Hyundai CE', 'Hyundai'] },
+  { name: 'Kubota', slug: 'kubota', aliases: ['Kubota'] },
+  { name: 'Liebherr', slug: 'liebherr', aliases: ['Liebherr'] },
+  { name: 'John Deere', slug: 'john-deere', aliases: ['John Deere', 'Deere'] }
+];
+
+function getArticleBrands(article) {
+  const brands = new Set();
+  const rawMfg = String(article?.manufacturer || '').trim();
+  if (rawMfg && !['various', 'all manufacturers', 'all-manufacturers'].includes(rawMfg.toLowerCase())) {
+    brands.add(rawMfg);
+  }
+  const tagsList = (Array.isArray(article?.tags) ? article.tags : []).map(t => String(t || '').trim());
+  const tagsLower = tagsList.map(t => t.toLowerCase());
+  const tagsStr = tagsList.join(' ');
+  const hay = `${article?.title || ''} ${article?.summary || ''} ${article?.excerpt || ''} ${article?.manufacturer || ''} ${tagsStr} ${article?.body || ''}`;
+
+  KNOWN_BRANDS.forEach(b => {
+    const isTagged = tagsLower.some(t => t === b.name.toLowerCase() || b.aliases.some(al => al.toLowerCase() === t));
+    if (isTagged) {
+      brands.add(b.name);
+      return;
+    }
+    const matched = b.aliases.some(al => {
+      const esc = al.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp('(^|[^\\w])' + esc + '(?![\\w])', 'i').test(hay);
+    });
+    if (matched) brands.add(b.name);
+  });
+  return Array.from(brands).sort();
+}
+
+function articleMatchesBrand(article, brandQuery) {
+  if (!brandQuery) return true;
+  const q = String(brandQuery).trim().toLowerCase();
+  if (!q || q === 'all' || q === 'all brands') return true;
+  const brands = getArticleBrands(article);
+  if (brands.some(b => b.toLowerCase() === q || b.toLowerCase().includes(q) || q.includes(b.toLowerCase()))) return true;
+  const mfg = String(article?.manufacturer || '').trim().toLowerCase();
+  if (mfg && !['various', 'all manufacturers', 'all-manufacturers'].includes(mfg) && (mfg === q || mfg.includes(q))) return true;
+  const target = KNOWN_BRANDS.find(b => b.name.toLowerCase() === q || b.slug === q || b.aliases.some(al => al.toLowerCase() === q));
+  if (target) {
+    if (brands.includes(target.name)) return true;
+    const aliases = [target.name, ...target.aliases];
+    const tagsLower = (Array.isArray(article?.tags) ? article.tags : []).map(t => String(t || '').trim().toLowerCase());
+    if (tagsLower.some(t => aliases.some(al => al.toLowerCase() === t))) return true;
+    const hay = `${article?.title || ''} ${article?.summary || ''} ${article?.excerpt || ''} ${article?.body || ''}`;
+    return aliases.some(al => {
+      const esc = al.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp('(^|[^\\w])' + esc + '(?![\\w])', 'i').test(hay);
+    });
+  }
+  return false;
+}
+
 function populateFiltersFromDeskStories() {
   const mfgSelect = $('#filter-manufacturer');
   const ctySelect = $('#filter-country');
   const typeSelect = $('#filter-type');
   const linksBox = $('#desk-filter-links');
 
-  const brands = [...new Set(deskArticles.map(a => a.manufacturer).filter(m => m && !['Various', 'All Manufacturers'].includes(m)))].sort();
+  const brands = [...new Set(deskArticles.flatMap(a => getArticleBrands(a)).filter(m => m && !['Various', 'All Manufacturers'].includes(m)))].sort();
   const countries = [...new Set(deskArticles.map(a => a.country).filter(Boolean))].sort();
   const types = [...new Set(deskArticles.map(a => a.equipmentType).filter(Boolean))].sort();
 
@@ -144,7 +210,7 @@ function render(resetPage = false) {
   const selectedType = $('#filter-type')?.value || '';
 
   const filtered = deskArticles.filter(a => {
-    if (selectedBrand && (a.manufacturer || '').toLowerCase() !== selectedBrand.toLowerCase()) return false;
+    if (selectedBrand && !articleMatchesBrand(a, selectedBrand)) return false;
     if (selectedCty && (a.country || '').toLowerCase() !== selectedCty.toLowerCase() && (a.region || '').toLowerCase() !== selectedCty.toLowerCase()) return false;
     if (selectedType && (a.equipmentType || '').toLowerCase() !== selectedType.toLowerCase()) return false;
     if (q) {
